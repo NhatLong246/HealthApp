@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3E63A6EF-0B6E-4C90-8278-ED404D0CCA46}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>HealthApp</RootNamespace>
+    <AssemblyName>HealthApp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>HealthApp.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>HealthApp.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Activity\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Activity\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Views\Activity\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Assets\.gitkeep" />
+    <None Include="Assets\Reports\.gitkeep" />
+    <None Include="Assets\Reports\Generated\.gitkeep" />
+    <None Include="Assets\Reports\Templates\.gitkeep" />
+    <None Include="Backups\.gitkeep" />
+    <None Include="Common\.gitkeep" />
+    <None Include="Common\Constants\.gitkeep" />
+    <None Include="Common\Enums\.gitkeep" />
+    <None Include="Common\Extensions\.gitkeep" />
+    <None Include="Common\Helpers\.gitkeep" />
+    <None Include="Configs\.gitkeep" />
+    <None Include="Controllers\.gitkeep" />
+    <None Include="Data\.gitkeep" />
+    <None Include="Data\Configurations\.gitkeep" />
+    <None Include="Docs\.gitkeep" />
+    <None Include="Docs\Database\.gitkeep" />
+    <None Include="Docs\Images\.gitkeep" />
+    <None Include="DTOs\.gitkeep" />
+    <None Include="Logs\.gitkeep" />
+    <None Include="Migrations\.gitkeep" />
+    <None Include="Models\.gitkeep" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Repositories\.gitkeep" />
+    <None Include="Repositories\Interfaces\.gitkeep" />
+    <None Include="Resources\.gitkeep" />
+    <None Include="Resources\Fonts\.gitkeep" />
+    <None Include="Resources\Icons\.gitkeep" />
+    <None Include="Resources\Images\.gitkeep" />
+    <None Include="Resources\Images\Activities\.gitkeep" />
+    <None Include="Resources\Images\Dashboard\.gitkeep" />
+    <None Include="Resources\Images\Health\.gitkeep" />
+    <None Include="Resources\Themes\.gitkeep" />
+    <None Include="Services\.gitkeep" />
+    <None Include="Services\Interfaces\.gitkeep" />
+    <None Include="Tests\.gitkeep" />
+    <None Include="Tests\IntegrationTests\.gitkeep" />
+    <None Include="Tests\UnitTests\.gitkeep" />
+    <None Include="ViewModels\.gitkeep" />
+    <None Include="Views\.gitkeep" />
+    <None Include="Views\Activity\.gitkeep" />
+    <None Include="Views\Auth\.gitkeep" />
+    <None Include="Views\Dashboard\.gitkeep" />
+    <None Include="Views\Goals\.gitkeep" />
+    <None Include="Views\HealthMetrics\.gitkeep" />
+    <None Include="Views\Nutrition\.gitkeep" />
+    <None Include="Views\Reports\.gitkeep" />
+    <None Include="Views\Settings\.gitkeep" />
+    <None Include="Views\Shared\.gitkeep" />
+    <None Include="Views\Sleep\.gitkeep" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
