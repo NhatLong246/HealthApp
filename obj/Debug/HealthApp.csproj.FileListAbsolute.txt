@@ -19,3 +19,11 @@ D:\LTTQ\BTL\HealthApp\obj\Debug\HealthApp.csproj.GenerateResource.cache
 D:\LTTQ\BTL\HealthApp\obj\Debug\HealthApp.csproj.CoreCompileInputs.cache
 D:\LTTQ\BTL\HealthApp\obj\Debug\HealthApp.exe
 D:\LTTQ\BTL\HealthApp\obj\Debug\HealthApp.pdb
+D:\DuanCode\HealthManagementApp\HealthApp\obj\Debug\HealthApp.csproj.AssemblyReference.cache
+D:\DuanCode\HealthManagementApp\HealthApp\obj\Debug\HealthApp.exe.config
+D:\DuanCode\HealthManagementApp\HealthApp\obj\Debug\HealthApp.Properties.Resources.resources
+D:\DuanCode\HealthManagementApp\HealthApp\obj\Debug\HealthApp.Views.Activity.Form1.resources
+D:\DuanCode\HealthManagementApp\HealthApp\obj\Debug\HealthApp.csproj.GenerateResource.cache
+D:\DuanCode\HealthManagementApp\HealthApp\obj\Debug\HealthApp.csproj.CoreCompileInputs.cache
+D:\DuanCode\HealthManagementApp\HealthApp\obj\Debug\HealthApp.exe
+D:\DuanCode\HealthManagementApp\HealthApp\obj\Debug\HealthApp.pdb

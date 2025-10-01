@@ -41,6 +41,61 @@
 	+ Có thể để một icon PT ở trang chủ để user bấm vào sẽ đưa đến trang này luôn
 APP NÀY SẼ LÀM THEO CÁC NHU CẦU THỰC TẾ CỦA USER, NÊN CHÚNG MÀY CÓ CÁI NÀO THỰC TẾ VÀ HỢP LÝ THÌ THÊM VÀO LUÔN NHA. CÒN LÀM ĐƯỢC HAY KHÔNG THÌ CHƯA BIẾT
 
+--------------------Lộc — Authentication + Dashboard + Notifications + Achievements-----------------------
+Nhánh chính:
+feature/auth-loc
+feature/dashboard-loc
+feature/notifications-loc
+feature/achievements-loc
+Phạm vi (theo README):
+Auth & User Management: LoginForm, RegisterForm, ForgotPasswordForm, quản lý profile, đổi mật khẩu, xóa tài khoản
+Dashboard tổng quan: Today summary, quick stats cards, weekly trends, recent achievements, upcoming reminders, optional weather widget
+Notifications & Reminders: uống nước, vận động, đo chỉ số, đi ngủ, daily/weekly summary, achievement unlocked
+Achievements System: thiết kế badge/event, hiển thị và logic tính điểm
+Tích hợp chéo:
+Lấy “quick stats” từ Activity/Health/Sleep/Nutrition để render dashboard
+Nhận “goal completion” từ Goals để bật achievements/notifications
+----------------------------Long — Health Metrics + Reports & Analytics-------------------------------
+Nhánh chính:
+feature/health-metrics-long
+feature/reports-analytics-long
+Phạm vi:
+Health Metrics: HealthMetricsForm, AddMetricForm, HeartRateForm, BloodPressureForm, WeightTrackingForm, BMICalculatorForm
+Service phân tích: BMI, BMR, trend, cảnh báo bất thường
+Reports & Analytics: Weekly/Monthly/Custom reports, export PDF/Excel, comparative analysis, health score, insights
+Tích hợp chéo:
+Widget “current BMI/weight trend” cho Dashboard
+Cảnh báo đẩy sang Notifications
+Dữ liệu HealthMetrics là nguồn chính cho Reports
+---------------------------Nhân — Sleep Tracking + Goals & Progress------------------------------------
+Nhánh chính:
+feature/sleep-tracking-nhan
+feature/goals-progress-nhan
+Phạm vi:
+Sleep Tracking: SleepTrackingForm, AddSleepDataForm, SleepAnalysisForm, SleepChartUserControl (Deep/Light/REM), sleep score
+Goals & Progress: đặt mục tiêu (weight, steps, sleep, nutrition…), progress %, biểu đồ tiến độ, milestone, completion notifications
+Tích hợp chéo:
+Widget sleep (giờ ngủ, score) cho Dashboard
+Goals liên kết Activity (steps/calories), Health (weight), Nutrition (calories/macros), Sleep (duration/quality)
+Push completion qua Notifications; cấp Achievements
+---------------------------------Đức Anh — Nutrition Management + Settings---------------------------------
+Nhánh chính:
+feature/nutrition-ducanh
+feature/settings-ducanh
+Phạm vi:
+Nutrition: NutritionForm, AddMealForm, FoodDatabaseForm, CalorieTrackerForm, NutritionChartUserControl (calories in, macro split P/C/F, so sánh mục tiêu), water intake
+Settings: profile settings, notification preferences, theme (light/dark), language, units (metric/imperial), data management (backup/restore), export all data
+Tích hợp chéo:
+Widget “calories in/macros” cho Dashboard
+Đồng bộ nutrition goals với Goals
+Preferences ảnh hưởng Notifications và Reports
+
+
+
+
+
+
+
 
 
 # HealthApp - Ứng dụng quản lý sức khỏe cá nhân (MVC Pattern)
@@ -48,30 +103,8 @@ APP NÀY SẼ LÀM THEO CÁC NHU CẦU THỰC TẾ CỦA USER, NÊN CHÚNG MÀY 
 ## 📋 Mô tả dự án
 Ứng dụng Windows Forms quản lý sức khỏe người dùng theo mô hình **MVC (Model-View-Controller)**, lấy cảm hứng từ Apple Health và Samsung Health, được xây dựng bằng C# với phương pháp **Database First**.
 
----
 
-## 🏗️ Kiến trúc MVC
 
-```
-┌─────────────┐         ┌──────────────┐         ┌────────────┐
-│    VIEW     │────────▶│  CONTROLLER  │────────▶│   MODEL    │
-│ (Form/UI)   │◀────────│  (Logic)     │◀────────│ (Database) │
-└─────────────┘         └──────────────┘         └────────────┘
-                               │
-                               ▼
-                        ┌──────────────┐
-                        │   SERVICE    │
-                        │ (Business)   │
-                        └──────────────┘
-                               │
-                               ▼
-                        ┌──────────────┐
-                        │  REPOSITORY  │
-                        │ (Data Access)│
-                        └──────────────┘
-```
-
----
 
 ## 📂 Cấu trúc thư mục chi tiết
 

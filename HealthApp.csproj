@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
+    <Compile Include="obj\Release\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Activity\Form1.cs">
@@ -60,6 +62,8 @@
     <Compile Include="Views\Activity\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="obj\Debug\HealthApp.Properties.Resources.resources" />
+    <EmbeddedResource Include="obj\Debug\HealthApp.Views.Activity.Form1.resources" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -77,6 +81,7 @@
     <None Include="Assets\Reports\Generated\.gitkeep" />
     <None Include="Assets\Reports\Templates\.gitkeep" />
     <None Include="Backups\.gitkeep" />
+    <None Include="bin\Debug\HealthApp.exe.config" />
     <None Include="Common\.gitkeep" />
     <None Include="Common\Constants\.gitkeep" />
     <None Include="Common\Enums\.gitkeep" />
@@ -90,9 +95,17 @@
     <None Include="Docs\Database\.gitkeep" />
     <None Include="Docs\Images\.gitkeep" />
     <None Include="DTOs\.gitkeep" />
+    <None Include="HealthApp.bat" />
     <None Include="Logs\.gitkeep" />
     <None Include="Migrations\.gitkeep" />
     <None Include="Models\.gitkeep" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\HealthApp.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\HealthApp.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\HealthApp.csproj.GenerateResource.cache" />
+    <None Include="obj\Debug\HealthApp.exe.config" />
+    <None Include="obj\Release\HealthApp.csproj.AssemblyReference.cache" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -102,6 +115,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="README.md" />
     <None Include="Repositories\.gitkeep" />
     <None Include="Repositories\Interfaces\.gitkeep" />
     <None Include="Resources\.gitkeep" />
@@ -132,6 +146,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="bin\Debug\HealthApp.exe" />
+    <Content Include="bin\Debug\HealthApp.pdb" />
+    <Content Include="obj\Debug\HealthApp.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\HealthApp.exe" />
+    <Content Include="obj\Debug\HealthApp.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
