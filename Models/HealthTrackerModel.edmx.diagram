@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9786e2d322e2419f96371cc9ee1713f5" Name="Diagram1">
+        <EntityTypeShape EntityType="HealthTrackerModel.AICanhBaoSucKhoe" Width="1.5" PointX="3" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.AIGoiY" Width="1.5" PointX="3" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.AIPhanTichXuHuong" Width="1.5" PointX="3" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.BanBe" Width="1.5" PointX="3" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.Benh" Width="1.5" PointX="5.75" PointY="50.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.ChiaSeThanhTuu" Width="1.5" PointX="5.25" PointY="81" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.ChiTietKeHoachAnUong" Width="1.5" PointX="7.5" PointY="61.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.ChiTietKeHoachTapLuyen" Width="1.5" PointX="10.5" PointY="70.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.ChiTietMauTapLuyen" Width="1.5" PointX="7.5" PointY="66.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.DanhGiaPT" Width="1.5" PointX="5.25" PointY="57.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.DatLichPT" Width="1.5" PointX="8.25" PointY="55.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.DinhDuongMonAn" Width="1.5" PointX="0.75" PointY="64.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.GoiThanhVien" Width="1.5" PointX="3" PointY="51.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.GiaoBaiTapChoUser" Width="1.5" PointX="10.5" PointY="61.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.GiaoDich" Width="1.5" PointX="13.5" PointY="59" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.HuanLuyenVien" Width="1.5" PointX="3" PointY="62.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.KeHoachAnUong" Width="1.5" PointX="5.25" PointY="60.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.KeHoachTapLuyen" Width="1.5" PointX="8.25" PointY="71" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.LuotThichChiaSeThanhTuu" Width="1.5" PointX="10.5" PointY="67.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.LuuTruSucKhoe" Width="1.5" PointX="8" PointY="50" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.MauTapLuyen" Width="1.5" PointX="5.25" PointY="66.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.MucTieu" Width="1.5" PointX="3" PointY="82.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.NhacNho" Width="1.5" PointX="3" PointY="86.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.NhatKyDinhDuong" Width="1.5" PointX="3" PointY="57.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.NhatKyDongBo" Width="1.5" PointX="3" PointY="92.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.NhatKyHoanThanhBaiTap" Width="1.5" PointX="15.75" PointY="62.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.NhatKyTamTrang" Width="1.5" PointX="3" PointY="96" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.NhatKyThoiTiet" Width="1.5" PointX="3" PointY="99.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.NhatKyUngDung" Width="1.5" PointX="3" PointY="102.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.PhanCongKeHoachAnUong" Width="1.5" PointX="10.5" PointY="57" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.QuyenPT_KhachHang" Width="1.5" PointX="5.25" PointY="53.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.TapTin" Width="1.5" PointX="3" PointY="105.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.TinNhan" Width="1.5" PointX="10.5" PointY="53" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.TinhNangGoi" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.ThanhTuu" Width="1.5" PointX="3" PointY="109.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.TheoDoiHoanThanhBaiTap" Width="1.5" PointX="12.75" PointY="64.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.ThongBao" Width="1.5" PointX="3" PointY="113.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.Users" Width="1.5" PointX="0.75" PointY="52.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthTrackerModel.XepHang" Width="1.5" PointX="3" PointY="116.5" IsExpanded="true" />
+        <AssociationConnector Association="HealthTrackerModel.FK_AICanhBaoSucKhoe_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_AIGoiY_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_AIPhanTichXuHuong_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_BanBe_NguoiNhan" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_BanBe_User" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_LuuTruSucKhoe_Benh" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_ChiaSeThanhTuu_ThanhTuu" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_ChiaSeThanhTuu_User" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_LuotThichChiaSeThanhTuu_ChiaSe" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_ChiTietKeHoachAnUong_KeHoachAnUong" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_ChiTietKeHoachTapLuyen_KeHoachTapLuyen" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_NhatKyHoanThanhBaiTap_ChiTietKeHoachTapLuyen" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_ChiTietMauTapLuyen_MauTapLuyen" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_TheoDoiHoanThanhBaiTap_Exercise" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_DanhGiaPT_Trainer" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_DanhGiaPTs_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_DatLichPT_HuanLuyenVien" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_DatLichPT_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_GiaoDich_DatLichPT" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_Messages_Booking" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_NhatKyDinhDuong_MonAn" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_GoiThanhVien_User" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_GiaoBaiTapChoUser_MauTapLuyen" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_GiaoBaiTapChoUser_NguoiGiao" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_GiaoBaiTapChoUser_User" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_TheoDoiHoanThanhBaiTap_Assignment" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_GiaoDich_HLV" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_GiaoDich_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_HuanLuyenVien_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_KeHoachAnUong_NguoiTao" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_MauTapLuyen_HLV" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_PhanCongKeHoachAnUong_NguoiGiao" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_QuyenPT_KhachHang_HLV" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_PhanCongKeHoachAnUong_KeHoachAnUong" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_KeHoachTapLuyen_Goals" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_KeHoachTapLuyen_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_LuotThichChiaSeThanhTuu_User" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_LuuTruSucKhoe_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_MucTieu_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_NhacNho_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_NhatKyDinhDuong_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_NhatKyDongBo_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_NhatKyHoanThanhBaiTap_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_NhatKyTamTrang_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_NhatKyThoiTiet_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_NhatKyUngDung_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_PhanCongKeHoachAnUong_User" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_QuyenPT_KhachHang_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_TapTin_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_TinNhan_NguoiGui" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_TinNhan_NguoiNhan" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_ThanhTuu_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_ThongBao_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthTrackerModel.FK_XepHang_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
