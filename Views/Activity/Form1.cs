@@ -16,5 +16,10 @@ namespace HealthApp.Views.Activity
         {
             InitializeComponent();
         }
+
+        private void siticoneActivityButton1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

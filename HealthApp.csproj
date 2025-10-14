@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,10 +9,13 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>HealthApp</RootNamespace>
     <AssemblyName>HealthApp</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,8 +43,71 @@
     <StartupObject>HealthApp.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNetCore.Cryptography.Internal.9.0.0\lib\net462\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNetCore.Cryptography.KeyDerivation.9.0.0\lib\net462\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.9.0.7\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="SiticoneNetFrameworkUI, Version=2025.8.27.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Siticone.NetFramework.UI.2025.8.27\lib\net48\SiticoneNetFrameworkUI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Collections.Immutable.9.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.IO.Pipelines, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Pipelines.9.0.7\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.9.0.7\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.9.0.7\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,20 +117,149 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
-    <Compile Include="obj\Release\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
+    <Compile Include="Models\AICanhBaoSucKhoe.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AIGoiY.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AIPhanTichXuHuong.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BanBe.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Benh.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChiaSeThanhTuu.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChiTietKeHoachAnUong.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChiTietKeHoachTapLuyen.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChiTietMauTapLuyen.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DanhGiaPT.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DatLichPT.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DinhDuongMonAn.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiaoBaiTapChoUser.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiaoDich.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GoiThanhVien.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HealthTrackerModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HealthTrackerModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HealthTrackerModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HealthTrackerModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HealthTrackerModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HuanLuyenVien.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KeHoachAnUong.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KeHoachTapLuyen.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LuotThichChiaSeThanhTuu.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LuuTruSucKhoe.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MauTapLuyen.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MucTieu.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhacNho.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhatKyDinhDuong.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhatKyDongBo.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhatKyHoanThanhBaiTap.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhatKyTamTrang.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhatKyThoiTiet.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhatKyUngDung.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhanCongKeHoachAnUong.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\QuyenPT_KhachHang.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TapTin.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThanhTuu.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TheoDoiHoanThanhBaiTap.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThongBao.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TinhNangGoi.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TinNhan.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Views\Activity\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Activity\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="obj\Debug\HealthApp.Properties.Resources.resources" />
-    <EmbeddedResource Include="obj\Debug\HealthApp.Views.Activity.Form1.resources" />
+    <Compile Include="Models\XepHang.cs">
+      <DependentUpon>HealthTrackerModel.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -72,6 +268,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Views\Activity\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -81,7 +278,6 @@
     <None Include="Assets\Reports\Generated\.gitkeep" />
     <None Include="Assets\Reports\Templates\.gitkeep" />
     <None Include="Backups\.gitkeep" />
-    <None Include="bin\Debug\HealthApp.exe.config" />
     <None Include="Common\.gitkeep" />
     <None Include="Common\Constants\.gitkeep" />
     <None Include="Common\Enums\.gitkeep" />
@@ -96,16 +292,17 @@
     <None Include="Docs\Images\.gitkeep" />
     <None Include="DTOs\.gitkeep" />
     <None Include="HealthApp.bat" />
+    <EntityDeploy Include="Models\HealthTrackerModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HealthTrackerModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\HealthTrackerModel.edmx.diagram">
+      <DependentUpon>HealthTrackerModel.edmx</DependentUpon>
+    </None>
     <None Include="Logs\.gitkeep" />
     <None Include="Migrations\.gitkeep" />
     <None Include="Models\.gitkeep" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Debug\HealthApp.csproj.AssemblyReference.cache" />
-    <None Include="obj\Debug\HealthApp.csproj.CoreCompileInputs.cache" />
-    <None Include="obj\Debug\HealthApp.csproj.GenerateResource.cache" />
-    <None Include="obj\Debug\HealthApp.exe.config" />
-    <None Include="obj\Release\HealthApp.csproj.AssemblyReference.cache" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -149,14 +346,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="bin\Debug\HealthApp.exe" />
-    <Content Include="bin\Debug\HealthApp.pdb" />
-    <Content Include="obj\Debug\HealthApp.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\HealthApp.exe" />
-    <Content Include="obj\Debug\HealthApp.pdb" />
+    <Content Include="Models\HealthTrackerModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HealthTrackerModel.edmx</DependentUpon>
+      <LastGenOutput>HealthTrackerModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\HealthTrackerModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HealthTrackerModel.edmx</DependentUpon>
+      <LastGenOutput>HealthTrackerModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="obj\Debug\TempPE\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
 </Project>

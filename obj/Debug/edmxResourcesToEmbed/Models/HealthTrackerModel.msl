@@ -1,0 +1,607 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HealthTrackerModelStoreContainer" CdmEntityContainer="HealthTrackerEntities">
+    <EntitySetMapping Name="AICanhBaoSucKhoe">
+      <EntityTypeMapping TypeName="HealthTrackerModel.AICanhBaoSucKhoe">
+        <MappingFragment StoreEntitySet="AICanhBaoSucKhoe">
+          <ScalarProperty Name="CanhBaoID" ColumnName="CanhBaoID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NgayCanhBao" ColumnName="NgayCanhBao" />
+          <ScalarProperty Name="LoaiRuiRo" ColumnName="LoaiRuiRo" />
+          <ScalarProperty Name="MucDo" ColumnName="MucDo" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="HanhDongDeXuat" ColumnName="HanhDongDeXuat" />
+          <ScalarProperty Name="DaBoQua" ColumnName="DaBoQua" />
+          <ScalarProperty Name="NgayBoQua" ColumnName="NgayBoQua" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AIGoiY">
+      <EntityTypeMapping TypeName="HealthTrackerModel.AIGoiY">
+        <MappingFragment StoreEntitySet="AIGoiY">
+          <ScalarProperty Name="GoiYID" ColumnName="GoiYID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NgayGoiY" ColumnName="NgayGoiY" />
+          <ScalarProperty Name="NoiDungGoiY" ColumnName="NoiDungGoiY" />
+          <ScalarProperty Name="DaHoanThanh" ColumnName="DaHoanThanh" />
+          <ScalarProperty Name="NgayHoanThanh" ColumnName="NgayHoanThanh" />
+          <ScalarProperty Name="DiemThuong" ColumnName="DiemThuong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AIPhanTichXuHuong">
+      <EntityTypeMapping TypeName="HealthTrackerModel.AIPhanTichXuHuong">
+        <MappingFragment StoreEntitySet="AIPhanTichXuHuong">
+          <ScalarProperty Name="PhanTichID" ColumnName="PhanTichID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NgayPhanTich" ColumnName="NgayPhanTich" />
+          <ScalarProperty Name="LoaiChiSo" ColumnName="LoaiChiSo" />
+          <ScalarProperty Name="HuongXuHuong" ColumnName="HuongXuHuong" />
+          <ScalarProperty Name="TyLeThayDoi" ColumnName="TyLeThayDoi" />
+          <ScalarProperty Name="NhanXet" ColumnName="NhanXet" />
+          <ScalarProperty Name="MucDo" ColumnName="MucDo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BanBe">
+      <EntityTypeMapping TypeName="HealthTrackerModel.BanBe">
+        <MappingFragment StoreEntitySet="BanBe">
+          <ScalarProperty Name="BanBeID" ColumnName="BanBeID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NguoiNhanID" ColumnName="NguoiNhanID" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
+          <ScalarProperty Name="NgayChapNhan" ColumnName="NgayChapNhan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Benh">
+      <EntityTypeMapping TypeName="HealthTrackerModel.Benh">
+        <MappingFragment StoreEntitySet="Benh">
+          <ScalarProperty Name="BenhID" ColumnName="BenhID" />
+          <ScalarProperty Name="TenBenh" ColumnName="TenBenh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChiaSeThanhTuu">
+      <EntityTypeMapping TypeName="HealthTrackerModel.ChiaSeThanhTuu">
+        <MappingFragment StoreEntitySet="ChiaSeThanhTuu">
+          <ScalarProperty Name="ChiaSeID" ColumnName="ChiaSeID" />
+          <ScalarProperty Name="ThanhTuuID" ColumnName="ThanhTuuID" />
+          <ScalarProperty Name="NguoiChiaSe" ColumnName="NguoiChiaSe" />
+          <ScalarProperty Name="NgayChiaSe" ColumnName="NgayChiaSe" />
+          <ScalarProperty Name="DoiTuongXem" ColumnName="DoiTuongXem" />
+          <ScalarProperty Name="ChuThich" ColumnName="ChuThich" />
+          <ScalarProperty Name="SoLuongThich" ColumnName="SoLuongThich" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChiTietKeHoachAnUong">
+      <EntityTypeMapping TypeName="HealthTrackerModel.ChiTietKeHoachAnUong">
+        <MappingFragment StoreEntitySet="ChiTietKeHoachAnUong">
+          <ScalarProperty Name="MonAnID" ColumnName="MonAnID" />
+          <ScalarProperty Name="KeHoachAnUongID" ColumnName="KeHoachAnUongID" />
+          <ScalarProperty Name="BuaAn" ColumnName="BuaAn" />
+          <ScalarProperty Name="TenMonAn" ColumnName="TenMonAn" />
+          <ScalarProperty Name="KhauPhan" ColumnName="KhauPhan" />
+          <ScalarProperty Name="LuongCalo" ColumnName="LuongCalo" />
+          <ScalarProperty Name="Protein" ColumnName="Protein" />
+          <ScalarProperty Name="Carbs" ColumnName="Carbs" />
+          <ScalarProperty Name="ChatBeo" ColumnName="ChatBeo" />
+          <ScalarProperty Name="ChatXo" ColumnName="ChatXo" />
+          <ScalarProperty Name="ThuTrongKeHoach" ColumnName="ThuTrongKeHoach" />
+          <ScalarProperty Name="ThuTuHienThi" ColumnName="ThuTuHienThi" />
+          <ScalarProperty Name="GhiChuCheBien" ColumnName="GhiChuCheBien" />
+          <ScalarProperty Name="LinkCongThuc" ColumnName="LinkCongThuc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChiTietKeHoachTapLuyen">
+      <EntityTypeMapping TypeName="HealthTrackerModel.ChiTietKeHoachTapLuyen">
+        <MappingFragment StoreEntitySet="ChiTietKeHoachTapLuyen">
+          <ScalarProperty Name="ChiTietID" ColumnName="ChiTietID" />
+          <ScalarProperty Name="KeHoachID" ColumnName="KeHoachID" />
+          <ScalarProperty Name="TenBaiTap" ColumnName="TenBaiTap" />
+          <ScalarProperty Name="SoHiep" ColumnName="SoHiep" />
+          <ScalarProperty Name="SoLan" ColumnName="SoLan" />
+          <ScalarProperty Name="CaloTieuHaoDuKien" ColumnName="CaloTieuHaoDuKien" />
+          <ScalarProperty Name="ThoiGianPhut" ColumnName="ThoiGianPhut" />
+          <ScalarProperty Name="NgayTrongTuan" ColumnName="NgayTrongTuan" />
+          <ScalarProperty Name="Tuan" ColumnName="Tuan" />
+          <ScalarProperty Name="ThuTuHienThi" ColumnName="ThuTuHienThi" />
+          <ScalarProperty Name="DanhGiaDoKho" ColumnName="DanhGiaDoKho" />
+          <ScalarProperty Name="DanhGiaHieuQua" ColumnName="DanhGiaHieuQua" />
+          <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+          <ScalarProperty Name="CanhBao" ColumnName="CanhBao" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="HuongDan" ColumnName="HuongDan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChiTietMauTapLuyen">
+      <EntityTypeMapping TypeName="HealthTrackerModel.ChiTietMauTapLuyen">
+        <MappingFragment StoreEntitySet="ChiTietMauTapLuyen">
+          <ScalarProperty Name="BaiTapID" ColumnName="BaiTapID" />
+          <ScalarProperty Name="MauTapLuyenID" ColumnName="MauTapLuyenID" />
+          <ScalarProperty Name="TenbaiTap" ColumnName="TenbaiTap" />
+          <ScalarProperty Name="SoSets" ColumnName="SoSets" />
+          <ScalarProperty Name="SoReps" ColumnName="SoReps" />
+          <ScalarProperty Name="ThoiLuongPhut" ColumnName="ThoiLuongPhut" />
+          <ScalarProperty Name="ThoiGianNghiGiay" ColumnName="ThoiGianNghiGiay" />
+          <ScalarProperty Name="Tuan" ColumnName="Tuan" />
+          <ScalarProperty Name="NgayTrongTuan" ColumnName="NgayTrongTuan" />
+          <ScalarProperty Name="ThuTuHienThi" ColumnName="ThuTuHienThi" />
+          <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DanhGiaPT">
+      <EntityTypeMapping TypeName="HealthTrackerModel.DanhGiaPT">
+        <MappingFragment StoreEntitySet="DanhGiaPT">
+          <ScalarProperty Name="DanhGiaID" ColumnName="DanhGiaID" />
+          <ScalarProperty Name="KhachHangID" ColumnName="KhachHangID" />
+          <ScalarProperty Name="PTID" ColumnName="PTID" />
+          <ScalarProperty Name="Diem" ColumnName="Diem" />
+          <ScalarProperty Name="BinhLuan" ColumnName="BinhLuan" />
+          <ScalarProperty Name="NgayDanhGia" ColumnName="NgayDanhGia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DatLichPT">
+      <EntityTypeMapping TypeName="HealthTrackerModel.DatLichPT">
+        <MappingFragment StoreEntitySet="DatLichPT">
+          <ScalarProperty Name="DatLichID" ColumnName="DatLichID" />
+          <ScalarProperty Name="KhacHangID" ColumnName="KhacHangID" />
+          <ScalarProperty Name="PTID" ColumnName="PTID" />
+          <ScalarProperty Name="NgayGioDat" ColumnName="NgayGioDat" />
+          <ScalarProperty Name="LoaiBuoiTap" ColumnName="LoaiBuoiTap" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="LyDoTuChoi" ColumnName="LyDoTuChoi" />
+          <ScalarProperty Name="NguoiHuy" ColumnName="NguoiHuy" />
+          <ScalarProperty Name="TienHoan" ColumnName="TienHoan" />
+          <ScalarProperty Name="ChoXemSucKhoe" ColumnName="ChoXemSucKhoe" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DinhDuongMonAn">
+      <EntityTypeMapping TypeName="HealthTrackerModel.DinhDuongMonAn">
+        <MappingFragment StoreEntitySet="DinhDuongMonAn">
+          <ScalarProperty Name="MonAnID" ColumnName="MonAnID" />
+          <ScalarProperty Name="TenMonAn" ColumnName="TenMonAn" />
+          <ScalarProperty Name="DonViTinh" ColumnName="DonViTinh" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="LuongCalo" ColumnName="LuongCalo" />
+          <ScalarProperty Name="Protein" ColumnName="Protein" />
+          <ScalarProperty Name="ChatBeo" ColumnName="ChatBeo" />
+          <ScalarProperty Name="Carbohydrate" ColumnName="Carbohydrate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoiThanhVien">
+      <EntityTypeMapping TypeName="HealthTrackerModel.GoiThanhVien">
+        <MappingFragment StoreEntitySet="GoiThanhVien">
+          <ScalarProperty Name="GoiThanhVienID" ColumnName="GoiThanhVienID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LoaiGoi" ColumnName="LoaiGoi" />
+          <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
+          <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="SoTien" ColumnName="SoTien" />
+          <ScalarProperty Name="ChuKyThanhToan" ColumnName="ChuKyThanhToan" />
+          <ScalarProperty Name="NgayGiaHan" ColumnName="NgayGiaHan" />
+          <ScalarProperty Name="PhuongThucThanhToan" ColumnName="PhuongThucThanhToan" />
+          <ScalarProperty Name="TuDongGiaHan" ColumnName="TuDongGiaHan" />
+          <ScalarProperty Name="NgayDangKy" ColumnName="NgayDangKy" />
+          <ScalarProperty Name="NgayHuy" ColumnName="NgayHuy" />
+          <ScalarProperty Name="LyDoHuy" ColumnName="LyDoHuy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GiaoBaiTapChoUser">
+      <EntityTypeMapping TypeName="HealthTrackerModel.GiaoBaiTapChoUser">
+        <MappingFragment StoreEntitySet="GiaoBaiTapChoUser">
+          <ScalarProperty Name="GiaBtID" ColumnName="GiaBtID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="MauTapLuyenID" ColumnName="MauTapLuyenID" />
+          <ScalarProperty Name="NguoiGiao" ColumnName="NguoiGiao" />
+          <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
+          <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+          <ScalarProperty Name="TuanHienTai" ColumnName="TuanHienTai" />
+          <ScalarProperty Name="TiLeHoanThanh" ColumnName="TiLeHoanThanh" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="NgayGiao" ColumnName="NgayGiao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GiaoDich">
+      <EntityTypeMapping TypeName="HealthTrackerModel.GiaoDich">
+        <MappingFragment StoreEntitySet="GiaoDich">
+          <ScalarProperty Name="GiaoDichID" ColumnName="GiaoDichID" />
+          <ScalarProperty Name="DatLichID" ColumnName="DatLichID" />
+          <ScalarProperty Name="KhachHangID" ColumnName="KhachHangID" />
+          <ScalarProperty Name="PTID" ColumnName="PTID" />
+          <ScalarProperty Name="SoTien" ColumnName="SoTien" />
+          <ScalarProperty Name="HoaHongApp" ColumnName="HoaHongApp" />
+          <ScalarProperty Name="SoTienPTNhan" ColumnName="SoTienPTNhan" />
+          <ScalarProperty Name="TrangThaiThanhToan" ColumnName="TrangThaiThanhToan" />
+          <ScalarProperty Name="PhuongThucThanhToan" ColumnName="PhuongThucThanhToan" />
+          <ScalarProperty Name="NgayGiaoDich" ColumnName="NgayGiaoDich" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HuanLuyenVien">
+      <EntityTypeMapping TypeName="HealthTrackerModel.HuanLuyenVien">
+        <MappingFragment StoreEntitySet="HuanLuyenVien">
+          <ScalarProperty Name="PTID" ColumnName="PTID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ChungChi" ColumnName="ChungChi" />
+          <ScalarProperty Name="ChuyenMon" ColumnName="ChuyenMon" />
+          <ScalarProperty Name="SoNamKinhNghiem" ColumnName="SoNamKinhNghiem" />
+          <ScalarProperty Name="ThanhPho" ColumnName="ThanhPho" />
+          <ScalarProperty Name="GiaTheoGio" ColumnName="GiaTheoGio" />
+          <ScalarProperty Name="TieuSu" ColumnName="TieuSu" />
+          <ScalarProperty Name="AnhDaiDien" ColumnName="AnhDaiDien" />
+          <ScalarProperty Name="AnhCCCD" ColumnName="AnhCCCD" />
+          <ScalarProperty Name="AnhChanDung" ColumnName="AnhChanDung" />
+          <ScalarProperty Name="FileTaiLieu" ColumnName="FileTaiLieu" />
+          <ScalarProperty Name="DaXacMinh" ColumnName="DaXacMinh" />
+          <ScalarProperty Name="GioRanh" ColumnName="GioRanh" />
+          <ScalarProperty Name="SoKhachHienTai" ColumnName="SoKhachHienTai" />
+          <ScalarProperty Name="NhanKhach" ColumnName="NhanKhach" />
+          <ScalarProperty Name="TongDanhGia" ColumnName="TongDanhGia" />
+          <ScalarProperty Name="DiemTrungBinh" ColumnName="DiemTrungBinh" />
+          <ScalarProperty Name="TiLeThanhCong" ColumnName="TiLeThanhCong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KeHoachAnUong">
+      <EntityTypeMapping TypeName="HealthTrackerModel.KeHoachAnUong">
+        <MappingFragment StoreEntitySet="KeHoachAnUong">
+          <ScalarProperty Name="KeHoachAnUongID" ColumnName="KeHoachAnUongID" />
+          <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+          <ScalarProperty Name="TenKeHoach" ColumnName="TenKeHoach" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="LuongCaloMucTieu" ColumnName="LuongCaloMucTieu" />
+          <ScalarProperty Name="TiLeMacro" ColumnName="TiLeMacro" />
+          <ScalarProperty Name="LoaiKeHoach" ColumnName="LoaiKeHoach" />
+          <ScalarProperty Name="SoNgay" ColumnName="SoNgay" />
+          <ScalarProperty Name="CanhBaoDiUng" ColumnName="CanhBaoDiUng" />
+          <ScalarProperty Name="CongKhai" ColumnName="CongKhai" />
+          <ScalarProperty Name="DaXacThuc" ColumnName="DaXacThuc" />
+          <ScalarProperty Name="SoLanSuDung" ColumnName="SoLanSuDung" />
+          <ScalarProperty Name="DiemTrungBinh" ColumnName="DiemTrungBinh" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="NgayChinhSua" ColumnName="NgayChinhSua" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KeHoachTapLuyen">
+      <EntityTypeMapping TypeName="HealthTrackerModel.KeHoachTapLuyen">
+        <MappingFragment StoreEntitySet="KeHoachTapLuyen">
+          <ScalarProperty Name="KeHoachID" ColumnName="KeHoachID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="MucTieuID" ColumnName="MucTieuID" />
+          <ScalarProperty Name="TenKeHoach" ColumnName="TenKeHoach" />
+          <ScalarProperty Name="LoaiKeHoach" ColumnName="LoaiKeHoach" />
+          <ScalarProperty Name="MucDo" ColumnName="MucDo" />
+          <ScalarProperty Name="SoTuan" ColumnName="SoTuan" />
+          <ScalarProperty Name="SoBuoi" ColumnName="SoBuoi" />
+          <ScalarProperty Name="ThoiLuongPhut" ColumnName="ThoiLuongPhut" />
+          <ScalarProperty Name="CaloTieuHaoMoiBuoi" ColumnName="CaloTieuHaoMoiBuoi" />
+          <ScalarProperty Name="Nguon" ColumnName="Nguon" />
+          <ScalarProperty Name="DangSuDung" ColumnName="DangSuDung" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LuotThichChiaSeThanhTuu">
+      <EntityTypeMapping TypeName="HealthTrackerModel.LuotThichChiaSeThanhTuu">
+        <MappingFragment StoreEntitySet="LuotThichChiaSeThanhTuu">
+          <ScalarProperty Name="ThichID" ColumnName="ThichID" />
+          <ScalarProperty Name="ChiaSeID" ColumnName="ChiaSeID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NgayThich" ColumnName="NgayThich" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LuuTruSucKhoe">
+      <EntityTypeMapping TypeName="HealthTrackerModel.LuuTruSucKhoe">
+        <MappingFragment StoreEntitySet="LuuTruSucKhoe">
+          <ScalarProperty Name="MaBanGhi" ColumnName="MaBanGhi" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NgayGhiNhan" ColumnName="NgayGhiNhan" />
+          <ScalarProperty Name="SoBuoc" ColumnName="SoBuoc" />
+          <ScalarProperty Name="CaloTieuThu" ColumnName="CaloTieuThu" />
+          <ScalarProperty Name="SoGioNgu" ColumnName="SoGioNgu" />
+          <ScalarProperty Name="CanNang" ColumnName="CanNang" />
+          <ScalarProperty Name="ChieuCao" ColumnName="ChieuCao" />
+          <ScalarProperty Name="BMI" ColumnName="BMI" />
+          <ScalarProperty Name="SoDoVong1" ColumnName="SoDoVong1" />
+          <ScalarProperty Name="SoDoVong2" ColumnName="SoDoVong2" />
+          <ScalarProperty Name="SoDoVong3" ColumnName="SoDoVong3" />
+          <ScalarProperty Name="SoDoBapTay" ColumnName="SoDoBapTay" />
+          <ScalarProperty Name="SoDoBapChan" ColumnName="SoDoBapChan" />
+          <ScalarProperty Name="TiLeMo" ColumnName="TiLeMo" />
+          <ScalarProperty Name="BenhID" ColumnName="BenhID" />
+          <ScalarProperty Name="LuongNuocUong" ColumnName="LuongNuocUong" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MauTapLuyen">
+      <EntityTypeMapping TypeName="HealthTrackerModel.MauTapLuyen">
+        <MappingFragment StoreEntitySet="MauTapLuyen">
+          <ScalarProperty Name="MauTapLuyenID" ColumnName="MauTapLuyenID" />
+          <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+          <ScalarProperty Name="TenMauTapLuyen" ColumnName="TenMauTapLuyen" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="DoKho" ColumnName="DoKho" />
+          <ScalarProperty Name="MucTieu" ColumnName="MucTieu" />
+          <ScalarProperty Name="SoTuan" ColumnName="SoTuan" />
+          <ScalarProperty Name="CaloUocTinh" ColumnName="CaloUocTinh" />
+          <ScalarProperty Name="ThietBiCan" ColumnName="ThietBiCan" />
+          <ScalarProperty Name="CongKhai" ColumnName="CongKhai" />
+          <ScalarProperty Name="DaXacThuc" ColumnName="DaXacThuc" />
+          <ScalarProperty Name="SoLanSuDung" ColumnName="SoLanSuDung" />
+          <ScalarProperty Name="DiemTrungBinh" ColumnName="DiemTrungBinh" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="NgayChinhSua" ColumnName="NgayChinhSua" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MucTieu">
+      <EntityTypeMapping TypeName="HealthTrackerModel.MucTieu">
+        <MappingFragment StoreEntitySet="MucTieu">
+          <ScalarProperty Name="MucTieuID" ColumnName="MucTieuID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LoaiMucTieu" ColumnName="LoaiMucTieu" />
+          <ScalarProperty Name="GiaTriMucTieu" ColumnName="GiaTriMucTieu" />
+          <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
+          <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+          <ScalarProperty Name="TienDoHienTai" ColumnName="TienDoHienTai" />
+          <ScalarProperty Name="DaHoanThanh" ColumnName="DaHoanThanh" />
+          <ScalarProperty Name="ThuTuHienThi" ColumnName="ThuTuHienThi" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhacNho">
+      <EntityTypeMapping TypeName="HealthTrackerModel.NhacNho">
+        <MappingFragment StoreEntitySet="NhacNho">
+          <ScalarProperty Name="NhacNhoID" ColumnName="NhacNhoID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ThoiGianNhac" ColumnName="ThoiGianNhac" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="KichHoat" ColumnName="KichHoat" />
+          <ScalarProperty Name="DieuKienThoiTiet" ColumnName="DieuKienThoiTiet" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhatKyDinhDuong">
+      <EntityTypeMapping TypeName="HealthTrackerModel.NhatKyDinhDuong">
+        <MappingFragment StoreEntitySet="NhatKyDinhDuong">
+          <ScalarProperty Name="DinhDuongID" ColumnName="DinhDuongID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NgayGhiLog" ColumnName="NgayGhiLog" />
+          <ScalarProperty Name="MonAnID" ColumnName="MonAnID" />
+          <ScalarProperty Name="LuongThucAn" ColumnName="LuongThucAn" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhatKyDongBo">
+      <EntityTypeMapping TypeName="HealthTrackerModel.NhatKyDongBo">
+        <MappingFragment StoreEntitySet="NhatKyDongBo">
+          <ScalarProperty Name="DongBoID" ColumnName="DongBoID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NgayDongBo" ColumnName="NgayDongBo" />
+          <ScalarProperty Name="TrangThaiDongBo" ColumnName="TrangThaiDongBo" />
+          <ScalarProperty Name="NoiDongBo" ColumnName="NoiDongBo" />
+          <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhatKyHoanThanhBaiTap">
+      <EntityTypeMapping TypeName="HealthTrackerModel.NhatKyHoanThanhBaiTap">
+        <MappingFragment StoreEntitySet="NhatKyHoanThanhBaiTap">
+          <ScalarProperty Name="NhatKyID" ColumnName="NhatKyID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ChiTietID" ColumnName="ChiTietID" />
+          <ScalarProperty Name="NgayHoanThanh" ColumnName="NgayHoanThanh" />
+          <ScalarProperty Name="SoHiepThucTe" ColumnName="SoHiepThucTe" />
+          <ScalarProperty Name="SoLanThucTe" ColumnName="SoLanThucTe" />
+          <ScalarProperty Name="ThoiLuongThucTePhut" ColumnName="ThoiLuongThucTePhut" />
+          <ScalarProperty Name="CaloTieuHao" ColumnName="CaloTieuHao" />
+          <ScalarProperty Name="DanhGiaBaiTap" ColumnName="DanhGiaBaiTap" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhatKyTamTrang">
+      <EntityTypeMapping TypeName="HealthTrackerModel.NhatKyTamTrang">
+        <MappingFragment StoreEntitySet="NhatKyTamTrang">
+          <ScalarProperty Name="TamTrangID" ColumnName="TamTrangID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NgayGhi" ColumnName="NgayGhi" />
+          <ScalarProperty Name="TamTrang" ColumnName="TamTrang" />
+          <ScalarProperty Name="MucDoStress" ColumnName="MucDoStress" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhatKyThoiTiet">
+      <EntityTypeMapping TypeName="HealthTrackerModel.NhatKyThoiTiet">
+        <MappingFragment StoreEntitySet="NhatKyThoiTiet">
+          <ScalarProperty Name="ThoiTietID" ColumnName="ThoiTietID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NgayGhiLog" ColumnName="NgayGhiLog" />
+          <ScalarProperty Name="ThanhPho" ColumnName="ThanhPho" />
+          <ScalarProperty Name="NhietDo" ColumnName="NhietDo" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="DoAm" ColumnName="DoAm" />
+          <ScalarProperty Name="GoiY" ColumnName="GoiY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhatKyUngDung">
+      <EntityTypeMapping TypeName="HealthTrackerModel.NhatKyUngDung">
+        <MappingFragment StoreEntitySet="NhatKyUngDung">
+          <ScalarProperty Name="NhatKyID" ColumnName="NhatKyID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
+          <ScalarProperty Name="MucDoLog" ColumnName="MucDoLog" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhanCongKeHoachAnUong">
+      <EntityTypeMapping TypeName="HealthTrackerModel.PhanCongKeHoachAnUong">
+        <MappingFragment StoreEntitySet="PhanCongKeHoachAnUong">
+          <ScalarProperty Name="PhanCongID" ColumnName="PhanCongID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="KeHoachAnUongID" ColumnName="KeHoachAnUongID" />
+          <ScalarProperty Name="NguoiGiao" ColumnName="NguoiGiao" />
+          <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
+          <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+          <ScalarProperty Name="NgayHienTai" ColumnName="NgayHienTai" />
+          <ScalarProperty Name="TiLeTuanThu" ColumnName="TiLeTuanThu" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="NgayGiao" ColumnName="NgayGiao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuyenPT_KhachHang">
+      <EntityTypeMapping TypeName="HealthTrackerModel.QuyenPT_KhachHang">
+        <MappingFragment StoreEntitySet="QuyenPT_KhachHang">
+          <ScalarProperty Name="QuyenID" ColumnName="QuyenID" />
+          <ScalarProperty Name="KhachHangID" ColumnName="KhachHangID" />
+          <ScalarProperty Name="PTID" ColumnName="PTID" />
+          <ScalarProperty Name="NgayCapQuyen" ColumnName="NgayCapQuyen" />
+          <ScalarProperty Name="DangHoatDong" ColumnName="DangHoatDong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TapTin">
+      <EntityTypeMapping TypeName="HealthTrackerModel.TapTin">
+        <MappingFragment StoreEntitySet="TapTin">
+          <ScalarProperty Name="TapTinID" ColumnName="TapTinID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="TenTapTin" ColumnName="TenTapTin" />
+          <ScalarProperty Name="TenLuuTrenServer" ColumnName="TenLuuTrenServer" />
+          <ScalarProperty Name="DuongDan" ColumnName="DuongDan" />
+          <ScalarProperty Name="KichThuoc" ColumnName="KichThuoc" />
+          <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+          <ScalarProperty Name="LoaiFile" ColumnName="LoaiFile" />
+          <ScalarProperty Name="MucDich" ColumnName="MucDich" />
+          <ScalarProperty Name="NgayUpload" ColumnName="NgayUpload" />
+          <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
+          <ScalarProperty Name="NgayXoa" ColumnName="NgayXoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TinNhan">
+      <EntityTypeMapping TypeName="HealthTrackerModel.TinNhan">
+        <MappingFragment StoreEntitySet="TinNhan">
+          <ScalarProperty Name="TinNhanID" ColumnName="TinNhanID" />
+          <ScalarProperty Name="NguoiGuiID" ColumnName="NguoiGuiID" />
+          <ScalarProperty Name="NguoiNhanID" ColumnName="NguoiNhanID" />
+          <ScalarProperty Name="DatLichID" ColumnName="DatLichID" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="DaDoc" ColumnName="DaDoc" />
+          <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TinhNangGoi">
+      <EntityTypeMapping TypeName="HealthTrackerModel.TinhNangGoi">
+        <MappingFragment StoreEntitySet="TinhNangGoi">
+          <ScalarProperty Name="TinhNangID" ColumnName="TinhNangID" />
+          <ScalarProperty Name="TenTinhNang" ColumnName="TenTinhNang" />
+          <ScalarProperty Name="GoiToiThieu" ColumnName="GoiToiThieu" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="ConHoatDong" ColumnName="ConHoatDong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ThanhTuu">
+      <EntityTypeMapping TypeName="HealthTrackerModel.ThanhTuu">
+        <MappingFragment StoreEntitySet="ThanhTuu">
+          <ScalarProperty Name="ThanhTuuID" ColumnName="ThanhTuuID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="TenBadge" ColumnName="TenBadge" />
+          <ScalarProperty Name="Diem" ColumnName="Diem" />
+          <ScalarProperty Name="NgayDatDuoc" ColumnName="NgayDatDuoc" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TheoDoiHoanThanhBaiTap">
+      <EntityTypeMapping TypeName="HealthTrackerModel.TheoDoiHoanThanhBaiTap">
+        <MappingFragment StoreEntitySet="TheoDoiHoanThanhBaiTap">
+          <ScalarProperty Name="TheoDoiID" ColumnName="TheoDoiID" />
+          <ScalarProperty Name="GiaBtID" ColumnName="GiaBtID" />
+          <ScalarProperty Name="BaiTapID" ColumnName="BaiTapID" />
+          <ScalarProperty Name="NgayHoanThanh" ColumnName="NgayHoanThanh" />
+          <ScalarProperty Name="SoSetThucTe" ColumnName="SoSetThucTe" />
+          <ScalarProperty Name="SoRepThucTe" ColumnName="SoRepThucTe" />
+          <ScalarProperty Name="ThoiGianThucTe" ColumnName="ThoiGianThucTe" />
+          <ScalarProperty Name="CaloTieuHao" ColumnName="CaloTieuHao" />
+          <ScalarProperty Name="DoKho" ColumnName="DoKho" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ThongBao">
+      <EntityTypeMapping TypeName="HealthTrackerModel.ThongBao">
+        <MappingFragment StoreEntitySet="ThongBao">
+          <ScalarProperty Name="ThongBaoID" ColumnName="ThongBaoID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="Loai" ColumnName="Loai" />
+          <ScalarProperty Name="MaLienQuan" ColumnName="MaLienQuan" />
+          <ScalarProperty Name="DaDoc" ColumnName="DaDoc" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="HealthTrackerModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="AnhDaiDien" ColumnName="AnhDaiDien" />
+          <ScalarProperty Name="Theme" ColumnName="Theme" />
+          <ScalarProperty Name="NgonNgu" ColumnName="NgonNgu" />
+          <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+          <ScalarProperty Name="ResetToken" ColumnName="ResetToken" />
+          <ScalarProperty Name="ResetTokenExpiry" ColumnName="ResetTokenExpiry" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="XepHang">
+      <EntityTypeMapping TypeName="HealthTrackerModel.XepHang">
+        <MappingFragment StoreEntitySet="XepHang">
+          <ScalarProperty Name="XepHangID" ColumnName="XepHangID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ChuKy" ColumnName="ChuKy" />
+          <ScalarProperty Name="TongDiem" ColumnName="TongDiem" />
+          <ScalarProperty Name="ThuHang" ColumnName="ThuHang" />
+          <ScalarProperty Name="NgayBatDauChuKy" ColumnName="NgayBatDauChuKy" />
+          <ScalarProperty Name="NgayKetThucChuKy" ColumnName="NgayKetThucChuKy" />
+          <ScalarProperty Name="NgayCapNhat" ColumnName="NgayCapNhat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
