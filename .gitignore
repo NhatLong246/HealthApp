@@ -1,2 +1,4 @@
 .vs/
 HealthApp.csproj.user
+bin/
+obj/
