@@ -1,14 +1,16 @@
+extern alias ef6;
+
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using System.Linq;
+using ef6::System.Data.Entity;
 
 namespace HealthApp.Models
 {
     public partial class WF_HealthTracker : DbContext
     {
         public WF_HealthTracker()
-            : base("name=WF_HealthTracker1")
+            : base("name=WF_HealthTracker")
         {
         }
 
