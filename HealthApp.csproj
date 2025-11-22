@@ -145,14 +145,64 @@
     <Compile Include="Models\TinhTrangTongQuan.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\WF_HealthTracker.cs" />
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
+    <Compile Include="Common\Helpers\CurrentUser.cs" />
+    <Compile Include="Common\Helpers\OTPHelper.cs" />
+    <Compile Include="Common\Helpers\PasswordHelper.cs" />
+    <Compile Include="Common\Helpers\ValidationHelper.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\ForgotPasswordController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\ForgotPasswordService.cs" />
+    <Compile Include="Services\Interfaces\IAuthService.cs" />
+    <Compile Include="Services\Interfaces\IEmailService.cs" />
+    <Compile Include="Services\Interfaces\IForgotPasswordService.cs" />
     <Compile Include="Views\Activity\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Activity\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Auth\ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Auth\ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Auth\ForgotPasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Auth\ForgotPasswordForm.Designer.cs">
+      <DependentUpon>ForgotPasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Auth\ForgotPasswordForm_OTP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Auth\ForgotPasswordForm_OTP.Designer.cs">
+      <DependentUpon>ForgotPasswordForm_OTP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Auth\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Auth\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Auth\RegisterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Auth\RegisterForm.Designer.cs">
+      <DependentUpon>RegisterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LeaderBoard\LeaderBoardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\LeaderBoard\LeaderBoardForm.Designer.cs">
+      <DependentUpon>LeaderBoardForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -166,6 +216,24 @@
     </Compile>
     <EmbeddedResource Include="Views\Activity\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Auth\ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Auth\ForgotPasswordForm.resx">
+      <DependentUpon>ForgotPasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Auth\ForgotPasswordForm_OTP.resx">
+      <DependentUpon>ForgotPasswordForm_OTP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Auth\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Auth\RegisterForm.resx">
+      <DependentUpon>RegisterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\LeaderBoard\LeaderBoardForm.resx">
+      <DependentUpon>LeaderBoardForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Assets\.gitkeep" />
     <None Include="Assets\Reports\.gitkeep" />
@@ -641,6 +709,15 @@
     <Content Include="packages\System.ValueTuple.4.5.0\THIRD-PARTY-NOTICES.TXT" />
     <Content Include="packages\System.ValueTuple.4.5.0\useSharedDesignerContext.txt" />
     <Content Include="packages\System.ValueTuple.4.5.0\version.txt" />
+    <Content Include="Resources\Icons\AchivementIcon.png" />
+    <Content Include="Resources\Icons\CommunityIcon.png" />
+    <Content Include="Resources\Icons\folowIcon.png" />
+    <Content Include="Resources\Icons\HealthIcon.png" />
+    <Content Include="Resources\Icons\HealthLogo1.png" />
+    <Content Include="Resources\Icons\HealthLogo2.png" />
+    <Content Include="Resources\Icons\Lock.png" />
+    <Content Include="Resources\Icons\LockIcon.png" />
+    <Content Include="Resources\Icons\Screenshot_2025-10-13_210618-removebg-preview.png" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

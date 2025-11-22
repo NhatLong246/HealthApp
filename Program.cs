@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HealthApp.Views.Activity;
+using HealthApp.Views.Auth;
 
 namespace HealthApp
 {
@@ -27,10 +27,7 @@ namespace HealthApp
             };
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-#if DEBUG
-            MessageBox.Show("App starting...", "HealthApp", MessageBoxButtons.OK, MessageBoxIcon.Information);
-#endif
-            Application.Run(new Form1());
+            Application.Run(new LoginForm());
         }
     }
 }
