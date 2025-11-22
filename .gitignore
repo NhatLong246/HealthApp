@@ -1,2 +1,157 @@
+## Visual Studio files
 .vs/
-HealthApp.csproj.user
+*.suo
+*.user
+*.csproj.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.rsuser
+
+## Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+# Build output folders (bin and obj contain compiled files)
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+## Visual Studio cache files
+*.cache
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+## Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+*.e2e
+
+## MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+## NuGet Packages
+## NOTE: NuGet packages can be restored using 'nuget restore' or 'dotnet restore'
+packages/
+*.snupkg
+
+## The .NET Core build output
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+## JetBrains Rider
+.idea/
+*.sln.iml
+
+## Application specific
+# Logs folder - may contain sensitive data
+Logs/
+*.log
+
+# Backups folder - may contain database backups
+Backups/
+*.bak
+*.backup
+
+# Generated reports
+Assets/Reports/Generated/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~
+
+# Database files (if any local databases)
+*.mdf
+*.ldf
+*.ndf
+
+# Connection strings with sensitive data
+# IMPORTANT: App.config contains connection string with password
+# Option 1: Ignore App.config and use App.config.example (recommended for security)
+# Uncomment the next line to ignore App.config:
+# App.config
+# App.config.local
+
+# Option 2: Keep App.config but remove sensitive data before commit
+# Each developer should configure their own connection string locally
+
+## Windows image file caches
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+## Mac desktop service store files
+.DS_Store
+
+## Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+## Windows shortcuts
+*.lnk
+
+## Executables (except NuGet packages)
+*.exe
+*.dll
+!packages/**/*.dll
+!packages/**/*.pdb
+
+## Entity Framework
+# Keep Migrations/ folder structure, but ignore if you want to regenerate
+# Migrations/
+
+## TernJS port file
+.tern-port
+
+## Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+## yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
