@@ -669,11 +669,11 @@
     <Content Include="packages\System.ValueTuple.4.5.0\useSharedDesignerContext.txt" />
     <Content Include="packages\System.ValueTuple.4.5.0\version.txt" />
     <Content Include="Resources\Video\ren-luyen-dang.mp4" />
-    <None Include="Resources\icons-deadlift.gif" />
-    <None Include="Resources\icons-workout.png" />
-    <None Include="Resources\icons-calendar.png" />
-    <None Include="Resources\goal.png" />
-    <None Include="Resources\back.png" />
+    <None Include="Resources\Icons\icons-deadlift.gif" />
+    <None Include="Resources\Icons\icons-workout.png" />
+    <None Include="Resources\Icons\icons-calendar.png" />
+    <None Include="Resources\Icons\goal.png" />
+    <None Include="Resources\Icons\back.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AxWMPLib">
