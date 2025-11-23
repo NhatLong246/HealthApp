@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,7 +27,17 @@ namespace HealthApp
             };
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+
+            // Hiển thị form đăng nhập
+            using (var loginForm = new LoginForm())
+            {
+                // Nếu đăng nhập thành công
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    // TODO: Điều hướng đến DashboardForm sau khi đăng nhập thành công
+                    // Application.Run(new DashboardForm());
+                }
+            }
         }
     }
 }
