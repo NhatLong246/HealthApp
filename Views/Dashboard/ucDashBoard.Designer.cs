@@ -928,7 +928,7 @@
             this.btnSuckhoe.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnSuckhoe.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnSuckhoe.ForeColor = System.Drawing.Color.White;
-            this.btnSuckhoe.Image = global::HealthApp.Properties.Resources.HealthICon;
+            this.btnSuckhoe.Image = global::HealthApp.Properties.Resources.HealthIconMain;
             this.btnSuckhoe.ImageSize = new System.Drawing.Size(120, 120);
             this.btnSuckhoe.Location = new System.Drawing.Point(646, 15);
             this.btnSuckhoe.Name = "btnSuckhoe";
