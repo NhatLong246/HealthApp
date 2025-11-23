@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using HealthApp.Models;
 using HealthApp.Common.Helpers;
+using HealthApp.Services;
+using HealthApp.Controllers;
 
 namespace HealthApp.Controllers
 {
@@ -13,14 +16,18 @@ namespace HealthApp.Controllers
     public class NutritionController : IDisposable
     {
         private readonly WF_HealthTracker _dbContext;
+        private readonly ChatGPTService _chatGPTService;
+        private readonly GoalController _goalController;
 
         public NutritionController()
         {
             _dbContext = new WF_HealthTracker();
+            _chatGPTService = new ChatGPTService();
+            _goalController = new GoalController();
         }
 
         /// <summary>
-        /// Lấy danh sách bữa ăn theo ngày
+        /// Lấy danh sách bữa ăn theo ngày (dùng raw SQL để tránh Entity Framework mapping issues)
         /// </summary>
         /// <param name="ngayAn">Ngày cần lấy</param>
         /// <returns>Danh sách bữa ăn</returns>
@@ -31,14 +38,28 @@ namespace HealthApp.Controllers
                 var ngayBatDau = ngayAn.Date;
                 var ngayKetThuc = ngayAn.Date.AddDays(1).AddTicks(-1);
 
-                return _dbContext.BuaAnChiTiet
-                    .Where(b => b.NgayAn >= ngayBatDau && b.NgayAn < ngayKetThuc)
-                    .OrderBy(b => b.NgayAn)
-                    .ToList();
+                // Dùng raw SQL để tránh Entity Framework mapping issues
+                string sqlQuery = @"SELECT BuaAnID, UserID, MonAnID, NgayAn, LoaiBuaAn, KhoiLuongChuan, 
+                                           Calories, Protein, Carbs, Fat, Fiber, GhiChu, KeHoachAnID 
+                                    FROM BuaAnChiTiet 
+                                    WHERE NgayAn >= @p0 AND NgayAn < @p1 
+                                    ORDER BY NgayAn";
+
+                var meals = _dbContext.Database.SqlQuery<BuaAnChiTiet>(sqlQuery, ngayBatDau, ngayKetThuc).ToList();
+                
+                System.Diagnostics.Debug.WriteLine($"GetMealsByDate: Lấy được {meals?.Count ?? 0} bữa ăn cho ngày {ngayAn:yyyy-MM-dd}");
+                
+                return meals ?? new List<BuaAnChiTiet>();
             }
             catch (Exception ex)
             {
-                throw new Exception($"Lỗi khi lấy danh sách bữa ăn: {ex.Message}", ex);
+                System.Diagnostics.Debug.WriteLine($"Lỗi trong GetMealsByDate: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                }
+                // Trả về danh sách rỗng thay vì throw exception để không crash ứng dụng
+                return new List<BuaAnChiTiet>();
             }
         }
 
@@ -289,6 +310,281 @@ namespace HealthApp.Controllers
         }
 
         /// <summary>
+        /// Lấy danh sách món ăn đề xuất từ thư viện (dùng AI nếu có mục tiêu)
+        /// </summary>
+        /// <param name="loaiBuaAn">Loại bữa ăn (Sáng, Trưa, Tối)</param>
+        /// <param name="soLuong">Số lượng món ăn cần lấy</param>
+        /// <returns>Danh sách món ăn đề xuất</returns>
+        public async Task<List<ThuVienMonAn>> GetSuggestedFoodsAsync(string loaiBuaAn = null, int soLuong = 5, DateTime? ngayDeXuat = null, List<string> monAnDaDeXuat = null)
+        {
+            // Fallback method không async để tương thích
+            return await GetSuggestedFoodsInternalAsync(loaiBuaAn, soLuong, ngayDeXuat, monAnDaDeXuat);
+        }
+
+        /// <summary>
+        /// Lấy danh sách món ăn đề xuất từ thư viện (dùng AI nếu có mục tiêu)
+        /// </summary>
+        /// <param name="loaiBuaAn">Loại bữa ăn (Sáng, Trưa, Tối)</param>
+        /// <param name="soLuong">Số lượng món ăn cần lấy</param>
+        /// <returns>Danh sách món ăn đề xuất</returns>
+        public List<ThuVienMonAn> GetSuggestedFoods(string loaiBuaAn = null, int soLuong = 5)
+        {
+            // Synchronous wrapper - sẽ gọi async method
+            try
+            {
+                return GetSuggestedFoodsInternalAsync(loaiBuaAn, soLuong).GetAwaiter().GetResult();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi trong GetSuggestedFoods: {ex.Message}");
+                return GetSuggestedFoodsFallback(loaiBuaAn, soLuong);
+            }
+        }
+
+        /// <summary>
+        /// Internal method để lấy món ăn đề xuất (dùng AI)
+        /// </summary>
+        private async Task<List<ThuVienMonAn>> GetSuggestedFoodsInternalAsync(string loaiBuaAn = null, int soLuong = 5, DateTime? ngayDeXuat = null, List<string> monAnDaDeXuat = null)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"=== GetSuggestedFoodsInternalAsync START ===");
+                System.Diagnostics.Debug.WriteLine($"LoaiBuaAn: {loaiBuaAn}, SoLuong: {soLuong}");
+
+                // Kiểm tra kết nối database
+                if (!_dbContext.Database.Exists())
+                {
+                    throw new Exception("Database không tồn tại hoặc không thể kết nối!");
+                }
+
+                // Lấy tất cả món ăn từ database
+                var allFoods = _dbContext.Database.SqlQuery<ThuVienMonAn>(
+                    "SELECT MonAnID, imageURL, TenMonAn, Loai, Donvi, KhoiLuongChuan, Calories, Protein, Carbs, Fat, Fiber, NgayTao FROM ThuVienMonAn"
+                ).ToList();
+
+                if (allFoods == null || allFoods.Count == 0)
+                {
+                    System.Diagnostics.Debug.WriteLine("Không có món ăn nào trong database!");
+                    return new List<ThuVienMonAn>();
+                }
+
+                // Lấy mục tiêu của user hiện tại
+                string userId = CurrentUser.UserID;
+                string mucTieu = null;
+
+                if (!string.IsNullOrWhiteSpace(userId))
+                {
+                    System.Diagnostics.Debug.WriteLine($"Đang lấy mục tiêu cho user: {userId}");
+                    var goals = _goalController.GetGoalsByUser(userId, "Đang thực hiện");
+                    
+                    if (goals != null && goals.Count > 0)
+                    {
+                        // Lấy mục tiêu đầu tiên đang thực hiện
+                        var activeGoal = goals.FirstOrDefault();
+                        if (activeGoal != null)
+                        {
+                            mucTieu = $"{activeGoal.LoaiMucTieu}: {activeGoal.TenMucTieu}";
+                            System.Diagnostics.Debug.WriteLine($"Mục tiêu: {mucTieu}");
+                        }
+                    }
+                }
+
+                // Nếu có mục tiêu, dùng AI để đề xuất
+                if (!string.IsNullOrWhiteSpace(mucTieu))
+                {
+                    try
+                    {
+                        System.Diagnostics.Debug.WriteLine("Đang gọi ChatGPT để đề xuất món ăn...");
+                        var danhSachTenMonAn = allFoods.Select(f => f.TenMonAn).ToList();
+                        
+                        // Loại bỏ món đã đề xuất ở các bữa trước khỏi danh sách
+                        if (monAnDaDeXuat != null && monAnDaDeXuat.Count > 0)
+                        {
+                            var danhSachTenMonAnFiltered = danhSachTenMonAn
+                                .Where(m => !monAnDaDeXuat.Contains(m, StringComparer.OrdinalIgnoreCase))
+                                .ToList();
+                            
+                            System.Diagnostics.Debug.WriteLine($"Đã loại bỏ {danhSachTenMonAn.Count - danhSachTenMonAnFiltered.Count} món đã đề xuất. Còn lại {danhSachTenMonAnFiltered.Count} món để chọn.");
+                            
+                            // Nếu còn ít món, vẫn dùng danh sách gốc (tránh không có món nào)
+                            if (danhSachTenMonAnFiltered.Count >= 3)
+                            {
+                                danhSachTenMonAn = danhSachTenMonAnFiltered;
+                            }
+                            else
+                            {
+                                System.Diagnostics.Debug.WriteLine("Còn quá ít món sau khi loại bỏ, dùng lại danh sách gốc");
+                            }
+                        }
+                        
+                        // Truyền ngày đề xuất và món đã đề xuất để AI tránh trùng lặp
+                        DateTime ngayDeXuatValue = ngayDeXuat ?? DateTime.Today;
+                        var suggestedFoodNames = await _chatGPTService.SuggestFoodsAsync(loaiBuaAn, mucTieu, danhSachTenMonAn, ngayDeXuatValue, monAnDaDeXuat);
+
+                        if (suggestedFoodNames != null && suggestedFoodNames.Count > 0)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"ChatGPT đề xuất {suggestedFoodNames.Count} món ăn: {string.Join(", ", suggestedFoodNames)}");
+                            
+                            // Tìm các món ăn từ database theo tên được đề xuất (theo thứ tự AI đề xuất)
+                            // CHỈ lấy món ăn có trong database
+                            var result = new List<ThuVienMonAn>();
+                            foreach (var tenMonAn in suggestedFoodNames)
+                            {
+                                // Ưu tiên exact match trước
+                                var monAn = allFoods.FirstOrDefault(f => 
+                                    f.TenMonAn.Equals(tenMonAn.Trim(), StringComparison.OrdinalIgnoreCase));
+                                
+                                // Nếu không tìm thấy exact match, thử fuzzy match
+                                if (monAn == null)
+                                {
+                                    monAn = allFoods.FirstOrDefault(f => 
+                                        f.TenMonAn.IndexOf(tenMonAn.Trim(), StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                        tenMonAn.Trim().IndexOf(f.TenMonAn, StringComparison.OrdinalIgnoreCase) >= 0);
+                                }
+                                
+                                if (monAn != null && !result.Contains(monAn))
+                                {
+                                    result.Add(monAn);
+                                    System.Diagnostics.Debug.WriteLine($"  ✓ Tìm thấy trong database: {monAn.TenMonAn} (match với '{tenMonAn}')");
+                                }
+                                else if (monAn == null)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"  ✗ KHÔNG tìm thấy trong database: '{tenMonAn}' - Bỏ qua món này");
+                                }
+                                
+                                // Lấy đúng số lượng AI đề xuất (không giới hạn bởi soLuong)
+                                if (result.Count >= suggestedFoodNames.Count)
+                                    break;
+                            }
+                            
+                            // Nếu không tìm thấy món nào từ AI, fallback về logic cũ
+                            if (result.Count == 0)
+                            {
+                                System.Diagnostics.Debug.WriteLine("Không tìm thấy món nào từ AI đề xuất trong database, fallback về logic cũ");
+                            }
+
+                            // Giữ nguyên số lượng AI đề xuất (không giới hạn bởi soLuong)
+                            // AI tự quyết định số lượng món ăn phù hợp
+                            System.Diagnostics.Debug.WriteLine($"=== GetSuggestedFoodsInternalAsync END: Trả về {result.Count} món ăn từ AI (theo đề xuất AI, không giới hạn) ===");
+                            return result;
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("ChatGPT không trả về món ăn nào, fallback về logic cũ");
+                        }
+                    }
+                    catch (Exception aiEx)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Lỗi khi gọi ChatGPT, fallback về logic cũ: {aiEx.Message}");
+                    }
+                }
+
+                // Fallback: Dùng logic cũ nếu không có mục tiêu hoặc AI lỗi
+                return GetSuggestedFoodsFallback(loaiBuaAn, soLuong, allFoods);
+            }
+            catch (System.Data.SqlClient.SqlException sqlEx)
+            {
+                string errorMsg = $"Lỗi SQL Server:\n{sqlEx.Message}";
+                errorMsg += $"\n\nMã lỗi: {sqlEx.Number}";
+                if (sqlEx.InnerException != null)
+                {
+                    errorMsg += $"\n\nInner Exception:\n{sqlEx.InnerException.Message}";
+                }
+                System.Diagnostics.Debug.WriteLine($"=== SQL ERROR ===");
+                System.Diagnostics.Debug.WriteLine(errorMsg);
+                throw new Exception($"Lỗi khi lấy món ăn đề xuất: {errorMsg}", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                string errorMsg = $"Lỗi: {ex.Message}";
+                if (ex.InnerException != null)
+                {
+                    errorMsg += $"\n\nInner Exception: {ex.InnerException.Message}";
+                }
+                System.Diagnostics.Debug.WriteLine($"=== GENERAL ERROR ===");
+                System.Diagnostics.Debug.WriteLine(errorMsg);
+                System.Diagnostics.Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw new Exception($"Lỗi khi lấy món ăn đề xuất: {errorMsg}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Fallback method khi không có AI hoặc AI lỗi
+        /// </summary>
+        private List<ThuVienMonAn> GetSuggestedFoodsFallback(string loaiBuaAn = null, int soLuong = 5, List<ThuVienMonAn> allFoods = null)
+        {
+            try
+            {
+                if (allFoods == null)
+                {
+                    allFoods = _dbContext.Database.SqlQuery<ThuVienMonAn>(
+                        "SELECT MonAnID, imageURL, TenMonAn, Loai, Donvi, KhoiLuongChuan, Calories, Protein, Carbs, Fat, Fiber, NgayTao FROM ThuVienMonAn"
+                    ).ToList();
+                }
+
+                if (allFoods == null || allFoods.Count == 0)
+                {
+                    return new List<ThuVienMonAn>();
+                }
+
+                var result = new List<ThuVienMonAn>();
+                var random = new Random();
+
+                if (!string.IsNullOrWhiteSpace(loaiBuaAn))
+                {
+                    List<string> preferredTypes = new List<string>();
+                    switch (loaiBuaAn.ToLower())
+                    {
+                        case "sáng":
+                            preferredTypes = new List<string> { "Ngũ cốc", "Trái cây" };
+                            break;
+                        case "trưa":
+                            preferredTypes = new List<string> { "Thịt", "Hải sản" };
+                            break;
+                        case "tối":
+                            preferredTypes = new List<string> { "Rau củ", "Hải sản" };
+                            break;
+                    }
+
+                    var preferredFoods = allFoods
+                        .Where(m => m.Loai != null && preferredTypes.Contains(m.Loai))
+                        .ToList();
+
+                    if (preferredFoods.Count > 0)
+                    {
+                        preferredFoods = preferredFoods.OrderBy(x => random.Next()).Take(soLuong).ToList();
+                        result.AddRange(preferredFoods);
+                    }
+
+                    if (result.Count < soLuong)
+                    {
+                        var remainingFoods = allFoods
+                            .Where(m => m.Loai == null || !preferredTypes.Contains(m.Loai))
+                            .ToList();
+
+                        if (remainingFoods.Count > 0)
+                        {
+                            var needed = soLuong - result.Count;
+                            remainingFoods = remainingFoods.OrderBy(x => random.Next()).Take(needed).ToList();
+                            result.AddRange(remainingFoods);
+                        }
+                    }
+                }
+                else
+                {
+                    result = allFoods.OrderBy(x => random.Next()).Take(soLuong).ToList();
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi trong GetSuggestedFoodsFallback: {ex.Message}");
+                return new List<ThuVienMonAn>();
+            }
+        }
+
+        /// <summary>
         /// Tạo BuaAnID tự động (format: meal_0001, meal_0002, ...)
         /// </summary>
         private string GenerateMealId()
@@ -316,6 +612,8 @@ namespace HealthApp.Controllers
         public void Dispose()
         {
             _dbContext?.Dispose();
+            _chatGPTService?.Dispose();
+            _goalController?.Dispose();
         }
     }
 

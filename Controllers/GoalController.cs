@@ -33,17 +33,39 @@ namespace HealthApp.Controllers
                     return new List<MucTieu>();
                 }
 
-                var query = _dbContext.MucTieu.Where(m => m.UserID == userId);
+                System.Diagnostics.Debug.WriteLine($"=== GetGoalsByUser START ===");
+                System.Diagnostics.Debug.WriteLine($"UserId: {userId}, TrangThai: {trangThai}");
+
+                // Thử dùng raw SQL query để tránh lỗi mapping
+                string sqlQuery;
+                object[] parameters;
 
                 if (!string.IsNullOrWhiteSpace(trangThai))
                 {
-                    query = query.Where(m => m.TrangThai == trangThai);
+                    sqlQuery = "SELECT MucTieuID, UserID, LoaiMucTieu, TenMucTieu, GiaTriMucTieu, NgayBatDau, NgayKetThucDuKien, NgayKetThucThucTe, TrangThai, PTID, GhiChu, NgayTao FROM MucTieu WHERE UserID = {0} AND TrangThai = {1} ORDER BY NgayTao DESC";
+                    parameters = new object[] { userId, trangThai };
+                }
+                else
+                {
+                    sqlQuery = "SELECT MucTieuID, UserID, LoaiMucTieu, TenMucTieu, GiaTriMucTieu, NgayBatDau, NgayKetThucDuKien, NgayKetThucThucTe, TrangThai, PTID, GhiChu, NgayTao FROM MucTieu WHERE UserID = {0} ORDER BY NgayTao DESC";
+                    parameters = new object[] { userId };
                 }
 
-                return query.OrderByDescending(m => m.NgayTao).ToList();
+                var goals = _dbContext.Database.SqlQuery<MucTieu>(sqlQuery, parameters).ToList();
+
+                System.Diagnostics.Debug.WriteLine($"GetGoalsByUser trả về {goals?.Count ?? 0} mục tiêu");
+                System.Diagnostics.Debug.WriteLine($"=== GetGoalsByUser END ===");
+
+                return goals ?? new List<MucTieu>();
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"=== ERROR in GetGoalsByUser ===");
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Inner Exception: {ex.InnerException.Message}");
+                }
                 throw new Exception($"Lỗi khi lấy danh sách mục tiêu: {ex.Message}", ex);
             }
         }

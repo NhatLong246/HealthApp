@@ -1,4 +1,4 @@
-﻿namespace HealthApp.Views.Auth
+namespace HealthApp.Views.Auth
 {
     partial class LoginForm
     {
