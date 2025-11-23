@@ -39,80 +39,80 @@
             this.pnlSection1 = new Guna.UI2.WinForms.Guna2Panel();
             this.pnlCard4 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblChisoChatbeo = new System.Windows.Forms.Label();
-            this.picProtein = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblChatbeo = new System.Windows.Forms.Label();
             this.pnlCard3 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblChisoCarbs = new System.Windows.Forms.Label();
-            this.picBread = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblCarbs = new System.Windows.Forms.Label();
             this.pnlCard2 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblChisoProtein = new System.Windows.Forms.Label();
-            this.picDumbbells = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblProtein = new System.Windows.Forms.Label();
             this.pnlCard1 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblChisoCalo = new System.Windows.Forms.Label();
-            this.picFire = new Guna.UI2.WinForms.Guna2PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pnlKeHoachAnUong = new Guna.UI2.WinForms.Guna2Panel();
-            this.picCalenderKeHoach = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.lblLowCarb7Ngay = new System.Windows.Forms.Label();
-            this.lblThongTinLowCarb = new System.Windows.Forms.Label();
+            this.lbTenNguoiDung = new System.Windows.Forms.Label();
+            this.lbTenMucTieu = new System.Windows.Forms.Label();
             this.lblTieuDeKeHoachAnUong = new System.Windows.Forms.Label();
             this.pnlDanhSachNhatKyBuaAn = new Guna.UI2.WinForms.Guna2Panel();
             this.btnThemMon = new Guna.UI2.WinForms.Guna2GradientButton();
             this.lblThongTinDanhSachNhatKyBuaAn = new System.Windows.Forms.Label();
             this.lblNhatKyBuaAn = new System.Windows.Forms.Label();
             this.pnlMonAnPhoBien = new Guna.UI2.WinForms.Guna2Panel();
-            this.picStar = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblMonAnPhoBien = new System.Windows.Forms.Label();
             this.pnlThongKeDinhDuongTuanVaThang = new Guna.UI2.WinForms.Guna2Panel();
             this.pnlThongKeDinhDuongThang = new Guna.UI2.WinForms.Guna2Panel();
             this.lblTrungBinhCaloThang = new System.Windows.Forms.Label();
             this.lblChiSoCaloThang = new System.Windows.Forms.Label();
             this.lblThangNay = new System.Windows.Forms.Label();
-            this.picCalenderMonth = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pnlThongKeDinhDuongTuan = new Guna.UI2.WinForms.Guna2Panel();
             this.lblTrungBinhCaloNgay = new System.Windows.Forms.Label();
             this.lblChiSoCaloTuan = new System.Windows.Forms.Label();
-            this.picCalenderWeek = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblTuanNay = new System.Windows.Forms.Label();
             this.pnlLichSuAnUong7NgayGanNhat = new Guna.UI2.WinForms.Guna2Panel();
             this.pnlThongTinLichSuAnUong7NgayGanNhat = new Guna.UI2.WinForms.Guna2Panel();
-            this.picCalender2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblThongBaoThongTinLichSuAnUong7NgayGanNhat = new System.Windows.Forms.Label();
             this.lblThongKeDinhDuong = new System.Windows.Forms.Label();
             this.lblLichSuAnUong7NgayGanNhat = new System.Windows.Forms.Label();
+            this.pnlNhatKyBuaAn = new Guna.UI2.WinForms.Guna2Panel();
+            this.picFork = new Guna.UI2.WinForms.Guna2PictureBox();
             this.picCalender = new Guna.UI2.WinForms.Guna2PictureBox();
             this.picChart = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.picFork = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.pnlNhatKyBuaAn = new Guna.UI2.WinForms.Guna2Panel();
+            this.picCalender2 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.picCalenderMonth = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.picCalenderWeek = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.picStar = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.picCalenderKeHoach = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.picProtein = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.picBread = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.picDumbbells = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.picFire = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pnlTieuDe.SuspendLayout();
             this.pnlSection1.SuspendLayout();
             this.pnlCard4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picProtein)).BeginInit();
             this.pnlCard3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBread)).BeginInit();
             this.pnlCard2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDumbbells)).BeginInit();
             this.pnlCard1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picFire)).BeginInit();
             this.pnlKeHoachAnUong.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCalenderKeHoach)).BeginInit();
             this.pnlDanhSachNhatKyBuaAn.SuspendLayout();
             this.pnlMonAnPhoBien.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picStar)).BeginInit();
             this.pnlThongKeDinhDuongTuanVaThang.SuspendLayout();
             this.pnlThongKeDinhDuongThang.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCalenderMonth)).BeginInit();
             this.pnlThongKeDinhDuongTuan.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCalenderWeek)).BeginInit();
             this.pnlLichSuAnUong7NgayGanNhat.SuspendLayout();
             this.pnlThongTinLichSuAnUong7NgayGanNhat.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCalender2)).BeginInit();
+            this.pnlNhatKyBuaAn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picFork)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCalender)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picChart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picFork)).BeginInit();
-            this.pnlNhatKyBuaAn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCalender2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCalenderMonth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCalenderWeek)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picStar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCalenderKeHoach)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picProtein)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBread)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDumbbells)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picFire)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlTieuDe
@@ -184,17 +184,6 @@
             this.lblChisoChatbeo.TabIndex = 5;
             this.lblChisoChatbeo.Text = "0";
             // 
-            // picProtein
-            // 
-            this.picProtein.Image = global::HealthApp.Properties.Resources.ProteinIcon;
-            this.picProtein.ImageRotate = 0F;
-            this.picProtein.Location = new System.Drawing.Point(88, 42);
-            this.picProtein.Name = "picProtein";
-            this.picProtein.Size = new System.Drawing.Size(49, 47);
-            this.picProtein.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picProtein.TabIndex = 4;
-            this.picProtein.TabStop = false;
-            // 
             // lblChatbeo
             // 
             this.lblChatbeo.AutoSize = true;
@@ -228,17 +217,6 @@
             this.lblChisoCarbs.Size = new System.Drawing.Size(24, 28);
             this.lblChisoCarbs.TabIndex = 4;
             this.lblChisoCarbs.Text = "0";
-            // 
-            // picBread
-            // 
-            this.picBread.Image = global::HealthApp.Properties.Resources.BreadIcon;
-            this.picBread.ImageRotate = 0F;
-            this.picBread.Location = new System.Drawing.Point(91, 42);
-            this.picBread.Name = "picBread";
-            this.picBread.Size = new System.Drawing.Size(49, 47);
-            this.picBread.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picBread.TabIndex = 3;
-            this.picBread.TabStop = false;
             // 
             // lblCarbs
             // 
@@ -274,18 +252,6 @@
             this.lblChisoProtein.TabIndex = 3;
             this.lblChisoProtein.Text = "0";
             // 
-            // picDumbbells
-            // 
-            this.picDumbbells.Image = global::HealthApp.Properties.Resources.dumbbellsIcon;
-            this.picDumbbells.ImageRotate = 0F;
-            this.picDumbbells.Location = new System.Drawing.Point(95, 42);
-            this.picDumbbells.Name = "picDumbbells";
-            this.picDumbbells.Size = new System.Drawing.Size(49, 47);
-            this.picDumbbells.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDumbbells.TabIndex = 2;
-            this.picDumbbells.TabStop = false;
-            this.picDumbbells.Click += new System.EventHandler(this.guna2PictureBox3_Click);
-            // 
             // lblProtein
             // 
             this.lblProtein.AutoSize = true;
@@ -320,17 +286,6 @@
             this.lblChisoCalo.TabIndex = 2;
             this.lblChisoCalo.Text = "0";
             // 
-            // picFire
-            // 
-            this.picFire.Image = global::HealthApp.Properties.Resources.FireIcon;
-            this.picFire.ImageRotate = 0F;
-            this.picFire.Location = new System.Drawing.Point(87, 42);
-            this.picFire.Name = "picFire";
-            this.picFire.Size = new System.Drawing.Size(49, 47);
-            this.picFire.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picFire.TabIndex = 1;
-            this.picFire.TabStop = false;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -347,8 +302,8 @@
             this.pnlKeHoachAnUong.BorderRadius = 30;
             this.pnlKeHoachAnUong.BorderThickness = 1;
             this.pnlKeHoachAnUong.Controls.Add(this.picCalenderKeHoach);
-            this.pnlKeHoachAnUong.Controls.Add(this.lblLowCarb7Ngay);
-            this.pnlKeHoachAnUong.Controls.Add(this.lblThongTinLowCarb);
+            this.pnlKeHoachAnUong.Controls.Add(this.lbTenNguoiDung);
+            this.pnlKeHoachAnUong.Controls.Add(this.lbTenMucTieu);
             this.pnlKeHoachAnUong.Controls.Add(this.lblTieuDeKeHoachAnUong);
             this.pnlKeHoachAnUong.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.pnlKeHoachAnUong.Location = new System.Drawing.Point(42, 411);
@@ -356,36 +311,24 @@
             this.pnlKeHoachAnUong.Size = new System.Drawing.Size(1277, 191);
             this.pnlKeHoachAnUong.TabIndex = 2;
             // 
-            // picCalenderKeHoach
+            // lbTenNguoiDung
             // 
-            this.picCalenderKeHoach.Image = global::HealthApp.Properties.Resources.CalenderICon;
-            this.picCalenderKeHoach.ImageRotate = 0F;
-            this.picCalenderKeHoach.Location = new System.Drawing.Point(25, 22);
-            this.picCalenderKeHoach.Name = "picCalenderKeHoach";
-            this.picCalenderKeHoach.Size = new System.Drawing.Size(41, 37);
-            this.picCalenderKeHoach.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picCalenderKeHoach.TabIndex = 3;
-            this.picCalenderKeHoach.TabStop = false;
+            this.lbTenNguoiDung.AutoSize = true;
+            this.lbTenNguoiDung.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTenNguoiDung.Location = new System.Drawing.Point(22, 67);
+            this.lbTenNguoiDung.Name = "lbTenNguoiDung";
+            this.lbTenNguoiDung.Size = new System.Drawing.Size(0, 20);
+            this.lbTenNguoiDung.TabIndex = 2;
             // 
-            // lblLowCarb7Ngay
+            // lbTenMucTieu
             // 
-            this.lblLowCarb7Ngay.AutoSize = true;
-            this.lblLowCarb7Ngay.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLowCarb7Ngay.Location = new System.Drawing.Point(22, 67);
-            this.lblLowCarb7Ngay.Name = "lblLowCarb7Ngay";
-            this.lblLowCarb7Ngay.Size = new System.Drawing.Size(122, 20);
-            this.lblLowCarb7Ngay.TabIndex = 2;
-            this.lblLowCarb7Ngay.Text = "Low Carb 7 ngày";
-            // 
-            // lblThongTinLowCarb
-            // 
-            this.lblThongTinLowCarb.AutoSize = true;
-            this.lblThongTinLowCarb.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThongTinLowCarb.Location = new System.Drawing.Point(22, 99);
-            this.lblThongTinLowCarb.Name = "lblThongTinLowCarb";
-            this.lblThongTinLowCarb.Size = new System.Drawing.Size(178, 60);
-            this.lblThongTinLowCarb.TabIndex = 1;
-            this.lblThongTinLowCarb.Text = "Giảm carb cho cắt mỡ\r\n\r\nMục tiêu: 1800 kcal/ngày";
+            this.lbTenMucTieu.AutoSize = true;
+            this.lbTenMucTieu.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTenMucTieu.Location = new System.Drawing.Point(21, 67);
+            this.lbTenMucTieu.Name = "lbTenMucTieu";
+            this.lbTenMucTieu.Size = new System.Drawing.Size(73, 20);
+            this.lbTenMucTieu.TabIndex = 1;
+            this.lbTenMucTieu.Text = "Mục tiêu:";
             // 
             // lblTieuDeKeHoachAnUong
             // 
@@ -462,17 +405,6 @@
             this.pnlMonAnPhoBien.Size = new System.Drawing.Size(528, 734);
             this.pnlMonAnPhoBien.TabIndex = 4;
             // 
-            // picStar
-            // 
-            this.picStar.Image = global::HealthApp.Properties.Resources.starIcon;
-            this.picStar.ImageRotate = 0F;
-            this.picStar.Location = new System.Drawing.Point(153, 22);
-            this.picStar.Name = "picStar";
-            this.picStar.Size = new System.Drawing.Size(37, 33);
-            this.picStar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picStar.TabIndex = 1;
-            this.picStar.TabStop = false;
-            // 
             // lblMonAnPhoBien
             // 
             this.lblMonAnPhoBien.AutoSize = true;
@@ -540,17 +472,6 @@
             this.lblThangNay.TabIndex = 3;
             this.lblThangNay.Text = "Tháng này";
             // 
-            // picCalenderMonth
-            // 
-            this.picCalenderMonth.Image = global::HealthApp.Properties.Resources.scheduleIcon;
-            this.picCalenderMonth.ImageRotate = 0F;
-            this.picCalenderMonth.Location = new System.Drawing.Point(45, 51);
-            this.picCalenderMonth.Name = "picCalenderMonth";
-            this.picCalenderMonth.Size = new System.Drawing.Size(63, 60);
-            this.picCalenderMonth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picCalenderMonth.TabIndex = 2;
-            this.picCalenderMonth.TabStop = false;
-            // 
             // pnlThongKeDinhDuongTuan
             // 
             this.pnlThongKeDinhDuongTuan.BackColor = System.Drawing.Color.Transparent;
@@ -586,17 +507,6 @@
             this.lblChiSoCaloTuan.TabIndex = 2;
             this.lblChiSoCaloTuan.Text = "0 Kcal";
             // 
-            // picCalenderWeek
-            // 
-            this.picCalenderWeek.Image = global::HealthApp.Properties.Resources.scheduleIcon;
-            this.picCalenderWeek.ImageRotate = 0F;
-            this.picCalenderWeek.Location = new System.Drawing.Point(23, 51);
-            this.picCalenderWeek.Name = "picCalenderWeek";
-            this.picCalenderWeek.Size = new System.Drawing.Size(63, 60);
-            this.picCalenderWeek.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picCalenderWeek.TabIndex = 1;
-            this.picCalenderWeek.TabStop = false;
-            // 
             // lblTuanNay
             // 
             this.lblTuanNay.AutoSize = true;
@@ -631,17 +541,6 @@
             this.pnlThongTinLichSuAnUong7NgayGanNhat.Size = new System.Drawing.Size(1200, 281);
             this.pnlThongTinLichSuAnUong7NgayGanNhat.TabIndex = 0;
             // 
-            // picCalender2
-            // 
-            this.picCalender2.Image = global::HealthApp.Properties.Resources.History2Icon;
-            this.picCalender2.ImageRotate = 0F;
-            this.picCalender2.Location = new System.Drawing.Point(543, 86);
-            this.picCalender2.Name = "picCalender2";
-            this.picCalender2.Size = new System.Drawing.Size(133, 89);
-            this.picCalender2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picCalender2.TabIndex = 10;
-            this.picCalender2.TabStop = false;
-            // 
             // lblThongBaoThongTinLichSuAnUong7NgayGanNhat
             // 
             this.lblThongBaoThongTinLichSuAnUong7NgayGanNhat.AutoSize = true;
@@ -672,6 +571,31 @@
             this.lblLichSuAnUong7NgayGanNhat.TabIndex = 8;
             this.lblLichSuAnUong7NgayGanNhat.Text = "Lịch sử ăn uống 7 ngày gần nhất";
             // 
+            // pnlNhatKyBuaAn
+            // 
+            this.pnlNhatKyBuaAn.BackColor = System.Drawing.Color.Transparent;
+            this.pnlNhatKyBuaAn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.pnlNhatKyBuaAn.BorderRadius = 20;
+            this.pnlNhatKyBuaAn.BorderThickness = 2;
+            this.pnlNhatKyBuaAn.Controls.Add(this.lblNhatKyBuaAn);
+            this.pnlNhatKyBuaAn.Controls.Add(this.picFork);
+            this.pnlNhatKyBuaAn.Location = new System.Drawing.Point(56, 632);
+            this.pnlNhatKyBuaAn.Name = "pnlNhatKyBuaAn";
+            this.pnlNhatKyBuaAn.Size = new System.Drawing.Size(277, 66);
+            this.pnlNhatKyBuaAn.TabIndex = 4;
+            // 
+            // picFork
+            // 
+            this.picFork.Image = global::HealthApp.Properties.Resources.forkICon;
+            this.picFork.ImageRotate = 0F;
+            this.picFork.Location = new System.Drawing.Point(22, 5);
+            this.picFork.Name = "picFork";
+            this.picFork.Size = new System.Drawing.Size(40, 42);
+            this.picFork.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picFork.TabIndex = 2;
+            this.picFork.TabStop = false;
+            this.picFork.Click += new System.EventHandler(this.guna2PictureBox6_Click);
+            // 
             // picCalender
             // 
             this.picCalender.Image = global::HealthApp.Properties.Resources.HistoryIcon;
@@ -694,30 +618,105 @@
             this.picChart.TabIndex = 8;
             this.picChart.TabStop = false;
             // 
-            // picFork
+            // picCalender2
             // 
-            this.picFork.Image = global::HealthApp.Properties.Resources.forkICon;
-            this.picFork.ImageRotate = 0F;
-            this.picFork.Location = new System.Drawing.Point(22, 5);
-            this.picFork.Name = "picFork";
-            this.picFork.Size = new System.Drawing.Size(40, 42);
-            this.picFork.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picFork.TabIndex = 2;
-            this.picFork.TabStop = false;
-            this.picFork.Click += new System.EventHandler(this.guna2PictureBox6_Click);
+            this.picCalender2.Image = global::HealthApp.Properties.Resources.History2Icon;
+            this.picCalender2.ImageRotate = 0F;
+            this.picCalender2.Location = new System.Drawing.Point(543, 86);
+            this.picCalender2.Name = "picCalender2";
+            this.picCalender2.Size = new System.Drawing.Size(133, 89);
+            this.picCalender2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCalender2.TabIndex = 10;
+            this.picCalender2.TabStop = false;
             // 
-            // pnlNhatKyBuaAn
+            // picCalenderMonth
             // 
-            this.pnlNhatKyBuaAn.BackColor = System.Drawing.Color.Transparent;
-            this.pnlNhatKyBuaAn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.pnlNhatKyBuaAn.BorderRadius = 20;
-            this.pnlNhatKyBuaAn.BorderThickness = 2;
-            this.pnlNhatKyBuaAn.Controls.Add(this.lblNhatKyBuaAn);
-            this.pnlNhatKyBuaAn.Controls.Add(this.picFork);
-            this.pnlNhatKyBuaAn.Location = new System.Drawing.Point(56, 632);
-            this.pnlNhatKyBuaAn.Name = "pnlNhatKyBuaAn";
-            this.pnlNhatKyBuaAn.Size = new System.Drawing.Size(277, 66);
-            this.pnlNhatKyBuaAn.TabIndex = 4;
+            this.picCalenderMonth.Image = global::HealthApp.Properties.Resources.scheduleIcon;
+            this.picCalenderMonth.ImageRotate = 0F;
+            this.picCalenderMonth.Location = new System.Drawing.Point(45, 51);
+            this.picCalenderMonth.Name = "picCalenderMonth";
+            this.picCalenderMonth.Size = new System.Drawing.Size(63, 60);
+            this.picCalenderMonth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCalenderMonth.TabIndex = 2;
+            this.picCalenderMonth.TabStop = false;
+            // 
+            // picCalenderWeek
+            // 
+            this.picCalenderWeek.Image = global::HealthApp.Properties.Resources.scheduleIcon;
+            this.picCalenderWeek.ImageRotate = 0F;
+            this.picCalenderWeek.Location = new System.Drawing.Point(23, 51);
+            this.picCalenderWeek.Name = "picCalenderWeek";
+            this.picCalenderWeek.Size = new System.Drawing.Size(63, 60);
+            this.picCalenderWeek.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCalenderWeek.TabIndex = 1;
+            this.picCalenderWeek.TabStop = false;
+            // 
+            // picStar
+            // 
+            this.picStar.Image = global::HealthApp.Properties.Resources.starIcon;
+            this.picStar.ImageRotate = 0F;
+            this.picStar.Location = new System.Drawing.Point(153, 22);
+            this.picStar.Name = "picStar";
+            this.picStar.Size = new System.Drawing.Size(37, 33);
+            this.picStar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picStar.TabIndex = 1;
+            this.picStar.TabStop = false;
+            // 
+            // picCalenderKeHoach
+            // 
+            this.picCalenderKeHoach.Image = global::HealthApp.Properties.Resources.CalenderICon;
+            this.picCalenderKeHoach.ImageRotate = 0F;
+            this.picCalenderKeHoach.Location = new System.Drawing.Point(25, 22);
+            this.picCalenderKeHoach.Name = "picCalenderKeHoach";
+            this.picCalenderKeHoach.Size = new System.Drawing.Size(41, 37);
+            this.picCalenderKeHoach.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCalenderKeHoach.TabIndex = 3;
+            this.picCalenderKeHoach.TabStop = false;
+            // 
+            // picProtein
+            // 
+            this.picProtein.Image = global::HealthApp.Properties.Resources.ProteinIcon;
+            this.picProtein.ImageRotate = 0F;
+            this.picProtein.Location = new System.Drawing.Point(88, 42);
+            this.picProtein.Name = "picProtein";
+            this.picProtein.Size = new System.Drawing.Size(49, 47);
+            this.picProtein.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picProtein.TabIndex = 4;
+            this.picProtein.TabStop = false;
+            // 
+            // picBread
+            // 
+            this.picBread.Image = global::HealthApp.Properties.Resources.BreadIcon;
+            this.picBread.ImageRotate = 0F;
+            this.picBread.Location = new System.Drawing.Point(91, 42);
+            this.picBread.Name = "picBread";
+            this.picBread.Size = new System.Drawing.Size(49, 47);
+            this.picBread.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBread.TabIndex = 3;
+            this.picBread.TabStop = false;
+            // 
+            // picDumbbells
+            // 
+            this.picDumbbells.Image = global::HealthApp.Properties.Resources.dumbbellsIcon;
+            this.picDumbbells.ImageRotate = 0F;
+            this.picDumbbells.Location = new System.Drawing.Point(95, 42);
+            this.picDumbbells.Name = "picDumbbells";
+            this.picDumbbells.Size = new System.Drawing.Size(49, 47);
+            this.picDumbbells.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDumbbells.TabIndex = 2;
+            this.picDumbbells.TabStop = false;
+            this.picDumbbells.Click += new System.EventHandler(this.guna2PictureBox3_Click);
+            // 
+            // picFire
+            // 
+            this.picFire.Image = global::HealthApp.Properties.Resources.FireIcon;
+            this.picFire.ImageRotate = 0F;
+            this.picFire.Location = new System.Drawing.Point(87, 42);
+            this.picFire.Name = "picFire";
+            this.picFire.Size = new System.Drawing.Size(49, 47);
+            this.picFire.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picFire.TabIndex = 1;
+            this.picFire.TabStop = false;
             // 
             // ucNutrition
             // 
@@ -744,40 +743,40 @@
             this.pnlSection1.ResumeLayout(false);
             this.pnlCard4.ResumeLayout(false);
             this.pnlCard4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picProtein)).EndInit();
             this.pnlCard3.ResumeLayout(false);
             this.pnlCard3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBread)).EndInit();
             this.pnlCard2.ResumeLayout(false);
             this.pnlCard2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDumbbells)).EndInit();
             this.pnlCard1.ResumeLayout(false);
             this.pnlCard1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picFire)).EndInit();
             this.pnlKeHoachAnUong.ResumeLayout(false);
             this.pnlKeHoachAnUong.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCalenderKeHoach)).EndInit();
             this.pnlDanhSachNhatKyBuaAn.ResumeLayout(false);
             this.pnlDanhSachNhatKyBuaAn.PerformLayout();
             this.pnlMonAnPhoBien.ResumeLayout(false);
             this.pnlMonAnPhoBien.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picStar)).EndInit();
             this.pnlThongKeDinhDuongTuanVaThang.ResumeLayout(false);
             this.pnlThongKeDinhDuongThang.ResumeLayout(false);
             this.pnlThongKeDinhDuongThang.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCalenderMonth)).EndInit();
             this.pnlThongKeDinhDuongTuan.ResumeLayout(false);
             this.pnlThongKeDinhDuongTuan.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCalenderWeek)).EndInit();
             this.pnlLichSuAnUong7NgayGanNhat.ResumeLayout(false);
             this.pnlThongTinLichSuAnUong7NgayGanNhat.ResumeLayout(false);
             this.pnlThongTinLichSuAnUong7NgayGanNhat.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCalender2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picCalender)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picChart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picFork)).EndInit();
             this.pnlNhatKyBuaAn.ResumeLayout(false);
             this.pnlNhatKyBuaAn.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picFork)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCalender)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picChart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCalender2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCalenderMonth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCalenderWeek)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picStar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCalenderKeHoach)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picProtein)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBread)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDumbbells)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picFire)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -798,7 +797,7 @@
         private Guna.UI2.WinForms.Guna2Panel pnlCard1;
         private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2Panel pnlKeHoachAnUong;
-        private System.Windows.Forms.Label lblThongTinLowCarb;
+        private System.Windows.Forms.Label lbTenMucTieu;
         private System.Windows.Forms.Label lblTieuDeKeHoachAnUong;
         private Guna.UI2.WinForms.Guna2Panel pnlDanhSachNhatKyBuaAn;
         private Guna.UI2.WinForms.Guna2Panel pnlMonAnPhoBien;
@@ -806,7 +805,7 @@
         private Guna.UI2.WinForms.Guna2Panel pnlThongKeDinhDuongThang;
         private Guna.UI2.WinForms.Guna2Panel pnlThongKeDinhDuongTuan;
         private Guna.UI2.WinForms.Guna2Panel pnlLichSuAnUong7NgayGanNhat;
-        private System.Windows.Forms.Label lblLowCarb7Ngay;
+        private System.Windows.Forms.Label lbTenNguoiDung;
         private Guna.UI2.WinForms.Guna2PictureBox picCalenderKeHoach;
         private Guna.UI2.WinForms.Guna2PictureBox picFire;
         private Guna.UI2.WinForms.Guna2PictureBox picDumbbells;
