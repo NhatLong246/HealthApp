@@ -34,7 +34,6 @@
             this.lbl_TieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnl_background2 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.btn_GuiDonDangKy = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2CustomGradientPanel2 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.lbl_TaiAnhCCCD = new System.Windows.Forms.Label();
             this.btn_CCCD = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -45,26 +44,21 @@
             this.btn_ChonTep = new Guna.UI2.WinForms.Guna2GradientButton();
             this.txt_BangCap = new Guna.UI2.WinForms.Guna2TextBox();
             this.lbl_BangCap = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.txt_SoTaiKhoan = new Guna.UI2.WinForms.Guna2TextBox();
             this.lbl_SoTaiKhoan = new System.Windows.Forms.Label();
             this.cbo_TenNganHang = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.txt_ChuTaiKhoan = new Guna.UI2.WinForms.Guna2TextBox();
             this.lbl_ChuTaiKhoang = new System.Windows.Forms.Label();
             this.lbl_TenNganHang = new System.Windows.Forms.Label();
             this.pnl_AnhChanDung = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.ptr_AnhChanDung = new System.Windows.Forms.PictureBox();
             this.Ibl_AnhChanDung = new System.Windows.Forms.Label();
             this.btn_ChonAnh = new Guna.UI2.WinForms.Guna2Button();
-            this.lbl_AnhChanDung = new System.Windows.Forms.Label();
             this.dtp_NgayCap = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.lbl_NgayCap = new System.Windows.Forms.Label();
             this.txt_NoiCap = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_SoCCCD = new Guna.UI2.WinForms.Guna2TextBox();
             this.lbl_NoiCap = new System.Windows.Forms.Label();
             this.lbl_SoCCCD = new System.Windows.Forms.Label();
-            this.lbl_ThongTinCCCD = new System.Windows.Forms.Label();
             this.txt_SDT = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_Email = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_HoVaTen = new Guna.UI2.WinForms.Guna2TextBox();
@@ -72,19 +66,25 @@
             this.lbl_SDT = new System.Windows.Forms.Label();
             this.lbl_Email = new System.Windows.Forms.Label();
             this.lbl_HoVaTen = new System.Windows.Forms.Label();
-            this.lbl_ThongTinCaNhan = new System.Windows.Forms.Label();
             this.pnl_background1 = new Guna.UI2.WinForms.Guna2Panel();
             this.prg_TienDo = new Guna.UI2.WinForms.Guna2ProgressBar();
             this.lbl_HoanThanh = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lbl_HoSo = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lbl_background1_Tuade = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.btn_GuiDonDangKy = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ptr_AnhChanDung = new System.Windows.Forms.PictureBox();
+            this.lbl_AnhChanDung = new System.Windows.Forms.Label();
+            this.lbl_ThongTinCCCD = new System.Windows.Forms.Label();
+            this.lbl_ThongTinCaNhan = new System.Windows.Forms.Label();
             this.pnl_background.SuspendLayout();
             this.pnl_background2.SuspendLayout();
             this.guna2CustomGradientPanel2.SuspendLayout();
             this.pnl_BangCap.SuspendLayout();
             this.pnl_AnhChanDung.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptr_AnhChanDung)).BeginInit();
             this.pnl_background1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptr_AnhChanDung)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_Tieude2
@@ -107,9 +107,9 @@
             this.pnl_background.Controls.Add(this.pnl_background2);
             this.pnl_background.Controls.Add(this.pnl_background1);
             this.pnl_background.Controls.Add(this.lbl_Tieude2);
-            this.pnl_background.Location = new System.Drawing.Point(2, 1);
+            this.pnl_background.Location = new System.Drawing.Point(2, -3);
             this.pnl_background.Name = "pnl_background";
-            this.pnl_background.Size = new System.Drawing.Size(1332, 1740);
+            this.pnl_background.Size = new System.Drawing.Size(1332, 1744);
             this.pnl_background.TabIndex = 2;
             this.pnl_background.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_background_Paint);
             // 
@@ -176,22 +176,6 @@
             this.guna2DateTimePicker1.Size = new System.Drawing.Size(367, 41);
             this.guna2DateTimePicker1.TabIndex = 32;
             this.guna2DateTimePicker1.Value = new System.DateTime(2025, 10, 21, 13, 35, 7, 962);
-            // 
-            // btn_GuiDonDangKy
-            // 
-            this.btn_GuiDonDangKy.BorderColor = System.Drawing.Color.Transparent;
-            this.btn_GuiDonDangKy.BorderRadius = 15;
-            this.btn_GuiDonDangKy.BorderThickness = 1;
-            this.btn_GuiDonDangKy.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btn_GuiDonDangKy.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btn_GuiDonDangKy.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_GuiDonDangKy.ForeColor = System.Drawing.Color.White;
-            this.btn_GuiDonDangKy.Image = ((System.Drawing.Image)(resources.GetObject("btn_GuiDonDangKy.Image")));
-            this.btn_GuiDonDangKy.Location = new System.Drawing.Point(348, 1386);
-            this.btn_GuiDonDangKy.Name = "btn_GuiDonDangKy";
-            this.btn_GuiDonDangKy.Size = new System.Drawing.Size(223, 49);
-            this.btn_GuiDonDangKy.TabIndex = 31;
-            this.btn_GuiDonDangKy.Text = "Gửi Đơn Đăng Ký";
             // 
             // guna2CustomGradientPanel2
             // 
@@ -335,18 +319,6 @@
             this.lbl_BangCap.TabIndex = 0;
             this.lbl_BangCap.Text = "Bằng cấp/ Chứng chỉ";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(25, 982);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(171, 23);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "      Tài liệu bổ sung";
-            // 
             // txt_SoTaiKhoan
             // 
             this.txt_SoTaiKhoan.BorderRadius = 15;
@@ -392,18 +364,6 @@
             this.cbo_TenNganHang.Name = "cbo_TenNganHang";
             this.cbo_TenNganHang.Size = new System.Drawing.Size(365, 36);
             this.cbo_TenNganHang.TabIndex = 24;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
-            this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label3.Location = new System.Drawing.Point(25, 761);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(210, 23);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "      Thông tin ngân hàng";
             // 
             // txt_ChuTaiKhoan
             // 
@@ -460,16 +420,6 @@
             this.pnl_AnhChanDung.Size = new System.Drawing.Size(814, 200);
             this.pnl_AnhChanDung.TabIndex = 18;
             // 
-            // ptr_AnhChanDung
-            // 
-            this.ptr_AnhChanDung.Image = ((System.Drawing.Image)(resources.GetObject("ptr_AnhChanDung.Image")));
-            this.ptr_AnhChanDung.Location = new System.Drawing.Point(372, 18);
-            this.ptr_AnhChanDung.Name = "ptr_AnhChanDung";
-            this.ptr_AnhChanDung.Size = new System.Drawing.Size(95, 75);
-            this.ptr_AnhChanDung.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptr_AnhChanDung.TabIndex = 2;
-            this.ptr_AnhChanDung.TabStop = false;
-            // 
             // Ibl_AnhChanDung
             // 
             this.Ibl_AnhChanDung.AutoSize = true;
@@ -494,18 +444,6 @@
             this.btn_ChonAnh.Size = new System.Drawing.Size(131, 45);
             this.btn_ChonAnh.TabIndex = 0;
             this.btn_ChonAnh.Text = "Chọn Ảnh";
-            // 
-            // lbl_AnhChanDung
-            // 
-            this.lbl_AnhChanDung.AutoSize = true;
-            this.lbl_AnhChanDung.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_AnhChanDung.Image = ((System.Drawing.Image)(resources.GetObject("lbl_AnhChanDung.Image")));
-            this.lbl_AnhChanDung.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_AnhChanDung.Location = new System.Drawing.Point(25, 459);
-            this.lbl_AnhChanDung.Name = "lbl_AnhChanDung";
-            this.lbl_AnhChanDung.Size = new System.Drawing.Size(163, 23);
-            this.lbl_AnhChanDung.TabIndex = 17;
-            this.lbl_AnhChanDung.Text = "      Ảnh chân dung";
             // 
             // dtp_NgayCap
             // 
@@ -593,18 +531,6 @@
             this.lbl_SoCCCD.Size = new System.Drawing.Size(68, 17);
             this.lbl_SoCCCD.TabIndex = 11;
             this.lbl_SoCCCD.Text = "Số CCCD";
-            // 
-            // lbl_ThongTinCCCD
-            // 
-            this.lbl_ThongTinCCCD.AutoSize = true;
-            this.lbl_ThongTinCCCD.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ThongTinCCCD.Image = ((System.Drawing.Image)(resources.GetObject("lbl_ThongTinCCCD.Image")));
-            this.lbl_ThongTinCCCD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_ThongTinCCCD.Location = new System.Drawing.Point(17, 243);
-            this.lbl_ThongTinCCCD.Name = "lbl_ThongTinCCCD";
-            this.lbl_ThongTinCCCD.Size = new System.Drawing.Size(181, 23);
-            this.lbl_ThongTinCCCD.TabIndex = 10;
-            this.lbl_ThongTinCCCD.Text = "      Thông tin CCCD";
             // 
             // txt_SDT
             // 
@@ -706,18 +632,6 @@
             this.lbl_HoVaTen.TabIndex = 2;
             this.lbl_HoVaTen.Text = "Họ và Tên";
             // 
-            // lbl_ThongTinCaNhan
-            // 
-            this.lbl_ThongTinCaNhan.AutoSize = true;
-            this.lbl_ThongTinCaNhan.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ThongTinCaNhan.Image = ((System.Drawing.Image)(resources.GetObject("lbl_ThongTinCaNhan.Image")));
-            this.lbl_ThongTinCaNhan.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_ThongTinCaNhan.Location = new System.Drawing.Point(17, 17);
-            this.lbl_ThongTinCaNhan.Name = "lbl_ThongTinCaNhan";
-            this.lbl_ThongTinCaNhan.Size = new System.Drawing.Size(189, 23);
-            this.lbl_ThongTinCaNhan.TabIndex = 1;
-            this.lbl_ThongTinCaNhan.Text = "      Thông tin cá nhân";
-            // 
             // pnl_background1
             // 
             this.pnl_background1.BackColor = System.Drawing.Color.White;
@@ -774,6 +688,92 @@
             this.lbl_background1_Tuade.TabIndex = 0;
             this.lbl_background1_Tuade.Text = "Tiến độ đăng ký";
             // 
+            // btn_GuiDonDangKy
+            // 
+            this.btn_GuiDonDangKy.BorderColor = System.Drawing.Color.Transparent;
+            this.btn_GuiDonDangKy.BorderRadius = 15;
+            this.btn_GuiDonDangKy.BorderThickness = 1;
+            this.btn_GuiDonDangKy.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btn_GuiDonDangKy.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btn_GuiDonDangKy.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_GuiDonDangKy.ForeColor = System.Drawing.Color.White;
+            this.btn_GuiDonDangKy.Image = ((System.Drawing.Image)(resources.GetObject("btn_GuiDonDangKy.Image")));
+            this.btn_GuiDonDangKy.Location = new System.Drawing.Point(348, 1386);
+            this.btn_GuiDonDangKy.Name = "btn_GuiDonDangKy";
+            this.btn_GuiDonDangKy.Size = new System.Drawing.Size(223, 49);
+            this.btn_GuiDonDangKy.TabIndex = 31;
+            this.btn_GuiDonDangKy.Text = "Gửi Đơn Đăng Ký";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Location = new System.Drawing.Point(25, 982);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(171, 23);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "      Tài liệu bổ sung";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
+            this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label3.Location = new System.Drawing.Point(25, 761);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(210, 23);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "      Thông tin ngân hàng";
+            // 
+            // ptr_AnhChanDung
+            // 
+            this.ptr_AnhChanDung.Image = ((System.Drawing.Image)(resources.GetObject("ptr_AnhChanDung.Image")));
+            this.ptr_AnhChanDung.Location = new System.Drawing.Point(372, 18);
+            this.ptr_AnhChanDung.Name = "ptr_AnhChanDung";
+            this.ptr_AnhChanDung.Size = new System.Drawing.Size(95, 75);
+            this.ptr_AnhChanDung.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptr_AnhChanDung.TabIndex = 2;
+            this.ptr_AnhChanDung.TabStop = false;
+            // 
+            // lbl_AnhChanDung
+            // 
+            this.lbl_AnhChanDung.AutoSize = true;
+            this.lbl_AnhChanDung.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_AnhChanDung.Image = ((System.Drawing.Image)(resources.GetObject("lbl_AnhChanDung.Image")));
+            this.lbl_AnhChanDung.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_AnhChanDung.Location = new System.Drawing.Point(25, 459);
+            this.lbl_AnhChanDung.Name = "lbl_AnhChanDung";
+            this.lbl_AnhChanDung.Size = new System.Drawing.Size(163, 23);
+            this.lbl_AnhChanDung.TabIndex = 17;
+            this.lbl_AnhChanDung.Text = "      Ảnh chân dung";
+            // 
+            // lbl_ThongTinCCCD
+            // 
+            this.lbl_ThongTinCCCD.AutoSize = true;
+            this.lbl_ThongTinCCCD.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ThongTinCCCD.Image = ((System.Drawing.Image)(resources.GetObject("lbl_ThongTinCCCD.Image")));
+            this.lbl_ThongTinCCCD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_ThongTinCCCD.Location = new System.Drawing.Point(17, 243);
+            this.lbl_ThongTinCCCD.Name = "lbl_ThongTinCCCD";
+            this.lbl_ThongTinCCCD.Size = new System.Drawing.Size(181, 23);
+            this.lbl_ThongTinCCCD.TabIndex = 10;
+            this.lbl_ThongTinCCCD.Text = "      Thông tin CCCD";
+            // 
+            // lbl_ThongTinCaNhan
+            // 
+            this.lbl_ThongTinCaNhan.AutoSize = true;
+            this.lbl_ThongTinCaNhan.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ThongTinCaNhan.Image = ((System.Drawing.Image)(resources.GetObject("lbl_ThongTinCaNhan.Image")));
+            this.lbl_ThongTinCaNhan.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_ThongTinCaNhan.Location = new System.Drawing.Point(17, 17);
+            this.lbl_ThongTinCaNhan.Name = "lbl_ThongTinCaNhan";
+            this.lbl_ThongTinCaNhan.Size = new System.Drawing.Size(189, 23);
+            this.lbl_ThongTinCaNhan.TabIndex = 1;
+            this.lbl_ThongTinCaNhan.Text = "      Thông tin cá nhân";
+            // 
             // frm_DangKy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -793,9 +793,9 @@
             this.pnl_BangCap.PerformLayout();
             this.pnl_AnhChanDung.ResumeLayout(false);
             this.pnl_AnhChanDung.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptr_AnhChanDung)).EndInit();
             this.pnl_background1.ResumeLayout(false);
             this.pnl_background1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptr_AnhChanDung)).EndInit();
             this.ResumeLayout(false);
 
         }

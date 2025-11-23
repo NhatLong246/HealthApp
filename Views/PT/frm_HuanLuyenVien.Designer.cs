@@ -59,6 +59,7 @@
             this.btnTatCaTinNhan = new Guna.UI2.WinForms.Guna2GradientButton();
             this.pnlLichTrinh = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlLichTrinh1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.lblDienRa = new System.Windows.Forms.Label();
             this.lblLichKhachHang1 = new System.Windows.Forms.Label();
             this.lblTime2 = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
@@ -67,7 +68,6 @@
             this.lbl_LichTrinh = new System.Windows.Forms.Label();
             this.btn_Lich = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton1 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.lblDienRa = new System.Windows.Forms.Label();
             this.pnlKhachHang.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrKhachHang)).BeginInit();
             this.pnlBuoiTap.SuspendLayout();
@@ -329,7 +329,7 @@
             this.pnlDanhSach1.Controls.Add(this.pnlImageDachSach1);
             this.pnlDanhSach1.FillColor = System.Drawing.Color.Honeydew;
             this.pnlDanhSach1.ForeColor = System.Drawing.SystemColors.Menu;
-            this.pnlDanhSach1.Location = new System.Drawing.Point(2, 14);
+            this.pnlDanhSach1.Location = new System.Drawing.Point(6, 14);
             this.pnlDanhSach1.Name = "pnlDanhSach1";
             this.pnlDanhSach1.Radius = 10;
             this.pnlDanhSach1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
@@ -455,6 +455,20 @@
             this.pnlLichTrinh1.ShadowShift = 1;
             this.pnlLichTrinh1.Size = new System.Drawing.Size(790, 80);
             this.pnlLichTrinh1.TabIndex = 4;
+            this.pnlLichTrinh1.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlLichTrinh1_Paint);
+            // 
+            // lblDienRa
+            // 
+            this.lblDienRa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblDienRa.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDienRa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblDienRa.Location = new System.Drawing.Point(645, 46);
+            this.lblDienRa.MaximumSize = new System.Drawing.Size(300, 100);
+            this.lblDienRa.Name = "lblDienRa";
+            this.lblDienRa.Size = new System.Drawing.Size(130, 23);
+            this.lblDienRa.TabIndex = 5;
+            this.lblDienRa.Text = "Đang diễn ra";
+            this.lblDienRa.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblLichKhachHang1
             // 
@@ -552,19 +566,6 @@
             this.guna2GradientButton1.Size = new System.Drawing.Size(305, 40);
             this.guna2GradientButton1.TabIndex = 33;
             this.guna2GradientButton1.Text = "Tìm kiếm khách hàng tiềm năng";
-            // 
-            // lblDienRa
-            // 
-            this.lblDienRa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.lblDienRa.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDienRa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblDienRa.Location = new System.Drawing.Point(645, 46);
-            this.lblDienRa.MaximumSize = new System.Drawing.Size(300, 100);
-            this.lblDienRa.Name = "lblDienRa";
-            this.lblDienRa.Size = new System.Drawing.Size(130, 23);
-            this.lblDienRa.TabIndex = 5;
-            this.lblDienRa.Text = "Đang diễn ra";
-            this.lblDienRa.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frm_HuanLuyenVien
             // 
