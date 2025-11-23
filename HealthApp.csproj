@@ -289,6 +289,18 @@
     <Compile Include="Views\PT\YeuCauTapLuyen.Designer.cs">
       <DependentUpon>YeuCauTapLuyen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PT\frm_LichPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frm_LichPT.Designer.cs">
+      <DependentUpon>frm_LichPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PT\frm_ThanhToanPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frm_ThanhToanPT.Designer.cs">
+      <DependentUpon>frm_ThanhToanPT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dashboard\frmDashBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -387,6 +399,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PT\YeuCauTapLuyen.resx">
       <DependentUpon>YeuCauTapLuyen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frm_LichPT.resx">
+      <DependentUpon>frm_LichPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frm_ThanhToanPT.resx">
+      <DependentUpon>frm_ThanhToanPT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Dashboard\frmDashBoard.resx">
       <DependentUpon>frmDashBoard.cs</DependentUpon>
