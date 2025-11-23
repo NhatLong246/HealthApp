@@ -1,0 +1,40 @@
+using System.Threading.Tasks;
+using HealthApp.Models;
+
+namespace HealthApp.Services.Interfaces
+{
+    /// <summary>
+    /// Service interface cho PT (Personal Trainer) operations
+    /// </summary>
+    public interface IPTService
+    {
+        /// <summary>
+        /// Đăng ký trở thành PT
+        /// </summary>
+        /// <param name="huanLuyenVien">Thông tin huấn luyện viên</param>
+        /// <param name="userId">UserID của người đăng ký</param>
+        /// <returns>Kết quả đăng ký</returns>
+        Task<PTRegistrationResult> RegisterPTAsync(HuanLuyenVien huanLuyenVien, string userId);
+
+        /// <summary>
+        /// Kiểm tra user đã đăng ký PT chưa
+        /// </summary>
+        Task<bool> IsPTRegisteredAsync(string userId);
+
+        /// <summary>
+        /// Tạo PTID mới
+        /// </summary>
+        Task<string> GeneratePTIDAsync();
+    }
+
+    /// <summary>
+    /// Kết quả đăng ký PT
+    /// </summary>
+    public class PTRegistrationResult
+    {
+        public bool Success { get; set; }
+        public string Message { get; set; }
+        public HuanLuyenVien HuanLuyenVien { get; set; }
+    }
+}
+

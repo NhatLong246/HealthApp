@@ -30,6 +30,10 @@ namespace HealthApp.Models
 
         public int? ThoiLuong { get; set; }
 
+        public DateTime ThoiGianBatDau { get; set; }
+
+        public DateTime ThoiGianKetThuc { get; set; }
+
         [StringLength(50)]
         public string LoaiBuoiTap { get; set; }
 

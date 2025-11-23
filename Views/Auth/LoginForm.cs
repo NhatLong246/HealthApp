@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HealthApp.Controllers;
+using HealthApp.Views.Dashboard;
 
 namespace HealthApp.Views.Auth
 {
@@ -66,9 +67,8 @@ namespace HealthApp.Views.Auth
                     MessageBox.Show(result.Message, "Thành công", 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Đóng form đăng nhập
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    // Mở form Dashboard
+                    NavigateToDashboard();
                 }
                 else
                 {
@@ -166,6 +166,26 @@ namespace HealthApp.Views.Auth
                 MessageBox.Show($"Lỗi khi mở form quên mật khẩu: {ex.Message}", "Lỗi", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Show();
+            }
+        }
+
+        /// <summary>
+        /// Điều hướng đến form Dashboard sau khi đăng nhập thành công
+        /// </summary>
+        private void NavigateToDashboard()
+        {
+            try
+            {
+                // Set DialogResult để Program.cs biết đăng nhập thành công
+                this.DialogResult = DialogResult.OK;
+                
+                // Đóng form đăng nhập
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi điều hướng: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

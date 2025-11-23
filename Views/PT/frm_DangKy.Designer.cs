@@ -31,9 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_DangKy));
             this.lbl_Tieude2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnl_background = new System.Windows.Forms.Panel();
+            this.btnBack = new Guna.UI2.WinForms.Guna2CircleButton();
             this.lbl_TieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnl_background2 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.btn_GuiDonDangKy = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2CustomGradientPanel2 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.lbl_TaiAnhCCCD = new System.Windows.Forms.Label();
             this.btn_CCCD = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -44,21 +46,26 @@
             this.btn_ChonTep = new Guna.UI2.WinForms.Guna2GradientButton();
             this.txt_BangCap = new Guna.UI2.WinForms.Guna2TextBox();
             this.lbl_BangCap = new System.Windows.Forms.Label();
-            this.txt_SoTaiKhoan = new Guna.UI2.WinForms.Guna2TextBox();
-            this.lbl_SoTaiKhoan = new System.Windows.Forms.Label();
-            this.cbo_TenNganHang = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txt_ThanhPho = new Guna.UI2.WinForms.Guna2TextBox();
+            this.lbl_ThanhPho = new System.Windows.Forms.Label();
+            this.cbo_ChuyenMon = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txt_ChuTaiKhoan = new Guna.UI2.WinForms.Guna2TextBox();
-            this.lbl_ChuTaiKhoang = new System.Windows.Forms.Label();
-            this.lbl_TenNganHang = new System.Windows.Forms.Label();
+            this.lbl_NamKinhNghiem = new System.Windows.Forms.Label();
+            this.lbl_ChuyenMon = new System.Windows.Forms.Label();
             this.pnl_AnhChanDung = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.ptr_AnhChanDung = new System.Windows.Forms.PictureBox();
             this.Ibl_AnhChanDung = new System.Windows.Forms.Label();
             this.btn_ChonAnh = new Guna.UI2.WinForms.Guna2Button();
+            this.lbl_AnhChanDung = new System.Windows.Forms.Label();
             this.dtp_NgayCap = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.lbl_NgayCap = new System.Windows.Forms.Label();
             this.txt_NoiCap = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_SoCCCD = new Guna.UI2.WinForms.Guna2TextBox();
             this.lbl_NoiCap = new System.Windows.Forms.Label();
             this.lbl_SoCCCD = new System.Windows.Forms.Label();
+            this.lbl_ThongTinCCCD = new System.Windows.Forms.Label();
             this.txt_SDT = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_Email = new Guna.UI2.WinForms.Guna2TextBox();
             this.txt_HoVaTen = new Guna.UI2.WinForms.Guna2TextBox();
@@ -66,24 +73,16 @@
             this.lbl_SDT = new System.Windows.Forms.Label();
             this.lbl_Email = new System.Windows.Forms.Label();
             this.lbl_HoVaTen = new System.Windows.Forms.Label();
-            this.pnl_background1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.prg_TienDo = new Guna.UI2.WinForms.Guna2ProgressBar();
-            this.lbl_HoanThanh = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lbl_HoSo = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lbl_background1_Tuade = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btn_GuiDonDangKy = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.ptr_AnhChanDung = new System.Windows.Forms.PictureBox();
-            this.lbl_AnhChanDung = new System.Windows.Forms.Label();
-            this.lbl_ThongTinCCCD = new System.Windows.Forms.Label();
             this.lbl_ThongTinCaNhan = new System.Windows.Forms.Label();
+            this.txt_TienTheoGio = new Guna.UI2.WinForms.Guna2TextBox();
+            this.lbl_TienTheoGio = new System.Windows.Forms.Label();
+            this.txt_ChungChi = new Guna.UI2.WinForms.Guna2TextBox();
+            this.lbl_ChungChi = new System.Windows.Forms.Label();
             this.pnl_background.SuspendLayout();
             this.pnl_background2.SuspendLayout();
             this.guna2CustomGradientPanel2.SuspendLayout();
             this.pnl_BangCap.SuspendLayout();
             this.pnl_AnhChanDung.SuspendLayout();
-            this.pnl_background1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptr_AnhChanDung)).BeginInit();
             this.SuspendLayout();
             // 
@@ -103,15 +102,32 @@
             // 
             this.pnl_background.AutoScroll = true;
             this.pnl_background.BackColor = System.Drawing.Color.LightCyan;
+            this.pnl_background.Controls.Add(this.btnBack);
             this.pnl_background.Controls.Add(this.lbl_TieuDe);
             this.pnl_background.Controls.Add(this.pnl_background2);
-            this.pnl_background.Controls.Add(this.pnl_background1);
             this.pnl_background.Controls.Add(this.lbl_Tieude2);
             this.pnl_background.Location = new System.Drawing.Point(2, -3);
             this.pnl_background.Name = "pnl_background";
-            this.pnl_background.Size = new System.Drawing.Size(1332, 1744);
+            this.pnl_background.Size = new System.Drawing.Size(1324, 1589);
             this.pnl_background.TabIndex = 2;
             this.pnl_background.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_background_Paint);
+            // 
+            // btnBack
+            // 
+            this.btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBack.FillColor = System.Drawing.Color.White;
+            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
+            this.btnBack.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnBack.Location = new System.Drawing.Point(11, 16);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.btnBack.Size = new System.Drawing.Size(57, 45);
+            this.btnBack.TabIndex = 5;
             // 
             // lbl_TieuDe
             // 
@@ -126,18 +142,22 @@
             // pnl_background2
             // 
             this.pnl_background2.BackColor = System.Drawing.Color.White;
+            this.pnl_background2.Controls.Add(this.txt_ChungChi);
+            this.pnl_background2.Controls.Add(this.lbl_ChungChi);
+            this.pnl_background2.Controls.Add(this.txt_TienTheoGio);
+            this.pnl_background2.Controls.Add(this.lbl_TienTheoGio);
             this.pnl_background2.Controls.Add(this.guna2DateTimePicker1);
             this.pnl_background2.Controls.Add(this.btn_GuiDonDangKy);
             this.pnl_background2.Controls.Add(this.guna2CustomGradientPanel2);
             this.pnl_background2.Controls.Add(this.pnl_BangCap);
             this.pnl_background2.Controls.Add(this.label1);
-            this.pnl_background2.Controls.Add(this.txt_SoTaiKhoan);
-            this.pnl_background2.Controls.Add(this.lbl_SoTaiKhoan);
-            this.pnl_background2.Controls.Add(this.cbo_TenNganHang);
+            this.pnl_background2.Controls.Add(this.txt_ThanhPho);
+            this.pnl_background2.Controls.Add(this.lbl_ThanhPho);
+            this.pnl_background2.Controls.Add(this.cbo_ChuyenMon);
             this.pnl_background2.Controls.Add(this.label3);
             this.pnl_background2.Controls.Add(this.txt_ChuTaiKhoan);
-            this.pnl_background2.Controls.Add(this.lbl_ChuTaiKhoang);
-            this.pnl_background2.Controls.Add(this.lbl_TenNganHang);
+            this.pnl_background2.Controls.Add(this.lbl_NamKinhNghiem);
+            this.pnl_background2.Controls.Add(this.lbl_ChuyenMon);
             this.pnl_background2.Controls.Add(this.pnl_AnhChanDung);
             this.pnl_background2.Controls.Add(this.lbl_AnhChanDung);
             this.pnl_background2.Controls.Add(this.dtp_NgayCap);
@@ -155,7 +175,7 @@
             this.pnl_background2.Controls.Add(this.lbl_Email);
             this.pnl_background2.Controls.Add(this.lbl_HoVaTen);
             this.pnl_background2.Controls.Add(this.lbl_ThongTinCaNhan);
-            this.pnl_background2.Location = new System.Drawing.Point(202, 259);
+            this.pnl_background2.Location = new System.Drawing.Point(230, 94);
             this.pnl_background2.Name = "pnl_background2";
             this.pnl_background2.Size = new System.Drawing.Size(896, 1456);
             this.pnl_background2.TabIndex = 3;
@@ -176,6 +196,22 @@
             this.guna2DateTimePicker1.Size = new System.Drawing.Size(367, 41);
             this.guna2DateTimePicker1.TabIndex = 32;
             this.guna2DateTimePicker1.Value = new System.DateTime(2025, 10, 21, 13, 35, 7, 962);
+            // 
+            // btn_GuiDonDangKy
+            // 
+            this.btn_GuiDonDangKy.BorderColor = System.Drawing.Color.Transparent;
+            this.btn_GuiDonDangKy.BorderRadius = 15;
+            this.btn_GuiDonDangKy.BorderThickness = 1;
+            this.btn_GuiDonDangKy.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btn_GuiDonDangKy.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btn_GuiDonDangKy.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_GuiDonDangKy.ForeColor = System.Drawing.Color.White;
+            this.btn_GuiDonDangKy.Image = ((System.Drawing.Image)(resources.GetObject("btn_GuiDonDangKy.Image")));
+            this.btn_GuiDonDangKy.Location = new System.Drawing.Point(348, 1386);
+            this.btn_GuiDonDangKy.Name = "btn_GuiDonDangKy";
+            this.btn_GuiDonDangKy.Size = new System.Drawing.Size(223, 49);
+            this.btn_GuiDonDangKy.TabIndex = 31;
+            this.btn_GuiDonDangKy.Text = "Gửi Đơn Đăng Ký";
             // 
             // guna2CustomGradientPanel2
             // 
@@ -210,7 +246,7 @@
             this.btn_CCCD.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btn_CCCD.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_CCCD.ForeColor = System.Drawing.Color.White;
-            this.btn_CCCD.Location = new System.Drawing.Point(42, 62);
+            this.btn_CCCD.Location = new System.Drawing.Point(669, 61);
             this.btn_CCCD.Name = "btn_CCCD";
             this.btn_CCCD.Size = new System.Drawing.Size(97, 33);
             this.btn_CCCD.TabIndex = 29;
@@ -220,7 +256,7 @@
             // 
             this.txt_TaiLieu_CCCD.BorderRadius = 15;
             this.txt_TaiLieu_CCCD.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt_TaiLieu_CCCD.DefaultText = "                           Không có tệp nào được chọn";
+            this.txt_TaiLieu_CCCD.DefaultText = "Không có tệp nào được chọn";
             this.txt_TaiLieu_CCCD.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.txt_TaiLieu_CCCD.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txt_TaiLieu_CCCD.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
@@ -281,7 +317,7 @@
             this.btn_ChonTep.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btn_ChonTep.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_ChonTep.ForeColor = System.Drawing.Color.White;
-            this.btn_ChonTep.Location = new System.Drawing.Point(42, 62);
+            this.btn_ChonTep.Location = new System.Drawing.Point(669, 63);
             this.btn_ChonTep.Name = "btn_ChonTep";
             this.btn_ChonTep.Size = new System.Drawing.Size(97, 33);
             this.btn_ChonTep.TabIndex = 29;
@@ -291,7 +327,7 @@
             // 
             this.txt_BangCap.BorderRadius = 15;
             this.txt_BangCap.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt_BangCap.DefaultText = "                           Không có tệp nào được chọn";
+            this.txt_BangCap.DefaultText = "Không có tệp nào được chọn";
             this.txt_BangCap.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.txt_BangCap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txt_BangCap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
@@ -319,51 +355,77 @@
             this.lbl_BangCap.TabIndex = 0;
             this.lbl_BangCap.Text = "Bằng cấp/ Chứng chỉ";
             // 
-            // txt_SoTaiKhoan
+            // label1
             // 
-            this.txt_SoTaiKhoan.BorderRadius = 15;
-            this.txt_SoTaiKhoan.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt_SoTaiKhoan.DefaultText = "";
-            this.txt_SoTaiKhoan.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txt_SoTaiKhoan.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txt_SoTaiKhoan.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt_SoTaiKhoan.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt_SoTaiKhoan.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_SoTaiKhoan.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txt_SoTaiKhoan.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_SoTaiKhoan.Location = new System.Drawing.Point(490, 828);
-            this.txt_SoTaiKhoan.Margin = new System.Windows.Forms.Padding(4);
-            this.txt_SoTaiKhoan.Name = "txt_SoTaiKhoan";
-            this.txt_SoTaiKhoan.PlaceholderText = "";
-            this.txt_SoTaiKhoan.SelectedText = "";
-            this.txt_SoTaiKhoan.Size = new System.Drawing.Size(365, 41);
-            this.txt_SoTaiKhoan.TabIndex = 26;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Location = new System.Drawing.Point(25, 982);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(171, 23);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "      Tài liệu bổ sung";
             // 
-            // lbl_SoTaiKhoan
+            // txt_ThanhPho
             // 
-            this.lbl_SoTaiKhoan.AutoSize = true;
-            this.lbl_SoTaiKhoan.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_SoTaiKhoan.Location = new System.Drawing.Point(487, 808);
-            this.lbl_SoTaiKhoan.Name = "lbl_SoTaiKhoan";
-            this.lbl_SoTaiKhoan.Size = new System.Drawing.Size(80, 17);
-            this.lbl_SoTaiKhoan.TabIndex = 25;
-            this.lbl_SoTaiKhoan.Text = "Số tài khoản";
+            this.txt_ThanhPho.BorderRadius = 15;
+            this.txt_ThanhPho.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_ThanhPho.DefaultText = "";
+            this.txt_ThanhPho.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txt_ThanhPho.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txt_ThanhPho.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_ThanhPho.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_ThanhPho.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_ThanhPho.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txt_ThanhPho.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_ThanhPho.Location = new System.Drawing.Point(227, 751);
+            this.txt_ThanhPho.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_ThanhPho.Name = "txt_ThanhPho";
+            this.txt_ThanhPho.PlaceholderText = "";
+            this.txt_ThanhPho.SelectedText = "";
+            this.txt_ThanhPho.Size = new System.Drawing.Size(365, 41);
+            this.txt_ThanhPho.TabIndex = 26;
+            this.txt_ThanhPho.TextChanged += new System.EventHandler(this.txt_ThanhPho_TextChanged);
             // 
-            // cbo_TenNganHang
+            // lbl_ThanhPho
             // 
-            this.cbo_TenNganHang.BackColor = System.Drawing.Color.Transparent;
-            this.cbo_TenNganHang.BorderRadius = 15;
-            this.cbo_TenNganHang.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbo_TenNganHang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbo_TenNganHang.FocusedColor = System.Drawing.Color.Empty;
-            this.cbo_TenNganHang.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbo_TenNganHang.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cbo_TenNganHang.FormattingEnabled = true;
-            this.cbo_TenNganHang.ItemHeight = 30;
-            this.cbo_TenNganHang.Location = new System.Drawing.Point(29, 828);
-            this.cbo_TenNganHang.Name = "cbo_TenNganHang";
-            this.cbo_TenNganHang.Size = new System.Drawing.Size(365, 36);
-            this.cbo_TenNganHang.TabIndex = 24;
+            this.lbl_ThanhPho.AutoSize = true;
+            this.lbl_ThanhPho.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ThanhPho.Location = new System.Drawing.Point(224, 731);
+            this.lbl_ThanhPho.Name = "lbl_ThanhPho";
+            this.lbl_ThanhPho.Size = new System.Drawing.Size(100, 17);
+            this.lbl_ThanhPho.TabIndex = 25;
+            this.lbl_ThanhPho.Text = "Tỉnh/Thành phố";
+            this.lbl_ThanhPho.Click += new System.EventHandler(this.lbl_ThanhPho_Click);
+            // 
+            // cbo_ChuyenMon
+            // 
+            this.cbo_ChuyenMon.BackColor = System.Drawing.Color.Transparent;
+            this.cbo_ChuyenMon.BorderRadius = 15;
+            this.cbo_ChuyenMon.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbo_ChuyenMon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbo_ChuyenMon.FocusedColor = System.Drawing.Color.Empty;
+            this.cbo_ChuyenMon.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbo_ChuyenMon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cbo_ChuyenMon.FormattingEnabled = true;
+            this.cbo_ChuyenMon.ItemHeight = 30;
+            this.cbo_ChuyenMon.Location = new System.Drawing.Point(29, 828);
+            this.cbo_ChuyenMon.Name = "cbo_ChuyenMon";
+            this.cbo_ChuyenMon.Size = new System.Drawing.Size(365, 36);
+            this.cbo_ChuyenMon.TabIndex = 24;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
+            this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label3.Location = new System.Drawing.Point(25, 713);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(133, 23);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "      Chi tiết PT";
             // 
             // txt_ChuTaiKhoan
             // 
@@ -382,28 +444,28 @@
             this.txt_ChuTaiKhoan.Name = "txt_ChuTaiKhoan";
             this.txt_ChuTaiKhoan.PlaceholderText = "";
             this.txt_ChuTaiKhoan.SelectedText = "";
-            this.txt_ChuTaiKhoan.Size = new System.Drawing.Size(826, 41);
+            this.txt_ChuTaiKhoan.Size = new System.Drawing.Size(364, 41);
             this.txt_ChuTaiKhoan.TabIndex = 22;
             // 
-            // lbl_ChuTaiKhoang
+            // lbl_NamKinhNghiem
             // 
-            this.lbl_ChuTaiKhoang.AutoSize = true;
-            this.lbl_ChuTaiKhoang.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ChuTaiKhoang.Location = new System.Drawing.Point(26, 887);
-            this.lbl_ChuTaiKhoang.Name = "lbl_ChuTaiKhoang";
-            this.lbl_ChuTaiKhoang.Size = new System.Drawing.Size(89, 17);
-            this.lbl_ChuTaiKhoang.TabIndex = 20;
-            this.lbl_ChuTaiKhoang.Text = "Chủ tài khoản";
+            this.lbl_NamKinhNghiem.AutoSize = true;
+            this.lbl_NamKinhNghiem.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_NamKinhNghiem.Location = new System.Drawing.Point(26, 887);
+            this.lbl_NamKinhNghiem.Name = "lbl_NamKinhNghiem";
+            this.lbl_NamKinhNghiem.Size = new System.Drawing.Size(111, 17);
+            this.lbl_NamKinhNghiem.TabIndex = 20;
+            this.lbl_NamKinhNghiem.Text = "Năm kinh nghiệm";
             // 
-            // lbl_TenNganHang
+            // lbl_ChuyenMon
             // 
-            this.lbl_TenNganHang.AutoSize = true;
-            this.lbl_TenNganHang.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_TenNganHang.Location = new System.Drawing.Point(29, 808);
-            this.lbl_TenNganHang.Name = "lbl_TenNganHang";
-            this.lbl_TenNganHang.Size = new System.Drawing.Size(95, 17);
-            this.lbl_TenNganHang.TabIndex = 19;
-            this.lbl_TenNganHang.Text = "Tên ngân hàng";
+            this.lbl_ChuyenMon.AutoSize = true;
+            this.lbl_ChuyenMon.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ChuyenMon.Location = new System.Drawing.Point(29, 808);
+            this.lbl_ChuyenMon.Name = "lbl_ChuyenMon";
+            this.lbl_ChuyenMon.Size = new System.Drawing.Size(82, 17);
+            this.lbl_ChuyenMon.TabIndex = 19;
+            this.lbl_ChuyenMon.Text = "Chuyên môn";
             // 
             // pnl_AnhChanDung
             // 
@@ -415,10 +477,20 @@
             this.pnl_AnhChanDung.Controls.Add(this.ptr_AnhChanDung);
             this.pnl_AnhChanDung.Controls.Add(this.Ibl_AnhChanDung);
             this.pnl_AnhChanDung.Controls.Add(this.btn_ChonAnh);
-            this.pnl_AnhChanDung.Location = new System.Drawing.Point(41, 513);
+            this.pnl_AnhChanDung.Location = new System.Drawing.Point(41, 498);
             this.pnl_AnhChanDung.Name = "pnl_AnhChanDung";
-            this.pnl_AnhChanDung.Size = new System.Drawing.Size(814, 200);
+            this.pnl_AnhChanDung.Size = new System.Drawing.Size(814, 197);
             this.pnl_AnhChanDung.TabIndex = 18;
+            // 
+            // ptr_AnhChanDung
+            // 
+            this.ptr_AnhChanDung.Image = ((System.Drawing.Image)(resources.GetObject("ptr_AnhChanDung.Image")));
+            this.ptr_AnhChanDung.Location = new System.Drawing.Point(372, 18);
+            this.ptr_AnhChanDung.Name = "ptr_AnhChanDung";
+            this.ptr_AnhChanDung.Size = new System.Drawing.Size(95, 75);
+            this.ptr_AnhChanDung.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptr_AnhChanDung.TabIndex = 2;
+            this.ptr_AnhChanDung.TabStop = false;
             // 
             // Ibl_AnhChanDung
             // 
@@ -444,6 +516,18 @@
             this.btn_ChonAnh.Size = new System.Drawing.Size(131, 45);
             this.btn_ChonAnh.TabIndex = 0;
             this.btn_ChonAnh.Text = "Chọn Ảnh";
+            // 
+            // lbl_AnhChanDung
+            // 
+            this.lbl_AnhChanDung.AutoSize = true;
+            this.lbl_AnhChanDung.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_AnhChanDung.Image = ((System.Drawing.Image)(resources.GetObject("lbl_AnhChanDung.Image")));
+            this.lbl_AnhChanDung.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_AnhChanDung.Location = new System.Drawing.Point(25, 459);
+            this.lbl_AnhChanDung.Name = "lbl_AnhChanDung";
+            this.lbl_AnhChanDung.Size = new System.Drawing.Size(163, 23);
+            this.lbl_AnhChanDung.TabIndex = 17;
+            this.lbl_AnhChanDung.Text = "      Ảnh chân dung";
             // 
             // dtp_NgayCap
             // 
@@ -531,6 +615,18 @@
             this.lbl_SoCCCD.Size = new System.Drawing.Size(68, 17);
             this.lbl_SoCCCD.TabIndex = 11;
             this.lbl_SoCCCD.Text = "Số CCCD";
+            // 
+            // lbl_ThongTinCCCD
+            // 
+            this.lbl_ThongTinCCCD.AutoSize = true;
+            this.lbl_ThongTinCCCD.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ThongTinCCCD.Image = ((System.Drawing.Image)(resources.GetObject("lbl_ThongTinCCCD.Image")));
+            this.lbl_ThongTinCCCD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_ThongTinCCCD.Location = new System.Drawing.Point(17, 243);
+            this.lbl_ThongTinCCCD.Name = "lbl_ThongTinCCCD";
+            this.lbl_ThongTinCCCD.Size = new System.Drawing.Size(181, 23);
+            this.lbl_ThongTinCCCD.TabIndex = 10;
+            this.lbl_ThongTinCCCD.Text = "      Thông tin CCCD";
             // 
             // txt_SDT
             // 
@@ -632,136 +728,6 @@
             this.lbl_HoVaTen.TabIndex = 2;
             this.lbl_HoVaTen.Text = "Họ và Tên";
             // 
-            // pnl_background1
-            // 
-            this.pnl_background1.BackColor = System.Drawing.Color.White;
-            this.pnl_background1.BorderColor = System.Drawing.Color.White;
-            this.pnl_background1.BorderRadius = 20;
-            this.pnl_background1.Controls.Add(this.prg_TienDo);
-            this.pnl_background1.Controls.Add(this.lbl_HoanThanh);
-            this.pnl_background1.Controls.Add(this.lbl_HoSo);
-            this.pnl_background1.Controls.Add(this.lbl_background1_Tuade);
-            this.pnl_background1.Location = new System.Drawing.Point(202, 100);
-            this.pnl_background1.Name = "pnl_background1";
-            this.pnl_background1.Size = new System.Drawing.Size(896, 131);
-            this.pnl_background1.TabIndex = 2;
-            // 
-            // prg_TienDo
-            // 
-            this.prg_TienDo.BorderRadius = 8;
-            this.prg_TienDo.Location = new System.Drawing.Point(21, 92);
-            this.prg_TienDo.Name = "prg_TienDo";
-            this.prg_TienDo.Size = new System.Drawing.Size(836, 18);
-            this.prg_TienDo.TabIndex = 3;
-            this.prg_TienDo.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            this.prg_TienDo.ValueChanged += new System.EventHandler(this.guna2ProgressBar1_ValueChanged);
-            // 
-            // lbl_HoanThanh
-            // 
-            this.lbl_HoanThanh.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_HoanThanh.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_HoanThanh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lbl_HoanThanh.Location = new System.Drawing.Point(774, 65);
-            this.lbl_HoanThanh.Name = "lbl_HoanThanh";
-            this.lbl_HoanThanh.Size = new System.Drawing.Size(87, 21);
-            this.lbl_HoanThanh.TabIndex = 2;
-            this.lbl_HoanThanh.Text = " Hoàn thành";
-            // 
-            // lbl_HoSo
-            // 
-            this.lbl_HoSo.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_HoSo.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_HoSo.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lbl_HoSo.Location = new System.Drawing.Point(21, 51);
-            this.lbl_HoSo.Name = "lbl_HoSo";
-            this.lbl_HoSo.Size = new System.Drawing.Size(129, 21);
-            this.lbl_HoSo.TabIndex = 1;
-            this.lbl_HoSo.Text = "Hoàn thành hồ sơ";
-            // 
-            // lbl_background1_Tuade
-            // 
-            this.lbl_background1_Tuade.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_background1_Tuade.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_background1_Tuade.Location = new System.Drawing.Point(21, 14);
-            this.lbl_background1_Tuade.Name = "lbl_background1_Tuade";
-            this.lbl_background1_Tuade.Size = new System.Drawing.Size(175, 31);
-            this.lbl_background1_Tuade.TabIndex = 0;
-            this.lbl_background1_Tuade.Text = "Tiến độ đăng ký";
-            // 
-            // btn_GuiDonDangKy
-            // 
-            this.btn_GuiDonDangKy.BorderColor = System.Drawing.Color.Transparent;
-            this.btn_GuiDonDangKy.BorderRadius = 15;
-            this.btn_GuiDonDangKy.BorderThickness = 1;
-            this.btn_GuiDonDangKy.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btn_GuiDonDangKy.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btn_GuiDonDangKy.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_GuiDonDangKy.ForeColor = System.Drawing.Color.White;
-            this.btn_GuiDonDangKy.Image = ((System.Drawing.Image)(resources.GetObject("btn_GuiDonDangKy.Image")));
-            this.btn_GuiDonDangKy.Location = new System.Drawing.Point(348, 1386);
-            this.btn_GuiDonDangKy.Name = "btn_GuiDonDangKy";
-            this.btn_GuiDonDangKy.Size = new System.Drawing.Size(223, 49);
-            this.btn_GuiDonDangKy.TabIndex = 31;
-            this.btn_GuiDonDangKy.Text = "Gửi Đơn Đăng Ký";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(25, 982);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(171, 23);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "      Tài liệu bổ sung";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
-            this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label3.Location = new System.Drawing.Point(25, 761);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(210, 23);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "      Thông tin ngân hàng";
-            // 
-            // ptr_AnhChanDung
-            // 
-            this.ptr_AnhChanDung.Image = ((System.Drawing.Image)(resources.GetObject("ptr_AnhChanDung.Image")));
-            this.ptr_AnhChanDung.Location = new System.Drawing.Point(372, 18);
-            this.ptr_AnhChanDung.Name = "ptr_AnhChanDung";
-            this.ptr_AnhChanDung.Size = new System.Drawing.Size(95, 75);
-            this.ptr_AnhChanDung.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptr_AnhChanDung.TabIndex = 2;
-            this.ptr_AnhChanDung.TabStop = false;
-            // 
-            // lbl_AnhChanDung
-            // 
-            this.lbl_AnhChanDung.AutoSize = true;
-            this.lbl_AnhChanDung.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_AnhChanDung.Image = ((System.Drawing.Image)(resources.GetObject("lbl_AnhChanDung.Image")));
-            this.lbl_AnhChanDung.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_AnhChanDung.Location = new System.Drawing.Point(25, 459);
-            this.lbl_AnhChanDung.Name = "lbl_AnhChanDung";
-            this.lbl_AnhChanDung.Size = new System.Drawing.Size(163, 23);
-            this.lbl_AnhChanDung.TabIndex = 17;
-            this.lbl_AnhChanDung.Text = "      Ảnh chân dung";
-            // 
-            // lbl_ThongTinCCCD
-            // 
-            this.lbl_ThongTinCCCD.AutoSize = true;
-            this.lbl_ThongTinCCCD.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ThongTinCCCD.Image = ((System.Drawing.Image)(resources.GetObject("lbl_ThongTinCCCD.Image")));
-            this.lbl_ThongTinCCCD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_ThongTinCCCD.Location = new System.Drawing.Point(17, 243);
-            this.lbl_ThongTinCCCD.Name = "lbl_ThongTinCCCD";
-            this.lbl_ThongTinCCCD.Size = new System.Drawing.Size(181, 23);
-            this.lbl_ThongTinCCCD.TabIndex = 10;
-            this.lbl_ThongTinCCCD.Text = "      Thông tin CCCD";
-            // 
             // lbl_ThongTinCaNhan
             // 
             this.lbl_ThongTinCaNhan.AutoSize = true;
@@ -773,6 +739,66 @@
             this.lbl_ThongTinCaNhan.Size = new System.Drawing.Size(189, 23);
             this.lbl_ThongTinCaNhan.TabIndex = 1;
             this.lbl_ThongTinCaNhan.Text = "      Thông tin cá nhân";
+            // 
+            // txt_TienTheoGio
+            // 
+            this.txt_TienTheoGio.BorderRadius = 15;
+            this.txt_TienTheoGio.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_TienTheoGio.DefaultText = "";
+            this.txt_TienTheoGio.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txt_TienTheoGio.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txt_TienTheoGio.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_TienTheoGio.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_TienTheoGio.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_TienTheoGio.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txt_TienTheoGio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_TienTheoGio.Location = new System.Drawing.Point(490, 906);
+            this.txt_TienTheoGio.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_TienTheoGio.Name = "txt_TienTheoGio";
+            this.txt_TienTheoGio.PlaceholderText = "";
+            this.txt_TienTheoGio.SelectedText = "";
+            this.txt_TienTheoGio.Size = new System.Drawing.Size(365, 41);
+            this.txt_TienTheoGio.TabIndex = 34;
+            // 
+            // lbl_TienTheoGio
+            // 
+            this.lbl_TienTheoGio.AutoSize = true;
+            this.lbl_TienTheoGio.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_TienTheoGio.Location = new System.Drawing.Point(487, 886);
+            this.lbl_TienTheoGio.Name = "lbl_TienTheoGio";
+            this.lbl_TienTheoGio.Size = new System.Drawing.Size(84, 17);
+            this.lbl_TienTheoGio.TabIndex = 33;
+            this.lbl_TienTheoGio.Text = "Tiền theo giờ";
+            // 
+            // txt_ChungChi
+            // 
+            this.txt_ChungChi.BorderRadius = 15;
+            this.txt_ChungChi.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_ChungChi.DefaultText = "";
+            this.txt_ChungChi.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txt_ChungChi.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txt_ChungChi.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_ChungChi.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_ChungChi.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_ChungChi.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txt_ChungChi.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_ChungChi.Location = new System.Drawing.Point(490, 828);
+            this.txt_ChungChi.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_ChungChi.Name = "txt_ChungChi";
+            this.txt_ChungChi.PlaceholderText = "";
+            this.txt_ChungChi.SelectedText = "";
+            this.txt_ChungChi.Size = new System.Drawing.Size(365, 41);
+            this.txt_ChungChi.TabIndex = 36;
+            // 
+            // lbl_ChungChi
+            // 
+            this.lbl_ChungChi.AutoSize = true;
+            this.lbl_ChungChi.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ChungChi.Location = new System.Drawing.Point(487, 808);
+            this.lbl_ChungChi.Name = "lbl_ChungChi";
+            this.lbl_ChungChi.Size = new System.Drawing.Size(68, 17);
+            this.lbl_ChungChi.TabIndex = 35;
+            this.lbl_ChungChi.Text = "Chứng chỉ";
             // 
             // frm_DangKy
             // 
@@ -793,8 +819,6 @@
             this.pnl_BangCap.PerformLayout();
             this.pnl_AnhChanDung.ResumeLayout(false);
             this.pnl_AnhChanDung.PerformLayout();
-            this.pnl_background1.ResumeLayout(false);
-            this.pnl_background1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptr_AnhChanDung)).EndInit();
             this.ResumeLayout(false);
 
@@ -804,11 +828,6 @@
 
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_Tieude2;
         private System.Windows.Forms.Panel pnl_background;
-        private Guna.UI2.WinForms.Guna2Panel pnl_background1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lbl_background1_Tuade;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lbl_HoanThanh;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lbl_HoSo;
-        private Guna.UI2.WinForms.Guna2ProgressBar prg_TienDo;
         private Guna.UI2.WinForms.Guna2Panel pnl_background2;
         private System.Windows.Forms.Label lbl_ThongTinCaNhan;
         private System.Windows.Forms.Label lbl_HoVaTen;
@@ -832,11 +851,11 @@
         private System.Windows.Forms.PictureBox ptr_AnhChanDung;
         private System.Windows.Forms.Label label3;
         private Guna.UI2.WinForms.Guna2TextBox txt_ChuTaiKhoan;
-        private System.Windows.Forms.Label lbl_ChuTaiKhoang;
-        private System.Windows.Forms.Label lbl_TenNganHang;
-        private Guna.UI2.WinForms.Guna2TextBox txt_SoTaiKhoan;
-        private System.Windows.Forms.Label lbl_SoTaiKhoan;
-        private Guna.UI2.WinForms.Guna2ComboBox cbo_TenNganHang;
+        private System.Windows.Forms.Label lbl_NamKinhNghiem;
+        private System.Windows.Forms.Label lbl_ChuyenMon;
+        private Guna.UI2.WinForms.Guna2TextBox txt_ThanhPho;
+        private System.Windows.Forms.Label lbl_ThanhPho;
+        private Guna.UI2.WinForms.Guna2ComboBox cbo_ChuyenMon;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnl_BangCap;
         private System.Windows.Forms.Label lbl_BangCap;
@@ -851,5 +870,10 @@
         private Guna.UI2.WinForms.Guna2GradientButton btn_GuiDonDangKy;
         private Guna.UI2.WinForms.Guna2DateTimePicker guna2DateTimePicker1;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbl_TieuDe;
+        private Guna.UI2.WinForms.Guna2CircleButton btnBack;
+        private Guna.UI2.WinForms.Guna2TextBox txt_TienTheoGio;
+        private System.Windows.Forms.Label lbl_TienTheoGio;
+        private Guna.UI2.WinForms.Guna2TextBox txt_ChungChi;
+        private System.Windows.Forms.Label lbl_ChungChi;
     }
 }
