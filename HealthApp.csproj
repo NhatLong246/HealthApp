@@ -219,11 +219,53 @@
     <Compile Include="Views\Auth\RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Food\frm_FoodLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Food\frm_FoodLibrary.Designer.cs">
+      <DependentUpon>frm_FoodLibrary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Food\UserControlFood.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Food\UserControlFood.Designer.cs">
+      <DependentUpon>UserControlFood.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\LeaderBoard\LeaderBoardForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\LeaderBoard\LeaderBoardForm.Designer.cs">
       <DependentUpon>LeaderBoardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PT\frm_DangKy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frm_DangKy.Designer.cs">
+      <DependentUpon>frm_DangKy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PT\frm_HuanLuyenVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frm_HuanLuyenVien.Designer.cs">
+      <DependentUpon>frm_HuanLuyenVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PT\frm_TimKiemHLV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frm_TimKiemHLV.Designer.cs">
+      <DependentUpon>frm_TimKiemHLV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PT\frm_TimKiemKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frm_TimKiemKhachHang.Designer.cs">
+      <DependentUpon>frm_TimKiemKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PT\frn_LichPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frn_LichPT.Designer.cs">
+      <DependentUpon>frn_LichPT.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -259,8 +301,29 @@
     <EmbeddedResource Include="Views\Auth\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Food\frm_FoodLibrary.resx">
+      <DependentUpon>frm_FoodLibrary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Food\UserControlFood.resx">
+      <DependentUpon>UserControlFood.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\LeaderBoard\LeaderBoardForm.resx">
       <DependentUpon>LeaderBoardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frm_DangKy.resx">
+      <DependentUpon>frm_DangKy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frm_HuanLuyenVien.resx">
+      <DependentUpon>frm_HuanLuyenVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frm_TimKiemHLV.resx">
+      <DependentUpon>frm_TimKiemHLV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frm_TimKiemKhachHang.resx">
+      <DependentUpon>frm_TimKiemKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frn_LichPT.resx">
+      <DependentUpon>frn_LichPT.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Assets\.gitkeep" />
     <None Include="Assets\Reports\.gitkeep" />
@@ -751,6 +814,7 @@
     <None Include="Resources\Icons\icons-calendar.png" />
     <None Include="Resources\Icons\goal.png" />
     <None Include="Resources\Icons\back.png" />
+    <None Include="Resources\Images\Food\galuoc.jpg" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AxWMPLib">
