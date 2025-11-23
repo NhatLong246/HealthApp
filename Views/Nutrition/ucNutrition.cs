@@ -1,6 +1,7 @@
 ﻿extern alias ef6;
 
 using HealthApp.Models;
+using HealthApp.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,9 @@ namespace HealthApp.Views.Nutrition
         private WF_HealthTracker _dbContext;
         private Guna.UI2.WinForms.Guna2Panel _pnlScrollMonAnPhoBien;
         private Guna.UI2.WinForms.Guna2Panel _pnlScrollNhatKyBuaAn;
+        private Guna.UI2.WinForms.Guna2Panel _pnlScrollLichSu;
         private List<BuaAnChiTiet> _danhSachMonAnDaThem;
+        private string _keHoachAnID;
 
         public ucNutrition()
         {
@@ -55,8 +58,21 @@ namespace HealthApp.Views.Nutrition
 
         private void Nutrition_Load(object sender, EventArgs e)
         {
+            // Kiểm tra đăng nhập
+            if (!CurrentUser.IsLoggedIn)
+            {
+                MessageBox.Show("Vui lòng đăng nhập để sử dụng tính năng này!", 
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Tạo hoặc lấy KeHoachAnUong cho user
+            _keHoachAnID = GetOrCreateKeHoachAnUong();
+
             LoadMonAnPhoBien();
             LoadNhatKyBuaAn();
+            LoadThongKeCalo();
+            LoadLichSu7NgayGanNhat();
             InitializeEventHandlers();
         }
 
@@ -259,6 +275,45 @@ namespace HealthApp.Views.Nutrition
             }
         }
 
+        private string GetOrCreateKeHoachAnUong()
+        {
+            try
+            {
+                string userId = CurrentUser.UserID;
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return null;
+                }
+
+                // Tìm KeHoachAnUong đang hoạt động của user
+                // Lưu ý: Trong database, KeHoachAnUong liên kết với MucTieu, nhưng với kế hoạch tự do
+                // ta có thể tạo một KeHoachAnUong không có MucTieuID (NULL)
+                var keHoachAn = _dbContext.KeHoachAnUong
+                    .Where(k => k.TrangThai == "N'Đang hoạt động'" || k.TrangThai == null)
+                    .FirstOrDefault();
+
+                if (keHoachAn == null)
+                {
+                    // Tạo mới KeHoachAnUong cho kế hoạch tự do
+                    keHoachAn = new KeHoachAnUong
+                    {
+                        KeHoachAnID = $"meal_{DateTime.Now:yyyyMMddHHmmss}",
+                        TrangThai = "N'Đang hoạt động'",
+                        MoTa = "Kế hoạch ăn uống tự do"
+                    };
+                    _dbContext.KeHoachAnUong.Add(keHoachAn);
+                    _dbContext.SaveChanges();
+                }
+
+                return keHoachAn.KeHoachAnID;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi tạo/lấy KeHoachAnUong: {ex.Message}");
+                return null;
+            }
+        }
+
         private void LoadNhatKyBuaAn()
         {
             try
@@ -266,29 +321,22 @@ namespace HealthApp.Views.Nutrition
                 _pnlScrollNhatKyBuaAn.Controls.Clear();
                 lblThongTinDanhSachNhatKyBuaAn.Visible = false;
 
-                // Kiểm tra xem table BuaAnChiTiet có tồn tại không
-                // Nếu không có, sẽ dùng NhatKyDinhDuong thay thế
-                try
+                if (string.IsNullOrEmpty(_keHoachAnID))
                 {
-                    // Test xem có thể query được không
-                    var testQuery = _dbContext.BuaAnChiTiet.Take(1).ToList();
-                }
-                catch
-                {
-                    // Table không tồn tại, hiển thị thông báo
                     lblThongTinDanhSachNhatKyBuaAn.Visible = true;
-                    lblThongTinDanhSachNhatKyBuaAn.Text = "Chưa có món ăn nào được thêm vào hôm nay";
+                    lblThongTinDanhSachNhatKyBuaAn.Text = "Chưa khởi tạo kế hoạch ăn uống";
                     return;
                 }
 
-                // Load món ăn đã thêm hôm nay từ NhatKyDinhDuong
+                // Load món ăn đã thêm hôm nay, lọc theo KeHoachAnID
                 var ngayHomNay = DateTime.Today;
                 var ngayBatDau = ngayHomNay.Date;
                 var ngayKetThuc = ngayHomNay.Date.AddDays(1).AddTicks(-1);
                 
-                // Load từ database (NhatKyDinhDuong)
+                // Load từ database, lọc theo KeHoachAnID
                 var danhSachNhatKy = _dbContext.BuaAnChiTiet
-                    .Where(b => b.NgayAn >= ngayBatDau && 
+                    .Where(b => b.KeHoachAnID == _keHoachAnID &&
+                           b.NgayAn >= ngayBatDau && 
                            b.NgayAn < ngayKetThuc)
                     .ToList();
 
@@ -441,7 +489,7 @@ namespace HealthApp.Views.Nutrition
                     monAn = danhSachMonAn;
                 }
 
-                using (var frm = new frmThemMonAn(monAn, _dbContext))
+                using (var frm = new frmThemMonAn(monAn, _dbContext, _keHoachAnID))
                 {
                     if (frm.ShowDialog() == DialogResult.OK && frm.MonAnDaThem != null)
                     {
@@ -455,61 +503,13 @@ namespace HealthApp.Views.Nutrition
                             System.Diagnostics.Debug.WriteLine($"[DEBUG] KhoiLuongChuan: {frm.MonAnDaThem.KhoiLuongChuan}");
                             System.Diagnostics.Debug.WriteLine($"[DEBUG] GhiChu: {frm.MonAnDaThem.GhiChu}");
 
-                            // Đảm bảo UserID tồn tại trong database
-                            string userID = frm.MonAnDaThem.KeHoachAnID;
-                            var userExists = _dbContext.Users.Any(u => u.UserID == userID);
-                            System.Diagnostics.Debug.WriteLine($"[DEBUG] UserID '{userID}' tồn tại: {userExists}");
-                            
-                            if (!userExists)
+                            // Sử dụng KeHoachAnID đã tạo/lấy
+                            string keHoachAnID = _keHoachAnID;
+                            if (string.IsNullOrEmpty(keHoachAnID))
                             {
-                                System.Diagnostics.Debug.WriteLine($"[DEBUG] Tạo user mặc định: {userID}");
-                                // Tìm UserID đầu tiên có sẵn trong database
-                                var firstUser = _dbContext.Users.FirstOrDefault();
-                                if (firstUser != null)
-                                {
-                                    userID = firstUser.UserID;
-                                    System.Diagnostics.Debug.WriteLine($"[DEBUG] Sử dụng UserID có sẵn: {userID}");
-                                }
-                                else
-                                {
-                                    // Tạo user mặc định - chỉ dùng các field có trong database
-                                    var defaultUser = new Users
-                                    {
-                                        UserID = userID,
-                                        Username = "default_user",
-                                        PasswordHash = "default_hash", // Required field
-                                        // Chỉ set các field có trong database, không set SDT và các field khác
-                                        Email = "default@example.com",
-                                        HoTen = "Default User",
-                                        CreatedDate = DateTime.Now
-                                        // Không set: SDT, NgaySinh, GioiTinh, AnhDaiDien, Theme, NgonNgu, TimeZone, ResetToken, ResetTokenExpiry
-                                    };
-                                    try
-                                    {
-                                        _dbContext.Users.Add(defaultUser);
-                                        _dbContext.SaveChanges();
-                                        System.Diagnostics.Debug.WriteLine($"[DEBUG] Đã tạo user mặc định thành công");
-                                    }
-                                    catch (Exception userEx)
-                                    {
-                                        System.Diagnostics.Debug.WriteLine($"[DEBUG] Lỗi khi tạo user: {userEx.Message}");
-                                        if (userEx.InnerException != null)
-                                        {
-                                            System.Diagnostics.Debug.WriteLine($"[DEBUG] Inner Exception: {userEx.InnerException.Message}");
-                                        }
-                                        // Nếu không tạo được, thử dùng UserID đầu tiên có sẵn
-                                        var anyUser = _dbContext.Users.FirstOrDefault();
-                                        if (anyUser != null)
-                                        {
-                                            userID = anyUser.UserID;
-                                            System.Diagnostics.Debug.WriteLine($"[DEBUG] Sử dụng UserID có sẵn: {userID}");
-                                        }
-                                        else
-                                        {
-                                            throw new Exception($"Không thể tạo user mặc định và không có user nào trong database. Vui lòng tạo user trước.", userEx);
-                                        }
-                                    }
-                                }
+                                MessageBox.Show("Không thể khởi tạo kế hoạch ăn uống!", 
+                                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
                             }
 
                             // Đảm bảo MonAnID tồn tại
@@ -526,22 +526,32 @@ namespace HealthApp.Views.Nutrition
                             var nhatKyDinhDuong = new BuaAnChiTiet
                             {
                                 BuaAnID = frm.MonAnDaThem.BuaAnID,
-                                KeHoachAnID = userID, // Dùng UserID đã đảm bảo tồn tại
+                                KeHoachAnID = keHoachAnID, // Dùng KeHoachAnID
                                 MonAnID = frm.MonAnDaThem.MonAnID,
-                                NgayAn = frm.MonAnDaThem.NgayAn, // Map vào NgayGhiLog
-                                KhoiLuongChuan = frm.MonAnDaThem.KhoiLuongChuan, // Map vào LuongThucAn
-                                GhiChu = frm.MonAnDaThem.GhiChu
-                                // Không set các field [NotMapped] và navigation properties
+                                LoaiBuaAn = frm.MonAnDaThem.LoaiBuaAn,
+                                NgayAn = frm.MonAnDaThem.NgayAn,
+                                TenMonAn = frm.MonAnDaThem.TenMonAn,
+                                Donvi = frm.MonAnDaThem.Donvi,
+                                KhoiLuongChuan = frm.MonAnDaThem.KhoiLuongChuan,
+                                Calories = frm.MonAnDaThem.Calories,
+                                Protein = frm.MonAnDaThem.Protein,
+                                Carbs = frm.MonAnDaThem.Carbs,
+                                Fat = frm.MonAnDaThem.Fat,
+                                Fiber = frm.MonAnDaThem.Fiber,
+                                GhiChu = frm.MonAnDaThem.GhiChu,
+                                NgayCapNhat = DateTime.Now
                             };
                             
                             _dbContext.BuaAnChiTiet.Add(nhatKyDinhDuong);
-                            System.Diagnostics.Debug.WriteLine($"[DEBUG] Đã thêm vào DbContext với UserID: {userID}");
+                            System.Diagnostics.Debug.WriteLine($"[DEBUG] Đã thêm vào DbContext với KeHoachAnID: {keHoachAnID}");
 
                             _dbContext.SaveChanges();
                             System.Diagnostics.Debug.WriteLine($"[DEBUG] Đã lưu thành công vào database");
 
-                            // Reload danh sách
+                            // Reload danh sách và thống kê
                             LoadNhatKyBuaAn();
+                            LoadThongKeCalo();
+                            LoadLichSu7NgayGanNhat();
                         }
                         catch (DbUpdateException dbEx)
                         {
@@ -703,6 +713,8 @@ namespace HealthApp.Views.Nutrition
                     _dbContext.BuaAnChiTiet.Remove(item);
                     _dbContext.SaveChanges();
                     LoadNhatKyBuaAn();
+                    LoadThongKeCalo();
+                    LoadLichSu7NgayGanNhat();
                 }
             }
             catch (Exception ex)
@@ -733,6 +745,163 @@ namespace HealthApp.Views.Nutrition
             catch (Exception ex)
             {
                 // Silent fail
+            }
+        }
+
+        /// <summary>
+        /// Load thống kê calo theo tuần và tháng
+        /// </summary>
+        private void LoadThongKeCalo()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(_keHoachAnID))
+                    return;
+
+                // Tính tuần hiện tại (từ thứ 2 đến chủ nhật)
+                DateTime today = DateTime.Today;
+                int daysUntilMonday = ((int)today.DayOfWeek - (int)DayOfWeek.Monday + 7) % 7;
+                DateTime startOfWeek = today.AddDays(-daysUntilMonday);
+                DateTime endOfWeek = startOfWeek.AddDays(7);
+
+                // Tính tháng hiện tại
+                DateTime startOfMonth = new DateTime(today.Year, today.Month, 1);
+                DateTime endOfMonth = startOfMonth.AddMonths(1);
+
+                // Tính tổng calo tuần
+                var caloTuan = _dbContext.BuaAnChiTiet
+                    .Where(b => b.KeHoachAnID == _keHoachAnID &&
+                           b.NgayAn >= startOfWeek && b.NgayAn < endOfWeek)
+                    .Sum(b => (double?)(b.Calories ?? 0)) ?? 0;
+
+                // Tính tổng calo tháng
+                var caloThang = _dbContext.BuaAnChiTiet
+                    .Where(b => b.KeHoachAnID == _keHoachAnID &&
+                           b.NgayAn >= startOfMonth && b.NgayAn < endOfMonth)
+                    .Sum(b => (double?)(b.Calories ?? 0)) ?? 0;
+
+                // Tính trung bình calo/ngày trong tuần
+                int soNgayTrongTuan = (int)(endOfWeek - startOfWeek).TotalDays;
+                double trungBinhCaloNgay = soNgayTrongTuan > 0 ? caloTuan / soNgayTrongTuan : 0;
+
+                // Tính trung bình calo/ngày trong tháng
+                int soNgayTrongThang = (int)(endOfMonth - startOfMonth).TotalDays;
+                double trungBinhCaloThang = soNgayTrongThang > 0 ? caloThang / soNgayTrongThang : 0;
+
+                // Cập nhật UI
+                if (lblChiSoCaloTuan != null)
+                    lblChiSoCaloTuan.Text = $"{caloTuan:F0} Kcal";
+                if (lblTrungBinhCaloNgay != null)
+                    lblTrungBinhCaloNgay.Text = $"TB: {trungBinhCaloNgay:F0} Kcal/ngày";
+
+                if (lblChiSoCaloThang != null)
+                    lblChiSoCaloThang.Text = $"{caloThang:F0} Kcal";
+                if (lblTrungBinhCaloThang != null)
+                    lblTrungBinhCaloThang.Text = $"TB: {trungBinhCaloThang:F0} Kcal/ngày";
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi load thống kê calo: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Load lịch sử bữa ăn 7 ngày gần nhất
+        /// </summary>
+        private void LoadLichSu7NgayGanNhat()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(_keHoachAnID))
+                    return;
+
+                // Tạo scrollable panel nếu chưa có
+                if (_pnlScrollLichSu == null)
+                {
+                    _pnlScrollLichSu = new Guna.UI2.WinForms.Guna2Panel
+                    {
+                        AutoScroll = true,
+                        Dock = DockStyle.Fill,
+                        BackColor = Color.Transparent
+                    };
+                    pnlThongTinLichSuAnUong7NgayGanNhat.Controls.Add(_pnlScrollLichSu);
+                }
+
+                _pnlScrollLichSu.Controls.Clear();
+
+                // Lấy 7 ngày gần nhất
+                DateTime endDate = DateTime.Today.AddDays(1);
+                DateTime startDate = endDate.AddDays(-7);
+
+                // Load dữ liệu từ database, nhóm theo ngày
+                var lichSu = _dbContext.BuaAnChiTiet
+                    .Where(b => b.KeHoachAnID == _keHoachAnID &&
+                           b.NgayAn >= startDate && b.NgayAn < endDate)
+                    .ToList()
+                    .GroupBy(b => b.NgayAn?.Date)
+                    .OrderByDescending(g => g.Key)
+                    .Take(7)
+                    .ToList();
+
+                if (lichSu.Count == 0)
+                {
+                    var lblEmpty = new Label
+                    {
+                        Text = "Chưa có lịch sử bữa ăn trong 7 ngày gần nhất",
+                        AutoSize = true,
+                        Location = new Point(20, 20),
+                        Font = new Font("Segoe UI", 10F)
+                    };
+                    _pnlScrollLichSu.Controls.Add(lblEmpty);
+                    return;
+                }
+
+                int yPos = 10;
+                foreach (var group in lichSu)
+                {
+                    if (!group.Key.HasValue) continue;
+
+                    DateTime ngay = group.Key.Value;
+                    double tongCalo = group.Sum(b => b.Calories ?? 0);
+                    int soBuaAn = group.Count();
+
+                    // Tạo panel hiển thị thông tin ngày
+                    var pnlNgay = new Guna.UI2.WinForms.Guna2Panel
+                    {
+                        Size = new Size(600, 60),
+                        Location = new Point(10, yPos),
+                        BorderRadius = 10,
+                        BorderThickness = 1,
+                        BorderColor = Color.LightGray,
+                        BackColor = Color.White
+                    };
+
+                    var lblNgay = new Label
+                    {
+                        Text = ngay.ToString("dd/MM/yyyy"),
+                        Location = new Point(15, 10),
+                        AutoSize = true,
+                        Font = new Font("Segoe UI", 10F, FontStyle.Bold)
+                    };
+
+                    var lblThongTin = new Label
+                    {
+                        Text = $"{soBuaAn} bữa ăn - {tongCalo:F0} Kcal",
+                        Location = new Point(15, 35),
+                        AutoSize = true,
+                        Font = new Font("Segoe UI", 9F)
+                    };
+
+                    pnlNgay.Controls.Add(lblNgay);
+                    pnlNgay.Controls.Add(lblThongTin);
+                    _pnlScrollLichSu.Controls.Add(pnlNgay);
+
+                    yPos += 70;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi load lịch sử: {ex.Message}");
             }
         }
 

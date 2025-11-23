@@ -63,6 +63,12 @@ namespace HealthApp.Controllers
                 {
                     // Lưu user vào session
                     CurrentUser.User = user;
+                    
+                    System.Diagnostics.Debug.WriteLine($"=== Login Success ===");
+                    System.Diagnostics.Debug.WriteLine($"User.UserID: '{user.UserID}'");
+                    System.Diagnostics.Debug.WriteLine($"User.Username: '{user.Username}'");
+                    System.Diagnostics.Debug.WriteLine($"CurrentUser.UserID: '{CurrentUser.UserID}'");
+                    System.Diagnostics.Debug.WriteLine($"CurrentUser.IsLoggedIn: {CurrentUser.IsLoggedIn}");
 
                     return new LoginResult
                     {
