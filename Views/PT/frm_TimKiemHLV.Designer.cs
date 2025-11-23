@@ -32,10 +32,9 @@
             this.lblTieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtTimKiem = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnTatCa = new Guna.UI2.WinForms.Guna2GradientTileButton();
-            this.guna2GradientTileButton1 = new Guna.UI2.WinForms.Guna2GradientTileButton();
-            this.guna2GradientTileButton2 = new Guna.UI2.WinForms.Guna2GradientTileButton();
-            this.guna2GradientTileButton3 = new Guna.UI2.WinForms.Guna2GradientTileButton();
-            this.guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.btnTinhvaTP = new Guna.UI2.WinForms.Guna2GradientTileButton();
+            this.btnChuyenMon = new Guna.UI2.WinForms.Guna2GradientTileButton();
+            this.pnlChucNang = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlHienThiDanhSach = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlDanhSach1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -50,6 +49,9 @@
             this.lblTen = new System.Windows.Forms.Label();
             this.ptrAnhDaiDien = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pnlThongTinPT = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.btnGuiYeuCau = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.lblGia = new System.Windows.Forms.Label();
+            this.lblGiaTheoGio = new System.Windows.Forms.Label();
             this.pnlChuyenMon = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.lblCacChuyenMon = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.ptrChuyenMon = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -69,7 +71,7 @@
             this.lblTiLe = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblDanhGia1 = new System.Windows.Forms.Label();
             this.ptrstar1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.ptrAvatar = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblNamKinhNghiem1 = new System.Windows.Forms.Label();
             this.lblTen1 = new System.Windows.Forms.Label();
             this.lblSoNamKinhNghiem1 = new System.Windows.Forms.Label();
@@ -86,9 +88,8 @@
             this.lblChiTietChuyenMon = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2PictureBox5 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblNoiDungGioiThieu = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblGioiThieu = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2CustomGradientPanel1.SuspendLayout();
+            this.btnBack = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.pnlChucNang.SuspendLayout();
             this.pnlHienThiDanhSach.SuspendLayout();
             this.pnlDanhSach1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
@@ -104,13 +105,12 @@
             this.pnlTyLeThanhCong.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptrstar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrAvatar)).BeginInit();
             this.pnlChiTiet.SuspendLayout();
             this.pnlChiTietChungChi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrChiTietChungChi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTieuDe
@@ -164,73 +164,54 @@
             this.btnTatCa.TabIndex = 2;
             this.btnTatCa.Text = "Tất cả";
             // 
-            // guna2GradientTileButton1
+            // btnTinhvaTP
             // 
-            this.guna2GradientTileButton1.BorderRadius = 10;
-            this.guna2GradientTileButton1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientTileButton1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientTileButton1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientTileButton1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientTileButton1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientTileButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.guna2GradientTileButton1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.guna2GradientTileButton1.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2GradientTileButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.guna2GradientTileButton1.Location = new System.Drawing.Point(120, 111);
-            this.guna2GradientTileButton1.Name = "guna2GradientTileButton1";
-            this.guna2GradientTileButton1.Size = new System.Drawing.Size(86, 31);
-            this.guna2GradientTileButton1.TabIndex = 3;
-            this.guna2GradientTileButton1.Text = "Yoga";
+            this.btnTinhvaTP.BorderRadius = 10;
+            this.btnTinhvaTP.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTinhvaTP.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTinhvaTP.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTinhvaTP.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTinhvaTP.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTinhvaTP.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnTinhvaTP.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnTinhvaTP.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTinhvaTP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnTinhvaTP.Location = new System.Drawing.Point(120, 111);
+            this.btnTinhvaTP.Name = "btnTinhvaTP";
+            this.btnTinhvaTP.Size = new System.Drawing.Size(103, 31);
+            this.btnTinhvaTP.TabIndex = 3;
+            this.btnTinhvaTP.Text = "Tỉnh/TP";
             // 
-            // guna2GradientTileButton2
+            // btnChuyenMon
             // 
-            this.guna2GradientTileButton2.BorderRadius = 10;
-            this.guna2GradientTileButton2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientTileButton2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientTileButton2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientTileButton2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientTileButton2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientTileButton2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.guna2GradientTileButton2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.guna2GradientTileButton2.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2GradientTileButton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.guna2GradientTileButton2.Location = new System.Drawing.Point(231, 111);
-            this.guna2GradientTileButton2.Name = "guna2GradientTileButton2";
-            this.guna2GradientTileButton2.Size = new System.Drawing.Size(84, 31);
-            this.guna2GradientTileButton2.TabIndex = 4;
-            this.guna2GradientTileButton2.Text = "Thể hình";
+            this.btnChuyenMon.BorderRadius = 10;
+            this.btnChuyenMon.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnChuyenMon.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnChuyenMon.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnChuyenMon.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnChuyenMon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnChuyenMon.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnChuyenMon.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnChuyenMon.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChuyenMon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnChuyenMon.Location = new System.Drawing.Point(248, 111);
+            this.btnChuyenMon.Name = "btnChuyenMon";
+            this.btnChuyenMon.Size = new System.Drawing.Size(126, 31);
+            this.btnChuyenMon.TabIndex = 4;
+            this.btnChuyenMon.Text = "Chuyên môn";
             // 
-            // guna2GradientTileButton3
+            // pnlChucNang
             // 
-            this.guna2GradientTileButton3.BorderRadius = 10;
-            this.guna2GradientTileButton3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientTileButton3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientTileButton3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientTileButton3.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientTileButton3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientTileButton3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.guna2GradientTileButton3.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.guna2GradientTileButton3.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2GradientTileButton3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.guna2GradientTileButton3.Image = ((System.Drawing.Image)(resources.GetObject("guna2GradientTileButton3.Image")));
-            this.guna2GradientTileButton3.Location = new System.Drawing.Point(348, 111);
-            this.guna2GradientTileButton3.Name = "guna2GradientTileButton3";
-            this.guna2GradientTileButton3.Size = new System.Drawing.Size(38, 31);
-            this.guna2GradientTileButton3.TabIndex = 5;
-            // 
-            // guna2CustomGradientPanel1
-            // 
-            this.guna2CustomGradientPanel1.BorderThickness = 1;
-            this.guna2CustomGradientPanel1.Controls.Add(this.txtTimKiem);
-            this.guna2CustomGradientPanel1.Controls.Add(this.guna2GradientTileButton3);
-            this.guna2CustomGradientPanel1.Controls.Add(this.lblTieuDe);
-            this.guna2CustomGradientPanel1.Controls.Add(this.guna2GradientTileButton2);
-            this.guna2CustomGradientPanel1.Controls.Add(this.btnTatCa);
-            this.guna2CustomGradientPanel1.Controls.Add(this.guna2GradientTileButton1);
-            this.guna2CustomGradientPanel1.Location = new System.Drawing.Point(-2, 0);
-            this.guna2CustomGradientPanel1.Name = "guna2CustomGradientPanel1";
-            this.guna2CustomGradientPanel1.Size = new System.Drawing.Size(425, 149);
-            this.guna2CustomGradientPanel1.TabIndex = 6;
+            this.pnlChucNang.BorderThickness = 1;
+            this.pnlChucNang.Controls.Add(this.txtTimKiem);
+            this.pnlChucNang.Controls.Add(this.lblTieuDe);
+            this.pnlChucNang.Controls.Add(this.btnChuyenMon);
+            this.pnlChucNang.Controls.Add(this.btnTatCa);
+            this.pnlChucNang.Controls.Add(this.btnTinhvaTP);
+            this.pnlChucNang.Location = new System.Drawing.Point(-2, 0);
+            this.pnlChucNang.Name = "pnlChucNang";
+            this.pnlChucNang.Size = new System.Drawing.Size(425, 149);
+            this.pnlChucNang.TabIndex = 6;
             // 
             // pnlHienThiDanhSach
             // 
@@ -292,7 +273,7 @@
             this.lblNamKinhNghiem.AutoSize = true;
             this.lblNamKinhNghiem.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNamKinhNghiem.ForeColor = System.Drawing.Color.Silver;
-            this.lblNamKinhNghiem.Location = new System.Drawing.Point(215, 60);
+            this.lblNamKinhNghiem.Location = new System.Drawing.Point(257, 60);
             this.lblNamKinhNghiem.Name = "lblNamKinhNghiem";
             this.lblNamKinhNghiem.Size = new System.Drawing.Size(103, 15);
             this.lblNamKinhNghiem.TabIndex = 8;
@@ -315,7 +296,7 @@
             this.lblSoNamKinhNghiem.AutoSize = true;
             this.lblSoNamKinhNghiem.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoNamKinhNghiem.ForeColor = System.Drawing.Color.Silver;
-            this.lblSoNamKinhNghiem.Location = new System.Drawing.Point(204, 60);
+            this.lblSoNamKinhNghiem.Location = new System.Drawing.Point(231, 60);
             this.lblSoNamKinhNghiem.Name = "lblSoNamKinhNghiem";
             this.lblSoNamKinhNghiem.Size = new System.Drawing.Size(14, 15);
             this.lblSoNamKinhNghiem.TabIndex = 7;
@@ -326,7 +307,7 @@
             this.lblNoi.AutoSize = true;
             this.lblNoi.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNoi.ForeColor = System.Drawing.Color.Silver;
-            this.lblNoi.Location = new System.Drawing.Point(192, 54);
+            this.lblNoi.Location = new System.Drawing.Point(208, 54);
             this.lblNoi.Name = "lblNoi";
             this.lblNoi.Size = new System.Drawing.Size(17, 23);
             this.lblNoi.TabIndex = 6;
@@ -337,7 +318,7 @@
             this.lblSoDanhGia.AutoSize = true;
             this.lblSoDanhGia.Font = new System.Drawing.Font("Times New Roman", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoDanhGia.ForeColor = System.Drawing.Color.Silver;
-            this.lblSoDanhGia.Location = new System.Drawing.Point(165, 60);
+            this.lblSoDanhGia.Location = new System.Drawing.Point(176, 60);
             this.lblSoDanhGia.Name = "lblSoDanhGia";
             this.lblSoDanhGia.Size = new System.Drawing.Size(27, 15);
             this.lblSoDanhGia.TabIndex = 5;
@@ -390,13 +371,16 @@
             // pnlThongTinPT
             // 
             this.pnlThongTinPT.BorderRadius = 15;
+            this.pnlThongTinPT.Controls.Add(this.btnGuiYeuCau);
+            this.pnlThongTinPT.Controls.Add(this.lblGia);
+            this.pnlThongTinPT.Controls.Add(this.lblGiaTheoGio);
             this.pnlThongTinPT.Controls.Add(this.pnlChuyenMon);
             this.pnlThongTinPT.Controls.Add(this.pnlHocVien);
             this.pnlThongTinPT.Controls.Add(this.pnlChungChi);
             this.pnlThongTinPT.Controls.Add(this.pnlTyLeThanhCong);
             this.pnlThongTinPT.Controls.Add(this.lblDanhGia1);
             this.pnlThongTinPT.Controls.Add(this.ptrstar1);
-            this.pnlThongTinPT.Controls.Add(this.guna2PictureBox3);
+            this.pnlThongTinPT.Controls.Add(this.ptrAvatar);
             this.pnlThongTinPT.Controls.Add(this.lblNamKinhNghiem1);
             this.pnlThongTinPT.Controls.Add(this.lblTen1);
             this.pnlThongTinPT.Controls.Add(this.lblSoNamKinhNghiem1);
@@ -407,6 +391,47 @@
             this.pnlThongTinPT.Name = "pnlThongTinPT";
             this.pnlThongTinPT.Size = new System.Drawing.Size(772, 438);
             this.pnlThongTinPT.TabIndex = 7;
+            // 
+            // btnGuiYeuCau
+            // 
+            this.btnGuiYeuCau.BorderColor = System.Drawing.Color.Transparent;
+            this.btnGuiYeuCau.BorderRadius = 15;
+            this.btnGuiYeuCau.BorderThickness = 1;
+            this.btnGuiYeuCau.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnGuiYeuCau.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnGuiYeuCau.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuiYeuCau.ForeColor = System.Drawing.Color.White;
+            this.btnGuiYeuCau.Image = ((System.Drawing.Image)(resources.GetObject("btnGuiYeuCau.Image")));
+            this.btnGuiYeuCau.Location = new System.Drawing.Point(602, 381);
+            this.btnGuiYeuCau.Name = "btnGuiYeuCau";
+            this.btnGuiYeuCau.Size = new System.Drawing.Size(157, 49);
+            this.btnGuiYeuCau.TabIndex = 32;
+            this.btnGuiYeuCau.Text = "Gửi Yêu Cầu";
+            // 
+            // lblGia
+            // 
+            this.lblGia.AutoSize = true;
+            this.lblGia.BackColor = System.Drawing.Color.White;
+            this.lblGia.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGia.ForeColor = System.Drawing.Color.Lime;
+            this.lblGia.Location = new System.Drawing.Point(387, 346);
+            this.lblGia.Name = "lblGia";
+            this.lblGia.Size = new System.Drawing.Size(67, 32);
+            this.lblGia.TabIndex = 24;
+            this.lblGia.Text = "Giá:";
+            // 
+            // lblGiaTheoGio
+            // 
+            this.lblGiaTheoGio.AutoSize = true;
+            this.lblGiaTheoGio.BackColor = System.Drawing.Color.White;
+            this.lblGiaTheoGio.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGiaTheoGio.ForeColor = System.Drawing.Color.Lime;
+            this.lblGiaTheoGio.Location = new System.Drawing.Point(472, 346);
+            this.lblGiaTheoGio.Name = "lblGiaTheoGio";
+            this.lblGiaTheoGio.Size = new System.Drawing.Size(144, 32);
+            this.lblGiaTheoGio.TabIndex = 23;
+            this.lblGiaTheoGio.Text = "200000/giờ";
+            this.lblGiaTheoGio.Click += new System.EventHandler(this.lblGiaTheoGio_Click);
             // 
             // pnlChuyenMon
             // 
@@ -637,17 +662,18 @@
             this.ptrstar1.TabIndex = 18;
             this.ptrstar1.TabStop = false;
             // 
-            // guna2PictureBox3
+            // ptrAvatar
             // 
-            this.guna2PictureBox3.BorderRadius = 15;
-            this.guna2PictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox3.Image")));
-            this.guna2PictureBox3.ImageRotate = 0F;
-            this.guna2PictureBox3.Location = new System.Drawing.Point(3, 3);
-            this.guna2PictureBox3.Name = "guna2PictureBox3";
-            this.guna2PictureBox3.Size = new System.Drawing.Size(380, 432);
-            this.guna2PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox3.TabIndex = 0;
-            this.guna2PictureBox3.TabStop = false;
+            this.ptrAvatar.BackColor = System.Drawing.Color.White;
+            this.ptrAvatar.BorderRadius = 15;
+            this.ptrAvatar.Image = ((System.Drawing.Image)(resources.GetObject("ptrAvatar.Image")));
+            this.ptrAvatar.ImageRotate = 0F;
+            this.ptrAvatar.Location = new System.Drawing.Point(6, 9);
+            this.ptrAvatar.Name = "ptrAvatar";
+            this.ptrAvatar.Size = new System.Drawing.Size(380, 416);
+            this.ptrAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptrAvatar.TabIndex = 0;
+            this.ptrAvatar.TabStop = false;
             // 
             // lblNamKinhNghiem1
             // 
@@ -730,11 +756,9 @@
             this.pnlChiTiet.Controls.Add(this.lblChiTietChuyenMon);
             this.pnlChiTiet.Controls.Add(this.guna2PictureBox5);
             this.pnlChiTiet.Controls.Add(this.lblNoiDungGioiThieu);
-            this.pnlChiTiet.Controls.Add(this.lblGioiThieu);
-            this.pnlChiTiet.Controls.Add(this.guna2PictureBox4);
-            this.pnlChiTiet.Location = new System.Drawing.Point(502, 463);
+            this.pnlChiTiet.Location = new System.Drawing.Point(502, 468);
             this.pnlChiTiet.Name = "pnlChiTiet";
-            this.pnlChiTiet.Size = new System.Drawing.Size(774, 368);
+            this.pnlChiTiet.Size = new System.Drawing.Size(774, 298);
             this.pnlChiTiet.TabIndex = 8;
             // 
             // pnlChiTietChungChi
@@ -743,7 +767,7 @@
             this.pnlChiTietChungChi.Controls.Add(this.ptrChiTietChungChi);
             this.pnlChiTietChungChi.Controls.Add(this.lblChiTietChungChi1);
             this.pnlChiTietChungChi.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.pnlChiTietChungChi.Location = new System.Drawing.Point(23, 238);
+            this.pnlChiTietChungChi.Location = new System.Drawing.Point(25, 156);
             this.pnlChiTietChungChi.Name = "pnlChiTietChungChi";
             this.pnlChiTietChungChi.Radius = 10;
             this.pnlChiTietChungChi.ShadowColor = System.Drawing.Color.Silver;
@@ -778,7 +802,7 @@
             // 
             this.lblChiTietChungChi.BackColor = System.Drawing.Color.Transparent;
             this.lblChiTietChungChi.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChiTietChungChi.Location = new System.Drawing.Point(34, 194);
+            this.lblChiTietChungChi.Location = new System.Drawing.Point(36, 112);
             this.lblChiTietChungChi.Name = "lblChiTietChungChi";
             this.lblChiTietChungChi.Size = new System.Drawing.Size(88, 25);
             this.lblChiTietChungChi.TabIndex = 8;
@@ -789,7 +813,7 @@
             this.guna2PictureBox6.BackColor = System.Drawing.Color.White;
             this.guna2PictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox6.Image")));
             this.guna2PictureBox6.ImageRotate = 0F;
-            this.guna2PictureBox6.Location = new System.Drawing.Point(18, 194);
+            this.guna2PictureBox6.Location = new System.Drawing.Point(20, 112);
             this.guna2PictureBox6.Name = "guna2PictureBox6";
             this.guna2PictureBox6.Size = new System.Drawing.Size(10, 26);
             this.guna2PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -800,11 +824,11 @@
             // 
             this.lblChiTietChuyenMon1.BackColor = System.Drawing.Color.Honeydew;
             this.lblChiTietChuyenMon1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblChiTietChuyenMon1.Location = new System.Drawing.Point(43, 135);
+            this.lblChiTietChuyenMon1.Location = new System.Drawing.Point(45, 53);
             this.lblChiTietChuyenMon1.MaximumSize = new System.Drawing.Size(200, 100);
             this.lblChiTietChuyenMon1.Name = "lblChiTietChuyenMon1";
             this.lblChiTietChuyenMon1.Padding = new System.Windows.Forms.Padding(5);
-            this.lblChiTietChuyenMon1.Size = new System.Drawing.Size(78, 39);
+            this.lblChiTietChuyenMon1.Size = new System.Drawing.Size(200, 39);
             this.lblChiTietChuyenMon1.TabIndex = 6;
             this.lblChiTietChuyenMon1.Text = "Yoga";
             this.lblChiTietChuyenMon1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -813,7 +837,7 @@
             // 
             this.lblChiTietChuyenMon.BackColor = System.Drawing.Color.Transparent;
             this.lblChiTietChuyenMon.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChiTietChuyenMon.Location = new System.Drawing.Point(34, 96);
+            this.lblChiTietChuyenMon.Location = new System.Drawing.Point(36, 14);
             this.lblChiTietChuyenMon.Name = "lblChiTietChuyenMon";
             this.lblChiTietChuyenMon.Size = new System.Drawing.Size(106, 25);
             this.lblChiTietChuyenMon.TabIndex = 5;
@@ -824,7 +848,7 @@
             this.guna2PictureBox5.BackColor = System.Drawing.Color.White;
             this.guna2PictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox5.Image")));
             this.guna2PictureBox5.ImageRotate = 0F;
-            this.guna2PictureBox5.Location = new System.Drawing.Point(18, 96);
+            this.guna2PictureBox5.Location = new System.Drawing.Point(20, 14);
             this.guna2PictureBox5.Name = "guna2PictureBox5";
             this.guna2PictureBox5.Size = new System.Drawing.Size(10, 26);
             this.guna2PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -845,27 +869,22 @@
             this.lblNoiDungGioiThieu.Text = "Chuyên về Yoga trị liệu và Pilates, giúp học viên cải thiện sức khỏe tinh thần và" +
     " thể chất. Đặc biệt phù hợp với người mới bắt đầu và phục hồi sau chấn thương.";
             // 
-            // lblGioiThieu
+            // btnBack
             // 
-            this.lblGioiThieu.BackColor = System.Drawing.Color.Transparent;
-            this.lblGioiThieu.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGioiThieu.Location = new System.Drawing.Point(34, 13);
-            this.lblGioiThieu.Name = "lblGioiThieu";
-            this.lblGioiThieu.Size = new System.Drawing.Size(87, 25);
-            this.lblGioiThieu.TabIndex = 2;
-            this.lblGioiThieu.Text = "Giới thiệu";
-            // 
-            // guna2PictureBox4
-            // 
-            this.guna2PictureBox4.BackColor = System.Drawing.Color.White;
-            this.guna2PictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox4.Image")));
-            this.guna2PictureBox4.ImageRotate = 0F;
-            this.guna2PictureBox4.Location = new System.Drawing.Point(18, 13);
-            this.guna2PictureBox4.Name = "guna2PictureBox4";
-            this.guna2PictureBox4.Size = new System.Drawing.Size(10, 26);
-            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox4.TabIndex = 1;
-            this.guna2PictureBox4.TabStop = false;
+            this.btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBack.FillColor = System.Drawing.Color.White;
+            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
+            this.btnBack.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnBack.Location = new System.Drawing.Point(1283, 4);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.btnBack.Size = new System.Drawing.Size(42, 43);
+            this.btnBack.TabIndex = 9;
             // 
             // frm_TimKiemHLV
             // 
@@ -874,14 +893,16 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.LightCyan;
             this.ClientSize = new System.Drawing.Size(1348, 739);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.pnlChiTiet);
             this.Controls.Add(this.pnlThongTinPT);
             this.Controls.Add(this.pnlHienThiDanhSach);
-            this.Controls.Add(this.guna2CustomGradientPanel1);
+            this.Controls.Add(this.pnlChucNang);
             this.Name = "frm_TimKiemHLV";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_TimKiemHLV";
-            this.guna2CustomGradientPanel1.ResumeLayout(false);
-            this.guna2CustomGradientPanel1.PerformLayout();
+            this.pnlChucNang.ResumeLayout(false);
+            this.pnlChucNang.PerformLayout();
             this.pnlHienThiDanhSach.ResumeLayout(false);
             this.pnlDanhSach1.ResumeLayout(false);
             this.pnlDanhSach1.PerformLayout();
@@ -903,7 +924,7 @@
             this.pnlTyLeThanhCong.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptrstar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrAvatar)).EndInit();
             this.pnlChiTiet.ResumeLayout(false);
             this.pnlChiTiet.PerformLayout();
             this.pnlChiTietChungChi.ResumeLayout(false);
@@ -911,7 +932,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ptrChiTietChungChi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -921,10 +941,9 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTieuDe;
         private Guna.UI2.WinForms.Guna2TextBox txtTimKiem;
         private Guna.UI2.WinForms.Guna2GradientTileButton btnTatCa;
-        private Guna.UI2.WinForms.Guna2GradientTileButton guna2GradientTileButton1;
-        private Guna.UI2.WinForms.Guna2GradientTileButton guna2GradientTileButton2;
-        private Guna.UI2.WinForms.Guna2GradientTileButton guna2GradientTileButton3;
-        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel1;
+        private Guna.UI2.WinForms.Guna2GradientTileButton btnTinhvaTP;
+        private Guna.UI2.WinForms.Guna2GradientTileButton btnChuyenMon;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlChucNang;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlHienThiDanhSach;
         private Guna.UI2.WinForms.Guna2ShadowPanel pnlDanhSach1;
         private System.Windows.Forms.Label lblChuyenMon;
@@ -940,7 +959,7 @@
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlThongTinPT;
         private Guna.UI2.WinForms.Guna2PictureBox ptrstar1;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox3;
+        private Guna.UI2.WinForms.Guna2PictureBox ptrAvatar;
         private System.Windows.Forms.Label lblNamKinhNghiem1;
         private System.Windows.Forms.Label lblTen1;
         private System.Windows.Forms.Label lblSoNamKinhNghiem1;
@@ -967,8 +986,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblSoChuyenMon;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlChiTiet;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblNoiDungGioiThieu;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblGioiThieu;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
         private System.Windows.Forms.Label lblChiTietChuyenMon1;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblChiTietChuyenMon;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox5;
@@ -977,5 +994,9 @@
         private Guna.UI2.WinForms.Guna2ShadowPanel pnlChiTietChungChi;
         private System.Windows.Forms.Label lblChiTietChungChi1;
         private Guna.UI2.WinForms.Guna2PictureBox ptrChiTietChungChi;
+        private System.Windows.Forms.Label lblGia;
+        private System.Windows.Forms.Label lblGiaTheoGio;
+        private Guna.UI2.WinForms.Guna2GradientButton btnGuiYeuCau;
+        private Guna.UI2.WinForms.Guna2CircleButton btnBack;
     }
 }

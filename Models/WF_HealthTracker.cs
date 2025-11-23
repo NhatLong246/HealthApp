@@ -141,6 +141,9 @@ namespace HealthApp.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<DanhGiaPT>()
+                .ToTable("DanhGiaPT"); // Đảm bảo tên bảng đúng (không có "s")
+
+            modelBuilder.Entity<DanhGiaPT>()
                 .Property(e => e.DanhGiaID)
                 .IsUnicode(false);
 
@@ -181,6 +184,9 @@ namespace HealthApp.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<GiaoDich>()
+                .ToTable("GiaoDich"); // Đảm bảo tên bảng đúng (không có "s")
+
+            modelBuilder.Entity<GiaoDich>()
                 .Property(e => e.GiaoDichID)
                 .IsUnicode(false);
 
@@ -201,8 +207,14 @@ namespace HealthApp.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<HuanLuyenVien>()
+                .ToTable("HuanLuyenVien"); // Đảm bảo tên bảng đúng (không có "s")
+
+            modelBuilder.Entity<HuanLuyenVien>()
                 .Property(e => e.PTID)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<DatLichPT>()
+                .ToTable("DatLichPT"); // Đảm bảo tên bảng đúng
 
             modelBuilder.Entity<HuanLuyenVien>()
                 .Property(e => e.UserID)
@@ -249,6 +261,9 @@ namespace HealthApp.Models
             modelBuilder.Entity<LuotThichChiaSeThanhTuu>()
                 .Property(e => e.UserID)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<MucTieu>()
+                .ToTable("MucTieu"); // Đảm bảo tên bảng đúng (không có "s")
 
             modelBuilder.Entity<MucTieu>()
                 .Property(e => e.MucTieuID)
