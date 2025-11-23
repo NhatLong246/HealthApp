@@ -45,12 +45,12 @@ namespace HealthApp
 //#if DEBUG
 //            MessageBox.Show("App starting...", "HealthApp", MessageBoxButtons.OK, MessageBoxIcon.Information);
 //#endif
-            Application.Run(new frmMucTieu());
+            //Application.Run(new frmMucTieu());
             //Application.Run(new LoginForm());
-            
+
             // Khởi tạo và chạy form
             //Application.Run(new frm_FoodLibrary());
-            //Application.Run(new frmDashBoard());
+            Application.Run(new frmDashBoard());
         }
     }
 }
