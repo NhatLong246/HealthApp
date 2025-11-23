@@ -3,6 +3,9 @@ using HealthApp.Views.Food;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using HealthApp.Views.Activity;
+using HealthApp.Views.MucTieu;
+using HealthApp.Views.Dashboard;
 
 namespace HealthApp
 {
@@ -39,9 +42,15 @@ namespace HealthApp
             // Enable visual styles - QUAN TRỌNG cho Guna.UI2 controls
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+//#if DEBUG
+//            MessageBox.Show("App starting...", "HealthApp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+//#endif
+            Application.Run(new frmMucTieu());
+            //Application.Run(new LoginForm());
             
             // Khởi tạo và chạy form
-            Application.Run(new frm_FoodLibrary());
+            //Application.Run(new frm_FoodLibrary());
+            //Application.Run(new frmDashBoard());
         }
     }
 }

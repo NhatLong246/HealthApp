@@ -42,6 +42,12 @@
   <PropertyGroup>
     <StartupObject>HealthApp.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <UseTaskHost>false</UseTaskHost>
+    <UseSharedCompilation>false</UseSharedCompilation>
+    <GenerateResourceMSBuildArchitecture>CurrentArchitecture</GenerateResourceMSBuildArchitecture>
+    <GenerateResourceMSBuildRuntime>CurrentRuntime</GenerateResourceMSBuildRuntime>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
@@ -49,6 +55,7 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>packages\Guna.UI2.WinForms.2.0.4.7\lib\net48\Guna.UI2.dll</HintPath>
@@ -61,6 +68,15 @@
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.9.0.7\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3595.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.3595.46\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3595.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.3595.46\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3595.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.3595.46\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -118,6 +134,15 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Vlc.DotNet.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>packages\Vlc.DotNet.Core.3.1.0\lib\net45\Vlc.DotNet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Core.Interops, Version=3.1.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>packages\Vlc.DotNet.Core.Interops.3.1.0\lib\net45\Vlc.DotNet.Core.Interops.dll</HintPath>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Forms, Version=3.1.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>packages\Vlc.DotNet.Forms.3.1.0\lib\net45\Vlc.DotNet.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +192,18 @@
     </Compile>
     <Compile Include="Views\Activity\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MucTieu\frmMucTieu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MucTieu\frmMucTieu.Designer.cs">
+      <DependentUpon>frmMucTieu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MucTieu\ucMucTieu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MucTieu\ucMucTieu.Designer.cs">
+      <DependentUpon>ucMucTieu.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Auth\ChangePasswordForm.cs">
       <SubType>Form</SubType>
@@ -252,18 +289,62 @@
     <Compile Include="Views\PT\YeuCauTapLuyen.Designer.cs">
       <DependentUpon>YeuCauTapLuyen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dashboard\frmDashBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Dashboard\frmDashBoard.Designer.cs">
+      <DependentUpon>frmDashBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\ucDashBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Dashboard\ucDashBoard.Designer.cs">
+      <DependentUpon>ucDashBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Nutrition\frmThemMonAn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Nutrition\frmThemMonAn.Designer.cs">
+      <DependentUpon>frmThemMonAn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Nutrition\ucMonAnItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Nutrition\ucMonAnItem.Designer.cs">
+      <DependentUpon>ucMonAnItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Nutrition\ucMonAnDaThemItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Nutrition\ucMonAnDaThemItem.Designer.cs">
+      <DependentUpon>ucMonAnDaThemItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Nutrition\ucNutrition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Nutrition\ucNutrition.Designer.cs">
+      <DependentUpon>ucNutrition.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <ManifestResourceName>HealthApp.Properties.Resources</ManifestResourceName>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Views\Activity\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MucTieu\frmMucTieu.resx">
+      <DependentUpon>frmMucTieu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MucTieu\ucMucTieu.resx">
+      <DependentUpon>ucMucTieu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Auth\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
@@ -307,12 +388,29 @@
     <EmbeddedResource Include="Views\PT\YeuCauTapLuyen.resx">
       <DependentUpon>YeuCauTapLuyen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Dashboard\frmDashBoard.resx">
+      <DependentUpon>frmDashBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Dashboard\ucDashBoard.resx">
+      <DependentUpon>ucDashBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Nutrition\frmThemMonAn.resx">
+      <DependentUpon>frmThemMonAn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Nutrition\ucMonAnItem.resx">
+      <DependentUpon>ucMonAnItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Nutrition\ucMonAnDaThemItem.resx">
+      <DependentUpon>ucMonAnDaThemItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Nutrition\ucNutrition.resx">
+      <DependentUpon>ucNutrition.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Assets\.gitkeep" />
     <None Include="Assets\Reports\.gitkeep" />
     <None Include="Assets\Reports\Generated\.gitkeep" />
     <None Include="Assets\Reports\Templates\.gitkeep" />
     <None Include="Backups\.gitkeep" />
-    <None Include="bin\Debug\HealthApp.exe.config" />
     <None Include="Common\.gitkeep" />
     <None Include="Common\Constants\.gitkeep" />
     <None Include="Common\Enums\.gitkeep" />
@@ -515,8 +613,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="bin\Debug\HealthApp.exe" />
-    <Content Include="bin\Debug\HealthApp.pdb" />
     <Content Include="packages\EntityFramework.6.5.1\build\Microsoft.Data.Entity.Build.Tasks.dll" />
     <Content Include="packages\EntityFramework.6.5.1\Icon.png" />
     <Content Include="packages\EntityFramework.6.5.1\lib\net40\EntityFramework.dll" />
@@ -781,6 +877,8 @@
     <Content Include="packages\System.ValueTuple.4.5.0\THIRD-PARTY-NOTICES.TXT" />
     <Content Include="packages\System.ValueTuple.4.5.0\useSharedDesignerContext.txt" />
     <Content Include="packages\System.ValueTuple.4.5.0\version.txt" />
+    <None Include="Resources\Icons\icons-meal.png" />
+    <None Include="Resources\icons-kcal.png" />
     <Content Include="Resources\Icons\AchivementIcon.png" />
     <Content Include="Resources\Icons\CommunityIcon.png" />
     <Content Include="Resources\Icons\folowIcon.png" />
@@ -790,9 +888,67 @@
     <Content Include="Resources\Icons\Lock.png" />
     <Content Include="Resources\Icons\LockIcon.png" />
     <Content Include="Resources\Icons\Screenshot_2025-10-13_210618-removebg-preview.png" />
+    <Content Include="Resources\Video\ren-luyen-dang.mp4" />
+    <None Include="Resources\Icons\icons-deadlift.gif" />
+    <None Include="Resources\Icons\icons-workout.png" />
+    <None Include="Resources\Icons\icons-calendar.png" />
+    <None Include="Resources\Icons\goal.png" />
+    <None Include="Resources\Icons\back.png" />
     <None Include="Resources\Images\Food\galuoc.jpg" />
+    <Content Include="Resources\ArrowRightIcon.png" />
+    <None Include="Resources\CalenderICon.png" />
+    <None Include="Resources\BreadIcon.png" />
+    <None Include="Resources\categoryIcon.png" />
+    <Content Include="Resources\ChangeICon.png" />
+    <None Include="Resources\chartIcon.png" />
+    <Content Include="Resources\DataIcon.png" />
+    <None Include="Resources\FireIcon.png" />
+    <None Include="Resources\dumbbellsIcon.png" />
+    <None Include="Resources\forkICon.png" />
+    <Content Include="Resources\goalIcon.png" />
+    <Content Include="Resources\HealthICon.png" />
+    <None Include="Resources\HistoryIcon.png" />
+    <None Include="Resources\History2Icon.png" />
+    <None Include="Resources\homeIcon.png" />
+    <Content Include="Resources\KeHoachAnUong.png" />
+    <Content Include="Resources\KehoachTapLuyen.png" />
+    <None Include="Resources\ListIcon.png" />
+    <Content Include="Resources\LogoIcon.png" />
+    <Content Include="Resources\MapIcon.png" />
+    <Content Include="Resources\nutritiousIcon.png" />
+    <Content Include="Resources\PenIcon.png" />
+    <Content Include="Resources\personIcon.png" />
+    <None Include="Resources\ProteinIcon.png" />
+    <Content Include="Resources\Ptpic.png" />
+    <Content Include="Resources\QuestionIcon.png" />
+    <Content Include="Resources\RankingIcon.png" />
+    <Content Include="Resources\RankingIcon1.png" />
+    <Content Include="Resources\RulerIcon.png" />
+    <None Include="Resources\starIcon.png" />
+    <None Include="Resources\scheduleIcon.png" />
+    <None Include="Resources\settingIcon.png" />
+    <Content Include="Resources\statisticalIcon.png" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
@@ -803,6 +959,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
     <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.3595.46\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.3595.46\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
   <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <Import Project="packages\Microsoft.Web.WebView2.1.0.3595.46\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.3595.46\build\Microsoft.Web.WebView2.targets')" />
 </Project>
