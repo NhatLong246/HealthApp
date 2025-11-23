@@ -71,5 +71,10 @@ namespace HealthApp.Views.PT
         {
 
         }
+
+        private void pnlLichTrinh1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

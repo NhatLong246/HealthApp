@@ -1,20 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using HealthApp.Views.Auth;
+using HealthApp.Views.Food;
+using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using HealthApp.Views.Auth;
 
 namespace HealthApp
 {
     internal static class Program
     {
+        // DPI Awareness để xử lý scaling đúng cách trên màn hình high-DPI
+        [DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            // Set DPI Awareness TRƯỚC KHI khởi tạo Application
+            // Điều này rất quan trọng để form hiển thị đúng trên màn hình high-DPI
+            if (Environment.OSVersion.Version.Major >= 6)
+            {
+                SetProcessDPIAware();
+            }
+
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += (sender, args) =>
             {
@@ -25,9 +35,13 @@ namespace HealthApp
                 var ex = args.ExceptionObject as Exception;
                 MessageBox.Show($"Unhandled non-UI exception: {ex}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             };
+            
+            // Enable visual styles - QUAN TRỌNG cho Guna.UI2 controls
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            
+            // Khởi tạo và chạy form
+            Application.Run(new frm_FoodLibrary());
         }
     }
 }
