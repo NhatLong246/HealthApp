@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace HealthApp.Views.PT
 {
-    public partial class frn_LichPT : Form
+    public partial class YeuCauTapLuyen : Form
     {
-        public frn_LichPT()
+        public YeuCauTapLuyen()
         {
             InitializeComponent();
         }

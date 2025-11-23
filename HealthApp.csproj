@@ -240,11 +240,17 @@
     <Compile Include="Views\PT\frm_TimKiemKhachHang.Designer.cs">
       <DependentUpon>frm_TimKiemKhachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PT\frn_LichPT.cs">
+    <Compile Include="Views\PT\UserControlChonNgay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PT\UserControlChonNgay.Designer.cs">
+      <DependentUpon>UserControlChonNgay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PT\YeuCauTapLuyen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\PT\frn_LichPT.Designer.cs">
-      <DependentUpon>frn_LichPT.cs</DependentUpon>
+    <Compile Include="Views\PT\YeuCauTapLuyen.Designer.cs">
+      <DependentUpon>YeuCauTapLuyen.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -295,8 +301,11 @@
     <EmbeddedResource Include="Views\PT\frm_TimKiemKhachHang.resx">
       <DependentUpon>frm_TimKiemKhachHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PT\frn_LichPT.resx">
-      <DependentUpon>frn_LichPT.cs</DependentUpon>
+    <EmbeddedResource Include="Views\PT\UserControlChonNgay.resx">
+      <DependentUpon>UserControlChonNgay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\YeuCauTapLuyen.resx">
+      <DependentUpon>YeuCauTapLuyen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Assets\.gitkeep" />
     <None Include="Assets\Reports\.gitkeep" />
