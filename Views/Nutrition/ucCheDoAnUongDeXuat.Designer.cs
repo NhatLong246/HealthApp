@@ -7,19 +7,6 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         #region Component Designer generated code
 
         /// <summary> 
@@ -64,7 +51,7 @@
             this.pnlCard1 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblChisoCalo = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.pnlDanhSachNhatKyBuaAn = new Guna.UI2.WinForms.Guna2Panel();
+            this.pnlBuaSang = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -79,6 +66,13 @@
             this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblMucTieu = new System.Windows.Forms.Label();
+            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.lblHienThiMucTieu = new System.Windows.Forms.Label();
+            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.guna2PictureBox5 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pnlThongKeDinhDuongThang.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picCalenderMonth)).BeginInit();
             this.pnlThongKeDinhDuongTuan.SuspendLayout();
@@ -97,7 +91,7 @@
             this.pnlCard2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDumbbells)).BeginInit();
             this.pnlCard1.SuspendLayout();
-            this.pnlDanhSachNhatKyBuaAn.SuspendLayout();
+            this.pnlBuaSang.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.pnBuaTrua.SuspendLayout();
@@ -106,6 +100,10 @@
             this.pnBuaToi.SuspendLayout();
             this.guna2Panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).BeginInit();
+            this.guna2Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).BeginInit();
+            this.guna2Panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlThongKeDinhDuongThang
@@ -228,9 +226,9 @@
             this.pnlNhatKyBuaAn.BorderThickness = 2;
             this.pnlNhatKyBuaAn.Controls.Add(this.lblNhatKyBuaAn);
             this.pnlNhatKyBuaAn.Controls.Add(this.picFork);
-            this.pnlNhatKyBuaAn.Location = new System.Drawing.Point(167, 434);
+            this.pnlNhatKyBuaAn.Location = new System.Drawing.Point(36, 426);
             this.pnlNhatKyBuaAn.Name = "pnlNhatKyBuaAn";
-            this.pnlNhatKyBuaAn.Size = new System.Drawing.Size(277, 55);
+            this.pnlNhatKyBuaAn.Size = new System.Drawing.Size(303, 55);
             this.pnlNhatKyBuaAn.TabIndex = 14;
             // 
             // lblNhatKyBuaAn
@@ -238,7 +236,7 @@
             this.lblNhatKyBuaAn.AutoSize = true;
             this.lblNhatKyBuaAn.BackColor = System.Drawing.Color.Transparent;
             this.lblNhatKyBuaAn.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNhatKyBuaAn.Location = new System.Drawing.Point(77, 16);
+            this.lblNhatKyBuaAn.Location = new System.Drawing.Point(77, 12);
             this.lblNhatKyBuaAn.Name = "lblNhatKyBuaAn";
             this.lblNhatKyBuaAn.Size = new System.Drawing.Size(152, 31);
             this.lblNhatKyBuaAn.TabIndex = 0;
@@ -272,9 +270,9 @@
             this.lblThongKeDinhDuong.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblThongKeDinhDuong.Location = new System.Drawing.Point(109, 1197);
             this.lblThongKeDinhDuong.Name = "lblThongKeDinhDuong";
-            this.lblThongKeDinhDuong.Size = new System.Drawing.Size(217, 28);
+            this.lblThongKeDinhDuong.Size = new System.Drawing.Size(295, 28);
             this.lblThongKeDinhDuong.TabIndex = 18;
-            this.lblThongKeDinhDuong.Text = "Thống Kê Dinh Dưỡng";
+            this.lblThongKeDinhDuong.Text = "Thống Kê Dinh Dưỡng Dự Kiến";
             // 
             // picProtein
             // 
@@ -334,7 +332,7 @@
             // 
             this.lblInfor.AutoSize = true;
             this.lblInfor.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfor.Location = new System.Drawing.Point(467, 68);
+            this.lblInfor.Location = new System.Drawing.Point(476, 44);
             this.lblInfor.Name = "lblInfor";
             this.lblInfor.Size = new System.Drawing.Size(309, 25);
             this.lblInfor.TabIndex = 1;
@@ -345,11 +343,11 @@
             this.lblTieuDe.AutoSize = true;
             this.lblTieuDe.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTieuDe.ForeColor = System.Drawing.Color.Lime;
-            this.lblTieuDe.Location = new System.Drawing.Point(537, 15);
+            this.lblTieuDe.Location = new System.Drawing.Point(413, 3);
             this.lblTieuDe.Name = "lblTieuDe";
-            this.lblTieuDe.Size = new System.Drawing.Size(191, 41);
+            this.lblTieuDe.Size = new System.Drawing.Size(472, 41);
             this.lblTieuDe.TabIndex = 0;
-            this.lblTieuDe.Text = "Dinh Dưỡng\r\n";
+            this.lblTieuDe.Text = "Chế độ ăn uống đề xuất cho bạn\r\n";
             // 
             // pnlSection1
             // 
@@ -360,9 +358,9 @@
             this.pnlSection1.Controls.Add(this.pnlCard3);
             this.pnlSection1.Controls.Add(this.pnlCard2);
             this.pnlSection1.Controls.Add(this.pnlCard1);
-            this.pnlSection1.Location = new System.Drawing.Point(36, 134);
+            this.pnlSection1.Location = new System.Drawing.Point(36, 161);
             this.pnlSection1.Name = "pnlSection1";
-            this.pnlSection1.Size = new System.Drawing.Size(1277, 260);
+            this.pnlSection1.Size = new System.Drawing.Size(1277, 233);
             this.pnlSection1.TabIndex = 11;
             // 
             // pnlCard4
@@ -374,7 +372,7 @@
             this.pnlCard4.Controls.Add(this.picProtein);
             this.pnlCard4.Controls.Add(this.lblChatbeo);
             this.pnlCard4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.pnlCard4.Location = new System.Drawing.Point(1020, 22);
+            this.pnlCard4.Location = new System.Drawing.Point(1017, 38);
             this.pnlCard4.Name = "pnlCard4";
             this.pnlCard4.Size = new System.Drawing.Size(233, 200);
             this.pnlCard4.TabIndex = 4;
@@ -408,7 +406,7 @@
             this.pnlCard3.Controls.Add(this.picBread);
             this.pnlCard3.Controls.Add(this.lblCarbs);
             this.pnlCard3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.pnlCard3.Location = new System.Drawing.Point(684, 22);
+            this.pnlCard3.Location = new System.Drawing.Point(685, 38);
             this.pnlCard3.Name = "pnlCard3";
             this.pnlCard3.Size = new System.Drawing.Size(233, 200);
             this.pnlCard3.TabIndex = 3;
@@ -442,7 +440,7 @@
             this.pnlCard2.Controls.Add(this.picDumbbells);
             this.pnlCard2.Controls.Add(this.lblProtein);
             this.pnlCard2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.pnlCard2.Location = new System.Drawing.Point(353, 22);
+            this.pnlCard2.Location = new System.Drawing.Point(356, 38);
             this.pnlCard2.Name = "pnlCard2";
             this.pnlCard2.Size = new System.Drawing.Size(233, 200);
             this.pnlCard2.TabIndex = 2;
@@ -487,7 +485,7 @@
             this.pnlCard1.Controls.Add(this.picFire);
             this.pnlCard1.Controls.Add(this.label2);
             this.pnlCard1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.pnlCard1.Location = new System.Drawing.Point(26, 22);
+            this.pnlCard1.Location = new System.Drawing.Point(26, 38);
             this.pnlCard1.Name = "pnlCard1";
             this.pnlCard1.Size = new System.Drawing.Size(233, 200);
             this.pnlCard1.TabIndex = 1;
@@ -508,21 +506,21 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(69, 156);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 23);
+            this.label2.Size = new System.Drawing.Size(77, 23);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Calo(kcal)";
+            this.label2.Text = "Calo(cal)";
             // 
-            // pnlDanhSachNhatKyBuaAn
+            // pnlBuaSang
             // 
-            this.pnlDanhSachNhatKyBuaAn.BackColor = System.Drawing.Color.Transparent;
-            this.pnlDanhSachNhatKyBuaAn.BorderRadius = 30;
-            this.pnlDanhSachNhatKyBuaAn.BorderThickness = 1;
-            this.pnlDanhSachNhatKyBuaAn.Controls.Add(this.guna2Panel3);
-            this.pnlDanhSachNhatKyBuaAn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.pnlDanhSachNhatKyBuaAn.Location = new System.Drawing.Point(33, 524);
-            this.pnlDanhSachNhatKyBuaAn.Name = "pnlDanhSachNhatKyBuaAn";
-            this.pnlDanhSachNhatKyBuaAn.Size = new System.Drawing.Size(411, 646);
-            this.pnlDanhSachNhatKyBuaAn.TabIndex = 13;
+            this.pnlBuaSang.BackColor = System.Drawing.Color.Transparent;
+            this.pnlBuaSang.BorderRadius = 30;
+            this.pnlBuaSang.BorderThickness = 1;
+            this.pnlBuaSang.Controls.Add(this.guna2Panel3);
+            this.pnlBuaSang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.pnlBuaSang.Location = new System.Drawing.Point(33, 524);
+            this.pnlBuaSang.Name = "pnlBuaSang";
+            this.pnlBuaSang.Size = new System.Drawing.Size(411, 646);
+            this.pnlBuaSang.TabIndex = 13;
             // 
             // guna2Panel3
             // 
@@ -570,7 +568,7 @@
             this.btnChuyenTuanSau.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnChuyenTuanSau.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChuyenTuanSau.ForeColor = System.Drawing.Color.White;
-            this.btnChuyenTuanSau.Location = new System.Drawing.Point(901, 434);
+            this.btnChuyenTuanSau.Location = new System.Drawing.Point(862, 425);
             this.btnChuyenTuanSau.Name = "btnChuyenTuanSau";
             this.btnChuyenTuanSau.Size = new System.Drawing.Size(68, 53);
             this.btnChuyenTuanSau.TabIndex = 24;
@@ -587,7 +585,7 @@
             this.btnChuyenTuanTruoc.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnChuyenTuanTruoc.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChuyenTuanTruoc.ForeColor = System.Drawing.Color.White;
-            this.btnChuyenTuanTruoc.Location = new System.Drawing.Point(460, 434);
+            this.btnChuyenTuanTruoc.Location = new System.Drawing.Point(421, 425);
             this.btnChuyenTuanTruoc.Name = "btnChuyenTuanTruoc";
             this.btnChuyenTuanTruoc.Size = new System.Drawing.Size(74, 53);
             this.btnChuyenTuanTruoc.TabIndex = 23;
@@ -601,7 +599,7 @@
             this.guna2DateTimePicker1.FillColor = System.Drawing.Color.Transparent;
             this.guna2DateTimePicker1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.guna2DateTimePicker1.Location = new System.Drawing.Point(554, 434);
+            this.guna2DateTimePicker1.Location = new System.Drawing.Point(515, 425);
             this.guna2DateTimePicker1.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.guna2DateTimePicker1.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.guna2DateTimePicker1.Name = "guna2DateTimePicker1";
@@ -703,9 +701,94 @@
             this.guna2PictureBox3.TabIndex = 2;
             this.guna2PictureBox3.TabStop = false;
             // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Panel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.guna2Panel1.BorderRadius = 20;
+            this.guna2Panel1.BorderThickness = 2;
+            this.guna2Panel1.Controls.Add(this.lblHienThiMucTieu);
+            this.guna2Panel1.Controls.Add(this.lblMucTieu);
+            this.guna2Panel1.Controls.Add(this.guna2PictureBox4);
+            this.guna2Panel1.Location = new System.Drawing.Point(959, 400);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(354, 118);
+            this.guna2Panel1.TabIndex = 15;
+            // 
+            // lblMucTieu
+            // 
+            this.lblMucTieu.AutoSize = true;
+            this.lblMucTieu.BackColor = System.Drawing.Color.Transparent;
+            this.lblMucTieu.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMucTieu.Location = new System.Drawing.Point(121, 12);
+            this.lblMucTieu.Name = "lblMucTieu";
+            this.lblMucTieu.Size = new System.Drawing.Size(113, 31);
+            this.lblMucTieu.TabIndex = 0;
+            this.lblMucTieu.Text = "Mục Tiêu";
+            // 
+            // guna2PictureBox4
+            // 
+            this.guna2PictureBox4.Image = global::HealthApp.Properties.Resources.FireIcon;
+            this.guna2PictureBox4.ImageRotate = 0F;
+            this.guna2PictureBox4.Location = new System.Drawing.Point(83, 5);
+            this.guna2PictureBox4.Name = "guna2PictureBox4";
+            this.guna2PictureBox4.Size = new System.Drawing.Size(40, 42);
+            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox4.TabIndex = 2;
+            this.guna2PictureBox4.TabStop = false;
+            // 
+            // lblHienThiMucTieu
+            // 
+            this.lblHienThiMucTieu.AutoSize = true;
+            this.lblHienThiMucTieu.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHienThiMucTieu.Location = new System.Drawing.Point(10, 46);
+            this.lblHienThiMucTieu.Name = "lblHienThiMucTieu";
+            this.lblHienThiMucTieu.Size = new System.Drawing.Size(140, 23);
+            this.lblHienThiMucTieu.TabIndex = 3;
+            this.lblHienThiMucTieu.Text = "hiển thị mục tiêu";
+            this.lblHienThiMucTieu.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // guna2Panel2
+            // 
+            this.guna2Panel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Panel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.guna2Panel2.BorderRadius = 20;
+            this.guna2Panel2.BorderThickness = 2;
+            this.guna2Panel2.Controls.Add(this.label5);
+            this.guna2Panel2.Controls.Add(this.guna2PictureBox5);
+            this.guna2Panel2.Location = new System.Drawing.Point(58, 133);
+            this.guna2Panel2.Name = "guna2Panel2";
+            this.guna2Panel2.Size = new System.Drawing.Size(1228, 55);
+            this.guna2Panel2.TabIndex = 15;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(65, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(586, 31);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Chất lượng dinh dưỡng đề xuất cho mục tiêu của bạn";
+            this.label5.Click += new System.EventHandler(this.label5_Click_1);
+            // 
+            // guna2PictureBox5
+            // 
+            this.guna2PictureBox5.Image = global::HealthApp.Properties.Resources.goalIcon;
+            this.guna2PictureBox5.ImageRotate = 0F;
+            this.guna2PictureBox5.Location = new System.Drawing.Point(22, 5);
+            this.guna2PictureBox5.Name = "guna2PictureBox5";
+            this.guna2PictureBox5.Size = new System.Drawing.Size(40, 42);
+            this.guna2PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox5.TabIndex = 2;
+            this.guna2PictureBox5.TabStop = false;
+            // 
             // ucCheDoAnUongDeXuat
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.guna2Panel2);
+            this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.pnBuaToi);
             this.Controls.Add(this.pnBuaTrua);
             this.Controls.Add(this.guna2DateTimePicker1);
@@ -717,7 +800,7 @@
             this.Controls.Add(this.pnlThongKeDinhDuongTuanVaThang);
             this.Controls.Add(this.pnlTieuDe);
             this.Controls.Add(this.pnlSection1);
-            this.Controls.Add(this.pnlDanhSachNhatKyBuaAn);
+            this.Controls.Add(this.pnlBuaSang);
             this.Name = "ucCheDoAnUongDeXuat";
             this.Size = new System.Drawing.Size(1348, 1586);
             this.pnlThongKeDinhDuongThang.ResumeLayout(false);
@@ -746,7 +829,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDumbbells)).EndInit();
             this.pnlCard1.ResumeLayout(false);
             this.pnlCard1.PerformLayout();
-            this.pnlDanhSachNhatKyBuaAn.ResumeLayout(false);
+            this.pnlBuaSang.ResumeLayout(false);
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
@@ -758,6 +841,12 @@
             this.guna2Panel5.ResumeLayout(false);
             this.guna2Panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).EndInit();
+            this.guna2Panel1.ResumeLayout(false);
+            this.guna2Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).EndInit();
+            this.guna2Panel2.ResumeLayout(false);
+            this.guna2Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -800,7 +889,7 @@
         private Guna.UI2.WinForms.Guna2Panel pnlCard1;
         private System.Windows.Forms.Label lblChisoCalo;
         private System.Windows.Forms.Label label2;
-        private Guna.UI2.WinForms.Guna2Panel pnlDanhSachNhatKyBuaAn;
+        private Guna.UI2.WinForms.Guna2Panel pnlBuaSang;
         private System.Windows.Forms.Label lblNhatKyBuaAn;
         private Guna.UI2.WinForms.Guna2GradientButton btnChuyenTuanSau;
         private Guna.UI2.WinForms.Guna2GradientButton btnChuyenTuanTruoc;
@@ -816,5 +905,12 @@
         private Guna.UI2.WinForms.Guna2Panel guna2Panel5;
         private System.Windows.Forms.Label label4;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox3;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private System.Windows.Forms.Label lblHienThiMucTieu;
+        private System.Windows.Forms.Label lblMucTieu;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
+        private System.Windows.Forms.Label label5;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox5;
     }
 }
