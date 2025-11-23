@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using HealthApp.Views.Activity;
 using HealthApp.Views.MucTieu;
+using HealthApp.Views.Dashboard;
 
 namespace HealthApp
 {
@@ -49,6 +50,7 @@ namespace HealthApp
             
             // Khởi tạo và chạy form
             //Application.Run(new frm_FoodLibrary());
+            //Application.Run(new frmDashBoard());
         }
     }
 }
