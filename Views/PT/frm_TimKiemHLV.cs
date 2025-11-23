@@ -51,5 +51,10 @@ namespace HealthApp.Views.PT
         {
 
         }
+
+        private void lblGiaTheoGio_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

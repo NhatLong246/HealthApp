@@ -32,58 +32,69 @@
             this.lblTieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTieuDe2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlKhachHang = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.ptrKhachHang = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblKhachHang1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblKhachHang = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlBuoiTap = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.ptrBuoiTap = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblBuoiTap1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblBuoiTap = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlThuNhap = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.ptrThuNhap = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblThuNhap1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblThuNhap = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlDanhGia = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblDanhGia1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblDanhGia = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlKhachHangDangTap = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlDanhsach = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlDanhSach1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
-            this.lblThoiGianDanhSach1 = new System.Windows.Forms.Label();
+            this.lblNgayDanhSach1 = new System.Windows.Forms.Label();
             this.lblTenDanhSach1 = new System.Windows.Forms.Label();
-            this.pnlImageDachSach1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            this.lblKhachHangDangTap = new System.Windows.Forms.Label();
-            this.pnlTinNhan = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.lblTinNhan = new System.Windows.Forms.Label();
-            this.btnTatCaTinNhan = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.pnlYeuCauThuePT = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlLichTrinh = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlLichTrinh1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.lblDienRa = new System.Windows.Forms.Label();
             this.lblLichKhachHang1 = new System.Windows.Forms.Label();
             this.lblTime2 = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
-            this.ptrImageLichTrinh = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblTime1 = new System.Windows.Forms.Label();
-            this.lbl_LichTrinh = new System.Windows.Forms.Label();
             this.btn_Lich = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.ptrImageLichTrinh = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.lbl_LichTrinh = new System.Windows.Forms.Label();
+            this.lblYeuCauThuePT = new System.Windows.Forms.Label();
+            this.ptrAvatarDachSach1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.lblKhachHangDangTap = new System.Windows.Forms.Label();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.ptrThuNhap = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.ptrBuoiTap = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.ptrKhachHang = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.ptrAvatarNguoiYeuCauach1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.lblTenNguoiYeuCauThue = new System.Windows.Forms.Label();
+            this.lblMucTieuNguoiYeuCauThue = new System.Windows.Forms.Label();
+            this.lblThoiGian = new System.Windows.Forms.Label();
+            this.lblNgayTap = new System.Windows.Forms.Label();
+            this.lblThoiGianDanhSach1 = new System.Windows.Forms.Label();
+            this.btnDongY = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.btnGiaoBaiTap = new Guna.UI2.WinForms.Guna2Button();
             this.pnlKhachHang.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptrKhachHang)).BeginInit();
             this.pnlBuoiTap.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptrBuoiTap)).BeginInit();
             this.pnlThuNhap.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptrThuNhap)).BeginInit();
             this.pnlDanhGia.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.pnlKhachHangDangTap.SuspendLayout();
             this.pnlDanhsach.SuspendLayout();
             this.pnlDanhSach1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pnlImageDachSach1)).BeginInit();
-            this.pnlTinNhan.SuspendLayout();
+            this.pnlYeuCauThuePT.SuspendLayout();
             this.pnlLichTrinh.SuspendLayout();
             this.pnlLichTrinh1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrImageLichTrinh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarDachSach1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrThuNhap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrBuoiTap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrKhachHang)).BeginInit();
+            this.guna2ShadowPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarNguoiYeuCauach1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTieuDe
@@ -92,9 +103,9 @@
             this.lblTieuDe.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTieuDe.Location = new System.Drawing.Point(66, 12);
             this.lblTieuDe.Name = "lblTieuDe";
-            this.lblTieuDe.Size = new System.Drawing.Size(626, 39);
+            this.lblTieuDe.Size = new System.Drawing.Size(416, 39);
             this.lblTieuDe.TabIndex = 0;
-            this.lblTieuDe.Text = "BẢNG ĐIỀU KHIỂN HUẤN LUYỆN VIÊN";
+            this.lblTieuDe.Text = "BẢNG  HUẤN LUYỆN VIÊN";
             // 
             // lblTieuDe2
             // 
@@ -118,19 +129,6 @@
             this.pnlKhachHang.Name = "pnlKhachHang";
             this.pnlKhachHang.Size = new System.Drawing.Size(282, 103);
             this.pnlKhachHang.TabIndex = 2;
-            // 
-            // ptrKhachHang
-            // 
-            this.ptrKhachHang.BackColor = System.Drawing.Color.Honeydew;
-            this.ptrKhachHang.BorderRadius = 15;
-            this.ptrKhachHang.Image = ((System.Drawing.Image)(resources.GetObject("ptrKhachHang.Image")));
-            this.ptrKhachHang.ImageRotate = 0F;
-            this.ptrKhachHang.Location = new System.Drawing.Point(204, 37);
-            this.ptrKhachHang.Name = "ptrKhachHang";
-            this.ptrKhachHang.Size = new System.Drawing.Size(56, 50);
-            this.ptrKhachHang.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptrKhachHang.TabIndex = 3;
-            this.ptrKhachHang.TabStop = false;
             // 
             // lblKhachHang1
             // 
@@ -168,19 +166,6 @@
             this.pnlBuoiTap.Size = new System.Drawing.Size(282, 103);
             this.pnlBuoiTap.TabIndex = 3;
             // 
-            // ptrBuoiTap
-            // 
-            this.ptrBuoiTap.BackColor = System.Drawing.Color.LightCyan;
-            this.ptrBuoiTap.BorderRadius = 15;
-            this.ptrBuoiTap.Image = ((System.Drawing.Image)(resources.GetObject("ptrBuoiTap.Image")));
-            this.ptrBuoiTap.ImageRotate = 0F;
-            this.ptrBuoiTap.Location = new System.Drawing.Point(200, 37);
-            this.ptrBuoiTap.Name = "ptrBuoiTap";
-            this.ptrBuoiTap.Size = new System.Drawing.Size(56, 50);
-            this.ptrBuoiTap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptrBuoiTap.TabIndex = 4;
-            this.ptrBuoiTap.TabStop = false;
-            // 
             // lblBuoiTap1
             // 
             this.lblBuoiTap1.BackColor = System.Drawing.Color.Transparent;
@@ -217,19 +202,6 @@
             this.pnlThuNhap.Size = new System.Drawing.Size(282, 103);
             this.pnlThuNhap.TabIndex = 3;
             // 
-            // ptrThuNhap
-            // 
-            this.ptrThuNhap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.ptrThuNhap.BorderRadius = 15;
-            this.ptrThuNhap.Image = ((System.Drawing.Image)(resources.GetObject("ptrThuNhap.Image")));
-            this.ptrThuNhap.ImageRotate = 0F;
-            this.ptrThuNhap.Location = new System.Drawing.Point(205, 37);
-            this.ptrThuNhap.Name = "ptrThuNhap";
-            this.ptrThuNhap.Size = new System.Drawing.Size(56, 50);
-            this.ptrThuNhap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptrThuNhap.TabIndex = 5;
-            this.ptrThuNhap.TabStop = false;
-            // 
             // lblThuNhap1
             // 
             this.lblThuNhap1.BackColor = System.Drawing.Color.Transparent;
@@ -262,21 +234,8 @@
             this.pnlDanhGia.Controls.Add(this.lblDanhGia);
             this.pnlDanhGia.Location = new System.Drawing.Point(1015, 108);
             this.pnlDanhGia.Name = "pnlDanhGia";
-            this.pnlDanhGia.Size = new System.Drawing.Size(282, 103);
+            this.pnlDanhGia.Size = new System.Drawing.Size(315, 103);
             this.pnlDanhGia.TabIndex = 3;
-            // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.guna2PictureBox1.BorderRadius = 15;
-            this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(207, 37);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(56, 50);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.guna2PictureBox1.TabIndex = 6;
-            this.guna2PictureBox1.TabStop = false;
             // 
             // lblDanhGia1
             // 
@@ -315,6 +274,7 @@
             // pnlDanhsach
             // 
             this.pnlDanhsach.AutoScroll = true;
+            this.pnlDanhsach.Controls.Add(this.btnGiaoBaiTap);
             this.pnlDanhsach.Controls.Add(this.pnlDanhSach1);
             this.pnlDanhsach.Location = new System.Drawing.Point(27, 55);
             this.pnlDanhsach.Name = "pnlDanhsach";
@@ -325,8 +285,9 @@
             // 
             this.pnlDanhSach1.BackColor = System.Drawing.Color.Transparent;
             this.pnlDanhSach1.Controls.Add(this.lblThoiGianDanhSach1);
+            this.pnlDanhSach1.Controls.Add(this.lblNgayDanhSach1);
             this.pnlDanhSach1.Controls.Add(this.lblTenDanhSach1);
-            this.pnlDanhSach1.Controls.Add(this.pnlImageDachSach1);
+            this.pnlDanhSach1.Controls.Add(this.ptrAvatarDachSach1);
             this.pnlDanhSach1.FillColor = System.Drawing.Color.Honeydew;
             this.pnlDanhSach1.ForeColor = System.Drawing.SystemColors.Menu;
             this.pnlDanhSach1.Location = new System.Drawing.Point(6, 14);
@@ -334,20 +295,20 @@
             this.pnlDanhSach1.Radius = 10;
             this.pnlDanhSach1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.pnlDanhSach1.ShadowShift = 1;
-            this.pnlDanhSach1.Size = new System.Drawing.Size(772, 88);
+            this.pnlDanhSach1.Size = new System.Drawing.Size(625, 88);
             this.pnlDanhSach1.TabIndex = 1;
             // 
-            // lblThoiGianDanhSach1
+            // lblNgayDanhSach1
             // 
-            this.lblThoiGianDanhSach1.AutoSize = true;
-            this.lblThoiGianDanhSach1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThoiGianDanhSach1.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lblThoiGianDanhSach1.Location = new System.Drawing.Point(95, 57);
-            this.lblThoiGianDanhSach1.Name = "lblThoiGianDanhSach1";
-            this.lblThoiGianDanhSach1.Size = new System.Drawing.Size(169, 19);
-            this.lblThoiGianDanhSach1.TabIndex = 2;
-            this.lblThoiGianDanhSach1.Text = "Thời gian còn 15 ngày";
-            this.lblThoiGianDanhSach1.Click += new System.EventHandler(this.lblThoiGianDanhSach1_Click);
+            this.lblNgayDanhSach1.AutoSize = true;
+            this.lblNgayDanhSach1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNgayDanhSach1.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lblNgayDanhSach1.Location = new System.Drawing.Point(95, 57);
+            this.lblNgayDanhSach1.Name = "lblNgayDanhSach1";
+            this.lblNgayDanhSach1.Size = new System.Drawing.Size(91, 19);
+            this.lblNgayDanhSach1.TabIndex = 2;
+            this.lblNgayDanhSach1.Text = "22/12/2025";
+            this.lblNgayDanhSach1.Click += new System.EventHandler(this.lblThoiGianDanhSach1_Click);
             // 
             // lblTenDanhSach1
             // 
@@ -361,70 +322,19 @@
             this.lblTenDanhSach1.Text = "Nguyễn Văn A";
             this.lblTenDanhSach1.Click += new System.EventHandler(this.lblTenDanhSach1_Click);
             // 
-            // pnlImageDachSach1
+            // pnlYeuCauThuePT
             // 
-            this.pnlImageDachSach1.ImageRotate = 0F;
-            this.pnlImageDachSach1.Location = new System.Drawing.Point(15, 12);
-            this.pnlImageDachSach1.Name = "pnlImageDachSach1";
-            this.pnlImageDachSach1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.pnlImageDachSach1.Size = new System.Drawing.Size(64, 64);
-            this.pnlImageDachSach1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pnlImageDachSach1.TabIndex = 0;
-            this.pnlImageDachSach1.TabStop = false;
-            this.pnlImageDachSach1.Click += new System.EventHandler(this.pnlImageDachSach1_Click);
-            // 
-            // lblKhachHangDangTap
-            // 
-            this.lblKhachHangDangTap.AutoSize = true;
-            this.lblKhachHangDangTap.BackColor = System.Drawing.Color.White;
-            this.lblKhachHangDangTap.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblKhachHangDangTap.Image = ((System.Drawing.Image)(resources.GetObject("lblKhachHangDangTap.Image")));
-            this.lblKhachHangDangTap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblKhachHangDangTap.Location = new System.Drawing.Point(24, 18);
-            this.lblKhachHangDangTap.Name = "lblKhachHangDangTap";
-            this.lblKhachHangDangTap.Size = new System.Drawing.Size(302, 29);
-            this.lblKhachHangDangTap.TabIndex = 0;
-            this.lblKhachHangDangTap.Text = "       Khách Hàng Đang Tập";
-            this.lblKhachHangDangTap.Click += new System.EventHandler(this.lblKhachHangDangTap_Click);
-            // 
-            // pnlTinNhan
-            // 
-            this.pnlTinNhan.AutoScroll = true;
-            this.pnlTinNhan.BorderRadius = 20;
-            this.pnlTinNhan.BorderThickness = 1;
-            this.pnlTinNhan.Controls.Add(this.lblTinNhan);
-            this.pnlTinNhan.Location = new System.Drawing.Point(944, 252);
-            this.pnlTinNhan.Name = "pnlTinNhan";
-            this.pnlTinNhan.Size = new System.Drawing.Size(353, 351);
-            this.pnlTinNhan.TabIndex = 5;
-            // 
-            // lblTinNhan
-            // 
-            this.lblTinNhan.AutoSize = true;
-            this.lblTinNhan.BackColor = System.Drawing.Color.White;
-            this.lblTinNhan.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTinNhan.Image = ((System.Drawing.Image)(resources.GetObject("lblTinNhan.Image")));
-            this.lblTinNhan.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblTinNhan.Location = new System.Drawing.Point(16, 18);
-            this.lblTinNhan.Name = "lblTinNhan";
-            this.lblTinNhan.Size = new System.Drawing.Size(156, 29);
-            this.lblTinNhan.TabIndex = 3;
-            this.lblTinNhan.Text = "       Tin Nhắn";
-            // 
-            // btnTatCaTinNhan
-            // 
-            this.btnTatCaTinNhan.BorderColor = System.Drawing.Color.Transparent;
-            this.btnTatCaTinNhan.BorderRadius = 15;
-            this.btnTatCaTinNhan.BorderThickness = 1;
-            this.btnTatCaTinNhan.FillColor = System.Drawing.Color.Silver;
-            this.btnTatCaTinNhan.FillColor2 = System.Drawing.Color.White;
-            this.btnTatCaTinNhan.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTatCaTinNhan.ForeColor = System.Drawing.Color.Black;
-            this.btnTatCaTinNhan.Location = new System.Drawing.Point(944, 620);
-            this.btnTatCaTinNhan.Name = "btnTatCaTinNhan";
-            this.btnTatCaTinNhan.Size = new System.Drawing.Size(353, 40);
-            this.btnTatCaTinNhan.TabIndex = 30;
-            this.btnTatCaTinNhan.Text = "Hiển thị danh sách tin nhắn";
+            this.pnlYeuCauThuePT.AutoScroll = true;
+            this.pnlYeuCauThuePT.BorderRadius = 20;
+            this.pnlYeuCauThuePT.BorderThickness = 1;
+            this.pnlYeuCauThuePT.Controls.Add(this.guna2CircleButton1);
+            this.pnlYeuCauThuePT.Controls.Add(this.btnDongY);
+            this.pnlYeuCauThuePT.Controls.Add(this.guna2ShadowPanel1);
+            this.pnlYeuCauThuePT.Controls.Add(this.lblYeuCauThuePT);
+            this.pnlYeuCauThuePT.Location = new System.Drawing.Point(929, 252);
+            this.pnlYeuCauThuePT.Name = "pnlYeuCauThuePT";
+            this.pnlYeuCauThuePT.Size = new System.Drawing.Size(408, 408);
+            this.pnlYeuCauThuePT.TabIndex = 5;
             // 
             // pnlLichTrinh
             // 
@@ -501,19 +411,6 @@
             this.lblTime.TabIndex = 2;
             this.lblTime.Text = "-";
             // 
-            // ptrImageLichTrinh
-            // 
-            this.ptrImageLichTrinh.BackColor = System.Drawing.Color.LightCyan;
-            this.ptrImageLichTrinh.Image = ((System.Drawing.Image)(resources.GetObject("ptrImageLichTrinh.Image")));
-            this.ptrImageLichTrinh.ImageRotate = 0F;
-            this.ptrImageLichTrinh.Location = new System.Drawing.Point(14, 17);
-            this.ptrImageLichTrinh.Name = "ptrImageLichTrinh";
-            this.ptrImageLichTrinh.Size = new System.Drawing.Size(51, 45);
-            this.ptrImageLichTrinh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptrImageLichTrinh.TabIndex = 1;
-            this.ptrImageLichTrinh.TabStop = false;
-            this.ptrImageLichTrinh.Click += new System.EventHandler(this.ptrImageLichTrinh_Click);
-            // 
             // lblTime1
             // 
             this.lblTime1.AutoSize = true;
@@ -523,19 +420,6 @@
             this.lblTime1.Size = new System.Drawing.Size(42, 19);
             this.lblTime1.TabIndex = 0;
             this.lblTime1.Text = "7:00";
-            // 
-            // lbl_LichTrinh
-            // 
-            this.lbl_LichTrinh.AutoSize = true;
-            this.lbl_LichTrinh.BackColor = System.Drawing.Color.White;
-            this.lbl_LichTrinh.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_LichTrinh.Image = ((System.Drawing.Image)(resources.GetObject("lbl_LichTrinh.Image")));
-            this.lbl_LichTrinh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_LichTrinh.Location = new System.Drawing.Point(25, 21);
-            this.lbl_LichTrinh.Name = "lbl_LichTrinh";
-            this.lbl_LichTrinh.Size = new System.Drawing.Size(270, 29);
-            this.lbl_LichTrinh.TabIndex = 3;
-            this.lbl_LichTrinh.Text = "      Lịch Trình Hôm Nay";
             // 
             // btn_Lich
             // 
@@ -567,18 +451,268 @@
             this.guna2GradientButton1.TabIndex = 33;
             this.guna2GradientButton1.Text = "Tìm kiếm khách hàng tiềm năng";
             // 
+            // ptrImageLichTrinh
+            // 
+            this.ptrImageLichTrinh.BackColor = System.Drawing.Color.LightCyan;
+            this.ptrImageLichTrinh.Image = ((System.Drawing.Image)(resources.GetObject("ptrImageLichTrinh.Image")));
+            this.ptrImageLichTrinh.ImageRotate = 0F;
+            this.ptrImageLichTrinh.Location = new System.Drawing.Point(14, 17);
+            this.ptrImageLichTrinh.Name = "ptrImageLichTrinh";
+            this.ptrImageLichTrinh.Size = new System.Drawing.Size(51, 45);
+            this.ptrImageLichTrinh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptrImageLichTrinh.TabIndex = 1;
+            this.ptrImageLichTrinh.TabStop = false;
+            this.ptrImageLichTrinh.Click += new System.EventHandler(this.ptrImageLichTrinh_Click);
+            // 
+            // lbl_LichTrinh
+            // 
+            this.lbl_LichTrinh.AutoSize = true;
+            this.lbl_LichTrinh.BackColor = System.Drawing.Color.White;
+            this.lbl_LichTrinh.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_LichTrinh.Image = ((System.Drawing.Image)(resources.GetObject("lbl_LichTrinh.Image")));
+            this.lbl_LichTrinh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_LichTrinh.Location = new System.Drawing.Point(25, 21);
+            this.lbl_LichTrinh.Name = "lbl_LichTrinh";
+            this.lbl_LichTrinh.Size = new System.Drawing.Size(270, 29);
+            this.lbl_LichTrinh.TabIndex = 3;
+            this.lbl_LichTrinh.Text = "      Lịch Trình Hôm Nay";
+            // 
+            // lblYeuCauThuePT
+            // 
+            this.lblYeuCauThuePT.AutoSize = true;
+            this.lblYeuCauThuePT.BackColor = System.Drawing.Color.White;
+            this.lblYeuCauThuePT.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYeuCauThuePT.Image = ((System.Drawing.Image)(resources.GetObject("lblYeuCauThuePT.Image")));
+            this.lblYeuCauThuePT.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblYeuCauThuePT.Location = new System.Drawing.Point(16, 18);
+            this.lblYeuCauThuePT.Name = "lblYeuCauThuePT";
+            this.lblYeuCauThuePT.Size = new System.Drawing.Size(245, 29);
+            this.lblYeuCauThuePT.TabIndex = 3;
+            this.lblYeuCauThuePT.Text = "       Yêu Cầu Thuê PT";
+            // 
+            // ptrAvatarDachSach1
+            // 
+            this.ptrAvatarDachSach1.ImageRotate = 0F;
+            this.ptrAvatarDachSach1.Location = new System.Drawing.Point(15, 12);
+            this.ptrAvatarDachSach1.Name = "ptrAvatarDachSach1";
+            this.ptrAvatarDachSach1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.ptrAvatarDachSach1.Size = new System.Drawing.Size(64, 64);
+            this.ptrAvatarDachSach1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptrAvatarDachSach1.TabIndex = 0;
+            this.ptrAvatarDachSach1.TabStop = false;
+            this.ptrAvatarDachSach1.Click += new System.EventHandler(this.pnlImageDachSach1_Click);
+            // 
+            // lblKhachHangDangTap
+            // 
+            this.lblKhachHangDangTap.AutoSize = true;
+            this.lblKhachHangDangTap.BackColor = System.Drawing.Color.White;
+            this.lblKhachHangDangTap.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKhachHangDangTap.Image = ((System.Drawing.Image)(resources.GetObject("lblKhachHangDangTap.Image")));
+            this.lblKhachHangDangTap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblKhachHangDangTap.Location = new System.Drawing.Point(24, 18);
+            this.lblKhachHangDangTap.Name = "lblKhachHangDangTap";
+            this.lblKhachHangDangTap.Size = new System.Drawing.Size(302, 29);
+            this.lblKhachHangDangTap.TabIndex = 0;
+            this.lblKhachHangDangTap.Text = "       Khách Hàng Đang Tập";
+            this.lblKhachHangDangTap.Click += new System.EventHandler(this.lblKhachHangDangTap_Click);
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.guna2PictureBox1.BorderRadius = 15;
+            this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(226, 37);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(56, 50);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.guna2PictureBox1.TabIndex = 6;
+            this.guna2PictureBox1.TabStop = false;
+            // 
+            // ptrThuNhap
+            // 
+            this.ptrThuNhap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.ptrThuNhap.BorderRadius = 15;
+            this.ptrThuNhap.Image = ((System.Drawing.Image)(resources.GetObject("ptrThuNhap.Image")));
+            this.ptrThuNhap.ImageRotate = 0F;
+            this.ptrThuNhap.Location = new System.Drawing.Point(205, 37);
+            this.ptrThuNhap.Name = "ptrThuNhap";
+            this.ptrThuNhap.Size = new System.Drawing.Size(56, 50);
+            this.ptrThuNhap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptrThuNhap.TabIndex = 5;
+            this.ptrThuNhap.TabStop = false;
+            // 
+            // ptrBuoiTap
+            // 
+            this.ptrBuoiTap.BackColor = System.Drawing.Color.LightCyan;
+            this.ptrBuoiTap.BorderRadius = 15;
+            this.ptrBuoiTap.Image = ((System.Drawing.Image)(resources.GetObject("ptrBuoiTap.Image")));
+            this.ptrBuoiTap.ImageRotate = 0F;
+            this.ptrBuoiTap.Location = new System.Drawing.Point(200, 37);
+            this.ptrBuoiTap.Name = "ptrBuoiTap";
+            this.ptrBuoiTap.Size = new System.Drawing.Size(56, 50);
+            this.ptrBuoiTap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptrBuoiTap.TabIndex = 4;
+            this.ptrBuoiTap.TabStop = false;
+            // 
+            // ptrKhachHang
+            // 
+            this.ptrKhachHang.BackColor = System.Drawing.Color.Honeydew;
+            this.ptrKhachHang.BorderRadius = 15;
+            this.ptrKhachHang.Image = ((System.Drawing.Image)(resources.GetObject("ptrKhachHang.Image")));
+            this.ptrKhachHang.ImageRotate = 0F;
+            this.ptrKhachHang.Location = new System.Drawing.Point(204, 37);
+            this.ptrKhachHang.Name = "ptrKhachHang";
+            this.ptrKhachHang.Size = new System.Drawing.Size(56, 50);
+            this.ptrKhachHang.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptrKhachHang.TabIndex = 3;
+            this.ptrKhachHang.TabStop = false;
+            // 
+            // guna2ShadowPanel1
+            // 
+            this.guna2ShadowPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ShadowPanel1.Controls.Add(this.lblNgayTap);
+            this.guna2ShadowPanel1.Controls.Add(this.lblThoiGian);
+            this.guna2ShadowPanel1.Controls.Add(this.lblMucTieuNguoiYeuCauThue);
+            this.guna2ShadowPanel1.Controls.Add(this.lblTenNguoiYeuCauThue);
+            this.guna2ShadowPanel1.Controls.Add(this.ptrAvatarNguoiYeuCauach1);
+            this.guna2ShadowPanel1.FillColor = System.Drawing.Color.Honeydew;
+            this.guna2ShadowPanel1.ForeColor = System.Drawing.SystemColors.Menu;
+            this.guna2ShadowPanel1.Location = new System.Drawing.Point(21, 69);
+            this.guna2ShadowPanel1.Name = "guna2ShadowPanel1";
+            this.guna2ShadowPanel1.Radius = 10;
+            this.guna2ShadowPanel1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.guna2ShadowPanel1.ShadowShift = 1;
+            this.guna2ShadowPanel1.Size = new System.Drawing.Size(329, 76);
+            this.guna2ShadowPanel1.TabIndex = 3;
+            // 
+            // ptrAvatarNguoiYeuCauach1
+            // 
+            this.ptrAvatarNguoiYeuCauach1.ImageRotate = 0F;
+            this.ptrAvatarNguoiYeuCauach1.Location = new System.Drawing.Point(17, 12);
+            this.ptrAvatarNguoiYeuCauach1.Name = "ptrAvatarNguoiYeuCauach1";
+            this.ptrAvatarNguoiYeuCauach1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.ptrAvatarNguoiYeuCauach1.Size = new System.Drawing.Size(60, 53);
+            this.ptrAvatarNguoiYeuCauach1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptrAvatarNguoiYeuCauach1.TabIndex = 3;
+            this.ptrAvatarNguoiYeuCauach1.TabStop = false;
+            // 
+            // lblTenNguoiYeuCauThue
+            // 
+            this.lblTenNguoiYeuCauThue.AutoSize = true;
+            this.lblTenNguoiYeuCauThue.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTenNguoiYeuCauThue.ForeColor = System.Drawing.Color.Black;
+            this.lblTenNguoiYeuCauThue.Location = new System.Drawing.Point(82, 12);
+            this.lblTenNguoiYeuCauThue.Name = "lblTenNguoiYeuCauThue";
+            this.lblTenNguoiYeuCauThue.Size = new System.Drawing.Size(148, 25);
+            this.lblTenNguoiYeuCauThue.TabIndex = 3;
+            this.lblTenNguoiYeuCauThue.Text = "Nguyễn Anh B";
+            // 
+            // lblMucTieuNguoiYeuCauThue
+            // 
+            this.lblMucTieuNguoiYeuCauThue.AutoSize = true;
+            this.lblMucTieuNguoiYeuCauThue.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMucTieuNguoiYeuCauThue.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lblMucTieuNguoiYeuCauThue.Location = new System.Drawing.Point(83, 46);
+            this.lblMucTieuNguoiYeuCauThue.Name = "lblMucTieuNguoiYeuCauThue";
+            this.lblMucTieuNguoiYeuCauThue.Size = new System.Drawing.Size(80, 19);
+            this.lblMucTieuNguoiYeuCauThue.TabIndex = 3;
+            this.lblMucTieuNguoiYeuCauThue.Text = "Giảm cân";
+            // 
+            // lblThoiGian
+            // 
+            this.lblThoiGian.AutoSize = true;
+            this.lblThoiGian.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThoiGian.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lblThoiGian.Location = new System.Drawing.Point(241, 20);
+            this.lblThoiGian.Name = "lblThoiGian";
+            this.lblThoiGian.Size = new System.Drawing.Size(81, 15);
+            this.lblThoiGian.TabIndex = 4;
+            this.lblThoiGian.Text = "12:00 - 14:00";
+            // 
+            // lblNgayTap
+            // 
+            this.lblNgayTap.AutoSize = true;
+            this.lblNgayTap.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNgayTap.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lblNgayTap.Location = new System.Drawing.Point(231, 46);
+            this.lblNgayTap.Name = "lblNgayTap";
+            this.lblNgayTap.Size = new System.Drawing.Size(91, 19);
+            this.lblNgayTap.TabIndex = 5;
+            this.lblNgayTap.Text = "12/12/2025";
+            // 
+            // lblThoiGianDanhSach1
+            // 
+            this.lblThoiGianDanhSach1.AutoSize = true;
+            this.lblThoiGianDanhSach1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThoiGianDanhSach1.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lblThoiGianDanhSach1.Location = new System.Drawing.Point(217, 57);
+            this.lblThoiGianDanhSach1.Name = "lblThoiGianDanhSach1";
+            this.lblThoiGianDanhSach1.Size = new System.Drawing.Size(107, 19);
+            this.lblThoiGianDanhSach1.TabIndex = 6;
+            this.lblThoiGianDanhSach1.Text = "12:00 - 14:00";
+            // 
+            // btnDongY
+            // 
+            this.btnDongY.BackColor = System.Drawing.Color.Transparent;
+            this.btnDongY.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDongY.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnDongY.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDongY.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDongY.FillColor = System.Drawing.Color.Lime;
+            this.btnDongY.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnDongY.ForeColor = System.Drawing.Color.White;
+            this.btnDongY.Image = ((System.Drawing.Image)(resources.GetObject("btnDongY.Image")));
+            this.btnDongY.Location = new System.Drawing.Point(356, 67);
+            this.btnDongY.Name = "btnDongY";
+            this.btnDongY.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.btnDongY.Size = new System.Drawing.Size(41, 37);
+            this.btnDongY.TabIndex = 4;
+            // 
+            // guna2CircleButton1
+            // 
+            this.guna2CircleButton1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2CircleButton1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2CircleButton1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2CircleButton1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2CircleButton1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2CircleButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.guna2CircleButton1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2CircleButton1.ForeColor = System.Drawing.Color.White;
+            this.guna2CircleButton1.Image = ((System.Drawing.Image)(resources.GetObject("guna2CircleButton1.Image")));
+            this.guna2CircleButton1.Location = new System.Drawing.Point(356, 108);
+            this.guna2CircleButton1.Name = "guna2CircleButton1";
+            this.guna2CircleButton1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.guna2CircleButton1.Size = new System.Drawing.Size(41, 37);
+            this.guna2CircleButton1.TabIndex = 5;
+            // 
+            // btnGiaoBaiTap
+            // 
+            this.btnGiaoBaiTap.BackColor = System.Drawing.Color.Transparent;
+            this.btnGiaoBaiTap.BorderRadius = 20;
+            this.btnGiaoBaiTap.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnGiaoBaiTap.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnGiaoBaiTap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnGiaoBaiTap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnGiaoBaiTap.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGiaoBaiTap.ForeColor = System.Drawing.Color.White;
+            this.btnGiaoBaiTap.Location = new System.Drawing.Point(637, 37);
+            this.btnGiaoBaiTap.Name = "btnGiaoBaiTap";
+            this.btnGiaoBaiTap.Size = new System.Drawing.Size(140, 45);
+            this.btnGiaoBaiTap.TabIndex = 2;
+            this.btnGiaoBaiTap.Text = "Giao bài tập";
+            // 
             // frm_HuanLuyenVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(1348, 739);
+            this.ClientSize = new System.Drawing.Size(1390, 739);
             this.Controls.Add(this.guna2GradientButton1);
             this.Controls.Add(this.btn_Lich);
             this.Controls.Add(this.pnlLichTrinh);
-            this.Controls.Add(this.btnTatCaTinNhan);
-            this.Controls.Add(this.pnlTinNhan);
+            this.Controls.Add(this.pnlYeuCauThuePT);
             this.Controls.Add(this.pnlKhachHangDangTap);
             this.Controls.Add(this.pnlDanhGia);
             this.Controls.Add(this.pnlThuNhap);
@@ -589,29 +723,32 @@
             this.Name = "frm_HuanLuyenVien";
             this.pnlKhachHang.ResumeLayout(false);
             this.pnlKhachHang.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptrKhachHang)).EndInit();
             this.pnlBuoiTap.ResumeLayout(false);
             this.pnlBuoiTap.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptrBuoiTap)).EndInit();
             this.pnlThuNhap.ResumeLayout(false);
             this.pnlThuNhap.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptrThuNhap)).EndInit();
             this.pnlDanhGia.ResumeLayout(false);
             this.pnlDanhGia.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.pnlKhachHangDangTap.ResumeLayout(false);
             this.pnlKhachHangDangTap.PerformLayout();
             this.pnlDanhsach.ResumeLayout(false);
             this.pnlDanhSach1.ResumeLayout(false);
             this.pnlDanhSach1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pnlImageDachSach1)).EndInit();
-            this.pnlTinNhan.ResumeLayout(false);
-            this.pnlTinNhan.PerformLayout();
+            this.pnlYeuCauThuePT.ResumeLayout(false);
+            this.pnlYeuCauThuePT.PerformLayout();
             this.pnlLichTrinh.ResumeLayout(false);
             this.pnlLichTrinh.PerformLayout();
             this.pnlLichTrinh1.ResumeLayout(false);
             this.pnlLichTrinh1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrImageLichTrinh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarDachSach1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrThuNhap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrBuoiTap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrKhachHang)).EndInit();
+            this.guna2ShadowPanel1.ResumeLayout(false);
+            this.guna2ShadowPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarNguoiYeuCauach1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -642,11 +779,10 @@
         private Guna.UI2.WinForms.Guna2ShadowPanel pnlDanhSach1;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlDanhsach;
         private System.Windows.Forms.Label lblTenDanhSach1;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox pnlImageDachSach1;
-        private System.Windows.Forms.Label lblThoiGianDanhSach1;
-        private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlTinNhan;
-        private System.Windows.Forms.Label lblTinNhan;
-        private Guna.UI2.WinForms.Guna2GradientButton btnTatCaTinNhan;
+        private Guna.UI2.WinForms.Guna2CirclePictureBox ptrAvatarDachSach1;
+        private System.Windows.Forms.Label lblNgayDanhSach1;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlYeuCauThuePT;
+        private System.Windows.Forms.Label lblYeuCauThuePT;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlLichTrinh;
         private System.Windows.Forms.Label lbl_LichTrinh;
         private System.Windows.Forms.Label lblTime1;
@@ -658,5 +794,15 @@
         private Guna.UI2.WinForms.Guna2GradientButton btn_Lich;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton1;
         private System.Windows.Forms.Label lblDienRa;
+        private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel1;
+        private System.Windows.Forms.Label lblMucTieuNguoiYeuCauThue;
+        private System.Windows.Forms.Label lblTenNguoiYeuCauThue;
+        private Guna.UI2.WinForms.Guna2CirclePictureBox ptrAvatarNguoiYeuCauach1;
+        private System.Windows.Forms.Label lblThoiGian;
+        private System.Windows.Forms.Label lblNgayTap;
+        private System.Windows.Forms.Label lblThoiGianDanhSach1;
+        private Guna.UI2.WinForms.Guna2CircleButton btnDongY;
+        private Guna.UI2.WinForms.Guna2Button btnGiaoBaiTap;
+        private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
     }
 }
