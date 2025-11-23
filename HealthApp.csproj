@@ -146,7 +146,6 @@
     <Compile Include="Models\KeHoachLuyenTap.cs" />
     <Compile Include="Models\LuotThichChiaSeThanhTuu.cs" />
     <Compile Include="Models\MucTieu.cs" />
-    <Compile Include="Models\NhatKyDinhDuong.cs" />
     <Compile Include="Models\TapTin.cs" />
     <Compile Include="Models\ThanhTuu.cs" />
     <Compile Include="Models\ThongBao.cs" />
