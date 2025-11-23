@@ -6,6 +6,10 @@ GO
 -- ============================================
 
 -- Xóa dữ liệu cũ (nếu có)
+-- Lưu ý: Xóa theo thứ tự để tránh vi phạm foreign key constraints
+-- Xóa các bảng con trước, bảng cha sau
+
+-- Xóa các bảng có foreign key tham chiếu đến các bảng khác
 DELETE FROM BaiTapChiTiet;
 DELETE FROM BuoiTap;
 DELETE FROM KeHoachLuyenTap;
@@ -17,6 +21,14 @@ DELETE FROM MucTieu;
 DELETE FROM TinhTrangTongQuan;
 DELETE FROM HoSoBenhLi;
 DELETE FROM ThanhTuu;
+
+-- Xóa DatLichPT và các bảng liên quan trước khi xóa HuanLuyenVien
+DELETE FROM DanhGiaPT;
+DELETE FROM GiaoDich;
+DELETE FROM DatLichPT;
+DELETE FROM HuanLuyenVien;
+
+-- Cuối cùng mới xóa Users (trừ user_0001)
 DELETE FROM Users WHERE UserID != 'user_0001';
 GO
 
@@ -93,18 +105,37 @@ END
 GO
 
 -- ============================================
--- THƯ VIỆN MÓN ĂN (5 món)
+-- THƯ VIỆN MÓN ĂN (15 món - đa dạng hơn cho AI đề xuất)
 -- ============================================
 IF NOT EXISTS (SELECT 1 FROM ThuVienMonAn WHERE MonAnID = 'food_0001')
 BEGIN
     INSERT INTO ThuVienMonAn
     (MonAnID, imageURL, TenMonAn, Loai, Donvi, KhoiLuongChuan, Calories, Protein, Carbs, Fat, Fiber)
     VALUES
+    -- Thịt
     ('food_0001', '', N'Ức gà', N'Thịt', 'g', 100, 165, 31, 0, 3.6, 0),
-    ('food_0002', '', N'Bông cải xanh', N'Rau củ', 'g', 100, 34, 3, 7, 0.4, 2.6),
-    ('food_0003', '', N'Yến mạch', N'Ngũ cốc', 'g', 100, 389, 17, 66, 7, 10),
+    ('food_0006', '', N'Thịt bò', N'Thịt', 'g', 100, 250, 26, 0, 17, 0),
+    ('food_0007', '', N'Thịt heo nạc', N'Thịt', 'g', 100, 143, 21, 0, 6, 0),
+    ('food_0008', '', N'Trứng gà', N'Thịt', 'quả', 50, 70, 6, 0.6, 5, 0),
+    
+    -- Hải sản
     ('food_0004', '', N'Cá hồi', N'Hải sản', 'g', 100, 208, 20, 0, 13, 0),
-    ('food_0005', '', N'Táo', N'Trái cây', 'g', 100, 52, 0.3, 14, 0.2, 2.4);
+    ('food_0009', '', N'Cá ngừ', N'Hải sản', 'g', 100, 184, 30, 0, 6, 0),
+    ('food_0010', '', N'Tôm', N'Hải sản', 'g', 100, 99, 24, 0, 0.3, 0),
+    
+    -- Rau củ
+    ('food_0002', '', N'Bông cải xanh', N'Rau củ', 'g', 100, 34, 3, 7, 0.4, 2.6),
+    ('food_0011', '', N'Rau bina', N'Rau củ', 'g', 100, 23, 3, 4, 0.4, 2.2),
+    ('food_0012', '', N'Cà rốt', N'Rau củ', 'g', 100, 41, 0.9, 10, 0.2, 2.8),
+    
+    -- Ngũ cốc
+    ('food_0003', '', N'Yến mạch', N'Ngũ cốc', 'g', 100, 389, 17, 66, 7, 10),
+    ('food_0013', '', N'Gạo lứt', N'Ngũ cốc', 'g', 100, 111, 2.6, 23, 0.9, 1.8),
+    ('food_0014', '', N'Bánh mì nguyên cám', N'Ngũ cốc', 'g', 100, 247, 13, 41, 4.2, 7),
+    
+    -- Trái cây
+    ('food_0005', '', N'Táo', N'Trái cây', 'g', 100, 52, 0.3, 14, 0.2, 2.4),
+    ('food_0015', '', N'Chuối', N'Trái cây', 'g', 100, 89, 1.1, 23, 0.3, 2.6);
 END
 GO
 
