@@ -26,6 +26,5 @@ namespace HealthApp.Views.MucTieu
             
         }
 
-        
     }
 }
