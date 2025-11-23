@@ -202,6 +202,12 @@
     <Compile Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.Designer.cs">
       <DependentUpon>ucKeHoachLuyenTap.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\KeHoachLuyenTap\ucTrienKhaiBaiTap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\KeHoachLuyenTap\ucTrienKhaiBaiTap.Designer.cs">
+      <DependentUpon>ucTrienKhaiBaiTap.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MucTieu\frmMucTieu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -345,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.resx">
       <DependentUpon>ucKeHoachLuyenTap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\KeHoachLuyenTap\ucTrienKhaiBaiTap.resx">
+      <DependentUpon>ucTrienKhaiBaiTap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MucTieu\frmMucTieu.resx">
       <DependentUpon>frmMucTieu.cs</DependentUpon>
