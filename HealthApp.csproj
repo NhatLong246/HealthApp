@@ -178,6 +178,7 @@
     <Compile Include="Common\Helpers\ValidationHelper.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
+    <Compile Include="Controllers\PTController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Program.cs" />
@@ -189,12 +190,18 @@
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\ForgotPasswordService.cs" />
     <Compile Include="Services\ReportService.cs" />
-    <Compile Include="Services\Interfaces\IAuthService.cs" />
-    <Compile Include="Services\Interfaces\IEmailService.cs" />
-    <Compile Include="Services\Interfaces\IForgotPasswordService.cs" />
     <Compile Include="Services\Interfaces\IReportService.cs" />
     <Compile Include="Services\Interfaces\IExportService.cs" />
     <Compile Include="Services\ExportService.cs" />
+    <Compile Include="Services\PTService.cs" />
+    <Compile Include="Services\Interfaces\IAuthService.cs" />
+    <Compile Include="Services\Interfaces\IEmailService.cs" />
+    <Compile Include="Services\Interfaces\IForgotPasswordService.cs" />
+    <Compile Include="Services\Interfaces\IPTService.cs" />
+    <Compile Include="Services\PTDashboardService.cs" />
+    <Compile Include="Services\Interfaces\IPTDashboardService.cs" />
+    <Compile Include="Services\PTSearchService.cs" />
+    <Compile Include="Services\Interfaces\IPTSearchService.cs" />
     <Compile Include="Views\Activity\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -321,11 +328,29 @@
     <Compile Include="Views\PT\frm_TimKiemKhachHang.Designer.cs">
       <DependentUpon>frm_TimKiemKhachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PT\frn_LichPT.cs">
+    <Compile Include="Views\PT\UserControlChonNgay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PT\UserControlChonNgay.Designer.cs">
+      <DependentUpon>UserControlChonNgay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PT\YeuCauTapLuyen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\PT\frn_LichPT.Designer.cs">
-      <DependentUpon>frn_LichPT.cs</DependentUpon>
+    <Compile Include="Views\PT\YeuCauTapLuyen.Designer.cs">
+      <DependentUpon>YeuCauTapLuyen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PT\frm_LichPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frm_LichPT.Designer.cs">
+      <DependentUpon>frm_LichPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PT\frm_ThanhToanPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frm_ThanhToanPT.Designer.cs">
+      <DependentUpon>frm_ThanhToanPT.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Dashboard\frmDashBoard.cs">
       <SubType>Form</SubType>
@@ -438,8 +463,17 @@
     <EmbeddedResource Include="Views\PT\frm_TimKiemKhachHang.resx">
       <DependentUpon>frm_TimKiemKhachHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PT\frn_LichPT.resx">
-      <DependentUpon>frn_LichPT.cs</DependentUpon>
+    <EmbeddedResource Include="Views\PT\UserControlChonNgay.resx">
+      <DependentUpon>UserControlChonNgay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\YeuCauTapLuyen.resx">
+      <DependentUpon>YeuCauTapLuyen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frm_LichPT.resx">
+      <DependentUpon>frm_LichPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frm_ThanhToanPT.resx">
+      <DependentUpon>frm_ThanhToanPT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Dashboard\frmDashBoard.resx">
       <DependentUpon>frmDashBoard.cs</DependentUpon>

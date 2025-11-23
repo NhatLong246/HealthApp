@@ -1,0 +1,399 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Guna.UI2.WinForms;
+using HealthApp.Services;
+using HealthApp.Services.Interfaces;
+using HealthApp.Common.Helpers;
+using HealthApp.Models;
+
+namespace HealthApp.Views.PT
+{
+    public partial class YeuCauTapLuyen : Form
+    {
+        private readonly frm_TimKiemHLV _parentForm;
+        private readonly string _ptId;
+        private readonly List<string> _danhSachChuyenMon;
+        private List<UserControlChonNgay> _listUserControls;
+        private readonly IPTDashboardService _ptDashboardService;
+        private readonly WF_HealthTracker _context;
+
+        // Danh sách mục tiêu đầy đủ
+        private readonly List<string> _tatCaMucTieu = new List<string>
+        {
+            "Cơ Ngực", "Cơ Lưng", "Cơ Vai", "Cơ Tay", "Cơ Bụng", "Cơ Mông", "Cơ Đùi", "Cơ Cổ",
+            "Tăng cân", "Giảm cân"
+        };
+
+        // Mục tiêu cho "Cân nặng"
+        private readonly List<string> _mucTieuCanNang = new List<string>
+        {
+            "Tăng cân", "Giảm cân"
+        };
+
+        // Mục tiêu cho "Tăng cơ"
+        private readonly List<string> _mucTieuTangCo = new List<string>
+        {
+            "Cơ Ngực", "Cơ Lưng", "Cơ Vai", "Cơ Tay", "Cơ Bụng", "Cơ Mông", "Cơ Đùi", "Cơ Cổ"
+        };
+
+        public YeuCauTapLuyen(frm_TimKiemHLV parentForm = null, string ptId = null, List<string> danhSachChuyenMon = null)
+        {
+            InitializeComponent();
+            _parentForm = parentForm;
+            _ptId = ptId;
+            _danhSachChuyenMon = danhSachChuyenMon ?? new List<string>();
+            _listUserControls = new List<UserControlChonNgay>();
+            _context = new WF_HealthTracker();
+            _ptDashboardService = new PTDashboardService(_context);
+            
+            InitializeEventHandlers();
+            LoadMucTieu();
+        }
+
+        private void InitializeEventHandlers()
+        {
+            btnBack.Click += BtnBack_Click;
+            btnThem.Click += BtnThem_Click;
+            btnGuiYeuCau.Click += BtnGuiYeuCau_Click;
+            btnHuy.Click += BtnHuy_Click;
+        }
+
+        /// <summary>
+        /// Load mục tiêu vào combobox dựa trên chuyên môn của PT
+        /// </summary>
+        private void LoadMucTieu()
+        {
+            try
+            {
+                cboMucTieuLuyenTap.Items.Clear();
+
+                List<string> mucTieuToShow = new List<string>();
+
+                // Kiểm tra chuyên môn của PT
+                bool hasCanNang = _danhSachChuyenMon.Any(cm => cm.Contains("Cân nặng"));
+                bool hasTangCo = _danhSachChuyenMon.Any(cm => cm.Contains("Tăng cơ"));
+
+                if (hasCanNang && hasTangCo)
+                {
+                    // "Cân nặng Tăng cơ" -> hiển thị tất cả
+                    mucTieuToShow = _tatCaMucTieu;
+                }
+                else if (hasCanNang)
+                {
+                    // Chỉ "Cân nặng" -> chỉ hiển thị Tăng cân, Giảm cân
+                    mucTieuToShow = _mucTieuCanNang;
+                }
+                else if (hasTangCo)
+                {
+                    // Chỉ "Tăng cơ" -> chỉ hiển thị các cơ
+                    mucTieuToShow = _mucTieuTangCo;
+                }
+                else
+                {
+                    // Không có chuyên môn -> hiển thị tất cả (mặc định)
+                    mucTieuToShow = _tatCaMucTieu;
+                }
+
+                // Thêm vào combobox
+                foreach (var mucTieu in mucTieuToShow)
+                {
+                    cboMucTieuLuyenTap.Items.Add(mucTieu);
+                }
+
+                // Chọn item đầu tiên nếu có
+                if (cboMucTieuLuyenTap.Items.Count > 0)
+                {
+                    cboMucTieuLuyenTap.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi load mục tiêu: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Thêm UserControl chọn ngày mới
+        /// </summary>
+        private void BtnThem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var userControl = new UserControlChonNgay();
+                userControl.SetParentPanel(pnlChonNgay);
+                userControl.OnDeleteRequested += UserControl_OnDeleteRequested;
+
+                // Tự động tăng ngày nếu trùng với các UserControl hiện có
+                bool hasConflict = true;
+                int maxAttempts = 365; // Giới hạn số lần thử để tránh vòng lặp vô hạn
+                int attempts = 0;
+
+                while (hasConflict && attempts < maxAttempts)
+                {
+                    hasConflict = false;
+                    
+                    // Kiểm tra trùng ngày với các UserControl hiện có
+                    foreach (var existingUC in _listUserControls)
+                    {
+                        if (userControl.HasSameDate(existingUC))
+                        {
+                            // Tự động tăng ngày lên 1 ngày
+                            userControl.IncrementDate();
+                            hasConflict = true;
+                            attempts++;
+                            break; // Thoát vòng lặp để kiểm tra lại từ đầu
+                        }
+                    }
+                }
+
+                // Sau khi đã xử lý trùng ngày, kiểm tra trùng giờ (cùng ngày)
+                foreach (var existingUC in _listUserControls)
+                {
+                    if (userControl.IsOverlapping(existingUC))
+                    {
+                        MessageBox.Show("Lịch này trùng giờ với lịch đã chọn trước đó! Vui lòng chọn giờ khác.", 
+                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        userControl.Dispose();
+                        return;
+                    }
+                }
+
+                _listUserControls.Add(userControl);
+                pnlChonNgay.Controls.Add(userControl);
+
+                // Sắp xếp lại các control theo chiều dọc
+                ArrangeUserControls();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi thêm ngày: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Xử lý khi UserControl yêu cầu xóa
+        /// </summary>
+        private void UserControl_OnDeleteRequested(UserControlChonNgay userControl)
+        {
+            try
+            {
+                if (_listUserControls.Contains(userControl))
+                {
+                    _listUserControls.Remove(userControl);
+                    pnlChonNgay.Controls.Remove(userControl);
+                    userControl.Dispose();
+                    ArrangeUserControls();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xóa ngày: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Kiểm tra trùng lịch giữa tất cả các UserControl
+        /// </summary>
+        private bool CheckOverlappingSchedules()
+        {
+            for (int i = 0; i < _listUserControls.Count; i++)
+            {
+                for (int j = i + 1; j < _listUserControls.Count; j++)
+                {
+                    if (_listUserControls[i].IsOverlapping(_listUserControls[j]))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Sắp xếp lại các UserControl theo chiều dọc
+        /// </summary>
+        private void ArrangeUserControls()
+        {
+            int yPos = 0;
+            int spacing = 10;
+
+            foreach (var uc in _listUserControls)
+            {
+                uc.Location = new Point(0, yPos);
+                yPos += uc.Height + spacing;
+            }
+        }
+
+        /// <summary>
+        /// Xử lý khi click nút Gửi Yêu Cầu
+        /// </summary>
+        private async void BtnGuiYeuCau_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validation
+                if (cboMucTieuLuyenTap.SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn mục tiêu luyện tập!", "Thông báo", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (_listUserControls.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng thêm ít nhất một ngày tập luyện!", "Thông báo", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra đăng nhập
+                if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
+                {
+                    MessageBox.Show("Vui lòng đăng nhập trước khi gửi yêu cầu!", "Thông báo", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Validate từng UserControl
+                foreach (var uc in _listUserControls)
+                {
+                    if (!uc.ValidateData())
+                    {
+                        MessageBox.Show("Vui lòng kiểm tra lại thông tin ngày và giờ đã chọn!", "Thông báo", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                // Kiểm tra trùng lịch
+                if (CheckOverlappingSchedules())
+                {
+                    MessageBox.Show("Có lịch trùng nhau! Vui lòng kiểm tra lại các ngày và giờ đã chọn.", 
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Lấy mục tiêu
+                string mucTieu = cboMucTieuLuyenTap.SelectedItem.ToString();
+                string khachHangID = CurrentUser.User.UserID;
+
+                // Lưu từng yêu cầu vào database
+                int successCount = 0;
+                int failCount = 0;
+
+                foreach (var uc in _listUserControls)
+                {
+                    try
+                    {
+                        var (ngay, gioBatDau, gioKetThuc) = uc.GetData();
+                        
+                        // Lưu vào database
+                        string datLichID = await _ptDashboardService.CreateTrainingRequestAsync(
+                            khachHangID, 
+                            _ptId, 
+                            ngay, 
+                            gioBatDau, 
+                            gioKetThuc, 
+                            mucTieu
+                        );
+
+                        if (!string.IsNullOrEmpty(datLichID))
+                        {
+                            successCount++;
+                        }
+                        else
+                        {
+                            failCount++;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        failCount++;
+                        // Log lỗi nhưng tiếp tục với các yêu cầu khác
+                        // Lỗi đã được log trong Debug, không cần hiển thị cho user
+                    }
+                }
+
+                // Hiển thị kết quả
+                if (successCount > 0)
+                {
+                    string message = $"Đã gửi thành công {successCount} yêu cầu tập luyện!";
+                    if (failCount > 0)
+                    {
+                        message += $"\nCó {failCount} yêu cầu không thể gửi.";
+                    }
+                    MessageBox.Show(message, "Thông báo", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Không thể gửi yêu cầu! Vui lòng thử lại sau.", "Lỗi", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Quay lại form tìm kiếm
+                BtnBack_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi gửi yêu cầu: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Xử lý khi click nút Hủy
+        /// </summary>
+        private void BtnHuy_Click(object sender, EventArgs e)
+        {
+            BtnBack_Click(sender, e);
+        }
+
+        /// <summary>
+        /// Xử lý khi click nút Back
+        /// </summary>
+        private void BtnBack_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Hide();
+                if (_parentForm != null && !_parentForm.IsDisposed)
+                {
+                    _parentForm.Show();
+                }
+                else
+                {
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi quay lại: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            // Xóa tất cả UserControls
+            foreach (var uc in _listUserControls)
+            {
+                uc.Dispose();
+            }
+            _listUserControls.Clear();
+            _context?.Dispose();
+            base.OnFormClosing(e);
+        }
+    }
+}
