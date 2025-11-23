@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HealthApp.Views.Activity;
 using HealthApp.Views.MucTieu;
+using HealthApp.Views.Auth;
 
 namespace HealthApp
 {
@@ -32,6 +33,7 @@ namespace HealthApp
 //            MessageBox.Show("App starting...", "HealthApp", MessageBoxButtons.OK, MessageBoxIcon.Information);
 //#endif
             Application.Run(new frmMucTieu());
+            //Application.Run(new LoginForm());
         }
     }
 }
