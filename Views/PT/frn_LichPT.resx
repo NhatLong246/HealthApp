@@ -117,62 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="back" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnThem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAACQSURBVEhL7ZQ7CsNAEEN9vDhF8P2LNeRT2JW0F0hYiEMQ
+        xmAYYRfzQJWYeZ26LjkztdYBwAxgInnT3gaAF8l3C4Cn9jYW6RLtbaRYexsp1t5GuJjkleSojwPSfvbq
+        +0HyvnIUks2FO1Lckyx6FJAC4KK+3ehj7W2kWHsbKdbexpHi/z0v2tv4LtyjJWSREicfiWSY+jGzduMA
+        AAAASUVORK5CYII=
+</value>
   </data>
-  <data name="icons-calendar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\icons-calendar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="goal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\goal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons-workout" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\icons-workout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons-deadlift" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\icons-deadlift.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AchivementIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\AchivementIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CommunityIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\CommunityIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="folowIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\folowIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="galuoc" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\Food\galuoc.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HealthLogo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\HealthLogo1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Screenshot_2025_10_13_210618_removebg_preview" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\Screenshot_2025-10-13_210618-removebg-preview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AchivementIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\AchivementIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HealthLogo2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\HealthLogo2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CommunityIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\CommunityIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HealthIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\HealthIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LockIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\LockIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\Lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="galuoc1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\Food\galuoc.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="galuoc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\Food\galuoc.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnLoc.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAACrSURBVEhL7ZLBCcJAFETfJdiCYAfagBdr8WYdlqHtGLAD
+        OxBsQXJJEAyEYePf3fBP/gdz2t03sAwE/0YL9E75uGfxLL5pmdJ8L+nD2tyBlZbMsQaeCUlpXsBG5RZ7
+        4J2Q5aYDDirN5ZgQ5uakslKuCamVi0pqKB1b0ZgscsdWNSYLa2yLxmTxa2yLxxQo+sVj3NHCKHZDC6PY
+        jWnZAzgDW73kwVi204MgmDIAIvzU96BkRuoAAAAASUVORK5CYII=
+</value>
   </data>
 </root>
