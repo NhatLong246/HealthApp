@@ -137,7 +137,7 @@ namespace HealthApp.Views.Reports
                 // 1. Hiển thị 4 thống kê đầu trang
                 lbGenSession.Text = stats.TotalSessions.ToString();
                 label2.Text = FormatTime(stats.TotalTime);
-                lbGenAchivements.Text = stats.TotalAchievements.ToString();
+                //lbGenAchivements.Text = stats.TotalAchievements.ToString();
                 lbgenTarget.Text = stats.CompletedGoals.ToString();
                 System.Diagnostics.Debug.WriteLine("Updated 4 summary statistics");
 
