@@ -42,11 +42,18 @@ namespace HealthApp
             // Enable visual styles - QUAN TRỌNG cho Guna.UI2 controls
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-//#if DEBUG
-//            MessageBox.Show("App starting...", "HealthApp", MessageBoxButtons.OK, MessageBoxIcon.Information);
-//#endif
-            Application.Run(new frmMucTieu());
-            //Application.Run(new LoginForm());
+            
+            // Hiển thị form đăng nhập
+            using (var loginForm = new LoginForm())
+            {
+                // Nếu đăng nhập thành công (DialogResult = OK), mở Dashboard
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Mở form Dashboard
+                    Application.Run(new frmDashBoard());
+                }
+                // Nếu không, ứng dụng sẽ tự động đóng
+            }
             
             // Khởi tạo và chạy form
             //Application.Run(new frm_FoodLibrary());

@@ -34,8 +34,7 @@
             this.btnTatCa = new Guna.UI2.WinForms.Guna2GradientTileButton();
             this.btnTinhvaTP = new Guna.UI2.WinForms.Guna2GradientTileButton();
             this.btnChuyenMon = new Guna.UI2.WinForms.Guna2GradientTileButton();
-            this.btnLoc = new Guna.UI2.WinForms.Guna2GradientTileButton();
-            this.guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.pnlChucNang = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlHienThiDanhSach = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlDanhSach1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -89,9 +88,8 @@
             this.lblChiTietChuyenMon = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2PictureBox5 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblNoiDungGioiThieu = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblGioiThieu = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2CustomGradientPanel1.SuspendLayout();
+            this.btnBack = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.pnlChucNang.SuspendLayout();
             this.pnlHienThiDanhSach.SuspendLayout();
             this.pnlDanhSach1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
@@ -113,7 +111,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ptrChiTietChungChi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTieuDe
@@ -199,41 +196,22 @@
             this.btnChuyenMon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnChuyenMon.Location = new System.Drawing.Point(248, 111);
             this.btnChuyenMon.Name = "btnChuyenMon";
-            this.btnChuyenMon.Size = new System.Drawing.Size(101, 31);
+            this.btnChuyenMon.Size = new System.Drawing.Size(126, 31);
             this.btnChuyenMon.TabIndex = 4;
             this.btnChuyenMon.Text = "Chuyên môn";
             // 
-            // btnLoc
+            // pnlChucNang
             // 
-            this.btnLoc.BorderRadius = 10;
-            this.btnLoc.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnLoc.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnLoc.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnLoc.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnLoc.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnLoc.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnLoc.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btnLoc.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnLoc.Image = ((System.Drawing.Image)(resources.GetObject("btnLoc.Image")));
-            this.btnLoc.Location = new System.Drawing.Point(372, 111);
-            this.btnLoc.Name = "btnLoc";
-            this.btnLoc.Size = new System.Drawing.Size(38, 31);
-            this.btnLoc.TabIndex = 5;
-            // 
-            // guna2CustomGradientPanel1
-            // 
-            this.guna2CustomGradientPanel1.BorderThickness = 1;
-            this.guna2CustomGradientPanel1.Controls.Add(this.txtTimKiem);
-            this.guna2CustomGradientPanel1.Controls.Add(this.btnLoc);
-            this.guna2CustomGradientPanel1.Controls.Add(this.lblTieuDe);
-            this.guna2CustomGradientPanel1.Controls.Add(this.btnChuyenMon);
-            this.guna2CustomGradientPanel1.Controls.Add(this.btnTatCa);
-            this.guna2CustomGradientPanel1.Controls.Add(this.btnTinhvaTP);
-            this.guna2CustomGradientPanel1.Location = new System.Drawing.Point(-2, 0);
-            this.guna2CustomGradientPanel1.Name = "guna2CustomGradientPanel1";
-            this.guna2CustomGradientPanel1.Size = new System.Drawing.Size(425, 149);
-            this.guna2CustomGradientPanel1.TabIndex = 6;
+            this.pnlChucNang.BorderThickness = 1;
+            this.pnlChucNang.Controls.Add(this.txtTimKiem);
+            this.pnlChucNang.Controls.Add(this.lblTieuDe);
+            this.pnlChucNang.Controls.Add(this.btnChuyenMon);
+            this.pnlChucNang.Controls.Add(this.btnTatCa);
+            this.pnlChucNang.Controls.Add(this.btnTinhvaTP);
+            this.pnlChucNang.Location = new System.Drawing.Point(-2, 0);
+            this.pnlChucNang.Name = "pnlChucNang";
+            this.pnlChucNang.Size = new System.Drawing.Size(425, 149);
+            this.pnlChucNang.TabIndex = 6;
             // 
             // pnlHienThiDanhSach
             // 
@@ -295,7 +273,7 @@
             this.lblNamKinhNghiem.AutoSize = true;
             this.lblNamKinhNghiem.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNamKinhNghiem.ForeColor = System.Drawing.Color.Silver;
-            this.lblNamKinhNghiem.Location = new System.Drawing.Point(215, 60);
+            this.lblNamKinhNghiem.Location = new System.Drawing.Point(257, 60);
             this.lblNamKinhNghiem.Name = "lblNamKinhNghiem";
             this.lblNamKinhNghiem.Size = new System.Drawing.Size(103, 15);
             this.lblNamKinhNghiem.TabIndex = 8;
@@ -318,7 +296,7 @@
             this.lblSoNamKinhNghiem.AutoSize = true;
             this.lblSoNamKinhNghiem.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoNamKinhNghiem.ForeColor = System.Drawing.Color.Silver;
-            this.lblSoNamKinhNghiem.Location = new System.Drawing.Point(204, 60);
+            this.lblSoNamKinhNghiem.Location = new System.Drawing.Point(231, 60);
             this.lblSoNamKinhNghiem.Name = "lblSoNamKinhNghiem";
             this.lblSoNamKinhNghiem.Size = new System.Drawing.Size(14, 15);
             this.lblSoNamKinhNghiem.TabIndex = 7;
@@ -329,7 +307,7 @@
             this.lblNoi.AutoSize = true;
             this.lblNoi.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNoi.ForeColor = System.Drawing.Color.Silver;
-            this.lblNoi.Location = new System.Drawing.Point(192, 54);
+            this.lblNoi.Location = new System.Drawing.Point(208, 54);
             this.lblNoi.Name = "lblNoi";
             this.lblNoi.Size = new System.Drawing.Size(17, 23);
             this.lblNoi.TabIndex = 6;
@@ -340,7 +318,7 @@
             this.lblSoDanhGia.AutoSize = true;
             this.lblSoDanhGia.Font = new System.Drawing.Font("Times New Roman", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoDanhGia.ForeColor = System.Drawing.Color.Silver;
-            this.lblSoDanhGia.Location = new System.Drawing.Point(165, 60);
+            this.lblSoDanhGia.Location = new System.Drawing.Point(176, 60);
             this.lblSoDanhGia.Name = "lblSoDanhGia";
             this.lblSoDanhGia.Size = new System.Drawing.Size(27, 15);
             this.lblSoDanhGia.TabIndex = 5;
@@ -448,7 +426,7 @@
             this.lblGiaTheoGio.BackColor = System.Drawing.Color.White;
             this.lblGiaTheoGio.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGiaTheoGio.ForeColor = System.Drawing.Color.Lime;
-            this.lblGiaTheoGio.Location = new System.Drawing.Point(447, 346);
+            this.lblGiaTheoGio.Location = new System.Drawing.Point(472, 346);
             this.lblGiaTheoGio.Name = "lblGiaTheoGio";
             this.lblGiaTheoGio.Size = new System.Drawing.Size(144, 32);
             this.lblGiaTheoGio.TabIndex = 23;
@@ -778,11 +756,9 @@
             this.pnlChiTiet.Controls.Add(this.lblChiTietChuyenMon);
             this.pnlChiTiet.Controls.Add(this.guna2PictureBox5);
             this.pnlChiTiet.Controls.Add(this.lblNoiDungGioiThieu);
-            this.pnlChiTiet.Controls.Add(this.lblGioiThieu);
-            this.pnlChiTiet.Controls.Add(this.guna2PictureBox4);
-            this.pnlChiTiet.Location = new System.Drawing.Point(502, 463);
+            this.pnlChiTiet.Location = new System.Drawing.Point(502, 468);
             this.pnlChiTiet.Name = "pnlChiTiet";
-            this.pnlChiTiet.Size = new System.Drawing.Size(774, 414);
+            this.pnlChiTiet.Size = new System.Drawing.Size(774, 298);
             this.pnlChiTiet.TabIndex = 8;
             // 
             // pnlChiTietChungChi
@@ -791,7 +767,7 @@
             this.pnlChiTietChungChi.Controls.Add(this.ptrChiTietChungChi);
             this.pnlChiTietChungChi.Controls.Add(this.lblChiTietChungChi1);
             this.pnlChiTietChungChi.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.pnlChiTietChungChi.Location = new System.Drawing.Point(23, 238);
+            this.pnlChiTietChungChi.Location = new System.Drawing.Point(25, 156);
             this.pnlChiTietChungChi.Name = "pnlChiTietChungChi";
             this.pnlChiTietChungChi.Radius = 10;
             this.pnlChiTietChungChi.ShadowColor = System.Drawing.Color.Silver;
@@ -826,7 +802,7 @@
             // 
             this.lblChiTietChungChi.BackColor = System.Drawing.Color.Transparent;
             this.lblChiTietChungChi.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChiTietChungChi.Location = new System.Drawing.Point(34, 194);
+            this.lblChiTietChungChi.Location = new System.Drawing.Point(36, 112);
             this.lblChiTietChungChi.Name = "lblChiTietChungChi";
             this.lblChiTietChungChi.Size = new System.Drawing.Size(88, 25);
             this.lblChiTietChungChi.TabIndex = 8;
@@ -837,7 +813,7 @@
             this.guna2PictureBox6.BackColor = System.Drawing.Color.White;
             this.guna2PictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox6.Image")));
             this.guna2PictureBox6.ImageRotate = 0F;
-            this.guna2PictureBox6.Location = new System.Drawing.Point(18, 194);
+            this.guna2PictureBox6.Location = new System.Drawing.Point(20, 112);
             this.guna2PictureBox6.Name = "guna2PictureBox6";
             this.guna2PictureBox6.Size = new System.Drawing.Size(10, 26);
             this.guna2PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -848,11 +824,11 @@
             // 
             this.lblChiTietChuyenMon1.BackColor = System.Drawing.Color.Honeydew;
             this.lblChiTietChuyenMon1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblChiTietChuyenMon1.Location = new System.Drawing.Point(43, 135);
+            this.lblChiTietChuyenMon1.Location = new System.Drawing.Point(45, 53);
             this.lblChiTietChuyenMon1.MaximumSize = new System.Drawing.Size(200, 100);
             this.lblChiTietChuyenMon1.Name = "lblChiTietChuyenMon1";
             this.lblChiTietChuyenMon1.Padding = new System.Windows.Forms.Padding(5);
-            this.lblChiTietChuyenMon1.Size = new System.Drawing.Size(78, 39);
+            this.lblChiTietChuyenMon1.Size = new System.Drawing.Size(200, 39);
             this.lblChiTietChuyenMon1.TabIndex = 6;
             this.lblChiTietChuyenMon1.Text = "Yoga";
             this.lblChiTietChuyenMon1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -861,7 +837,7 @@
             // 
             this.lblChiTietChuyenMon.BackColor = System.Drawing.Color.Transparent;
             this.lblChiTietChuyenMon.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChiTietChuyenMon.Location = new System.Drawing.Point(34, 96);
+            this.lblChiTietChuyenMon.Location = new System.Drawing.Point(36, 14);
             this.lblChiTietChuyenMon.Name = "lblChiTietChuyenMon";
             this.lblChiTietChuyenMon.Size = new System.Drawing.Size(106, 25);
             this.lblChiTietChuyenMon.TabIndex = 5;
@@ -872,7 +848,7 @@
             this.guna2PictureBox5.BackColor = System.Drawing.Color.White;
             this.guna2PictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox5.Image")));
             this.guna2PictureBox5.ImageRotate = 0F;
-            this.guna2PictureBox5.Location = new System.Drawing.Point(18, 96);
+            this.guna2PictureBox5.Location = new System.Drawing.Point(20, 14);
             this.guna2PictureBox5.Name = "guna2PictureBox5";
             this.guna2PictureBox5.Size = new System.Drawing.Size(10, 26);
             this.guna2PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -893,27 +869,22 @@
             this.lblNoiDungGioiThieu.Text = "Chuyên về Yoga trị liệu và Pilates, giúp học viên cải thiện sức khỏe tinh thần và" +
     " thể chất. Đặc biệt phù hợp với người mới bắt đầu và phục hồi sau chấn thương.";
             // 
-            // lblGioiThieu
+            // btnBack
             // 
-            this.lblGioiThieu.BackColor = System.Drawing.Color.Transparent;
-            this.lblGioiThieu.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGioiThieu.Location = new System.Drawing.Point(34, 13);
-            this.lblGioiThieu.Name = "lblGioiThieu";
-            this.lblGioiThieu.Size = new System.Drawing.Size(87, 25);
-            this.lblGioiThieu.TabIndex = 2;
-            this.lblGioiThieu.Text = "Giới thiệu";
-            // 
-            // guna2PictureBox4
-            // 
-            this.guna2PictureBox4.BackColor = System.Drawing.Color.White;
-            this.guna2PictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox4.Image")));
-            this.guna2PictureBox4.ImageRotate = 0F;
-            this.guna2PictureBox4.Location = new System.Drawing.Point(18, 13);
-            this.guna2PictureBox4.Name = "guna2PictureBox4";
-            this.guna2PictureBox4.Size = new System.Drawing.Size(10, 26);
-            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox4.TabIndex = 1;
-            this.guna2PictureBox4.TabStop = false;
+            this.btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBack.FillColor = System.Drawing.Color.White;
+            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
+            this.btnBack.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnBack.Location = new System.Drawing.Point(1283, 4);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.btnBack.Size = new System.Drawing.Size(42, 43);
+            this.btnBack.TabIndex = 9;
             // 
             // frm_TimKiemHLV
             // 
@@ -922,14 +893,16 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.LightCyan;
             this.ClientSize = new System.Drawing.Size(1348, 739);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.pnlChiTiet);
             this.Controls.Add(this.pnlThongTinPT);
             this.Controls.Add(this.pnlHienThiDanhSach);
-            this.Controls.Add(this.guna2CustomGradientPanel1);
+            this.Controls.Add(this.pnlChucNang);
             this.Name = "frm_TimKiemHLV";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_TimKiemHLV";
-            this.guna2CustomGradientPanel1.ResumeLayout(false);
-            this.guna2CustomGradientPanel1.PerformLayout();
+            this.pnlChucNang.ResumeLayout(false);
+            this.pnlChucNang.PerformLayout();
             this.pnlHienThiDanhSach.ResumeLayout(false);
             this.pnlDanhSach1.ResumeLayout(false);
             this.pnlDanhSach1.PerformLayout();
@@ -959,7 +932,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ptrChiTietChungChi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -971,8 +943,7 @@
         private Guna.UI2.WinForms.Guna2GradientTileButton btnTatCa;
         private Guna.UI2.WinForms.Guna2GradientTileButton btnTinhvaTP;
         private Guna.UI2.WinForms.Guna2GradientTileButton btnChuyenMon;
-        private Guna.UI2.WinForms.Guna2GradientTileButton btnLoc;
-        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel1;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlChucNang;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlHienThiDanhSach;
         private Guna.UI2.WinForms.Guna2ShadowPanel pnlDanhSach1;
         private System.Windows.Forms.Label lblChuyenMon;
@@ -1015,8 +986,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblSoChuyenMon;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlChiTiet;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblNoiDungGioiThieu;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblGioiThieu;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
         private System.Windows.Forms.Label lblChiTietChuyenMon1;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblChiTietChuyenMon;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox5;
@@ -1028,5 +997,6 @@
         private System.Windows.Forms.Label lblGia;
         private System.Windows.Forms.Label lblGiaTheoGio;
         private Guna.UI2.WinForms.Guna2GradientButton btnGuiYeuCau;
+        private Guna.UI2.WinForms.Guna2CircleButton btnBack;
     }
 }

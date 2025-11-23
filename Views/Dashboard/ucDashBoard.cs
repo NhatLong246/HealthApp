@@ -1,4 +1,5 @@
 ﻿using HealthApp.Views.Nutrition;
+using HealthApp.Views.PT;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,6 +32,12 @@ namespace HealthApp.Views.Dashboard
             if (btnNutri != null)
             {
                 btnNutri.Click += BtnNutri_Click;
+            }
+
+            // Gắn event handler cho button Thuê Ngay
+            if (btnThueNgay != null)
+            {
+                btnThueNgay.Click += BtnThueNgay_Click;
             }
         }
 
@@ -279,6 +286,58 @@ namespace HealthApp.Views.Dashboard
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi điều hướng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Event handler cho button Thuê Ngay - mở form tìm kiếm HLV
+        /// </summary>
+        private void BtnThueNgay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Tìm frmDashBoard
+                frmDashBoard parentForm = _parentForm;
+
+                // Nếu chưa có reference, thử tìm qua các cách khác
+                if (parentForm == null)
+                {
+                    Form form = this.FindForm();
+                    if (form is frmDashBoard)
+                    {
+                        parentForm = form as frmDashBoard;
+                    }
+                    else
+                    {
+                        foreach (Form openForm in Application.OpenForms)
+                        {
+                            if (openForm is frmDashBoard)
+                            {
+                                parentForm = openForm as frmDashBoard;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (parentForm != null)
+                {
+                    // Ẩn Dashboard và hiển thị form tìm kiếm HLV
+                    parentForm.Hide();
+                    var frmTimKiemHLV = new frm_TimKiemHLV(parentForm);
+                    frmTimKiemHLV.Show();
+                }
+                else
+                {
+                    // Nếu không tìm thấy parent, mở form độc lập
+                    var frmTimKiemHLV = new frm_TimKiemHLV();
+                    frmTimKiemHLV.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở form tìm kiếm HLV: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
