@@ -20,9 +20,20 @@ namespace HealthApp.Controllers
 
         public AuthController()
         {
-            _dbContext = new WF_HealthTracker();
-            IUserRepository userRepository = new UserRepository(_dbContext);
-            _authService = new AuthService(userRepository);
+            try
+            {
+                _dbContext = new WF_HealthTracker();
+                // Test connection
+                _dbContext.Database.Connection.Open();
+                _dbContext.Database.Connection.Close();
+                
+                IUserRepository userRepository = new UserRepository(_dbContext);
+                _authService = new AuthService(userRepository);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Không thể kết nối đến database. Vui lòng kiểm tra connection string trong App.config.\n\nChi tiết: {ex.Message}", ex);
+            }
         }
 
         /// <summary>
@@ -63,6 +74,12 @@ namespace HealthApp.Controllers
                 {
                     // Lưu user vào session
                     CurrentUser.User = user;
+                    
+                    System.Diagnostics.Debug.WriteLine($"=== Login Success ===");
+                    System.Diagnostics.Debug.WriteLine($"User.UserID: '{user.UserID}'");
+                    System.Diagnostics.Debug.WriteLine($"User.Username: '{user.Username}'");
+                    System.Diagnostics.Debug.WriteLine($"CurrentUser.UserID: '{CurrentUser.UserID}'");
+                    System.Diagnostics.Debug.WriteLine($"CurrentUser.IsLoggedIn: {CurrentUser.IsLoggedIn}");
 
                     return new LoginResult
                     {

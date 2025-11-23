@@ -11,12 +11,14 @@ namespace HealthApp.Views.Nutrition
         public BuaAnChiTiet MonAnDaThem { get; private set; }
         private ThuVienMonAn _monAnGoc;
         private WF_HealthTracker _dbContext;
+        private string _keHoachAnID;
 
-        public frmThemMonAn(ThuVienMonAn monAn, WF_HealthTracker dbContext)
+        public frmThemMonAn(ThuVienMonAn monAn, WF_HealthTracker dbContext, string keHoachAnID = null)
         {
             InitializeComponent();
             _monAnGoc = monAn;
             _dbContext = dbContext;
+            _keHoachAnID = keHoachAnID;
             InitializeData();
         }
 
@@ -82,7 +84,7 @@ namespace HealthApp.Views.Nutrition
         {
             // Tìm KeHoachAnUong mặc định hoặc tạo mới
             var keHoachAn = _dbContext.KeHoachAnUong
-                .Where(k => k.TrangThai == "Active" || k.TrangThai == null)
+                .Where(k => k.TrangThai == "N'Đang hoạt động'" || k.TrangThai == null)
                 .FirstOrDefault();
 
             if (keHoachAn == null)
@@ -90,8 +92,8 @@ namespace HealthApp.Views.Nutrition
                 // Tạo mới KeHoachAnUong mặc định
                 keHoachAn = new KeHoachAnUong
                 {
-                    KeHoachAnID = Guid.NewGuid().ToString().Substring(0, 20),
-                    TrangThai = "Active",
+                    KeHoachAnID = $"meal_{DateTime.Now:yyyyMMddHHmmss}",
+                    TrangThai = "N'Đang hoạt động'",
                     MoTa = "Kế hoạch ăn uống mặc định"
                 };
                 _dbContext.KeHoachAnUong.Add(keHoachAn);
@@ -99,6 +101,28 @@ namespace HealthApp.Views.Nutrition
             }
 
             return keHoachAn.KeHoachAnID;
+        }
+
+        private string GenerateBuaAnID()
+        {
+            var lastMeal = _dbContext.BuaAnChiTiet
+                .OrderByDescending(m => m.BuaAnID)
+                .FirstOrDefault();
+
+            if (lastMeal == null || !lastMeal.BuaAnID.StartsWith("meal_"))
+            {
+                return "meal_0001";
+            }
+
+            string numberPart = lastMeal.BuaAnID.Substring(5);
+            if (int.TryParse(numberPart, out int lastNumber))
+            {
+                int newNumber = lastNumber + 1;
+                return $"meal_{newNumber:D4}";
+            }
+
+            int mealCount = _dbContext.BuaAnChiTiet.Count();
+            return $"meal_{(mealCount + 1):D4}";
         }
 
         private void btnHuy_Click(object sender, EventArgs e)
@@ -137,8 +161,14 @@ namespace HealthApp.Views.Nutrition
                 double carbs = (_monAnGoc.Carbs ?? 0) * tiLe;
                 double fat = (_monAnGoc.Fat ?? 0) * tiLe;
 
-                // UserID mặc định (tạm thời dùng "default_user", sau này sẽ lấy từ session)
-                string userID = "default_user";
+                // Lấy UserID từ CurrentUser
+                string userID = HealthApp.Common.Helpers.CurrentUser.UserID;
+                if (string.IsNullOrEmpty(userID))
+                {
+                    MessageBox.Show("Vui lòng đăng nhập để thêm món ăn!", 
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 // Lưu LoaiBuaAn vào GhiChu (format: "LoaiBuaAn: Breakfast|GhiChu khác")
                 string loaiBuaAn = cboLoaiBuaAn.SelectedItem.ToString();
@@ -194,28 +224,35 @@ namespace HealthApp.Views.Nutrition
                 var monAnExists = _dbContext.ThuVienMonAn.Any(m => m.MonAnID == _monAnGoc.MonAnID);
                 System.Diagnostics.Debug.WriteLine($"[DEBUG] MonAnID '{_monAnGoc.MonAnID}' tồn tại: {monAnExists}");
 
-                // Tạo DinhDuongID
-                string dinhDuongID = $"nut_{Guid.NewGuid().ToString().Replace("-", "").Substring(0, 15)}";
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] DinhDuongID: {dinhDuongID}");
+                // Tạo BuaAnID theo format meal_xxxx
+                string buaAnID = GenerateBuaAnID();
+                System.Diagnostics.Debug.WriteLine($"[DEBUG] BuaAnID: {buaAnID}");
 
-                // Tạo BuaAnChiTiet (map vào NhatKyDinhDuong)
+                // Sử dụng KeHoachAnID nếu có, nếu không thì tạo mới
+                string keHoachAnID = _keHoachAnID;
+                if (string.IsNullOrEmpty(keHoachAnID))
+                {
+                    keHoachAnID = GetOrCreateDefaultKeHoachAn();
+                }
+
+                // Tạo BuaAnChiTiet
                 MonAnDaThem = new BuaAnChiTiet
                 {
-                    BuaAnID = dinhDuongID,
-                    KeHoachAnID = userID, // Map vào UserID
+                    BuaAnID = buaAnID,
+                    KeHoachAnID = keHoachAnID,
                     MonAnID = _monAnGoc.MonAnID,
-                    NgayAn = dtpNgayAn.Value.Date, // Map vào NgayGhiLog
-                    KhoiLuongChuan = soLuong, // Map vào LuongThucAn
-                    GhiChu = ghiChu, // Lưu LoaiBuaAn và ghi chú
-                    // Các field NotMapped (tính toán khi load)
+                    LoaiBuaAn = loaiBuaAn,
+                    NgayAn = dtpNgayAn.Value.Date,
                     TenMonAn = _monAnGoc.TenMonAn,
                     Donvi = _monAnGoc.Donvi ?? "g",
-                    LoaiBuaAn = loaiBuaAn,
+                    KhoiLuongChuan = soLuong,
                     Calories = calories,
                     Protein = protein,
                     Carbs = carbs,
                     Fat = fat,
-                    Fiber = null
+                    Fiber = null,
+                    GhiChu = ghiChu,
+                    NgayCapNhat = DateTime.Now
                 };
 
                 System.Diagnostics.Debug.WriteLine($"[DEBUG] Đã tạo BuaAnChiTiet object");
