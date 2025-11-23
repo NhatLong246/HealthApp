@@ -193,6 +193,16 @@ namespace HealthApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons_meal {
+            get {
+                object obj = ResourceManager.GetObject("icons-meal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons_workout {
             get {
                 object obj = ResourceManager.GetObject("icons-workout", resourceCulture);

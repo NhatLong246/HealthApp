@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using HealthApp.Views.Activity;
 using HealthApp.Views.MucTieu;
-using HealthApp.Views.Auth;
 
 namespace HealthApp
 {
