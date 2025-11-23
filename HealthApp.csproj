@@ -329,6 +329,7 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Views\Activity\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -868,6 +869,7 @@
     <Content Include="packages\System.ValueTuple.4.5.0\useSharedDesignerContext.txt" />
     <Content Include="packages\System.ValueTuple.4.5.0\version.txt" />
     <None Include="Resources\Icons\icons-meal.png" />
+    <None Include="Resources\icons-kcal.png" />
     <Content Include="Resources\Icons\AchivementIcon.png" />
     <Content Include="Resources\Icons\CommunityIcon.png" />
     <Content Include="Resources\Icons\folowIcon.png" />

@@ -14,17 +14,16 @@ namespace HealthApp.Views.MucTieu
 {
     public partial class ucMucTieu : UserControl
     {
-        private string allowedVideoUrl = string.Empty;
-
         public ucMucTieu()
         {
             InitializeComponent();
         }
 
-        private async void ucMucTieu_Load(object sender, EventArgs e)
+        private void ucMucTieu_Load(object sender, EventArgs e)
         {
-            
+
         }
+
 
     }
 }
