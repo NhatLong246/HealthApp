@@ -131,40 +131,104 @@ namespace HealthApp.Services
         {
             try
             {
+                // Kiểm tra config
+                if (string.IsNullOrEmpty(_zaloPayAppId) || string.IsNullOrEmpty(_zaloPayKey1))
+                {
+                    System.Diagnostics.Debug.WriteLine("ZaloPay config is missing!");
+                    return new PaymentResult
+                    {
+                        Success = false,
+                        Message = "Cấu hình ZaloPay chưa đầy đủ. Vui lòng kiểm tra App.config."
+                    };
+                }
+
+                // Format app_trans_id: yymmdd_HHmmss_xxx (tối đa 40 ký tự, phải unique)
+                var dateStr = DateTime.Now.ToString("yyMMdd");
+                var timeStr = DateTime.Now.ToString("HHmmss");
+                var shortOrderId = orderId.Length > 20 ? orderId.Substring(0, 20) : orderId;
+                // Format: yymmdd_HHmmss_xxx (tối đa 40 ký tự)
+                var appTransId = $"{dateStr}_{timeStr}_{shortOrderId}";
+                if (appTransId.Length > 40)
+                {
+                    appTransId = appTransId.Substring(0, 40);
+                }
+
+                // Giới hạn description (tối đa 255 ký tự)
+                var limitedDescription = description.Length > 255 ? description.Substring(0, 255) : description;
+
+                // Embed data và items - format đúng theo ZaloPay API
                 var embedData = new Dictionary<string, object>();
-                var items = new[] { new { } };
-                var appTransId = DateTime.Now.ToString("yyMMdd") + "_" + orderId; // Format: yymmdd_xxx
+                var items = new[]
+                {
+                    new
+                    {
+                        itemid = "PT_Session_001",
+                        itemname = limitedDescription.Length > 100 ? limitedDescription.Substring(0, 100) : limitedDescription,
+                        itemprice = (long)amount,
+                        itemquantity = 1
+                    }
+                };
+
+                // Unix timestamp milliseconds
+                var appTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+                // Tạo param dictionary
+                var embedDataJson = JsonConvert.SerializeObject(embedData);
+                var itemsJson = JsonConvert.SerializeObject(items);
 
                 var param = new Dictionary<string, object>
                 {
-                    { "app_id", _zaloPayAppId },
+                    { "app_id", int.Parse(_zaloPayAppId) }, // Convert to int
                     { "app_user", _zaloPayAppUser },
-                    { "app_time", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() },
+                    { "app_time", appTime },
                     { "amount", amount },
                     { "app_trans_id", appTransId },
-                    { "embed_data", JsonConvert.SerializeObject(embedData) },
-                    { "item", JsonConvert.SerializeObject(items) },
-                    { "description", description },
+                    { "embed_data", embedDataJson },
+                    { "item", itemsJson },
+                    { "description", limitedDescription },
                     { "bank_code", "zalopayapp" },
                     { "callback_url", callbackUrl }
                 };
 
-                // Tạo mac
+                // Tạo mac (theo thứ tự: app_id|app_trans_id|app_user|amount|app_time|embed_data|item)
                 var data = $"{param["app_id"]}|{param["app_trans_id"]}|{param["app_user"]}|{param["amount"]}|{param["app_time"]}|{param["embed_data"]}|{param["item"]}";
                 var mac = ComputeHmacSha256(data, _zaloPayKey1);
 
                 param["mac"] = mac;
 
+                // Debug logging
+                System.Diagnostics.Debug.WriteLine("=== ZaloPay Payment Request ===");
+                System.Diagnostics.Debug.WriteLine($"App ID: {_zaloPayAppId}");
+                System.Diagnostics.Debug.WriteLine($"App User: {_zaloPayAppUser}");
+                System.Diagnostics.Debug.WriteLine($"Amount: {amount} (Type: {amount.GetType().Name})");
+                System.Diagnostics.Debug.WriteLine($"App Trans ID: {appTransId} (Length: {appTransId.Length})");
+                System.Diagnostics.Debug.WriteLine($"Description: {limitedDescription} (Length: {limitedDescription.Length})");
+                System.Diagnostics.Debug.WriteLine($"Embed Data: {embedDataJson}");
+                System.Diagnostics.Debug.WriteLine($"Items: {itemsJson}");
+                System.Diagnostics.Debug.WriteLine($"Data for MAC: {data}");
+                System.Diagnostics.Debug.WriteLine($"MAC: {mac}");
+
                 var json = JsonConvert.SerializeObject(param);
+                System.Diagnostics.Debug.WriteLine($"Request JSON: {json}");
+
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
+                System.Diagnostics.Debug.WriteLine($"Sending request to: {_zaloPayApiEndpoint}");
                 var response = await _httpClient.PostAsync(_zaloPayApiEndpoint, content);
                 var responseContent = await response.Content.ReadAsStringAsync();
+
+                System.Diagnostics.Debug.WriteLine($"Response Status: {response.StatusCode}");
+                System.Diagnostics.Debug.WriteLine($"Response Content: {responseContent}");
 
                 if (response.IsSuccessStatusCode)
                 {
                     var result = JsonConvert.DeserializeObject<ZaloPayPaymentResponse>(responseContent);
-                    if (result.return_code == 1)
+                    
+                    System.Diagnostics.Debug.WriteLine($"Return Code: {result?.return_code}");
+                    System.Diagnostics.Debug.WriteLine($"Return Message: {result?.return_message}");
+                    System.Diagnostics.Debug.WriteLine($"Order URL: {result?.order_url}");
+
+                    if (result != null && result.return_code == 1)
                     {
                         return new PaymentResult
                         {
@@ -177,15 +241,32 @@ namespace HealthApp.Services
                     }
                     else
                     {
+                        var errorMsg = result?.return_message ?? "Không rõ lỗi";
+                        var errorCode = result?.return_code ?? -1;
+                        System.Diagnostics.Debug.WriteLine($"ZaloPay Error Code: {errorCode}");
+                        System.Diagnostics.Debug.WriteLine($"ZaloPay Error Message: {errorMsg}");
+                        
+                        // Thông báo lỗi chi tiết hơn dựa trên error code
+                        string detailedMessage = errorMsg;
+                        if (errorCode == 2)
+                        {
+                            detailedMessage = $"Giao dịch thất bại. Có thể do:\n" +
+                                            "- app_trans_id đã tồn tại hoặc format sai\n" +
+                                            "- Thông tin thanh toán không hợp lệ\n" +
+                                            "- Sandbox environment có giới hạn\n\n" +
+                                            $"Chi tiết: {errorMsg}";
+                        }
+                        
                         return new PaymentResult
                         {
                             Success = false,
-                            Message = $"Lỗi ZaloPay: {result.return_message}"
+                            Message = $"Lỗi ZaloPay (Code: {errorCode}): {detailedMessage}"
                         };
                     }
                 }
                 else
                 {
+                    System.Diagnostics.Debug.WriteLine($"HTTP Error: {response.StatusCode} - {responseContent}");
                     return new PaymentResult
                     {
                         Success = false,
@@ -195,6 +276,12 @@ namespace HealthApp.Services
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Exception in CreateZaloPayPaymentAsync: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+                if (ex.InnerException != null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Inner Exception: {ex.InnerException.Message}");
+                }
                 return new PaymentResult
                 {
                     Success = false,

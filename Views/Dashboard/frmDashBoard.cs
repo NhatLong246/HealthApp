@@ -201,13 +201,16 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Hiển thị lại form Dashboard (được gọi từ frm_DangKy khi quay lại)
+        /// Hiển thị lại form Dashboard (được gọi từ frm_DangKy hoặc frm_ThanhToanPT khi quay lại)
         /// </summary>
         public void ShowDashboard()
         {
             this.Show();
             this.BringToFront();
             this.Activate();
+            
+            // Reload trang chủ để cập nhật dữ liệu sau khi thanh toán
+            LoadUserControl();
         }
 
         /// <summary>
