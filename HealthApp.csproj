@@ -176,6 +176,7 @@
     <Compile Include="Common\Helpers\OTPHelper.cs" />
     <Compile Include="Common\Helpers\PasswordHelper.cs" />
     <Compile Include="Common\Helpers\ValidationHelper.cs" />
+    <Compile Include="Scripts\GeneratePasswordHashForNewUser.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\PTController.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Services\ChatGPTService.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\ForgotPasswordService.cs" />
+    <Compile Include="Services\PaymentService.cs" />
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\Interfaces\IReportService.cs" />
     <Compile Include="Services\Interfaces\IExportService.cs" />
@@ -352,6 +354,12 @@
     <Compile Include="Views\PT\frm_ThanhToanPT.Designer.cs">
       <DependentUpon>frm_ThanhToanPT.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PT\frm_PaymentQRCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frm_PaymentQRCode.Designer.cs">
+      <DependentUpon>frm_PaymentQRCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dashboard\frmDashBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -474,6 +482,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PT\frm_ThanhToanPT.resx">
       <DependentUpon>frm_ThanhToanPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frm_PaymentQRCode.resx">
+      <DependentUpon>frm_PaymentQRCode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Dashboard\frmDashBoard.resx">
       <DependentUpon>frmDashBoard.cs</DependentUpon>

@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using HealthApp.Views.Dashboard;
 using HealthApp.Models;
 using HealthApp.Common.Helpers;
+using HealthApp.Services;
 using Guna.UI2.WinForms;
 
 namespace HealthApp.Views.PT
@@ -578,12 +579,111 @@ namespace HealthApp.Views.PT
 
         private async Task<bool> ProcessPayment()
         {
-            // Giả lập xử lý thanh toán (trong thực tế sẽ gọi API)
-            await Task.Delay(1000);
-            
-            // Giả lập: luôn thành công (có thể thay đổi logic sau)
-            // Trong thực tế sẽ gọi API thanh toán MoMo/ZaloPay và kiểm tra kết quả
-            return true;
+            try
+            {
+                var paymentService = new PaymentService();
+                var orderId = GenerateGiaoDichID();
+                var amount = (long)CalculatePrice();
+                var orderInfo = $"Thanh toán PT - {_pt.HoTen} - {_datLich.NgayTap:dd/MM/yyyy}";
+                
+                // URL callback (có thể cấu hình trong App.config)
+                var returnUrl = "https://your-domain.com/payment/return";
+                var notifyUrl = "https://your-domain.com/payment/notify";
+                var callbackUrl = "https://your-domain.com/payment/zalopay-callback";
+
+                PaymentResult result;
+
+                if (_selectedPaymentMethod == "MoMo")
+                {
+                    result = await paymentService.CreateMoMoPaymentAsync(
+                        orderId, 
+                        amount, 
+                        orderInfo, 
+                        returnUrl, 
+                        notifyUrl
+                    );
+                }
+                else if (_selectedPaymentMethod == "ZaloPay")
+                {
+                    result = await paymentService.CreateZaloPayPaymentAsync(
+                        orderId,
+                        amount,
+                        orderInfo,
+                        callbackUrl
+                    );
+                }
+                else
+                {
+                    MessageBox.Show("Phương thức thanh toán không hợp lệ!", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                if (result.Success && !string.IsNullOrEmpty(result.PaymentUrl))
+                {
+                    // Lưu thông tin giao dịch vào database với trạng thái "Pending"
+                    var giaoDich = new GiaoDich
+                    {
+                        GiaoDichID = orderId,
+                        DatLichID = _datLich.DatLichID,
+                        KhachHangID = _datLich.KhachHangID,
+                        PTID = _pt.PTID,
+                        SoTien = CalculatePrice(),
+                        PhuongThucThanhToan = _selectedPaymentMethod,
+                        TrangThaiThanhToan = "Pending",
+                        MaGiaoDich = result.TransactionId,
+                        NgayGiaoDich = DateTime.Now
+                    };
+
+                    _context.GiaoDich.Add(giaoDich);
+                    await Task.Run(() => _context.SaveChanges());
+
+                    // Mở form hiển thị QR code và WebView
+                    using (var paymentForm = new frm_PaymentQRCode(
+                        result.PaymentUrl,
+                        result.QrCodeUrl,
+                        orderId,
+                        _selectedPaymentMethod,
+                        CalculatePrice(),
+                        _context))
+                    {
+                        var paymentResult = paymentForm.ShowDialog(this);
+
+                        if (paymentResult == DialogResult.OK)
+                        {
+                            // Kiểm tra lại trạng thái từ database
+                            var updatedGiaoDich = _context.GiaoDich.FirstOrDefault(g => g.GiaoDichID == orderId);
+                            if (updatedGiaoDich != null && updatedGiaoDich.TrangThaiThanhToan == "Completed")
+                            {
+                                // Cập nhật trạng thái DatLichPT
+                                _datLich.TrangThai = "Confirmed";
+                                _datLich.NgayCapNhat = DateTime.Now;
+                                await Task.Run(() => _context.SaveChanges());
+
+                                MessageBox.Show("Thanh toán thành công!", "Thành công",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                NavigateBackToDashboard();
+                                return true;
+                            }
+                        }
+                    }
+
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show($"Lỗi khi tạo thanh toán: {result.Message}", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xử lý thanh toán: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
 
         private string GenerateGiaoDichID()

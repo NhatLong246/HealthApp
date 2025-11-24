@@ -32,9 +32,53 @@ namespace HealthApp.Repositories
             if (string.IsNullOrWhiteSpace(email))
                 return Task.FromResult<Users>(null);
 
-            string trimmedEmail = email.Trim();
-            return Task.Run(() => _context.Users
-                .FirstOrDefault(u => u.Email != null && u.Email.Trim() == trimmedEmail));
+            string trimmedEmail = email.Trim().ToLower();
+            
+            // Debug logging
+            System.Diagnostics.Debug.WriteLine($"[GetByEmailAsync] Searching for email: '{trimmedEmail}'");
+            
+            return Task.Run(() =>
+            {
+                try
+                {
+                    // Query case-insensitive và trim
+                    var users = _context.Users.ToList(); // Load all để tránh EF translation issues
+                    
+                    // Debug: Log tất cả users và emails
+                    System.Diagnostics.Debug.WriteLine($"[GetByEmailAsync] Total users loaded: {users.Count}");
+                    foreach (var u in users)
+                    {
+                        string emailInfo = u.Email != null ? $"'{u.Email}' (len={u.Email.Length})" : "NULL";
+                        System.Diagnostics.Debug.WriteLine($"[GetByEmailAsync] User: {u.Username}, Email: {emailInfo}");
+                    }
+                    
+                    // Filter với case-insensitive và trim
+                    var user = users.FirstOrDefault(u => 
+                        u.Email != null && 
+                        !string.IsNullOrWhiteSpace(u.Email) &&
+                        u.Email.Trim().ToLower() == trimmedEmail);
+                    
+                    System.Diagnostics.Debug.WriteLine($"[GetByEmailAsync] Searching for: '{trimmedEmail}'");
+                    System.Diagnostics.Debug.WriteLine($"[GetByEmailAsync] Found user: {(user != null ? user.Username : "NULL")}");
+                    if (user != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[GetByEmailAsync] User Email in DB: '{user.Email}'");
+                        System.Diagnostics.Debug.WriteLine($"[GetByEmailAsync] User Email trimmed/lower: '{user.Email.Trim().ToLower()}'");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[GetByEmailAsync] No user found matching email '{trimmedEmail}'");
+                    }
+                    
+                    return user;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[GetByEmailAsync] Error: {ex.Message}");
+                    System.Diagnostics.Debug.WriteLine($"[GetByEmailAsync] Stack: {ex.StackTrace}");
+                    throw;
+                }
+            });
         }
 
         public Task<Users> GetByIdAsync(string userId)
@@ -61,8 +105,13 @@ namespace HealthApp.Repositories
 
         public Task<bool> PhoneExistsAsync(string phoneNumber)
         {
-            return Task.Run(() => _context.Users
-                .Any(u => u.SDT == phoneNumber));
+            // Tạm thời disable vì SDT đang bị ignore trong mapping
+            // Sau khi thêm column SDT vào database và bỏ ignore, uncomment dòng dưới
+            // return Task.Run(() => _context.Users
+            //     .Any(u => u.SDT == phoneNumber));
+            
+            // Tạm thời return false để tránh lỗi
+            return Task.FromResult(false);
         }
 
         public async Task<Users> CreateAsync(Users user)
