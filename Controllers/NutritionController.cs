@@ -94,27 +94,144 @@ namespace HealthApp.Controllers
         }
 
         /// <summary>
-        /// Tìm món ăn trong thư viện
+        /// Lấy danh sách món ăn chỉ với các cột cần thiết (MonAnID, TenMonAn, Loai, Donvi)
+        /// </summary>
+        public List<FoodListItem> GetAllFoodsList()
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("=== GetAllFoodsList ===");
+                
+                // Load về memory trước để tránh lỗi EF translation
+                var allFoods = _dbContext.ThuVienMonAn
+                    .OrderBy(m => m.TenMonAn)
+                    .ToList();
+
+                System.Diagnostics.Debug.WriteLine($"Loaded {allFoods.Count} foods from database");
+
+                // Select các cột cần thiết trong memory
+                var foods = allFoods
+                    .Select(m => new FoodListItem
+                    {
+                        MonAnID = m.MonAnID,
+                        TenMonAn = m.TenMonAn,
+                        Loai = m.Loai,
+                        Donvi = m.Donvi
+                    })
+                    .ToList();
+
+                System.Diagnostics.Debug.WriteLine($"Processed {foods.Count} foods (basic info only)");
+                return foods;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetAllFoodsList error: {ex.Message}");
+                if (ex.InnerException != null)
+                    System.Diagnostics.Debug.WriteLine($"Inner: {ex.InnerException.Message}");
+                throw new Exception($"Lỗi khi tải danh sách món ăn: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Tìm món ăn trong thư viện (chỉ lấy các cột cần thiết)
+        /// </summary>
+        public List<FoodListItem> SearchFoodList(string keyword)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"=== SearchFoodList - Keyword: '{keyword}' ===");
+                
+                // Load về memory trước để tránh lỗi EF translation
+                var allFoods = _dbContext.ThuVienMonAn
+                    .OrderBy(m => m.TenMonAn)
+                    .ToList();
+
+                System.Diagnostics.Debug.WriteLine($"Loaded {allFoods.Count} foods from database");
+
+                // Select các cột cần thiết trong memory
+                var foodList = allFoods
+                    .Select(m => new FoodListItem
+                    {
+                        MonAnID = m.MonAnID,
+                        TenMonAn = m.TenMonAn,
+                        Loai = m.Loai,
+                        Donvi = m.Donvi
+                    })
+                    .ToList();
+
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    // Nếu keyword rỗng, trả về 100 món đầu tiên
+                    var foodResults = foodList.Take(100).ToList();
+                    System.Diagnostics.Debug.WriteLine($"Returned {foodResults.Count} foods (no keyword)");
+                    return foodResults;
+                }
+
+                keyword = keyword.Trim().ToLower();
+                
+                // Filter trong memory
+                var filteredResults = foodList
+                    .Where(m => 
+                        (m.TenMonAn != null && m.TenMonAn.ToLower().Contains(keyword)) || 
+                        (m.Loai != null && m.Loai.ToLower().Contains(keyword)))
+                    .OrderBy(m => m.TenMonAn)
+                    .Take(100)
+                    .ToList();
+                
+                System.Diagnostics.Debug.WriteLine($"Found {filteredResults.Count} matching foods");
+                return filteredResults;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"SearchFoodList error: {ex.Message}");
+                if (ex.InnerException != null)
+                    System.Diagnostics.Debug.WriteLine($"Inner: {ex.InnerException.Message}");
+                throw new Exception($"Lỗi khi tìm món ăn: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Tìm món ăn trong thư viện (full object - dùng khi cần chi tiết)
         /// </summary>
         public List<ThuVienMonAn> SearchFood(string keyword)
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine($"=== SearchFood - Keyword: '{keyword}' ===");
+                
+                // Load tất cả dữ liệu về memory trước (giới hạn 200 để tránh quá tải)
+                var allFoods = _dbContext.ThuVienMonAn
+                    .OrderBy(m => m.TenMonAn)
+                    .Take(200) // Giới hạn 200 kết quả để tránh quá tải memory
+                    .ToList();
+
+                System.Diagnostics.Debug.WriteLine($"Loaded {allFoods.Count} foods from database");
+
                 if (string.IsNullOrWhiteSpace(keyword))
                 {
-                    return new List<ThuVienMonAn>();
+                    // Nếu keyword rỗng, trả về 100 món ăn đầu tiên
+                    return allFoods.Take(100).ToList();
                 }
 
                 keyword = keyword.Trim().ToLower();
 
-                return _dbContext.ThuVienMonAn
-                    .Where(m => m.TenMonAn.ToLower().Contains(keyword))
+                // Filter trong memory (không còn vấn đề với EF translation)
+                var results = allFoods
+                    .Where(m => 
+                        (m.TenMonAn != null && m.TenMonAn.ToLower().Contains(keyword)) || 
+                        (m.Loai != null && m.Loai.ToLower().Contains(keyword)))
                     .OrderBy(m => m.TenMonAn)
                     .Take(50) // Giới hạn 50 kết quả
                     .ToList();
+
+                System.Diagnostics.Debug.WriteLine($"Found {results.Count} matching foods");
+                return results;
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"SearchFood error: {ex.Message}");
+                if (ex.InnerException != null)
+                    System.Diagnostics.Debug.WriteLine($"Inner: {ex.InnerException.Message}");
                 throw new Exception($"Lỗi khi tìm món ăn: {ex.Message}", ex);
             }
         }
@@ -289,7 +406,7 @@ namespace HealthApp.Controllers
         }
 
         /// <summary>
-        /// Tạo BuaAnID tự động (format: meal_0001, meal_0002, ...)
+        /// Tạo BuaAnID tự động (format: meal_item_0001, meal_item_0002, ...)
         /// </summary>
         private string GenerateMealId()
         {
@@ -297,26 +414,169 @@ namespace HealthApp.Controllers
                 .OrderByDescending(m => m.BuaAnID)
                 .FirstOrDefault();
 
-            if (lastMeal == null || !lastMeal.BuaAnID.StartsWith("meal_"))
+            if (lastMeal == null || !lastMeal.BuaAnID.StartsWith("meal_item_"))
+            {
+                return "meal_item_0001";
+            }
+
+            string numberPart = lastMeal.BuaAnID.Substring(10);
+            if (int.TryParse(numberPart, out int lastNumber))
+            {
+                int newNumber = lastNumber + 1;
+                return $"meal_item_{newNumber:D4}";
+            }
+
+            int mealCount = _dbContext.BuaAnChiTiet.Count();
+            return $"meal_item_{(mealCount + 1):D4}";
+        }
+
+        /// <summary>
+        /// Tạo kế hoạch ăn uống mới
+        /// </summary>
+        public async Task<string> CreateMealPlanAsync(
+            string mucTieuId,
+            double? tongCalories = null,
+            double? tongProtein = null,
+            double? tongCarbs = null,
+            double? tongFat = null,
+            double? tongFiber = null,
+            string moTa = null)
+        {
+            try
+            {
+                // Tạo KeHoachAnID
+                string keHoachAnId = GenerateKeHoachAnId();
+
+                var keHoachAn = new KeHoachAnUong
+                {
+                    KeHoachAnID = keHoachAnId,
+                    MucTieuID = mucTieuId,
+                    TongCalories = tongCalories,
+                    TongProtein = tongProtein,
+                    TongCarbs = tongCarbs,
+                    TongFat = tongFat,
+                    Fiber = tongFiber,
+                    MoTa = moTa ?? "Kế hoạch ăn uống",
+                    TrangThai = "Đang hoạt động"
+                };
+
+                _dbContext.KeHoachAnUong.Add(keHoachAn);
+                _dbContext.SaveChanges();
+
+                return await Task.FromResult(keHoachAnId);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"CreateMealPlanAsync error: {ex.Message}");
+                throw new Exception($"Lỗi khi tạo kế hoạch ăn uống: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Thêm món ăn vào kế hoạch ăn uống
+        /// </summary>
+        public async Task<bool> AddMealToPlanAsync(
+            string keHoachAnId,
+            string monAnId,
+            string loaiBuaAn,
+            DateTime ngayAn,
+            string tenMonAn,
+            double? khoiLuongChuan = null,
+            string donVi = null)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(keHoachAnId) || string.IsNullOrWhiteSpace(monAnId))
+                {
+                    return false;
+                }
+
+                // Lấy thông tin món ăn gốc
+                var monAnGoc = GetFoodById(monAnId);
+                if (monAnGoc == null)
+                {
+                    return false;
+                }
+
+                // Tính toán dinh dưỡng dựa trên khối lượng
+                double tiLe = 1.0;
+                if (khoiLuongChuan.HasValue && monAnGoc.KhoiLuongChuan.HasValue && monAnGoc.KhoiLuongChuan.Value > 0)
+                {
+                    tiLe = khoiLuongChuan.Value / monAnGoc.KhoiLuongChuan.Value;
+                }
+
+                // Tạo BuaAnID
+                string buaAnId = GenerateMealId();
+
+                var buaAn = new BuaAnChiTiet
+                {
+                    BuaAnID = buaAnId,
+                    KeHoachAnID = keHoachAnId,
+                    MonAnID = monAnId,
+                    LoaiBuaAn = loaiBuaAn ?? "Trưa",
+                    NgayAn = ngayAn,
+                    TenMonAn = tenMonAn ?? monAnGoc.TenMonAn,
+                    Donvi = donVi ?? monAnGoc.Donvi ?? "g",
+                    KhoiLuongChuan = khoiLuongChuan ?? monAnGoc.KhoiLuongChuan,
+                    Calories = (monAnGoc.Calories ?? 0) * tiLe,
+                    Protein = (monAnGoc.Protein ?? 0) * tiLe,
+                    Carbs = (monAnGoc.Carbs ?? 0) * tiLe,
+                    Fat = (monAnGoc.Fat ?? 0) * tiLe,
+                    Fiber = (monAnGoc.Fiber ?? 0) * tiLe
+                };
+
+                _dbContext.BuaAnChiTiet.Add(buaAn);
+                _dbContext.SaveChanges();
+
+                return await Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"AddMealToPlanAsync error: {ex.Message}");
+                throw new Exception($"Lỗi khi thêm món ăn vào kế hoạch: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Tạo KeHoachAnID tự động
+        /// </summary>
+        private string GenerateKeHoachAnId()
+        {
+            var last = _dbContext.KeHoachAnUong
+                .OrderByDescending(k => k.KeHoachAnID)
+                .FirstOrDefault();
+
+            if (last == null || !last.KeHoachAnID.StartsWith("meal_"))
             {
                 return "meal_0001";
             }
 
-            string numberPart = lastMeal.BuaAnID.Substring(5);
+            string numberPart = last.KeHoachAnID.Substring(5);
             if (int.TryParse(numberPart, out int lastNumber))
             {
                 int newNumber = lastNumber + 1;
                 return $"meal_{newNumber:D4}";
             }
 
-            int mealCount = _dbContext.BuaAnChiTiet.Count();
-            return $"meal_{(mealCount + 1):D4}";
+            int count = _dbContext.KeHoachAnUong.Count();
+            return $"meal_{(count + 1):D4}";
         }
 
         public void Dispose()
         {
             _dbContext?.Dispose();
         }
+    }
+
+    /// <summary>
+    /// DTO cho danh sách món ăn (chỉ các cột cần thiết)
+    /// </summary>
+    public class FoodListItem
+    {
+        public string MonAnID { get; set; }
+        public string TenMonAn { get; set; }
+        public string Loai { get; set; }
+        public string Donvi { get; set; }
     }
 
     /// <summary>

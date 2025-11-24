@@ -84,7 +84,7 @@ namespace HealthApp.Views.Nutrition
         {
             // Tìm KeHoachAnUong mặc định hoặc tạo mới
             var keHoachAn = _dbContext.KeHoachAnUong
-                .Where(k => k.TrangThai == N"Đang hoạt động" || k.TrangThai == null)
+                .Where(k => k.TrangThai == "Đang hoạt động" || k.TrangThai == null)
                 .FirstOrDefault();
 
             if (keHoachAn == null)
@@ -93,7 +93,7 @@ namespace HealthApp.Views.Nutrition
                 keHoachAn = new KeHoachAnUong
                 {
                     KeHoachAnID = $"meal_{DateTime.Now:yyyyMMddHHmmss}",
-                    TrangThai = N"Đang hoạt động",
+                    TrangThai = "Đang hoạt động",
                     MoTa = "Kế hoạch ăn uống mặc định"
                 };
                 _dbContext.KeHoachAnUong.Add(keHoachAn);

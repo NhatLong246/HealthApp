@@ -1,5 +1,6 @@
 ﻿using HealthApp.Views.Nutrition;
 using HealthApp.Views.MucTieu;
+using HealthApp.Views.KeHoachLuyenTap;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,6 +34,14 @@ namespace HealthApp.Views.Dashboard
             {
                 btnNutri.Click += BtnNutri_Click;
             }
+
+            // Gắn event handler cho button "Lên Kế Hoạch Ngay"
+            if (btnLenKeHoachNgay != null)
+            {
+                btnLenKeHoachNgay.Click += BtnLenKeHoachNgay_Click;
+            }
+
+           
         }
 
         private void guna2TextBox1_TextChanged(object sender, EventArgs e)
@@ -321,6 +330,56 @@ namespace HealthApp.Views.Dashboard
                     // Tạo và load ucMucTieu
                     ucMucTieu ucMucTieu = new ucMucTieu();
                     parentForm.LoadUserControl(ucMucTieu);
+                }
+                else
+                {
+                    MessageBox.Show("Không thể tìm thấy form chính để điều hướng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi điều hướng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Event handler cho button "Lên Kế Hoạch Ngay" - điều hướng tới trang kế hoạch luyện tập
+        /// </summary>
+        private void BtnLenKeHoachNgay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Tìm frmDashBoard
+                frmDashBoard parentForm = _parentForm;
+
+                // Nếu chưa có reference, thử tìm qua các cách khác
+                if (parentForm == null)
+                {
+                    // Cách 1: Tìm qua FindForm()
+                    Form form = this.FindForm();
+                    if (form is frmDashBoard)
+                    {
+                        parentForm = form as frmDashBoard;
+                    }
+                    // Cách 2: Tìm qua Application.OpenForms
+                    else
+                    {
+                        foreach (Form openForm in Application.OpenForms)
+                        {
+                            if (openForm is frmDashBoard)
+                            {
+                                parentForm = openForm as frmDashBoard;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (parentForm != null)
+                {
+                    // Tạo và load ucKeHoachLuyenTap
+                    ucKeHoachLuyenTap ucKeHoachLuyenTap = new ucKeHoachLuyenTap();
+                    parentForm.LoadUserControl(ucKeHoachLuyenTap);
                 }
                 else
                 {
