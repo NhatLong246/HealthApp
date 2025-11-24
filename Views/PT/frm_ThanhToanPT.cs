@@ -584,7 +584,22 @@ namespace HealthApp.Views.PT
                 var paymentService = new PaymentService();
                 var orderId = GenerateGiaoDichID();
                 var amount = (long)CalculatePrice();
-                var orderInfo = $"Thanh toán PT - {_pt.HoTen} - {_datLich.NgayTap:dd/MM/yyyy}";
+                
+                // Lấy tên PT từ Users
+                string ptName = "PT";
+                if (_pt != null)
+                {
+                    var ptUser = _context.Users.FirstOrDefault(u => u.UserID == _pt.UserID);
+                    if (ptUser != null)
+                    {
+                        ptName = ptUser.HoTen ?? ptUser.Username ?? "PT";
+                    }
+                }
+                
+                // Lấy ngày tập từ ThoiGianBatDau
+                string ngayTap = _datLich?.ThoiGianBatDau.ToString("dd/MM/yyyy") ?? DateTime.Now.ToString("dd/MM/yyyy");
+                
+                var orderInfo = $"Thanh toán PT - {ptName} - {ngayTap}";
                 
                 // URL callback (có thể cấu hình trong App.config)
                 var returnUrl = "https://your-domain.com/payment/return";
@@ -611,6 +626,13 @@ namespace HealthApp.Views.PT
                         orderInfo,
                         callbackUrl
                     );
+                    
+                    // Log kết quả
+                    System.Diagnostics.Debug.WriteLine($"=== ZaloPay Payment Result ===");
+                    System.Diagnostics.Debug.WriteLine($"Success: {result.Success}");
+                    System.Diagnostics.Debug.WriteLine($"Message: {result.Message}");
+                    System.Diagnostics.Debug.WriteLine($"PaymentUrl: {result.PaymentUrl}");
+                    System.Diagnostics.Debug.WriteLine($"OrderId: {result.OrderId}");
                 }
                 else
                 {
@@ -619,24 +641,107 @@ namespace HealthApp.Views.PT
                     return false;
                 }
 
+                // Kiểm tra kết quả và hiển thị lỗi nếu có
+                if (!result.Success)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Payment failed: {result.Message}");
+                    MessageBox.Show(
+                        $"Không thể tạo yêu cầu thanh toán {_selectedPaymentMethod}!\n\n" +
+                        $"Lỗi: {result.Message}\n\n" +
+                        "Vui lòng kiểm tra:\n" +
+                        "1. Kết nối internet\n" +
+                        "2. Cấu hình thanh toán trong App.config\n" +
+                        "3. Thử lại sau vài phút",
+                        "Lỗi thanh toán",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return false;
+                }
+
                 if (result.Success && !string.IsNullOrEmpty(result.PaymentUrl))
                 {
-                    // Lưu thông tin giao dịch vào database với trạng thái "Pending"
-                    var giaoDich = new GiaoDich
-                    {
-                        GiaoDichID = orderId,
-                        DatLichID = _datLich.DatLichID,
-                        KhachHangID = _datLich.KhachHangID,
-                        PTID = _pt.PTID,
-                        SoTien = CalculatePrice(),
-                        PhuongThucThanhToan = _selectedPaymentMethod,
-                        TrangThaiThanhToan = "Pending",
-                        MaGiaoDich = result.TransactionId,
-                        NgayGiaoDich = DateTime.Now
-                    };
+                    // Kiểm tra xem đã có GiaoDich cho DatLichID này chưa (do constraint UNIQUE)
+                    var existingGiaoDich = _context.GiaoDich
+                        .FirstOrDefault(g => g.DatLichID == _datLich.DatLichID);
 
-                    _context.GiaoDich.Add(giaoDich);
+                    GiaoDich giaoDich;
+
+                    if (existingGiaoDich != null)
+                    {
+                        // Đã có giao dịch, kiểm tra trạng thái
+                        if (existingGiaoDich.TrangThaiThanhToan == "Completed")
+                        {
+                            MessageBox.Show(
+                                "Booking này đã được thanh toán thành công rồi!\n\n" +
+                                $"Mã giao dịch: {existingGiaoDich.GiaoDichID}\n" +
+                                $"Ngày thanh toán: {existingGiaoDich.NgayGiaoDich:dd/MM/yyyy HH:mm}",
+                                "Đã thanh toán",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                            );
+                            return false;
+                        }
+                        else if (existingGiaoDich.TrangThaiThanhToan == "Pending")
+                        {
+                            // Cập nhật giao dịch đang pending (giữ nguyên GiaoDichID để tránh conflict)
+                            System.Diagnostics.Debug.WriteLine($"Cập nhật giao dịch đang pending: {existingGiaoDich.GiaoDichID}");
+                            giaoDich = existingGiaoDich;
+                            // Giữ nguyên GiaoDichID cũ, chỉ cập nhật thông tin thanh toán
+                            giaoDich.SoTien = CalculatePrice();
+                            giaoDich.PhuongThucThanhToan = _selectedPaymentMethod;
+                            giaoDich.TrangThaiThanhToan = "Pending";
+                            giaoDich.MaGiaoDich = result.TransactionId;
+                            giaoDich.NgayGiaoDich = DateTime.Now;
+                            
+                            // Cập nhật orderId để dùng trong form QR code
+                            orderId = existingGiaoDich.GiaoDichID;
+                        }
+                        else
+                        {
+                            // Trạng thái khác (Refunded), cho phép tạo mới bằng cách xóa cũ
+                            System.Diagnostics.Debug.WriteLine($"Xóa giao dịch cũ với trạng thái: {existingGiaoDich.TrangThaiThanhToan}");
+                            _context.GiaoDich.Remove(existingGiaoDich);
+                            await Task.Run(() => _context.SaveChanges());
+                            
+                            // Tạo mới
+                            giaoDich = new GiaoDich
+                            {
+                                GiaoDichID = orderId,
+                                DatLichID = _datLich.DatLichID,
+                                KhachHangID = _datLich.KhachHangID,
+                                PTID = _pt.PTID,
+                                SoTien = CalculatePrice(),
+                                PhuongThucThanhToan = _selectedPaymentMethod,
+                                TrangThaiThanhToan = "Pending",
+                                MaGiaoDich = result.TransactionId,
+                                NgayGiaoDich = DateTime.Now
+                            };
+                            _context.GiaoDich.Add(giaoDich);
+                        }
+                    }
+                    else
+                    {
+                        // Chưa có giao dịch, tạo mới
+                        System.Diagnostics.Debug.WriteLine($"Tạo giao dịch mới cho DatLichID: {_datLich.DatLichID}");
+                        giaoDich = new GiaoDich
+                        {
+                            GiaoDichID = orderId,
+                            DatLichID = _datLich.DatLichID,
+                            KhachHangID = _datLich.KhachHangID,
+                            PTID = _pt.PTID,
+                            SoTien = CalculatePrice(),
+                            PhuongThucThanhToan = _selectedPaymentMethod,
+                            TrangThaiThanhToan = "Pending",
+                            MaGiaoDich = result.TransactionId,
+                            NgayGiaoDich = DateTime.Now
+                        };
+                        _context.GiaoDich.Add(giaoDich);
+                    }
+
+                    // Lưu thay đổi
                     await Task.Run(() => _context.SaveChanges());
+                    System.Diagnostics.Debug.WriteLine($"Đã lưu giao dịch: {giaoDich.GiaoDichID}");
 
                     // Mở form hiển thị QR code và WebView
                     using (var paymentForm = new frm_PaymentQRCode(
@@ -651,8 +756,11 @@ namespace HealthApp.Views.PT
 
                         if (paymentResult == DialogResult.OK)
                         {
-                            // Kiểm tra lại trạng thái từ database
+                            // Reload từ database để đảm bảo có dữ liệu mới nhất
+                            _context.Entry(_context.GiaoDich.FirstOrDefault(g => g.GiaoDichID == orderId)).Reload();
                             var updatedGiaoDich = _context.GiaoDich.FirstOrDefault(g => g.GiaoDichID == orderId);
+                            
+                            // CHỈ xử lý thành công khi thực sự có trạng thái "Completed"
                             if (updatedGiaoDich != null && updatedGiaoDich.TrangThaiThanhToan == "Completed")
                             {
                                 // Cập nhật trạng thái DatLichPT
@@ -660,12 +768,41 @@ namespace HealthApp.Views.PT
                                 _datLich.NgayCapNhat = DateTime.Now;
                                 await Task.Run(() => _context.SaveChanges());
 
-                                MessageBox.Show("Thanh toán thành công!", "Thành công",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                                // Thông báo đã được hiển thị trong frm_PaymentQRCode, chỉ cần quay về trang chủ
+                                System.Diagnostics.Debug.WriteLine("Thanh toán thành công, đang quay về trang chủ...");
+                                
+                                // Đóng form thanh toán
+                                this.Close();
+                                
+                                // Quay về trang chủ
                                 NavigateBackToDashboard();
                                 return true;
                             }
+                            else
+                            {
+                                // Nếu chưa completed, có thể user đã đóng form trước khi thanh toán
+                                System.Diagnostics.Debug.WriteLine($"Thanh toán chưa hoàn tất. Trạng thái: {updatedGiaoDich?.TrangThaiThanhToan ?? "NULL"}");
+                                MessageBox.Show(
+                                    "Thanh toán chưa hoàn tất.\n\n" +
+                                    "Nếu bạn đã quét mã QR và thanh toán, vui lòng đợi vài phút để hệ thống xác nhận.\n\n" +
+                                    "Hoặc liên hệ hỗ trợ nếu thanh toán đã thành công nhưng chưa được cập nhật.",
+                                    "Thanh toán chưa hoàn tất",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning
+                                );
+                            }
+                        }
+                        else
+                        {
+                            // User đã hủy thanh toán
+                            System.Diagnostics.Debug.WriteLine("User đã hủy thanh toán.");
+                            MessageBox.Show(
+                                "Thanh toán đã bị hủy.\n\n" +
+                                "Nếu bạn muốn thanh toán lại, vui lòng thử lại.",
+                                "Đã hủy thanh toán",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                            );
                         }
                     }
 
