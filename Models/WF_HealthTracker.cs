@@ -379,9 +379,17 @@ namespace HealthApp.Models
                 .Property(e => e.UserID)
                 .IsUnicode(false);
             
-            // Ignore SDT vì không có trong database
+            // Tạm thời ignore SDT nếu column chưa tồn tại trong database
+            // Sau khi chạy script Scripts/AddSDTColumnIfMissing.sql, bỏ ignore và uncomment mapping bên dưới
             modelBuilder.Entity<Users>()
                 .Ignore(e => e.SDT);
+            
+            // Sau khi đã thêm column SDT vào database, uncomment dòng dưới và comment dòng Ignore ở trên
+            // modelBuilder.Entity<Users>()
+            //     .Property(e => e.SDT)
+            //     .HasColumnName("SDT")
+            //     .IsUnicode(false)
+            //     .IsOptional();
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.BanBe)
