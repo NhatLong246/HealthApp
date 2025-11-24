@@ -163,11 +163,11 @@ BEGIN
     INSERT INTO ThuVienBaiTap
     (BaiTapID, TenBaiTap, LoaiMucTieu, NhomCoChinhNhat, NhomCoPhu, CapDo, DungCu, MoTa, HuongDan, LuuY, NguoiTao)
     VALUES
-    ('ex_0001', N'Chống đẩy', N'Tăng cơ', N'Ngực', N'Tay sau', 'Beginner', N'Không dụng cụ', N'Mô tả chống đẩy', N'Hướng dẫn từng bước', N'Lưu ý tư thế', 'user_0002'),
-    ('ex_0002', N'Kéo xà', N'Tăng cơ', N'Lưng', N'Tay trước', 'Intermediate', N'Xà đơn', N'Mô tả kéo xà', N'Hướng dẫn từng bước', N'Lưu ý an toàn', 'user_0002'),
-    ('ex_0003', N'Squat', N'Tăng cơ', N'Chân', N'Mông', 'All Levels', N'Không', N'Mô tả squat', N'Hướng dẫn từng bước', N'Lưu ý đầu gối', 'user_0002'),
-    ('ex_0004', N'Plank', N'Giảm mỡ', N'Core', N'Bụng', 'Beginner', N'Thảm tập', N'Mô tả plank', N'Hướng dẫn từng bước', N'Lưu ý lưng thẳng', 'user_0002'),
-    ('ex_0005', N'Burpee', N'Giảm mỡ', N'Full body', NULL, 'Intermediate', N'Không', N'Mô tả burpee', N'Hướng dẫn từng bước', N'Lưu ý nhịp thở', 'user_0002');
+    ('ex_0001', N'Chống đẩy', N'Tăng cân', N'Ngực', N'Tay sau', 'Beginner', N'Không dụng cụ', N'Mô tả chống đẩy', N'Hướng dẫn từng bước', N'Lưu ý tư thế', 'user_0002'),
+    ('ex_0002', N'Kéo xà', N'Tăng cân', N'Lưng', N'Tay trước', 'Intermediate', N'Xà đơn', N'Mô tả kéo xà', N'Hướng dẫn từng bước', N'Lưu ý an toàn', 'user_0002'),
+    ('ex_0003', N'Squat', N'Tăng cân', N'Chân', N'Mông', 'All Levels', N'Không', N'Mô tả squat', N'Hướng dẫn từng bước', N'Lưu ý đầu gối', 'user_0002'),
+    ('ex_0004', N'Plank', N'Giảm cân', N'Core', N'Bụng', 'Beginner', N'Thảm tập', N'Mô tả plank', N'Hướng dẫn từng bước', N'Lưu ý lưng thẳng', 'user_0002'),
+    ('ex_0005', N'Burpee', N'Giảm cân', N'Full body', NULL, 'Intermediate', N'Không', N'Mô tả burpee', N'Hướng dẫn từng bước', N'Lưu ý nhịp thở', 'user_0002');
 END
 GO
 

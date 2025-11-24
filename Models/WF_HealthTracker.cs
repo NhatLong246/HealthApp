@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using ef6::System.Data.Entity;
+using ef6::System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace HealthApp.Models
 {
@@ -46,6 +47,13 @@ namespace HealthApp.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            // Disable pluralization convention toàn cục
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            
+            // Explicit table mapping để đảm bảo sử dụng đúng tên bảng
+            modelBuilder.Entity<ThuVienMonAn>().ToTable("ThuVienMonAn");
+            modelBuilder.Entity<ThuVienBaiTap>().ToTable("ThuVienBaiTap");
+            
             modelBuilder.Entity<BaiTapChiTiet>()
                 .Property(e => e.BaiTapChiTietID)
                 .IsUnicode(false);

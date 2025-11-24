@@ -89,5 +89,7 @@ namespace HealthApp.Views.Auth
             _forgotPasswordController?.Dispose();
             base.OnFormClosing(e);
         }
+
+      
     }
 }

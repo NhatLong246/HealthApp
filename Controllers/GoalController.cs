@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using HealthApp.Models;
+using HealthApp.Services;
+using HealthApp.Services.Interfaces;
+using WeeklySchedule = HealthApp.Services.Interfaces.WeeklySchedule;
 
 namespace HealthApp.Controllers
 {
@@ -12,10 +16,12 @@ namespace HealthApp.Controllers
     public class GoalController : IDisposable
     {
         private readonly WF_HealthTracker _dbContext;
+        private readonly IGoalService _goalService;
 
         public GoalController()
         {
             _dbContext = new WF_HealthTracker();
+            _goalService = new GoalService(_dbContext);
         }
 
         /// <summary>
@@ -153,7 +159,7 @@ namespace HealthApp.Controllers
                 };
 
                 _dbContext.MucTieu.Add(newGoal);
-                await Task.Run(() => _dbContext.SaveChanges());
+                _dbContext.SaveChanges();
 
                 return new GoalResult
                 {
@@ -230,7 +236,7 @@ namespace HealthApp.Controllers
                 if (ghiChu != null)
                     goal.GhiChu = ghiChu.Trim();
 
-                await Task.Run(() => _dbContext.SaveChanges());
+                _dbContext.SaveChanges();
 
                 return new GoalResult
                 {
@@ -276,7 +282,7 @@ namespace HealthApp.Controllers
                 }
 
                 _dbContext.MucTieu.Remove(goal);
-                await Task.Run(() => _dbContext.SaveChanges());
+                _dbContext.SaveChanges();
 
                 return new GoalResult
                 {
@@ -314,7 +320,7 @@ namespace HealthApp.Controllers
                 goal.TrangThai = "Hoàn thành";
                 goal.NgayKetThucThucTe = DateTime.Now;
 
-                await Task.Run(() => _dbContext.SaveChanges());
+                _dbContext.SaveChanges();
 
                 return new GoalResult
                 {
@@ -356,6 +362,237 @@ namespace HealthApp.Controllers
 
             int goalCount = _dbContext.MucTieu.Count();
             return $"goal_{(goalCount + 1):D4}";
+        }
+
+        /// <summary>
+        /// Lấy danh sách bài tập theo loại mục tiêu và trình độ
+        /// </summary>
+        public async Task<List<ThuVienBaiTap>> GetExercisesByGoalAndLevelAsync(string loaiMucTieu, string nhomCoChinhNhat, string searchBy, string capDo = null)
+        {
+            return await _goalService.GetExercisesByGoalAndLevelAsync(loaiMucTieu, nhomCoChinhNhat, searchBy, capDo);
+        }
+
+        /// <summary>
+        /// Lấy chi tiết bài tập
+        /// </summary>
+        public async Task<ThuVienBaiTap> GetExerciseDetailAsync(string baiTapId)
+        {
+            return await _goalService.GetExerciseDetailAsync(baiTapId);
+        }
+
+        /// <summary>
+        /// Tạo kế hoạch luyện tập từ mục tiêu
+        /// </summary>
+        public async Task<KeHoachLuyenTap> CreateWorkoutPlanAsync(
+            string userId,
+            string mucTieuId,
+            DateTime ngayBatDau,
+            DateTime ngayKetThuc,
+            string capDo,
+            List<WeeklySchedule> weeklySchedules)
+        {
+            return await _goalService.CreateWorkoutPlanAsync(userId, mucTieuId, ngayBatDau, ngayKetThuc, capDo, weeklySchedules);
+        }
+
+        /// <summary>
+        /// Lấy danh sách BuoiTap theo KeHoachTapID (bao gồm BaiTapChiTiet)
+        /// </summary>
+        public Task<List<BuoiTap>> GetBuoiTapByKeHoachTapIdAsync(string keHoachTapId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(keHoachTapId))
+                {
+                    return Task.FromResult(new List<BuoiTap>());
+                }
+
+                var buoiTapList = _dbContext.BuoiTap
+                    .Where(b => b.KeHoachTapID == keHoachTapId)
+                    .ToList();
+
+                // Load BaiTapChiTiet và ThuVienBaiTap cho mỗi BuoiTap
+                foreach (var buoiTap in buoiTapList)
+                {
+                    _dbContext.Entry(buoiTap)
+                        .Collection(b => b.BaiTapChiTiet)
+                        .Load();
+
+                    // Load ThuVienBaiTap cho mỗi BaiTapChiTiet
+                    foreach (var baiTapChiTiet in buoiTap.BaiTapChiTiet)
+                    {
+                        _dbContext.Entry(baiTapChiTiet)
+                            .Reference(bt => bt.ThuVienBaiTap)
+                            .Load();
+                    }
+                }
+
+                return Task.FromResult(buoiTapList);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetBuoiTapByKeHoachTapIdAsync error: {ex.Message}");
+                throw new Exception($"Lỗi khi lấy danh sách buổi tập: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Thêm bài tập vào buổi tập
+        /// </summary>
+        public async Task<bool> AddBaiTapChiTietAsync(string buoiTapId, string baiTapId, int? startNumber = null)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(buoiTapId) || string.IsNullOrWhiteSpace(baiTapId))
+                {
+                    return false;
+                }
+
+                // Lấy thông tin bài tập để lấy SoRep, SoSet, etc.
+                var baiTap = _dbContext.ThuVienBaiTap.FirstOrDefault(b => b.BaiTapID == baiTapId);
+                if (baiTap == null)
+                {
+                    return false;
+                }
+
+                // Tạo BaiTapChiTietID - nếu có startNumber thì dùng, không thì generate mới
+                string baiTapChiTietId;
+                if (startNumber.HasValue)
+                {
+                    int currentNumber = startNumber.Value;
+                    baiTapChiTietId = $"btct_{currentNumber:D4}";
+                    // Kiểm tra ID đã tồn tại chưa
+                    while (_dbContext.BaiTapChiTiet.Any(b => b.BaiTapChiTietID == baiTapChiTietId))
+                    {
+                        currentNumber++;
+                        baiTapChiTietId = $"btct_{currentNumber:D4}";
+                    }
+                }
+                else
+                {
+                    baiTapChiTietId = GenerateBaiTapChiTietId();
+                }
+
+                // Parse SoRep và SoSet (VD: "8-12" -> lấy giá trị trung bình)
+                int? soRep = ParseRepSet(baiTap.SoRep);
+                int? soSet = ParseRepSet(baiTap.SoSet);
+
+                var baiTapChiTiet = new BaiTapChiTiet
+                {
+                    BaiTapChiTietID = baiTapChiTietId,
+                    BuoiTapID = buoiTapId,
+                    BaiTapID = baiTapId,
+                    SoRep = soRep,
+                    SoSet = soSet,
+                    ThoiLuongDeNghi = baiTap.ThoiLuongDeNghi,
+                    ThoiGianNghi = baiTap.ThoiGianNghi,
+                    TrangThai = "Chưa thực hiện",
+                    ThuTuThucHien = 1, // Mặc định là bài tập đầu tiên
+                    NgayCapNhat = DateTime.Now
+                };
+
+                _dbContext.BaiTapChiTiet.Add(baiTapChiTiet);
+                _dbContext.SaveChanges();
+
+                return await Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"AddBaiTapChiTietAsync error: {ex.Message}");
+                if (ex.InnerException != null)
+                    System.Diagnostics.Debug.WriteLine($"Inner: {ex.InnerException.Message}");
+                throw new Exception($"Lỗi khi thêm bài tập vào buổi tập: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Parse Rep/Set string (VD: "8-12" -> 10)
+        /// </summary>
+        private int? ParseRepSet(string repSet)
+        {
+            if (string.IsNullOrWhiteSpace(repSet))
+                return null;
+
+            // Tách chuỗi "8-12" thành [8, 12]
+            var parts = repSet.Split('-');
+            if (parts.Length == 2 && int.TryParse(parts[0].Trim(), out int min) && int.TryParse(parts[1].Trim(), out int max))
+            {
+                return (min + max) / 2; // Lấy giá trị trung bình
+            }
+
+            // Nếu chỉ có 1 số
+            if (int.TryParse(repSet.Trim(), out int singleValue))
+            {
+                return singleValue;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Lấy số tiếp theo cho BaiTapChiTietID (không tạo full ID, chỉ lấy số)
+        /// </summary>
+        public async Task<int> GetNextBaiTapChiTietNumberAsync()
+        {
+            try
+            {
+                var last = _dbContext.BaiTapChiTiet
+                    .OrderByDescending(b => b.BaiTapChiTietID)
+                    .FirstOrDefault();
+
+                if (last == null || !last.BaiTapChiTietID.StartsWith("btct_"))
+                {
+                    return 1;
+                }
+
+                string numberPart = last.BaiTapChiTietID.Substring(5);
+                if (int.TryParse(numberPart, out int lastNumber))
+                {
+                    return lastNumber + 1;
+                }
+
+                int count = _dbContext.BaiTapChiTiet.Count();
+                return count + 1;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetNextBaiTapChiTietNumberAsync error: {ex.Message}");
+                // Trả về số lớn để tránh trùng
+                return _dbContext.BaiTapChiTiet.Count() + 1;
+            }
+        }
+
+        /// <summary>
+        /// Tạo BaiTapChiTietID tự động (dùng cho single item)
+        /// </summary>
+        private string GenerateBaiTapChiTietId()
+        {
+            var last = _dbContext.BaiTapChiTiet
+                .OrderByDescending(b => b.BaiTapChiTietID)
+                .FirstOrDefault();
+
+            if (last == null || !last.BaiTapChiTietID.StartsWith("btct_"))
+            {
+                return "btct_0001";
+            }
+
+            string numberPart = last.BaiTapChiTietID.Substring(5);
+            if (int.TryParse(numberPart, out int lastNumber))
+            {
+                int newNumber = lastNumber + 1;
+                string baiTapChiTietId = $"btct_{newNumber:D4}";
+                
+                // Kiểm tra ID đã tồn tại chưa
+                while (_dbContext.BaiTapChiTiet.Any(b => b.BaiTapChiTietID == baiTapChiTietId))
+                {
+                    newNumber++;
+                    baiTapChiTietId = $"btct_{newNumber:D4}";
+                }
+                
+                return baiTapChiTietId;
+            }
+
+            int count = _dbContext.BaiTapChiTiet.Count();
+            return $"btct_{(count + 1):D4}";
         }
 
         public void Dispose()
