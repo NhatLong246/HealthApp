@@ -193,6 +193,8 @@
     <Compile Include="Services\Interfaces\IReportService.cs" />
     <Compile Include="Services\Interfaces\IExportService.cs" />
     <Compile Include="Services\ExportService.cs" />
+    <Compile Include="Services\Interfaces\IGoalService.cs" />
+    <Compile Include="Services\GoalService.cs" />
     <Compile Include="Views\Activity\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +206,18 @@
     </Compile>
     <Compile Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.Designer.cs">
       <DependentUpon>ucKeHoachLuyenTap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KeHoachLuyenTap\ucLichSuTap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\KeHoachLuyenTap\ucLichSuTap.Designer.cs">
+      <DependentUpon>ucLichSuTap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KeHoachLuyenTap\ucTrienKhaiBaiTap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\KeHoachLuyenTap\ucTrienKhaiBaiTap.Designer.cs">
+      <DependentUpon>ucTrienKhaiBaiTap.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MucTieu\frmMucTieu.cs">
       <SubType>Form</SubType>
@@ -354,6 +368,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.resx">
       <DependentUpon>ucKeHoachLuyenTap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\KeHoachLuyenTap\ucLichSuTap.resx">
+      <DependentUpon>ucLichSuTap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\KeHoachLuyenTap\ucTrienKhaiBaiTap.resx">
+      <DependentUpon>ucTrienKhaiBaiTap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MucTieu\frmMucTieu.resx">
       <DependentUpon>frmMucTieu.cs</DependentUpon>

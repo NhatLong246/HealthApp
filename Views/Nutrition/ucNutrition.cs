@@ -289,7 +289,7 @@ namespace HealthApp.Views.Nutrition
                 // Lưu ý: Trong database, KeHoachAnUong liên kết với MucTieu, nhưng với kế hoạch tự do
                 // ta có thể tạo một KeHoachAnUong không có MucTieuID (NULL)
                 var keHoachAn = _dbContext.KeHoachAnUong
-                    .Where(k => k.TrangThai == N"Đang hoạt động" || k.TrangThai == null)
+                    .Where(k => k.TrangThai == "Đang hoạt động" || k.TrangThai == null)
                     .FirstOrDefault();
 
                 if (keHoachAn == null)
@@ -298,7 +298,7 @@ namespace HealthApp.Views.Nutrition
                     keHoachAn = new KeHoachAnUong
                     {
                         KeHoachAnID = $"meal_{DateTime.Now:yyyyMMddHHmmss}",
-                        TrangThai = N"Đang hoạt động",
+                        TrangThai = "Đang hoạt động",
                         MoTa = "Kế hoạch ăn uống tự do"
                     };
                     _dbContext.KeHoachAnUong.Add(keHoachAn);
