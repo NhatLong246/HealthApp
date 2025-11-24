@@ -572,8 +572,9 @@ namespace HealthApp.Views.PT
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi thanh toán: {ex.Message}", "Lỗi", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Log lỗi nhưng không hiển thị dialog
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi thanh toán: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
             }
         }
 
