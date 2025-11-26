@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HealthApp.Controllers;
@@ -89,5 +89,7 @@ namespace HealthApp.Views.Auth
             _forgotPasswordController?.Dispose();
             base.OnFormClosing(e);
         }
+
+      
     }
 }

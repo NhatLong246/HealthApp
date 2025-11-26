@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using ef6::System.Data.Entity;
+using ef6::System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace HealthApp.Models
 {
@@ -12,11 +13,17 @@ namespace HealthApp.Models
         public WF_HealthTracker()
             : base("name=WF_HealthTracker")
         {
+            // Tắt database initializer để tránh tự động tạo database
+            Database.SetInitializer<WF_HealthTracker>(null);
+            
+            // Enable logging để debug SQL queries
+            this.Database.Log = sql => System.Diagnostics.Debug.WriteLine($"[SQL] {sql}");
         }
 
         public virtual DbSet<BaiTapChiTiet> BaiTapChiTiet { get; set; }
         public virtual DbSet<BanBe> BanBe { get; set; }
         public virtual DbSet<BuaAnChiTiet> BuaAnChiTiet { get; set; }
+        // Không dùng DbSet<NhatKyDinhDuong> vì BuaAnChiTiet đã map vào table NhatKyDinhDuong
         public virtual DbSet<BuoiTap> BuoiTap { get; set; }
         public virtual DbSet<ChiaSeThanhTuu> ChiaSeThanhTuu { get; set; }
         public virtual DbSet<DanhGiaPT> DanhGiaPT { get; set; }
@@ -40,6 +47,13 @@ namespace HealthApp.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            // Disable pluralization convention toàn cục
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            
+            // Explicit table mapping để đảm bảo sử dụng đúng tên bảng
+            modelBuilder.Entity<ThuVienMonAn>().ToTable("ThuVienMonAn");
+            modelBuilder.Entity<ThuVienBaiTap>().ToTable("ThuVienBaiTap");
+            
             modelBuilder.Entity<BaiTapChiTiet>()
                 .Property(e => e.BaiTapChiTietID)
                 .IsUnicode(false);
@@ -62,18 +76,6 @@ namespace HealthApp.Models
 
             modelBuilder.Entity<BanBe>()
                 .Property(e => e.NguoiNhanID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BuaAnChiTiet>()
-                .Property(e => e.BuaAnID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BuaAnChiTiet>()
-                .Property(e => e.KeHoachAnID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BuaAnChiTiet>()
-                .Property(e => e.MonAnID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<BuoiTap>()
@@ -304,12 +306,26 @@ namespace HealthApp.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ThuVienMonAn>()
+                .ToTable("ThuVienMonAn")
+                .HasKey(e => e.MonAnID)
                 .Property(e => e.MonAnID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Users>()
                 .Property(e => e.UserID)
                 .IsUnicode(false);
+            
+            // Tạm thời ignore SDT nếu column chưa tồn tại trong database
+            // Sau khi chạy script Scripts/AddSDTColumnIfMissing.sql, bỏ ignore và uncomment mapping bên dưới
+            modelBuilder.Entity<Users>()
+                .Ignore(e => e.SDT);
+            
+            // Sau khi đã thêm column SDT vào database, uncomment dòng dưới và comment dòng Ignore ở trên
+            // modelBuilder.Entity<Users>()
+            //     .Property(e => e.SDT)
+            //     .HasColumnName("SDT")
+            //     .IsUnicode(false)
+            //     .IsOptional();
 
             modelBuilder.Entity<Users>()
                 .HasMany(e => e.BanBe)

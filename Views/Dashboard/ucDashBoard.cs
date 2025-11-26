@@ -1,5 +1,8 @@
 ﻿using HealthApp.Views.Nutrition;
+using HealthApp.Views.MucTieu;
 using HealthApp.Views.PT;
+using HealthApp.Views.Food;
+using HealthApp.Views.KeHoachLuyenTap;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,9 +32,19 @@ namespace HealthApp.Views.Dashboard
         private void ucDashBoard_Load(object sender, EventArgs e)
         {
             // Gắn event handler cho button Nutri sau khi controls đã được khởi tạo
+            // Xóa tất cả event handlers cũ trước khi gắn mới để tránh duplicate
             if (btnNutri != null)
             {
-                btnNutri.Click += BtnNutri_Click;
+                btnNutri.Click -= BtnNutri_Click; // Xóa event handler cũ (nếu có)
+                btnNutri.Click += BtnNutri_Click; // Gắn event handler mới
+            }
+
+            // Gắn event handler cho label Dinh dưỡng (cũng mở FoodLibrary)
+            if (lblDinhDuong != null)
+            {
+                lblDinhDuong.Click -= BtnNutri_Click; // Xóa event handler cũ (nếu có)
+                lblDinhDuong.Click += BtnNutri_Click; // Gắn event handler mới
+                lblDinhDuong.Cursor = Cursors.Hand; // Đổi cursor thành hand để user biết có thể click
             }
 
             // Gắn event handler cho button Thuê Ngay
@@ -39,6 +52,14 @@ namespace HealthApp.Views.Dashboard
             {
                 btnThueNgay.Click += BtnThueNgay_Click;
             }
+
+            // Gắn event handler cho button "Lên Kế Hoạch Ngay"
+            if (btnLenKeHoachNgay != null)
+            {
+                btnLenKeHoachNgay.Click += BtnLenKeHoachNgay_Click;
+            }
+
+           
         }
 
         private void guna2TextBox1_TextChanged(object sender, EventArgs e)
@@ -240,9 +261,78 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Event handler cho button Nutri - điều hướng tới trang dinh dưỡng
+        /// Event handler cho button Nutri - điều hướng tới trang FoodLibrary
         /// </summary>
         private void BtnNutri_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("=== BtnNutri_Click được gọi - Mở frm_FoodLibrary ===");
+                
+                // Tìm frmDashBoard
+                frmDashBoard parentForm = _parentForm;
+
+                // Nếu chưa có reference, thử tìm qua các cách khác
+                if (parentForm == null)
+                {
+                    // Cách 1: Tìm qua FindForm()
+                    Form form = this.FindForm();
+                    if (form is frmDashBoard)
+                    {
+                        parentForm = form as frmDashBoard;
+                        System.Diagnostics.Debug.WriteLine("Tìm thấy parentForm qua FindForm()");
+                    }
+                    // Cách 2: Tìm qua Application.OpenForms
+                    else
+                    {
+                        foreach (Form openForm in Application.OpenForms)
+                        {
+                            if (openForm is frmDashBoard)
+                            {
+                                parentForm = openForm as frmDashBoard;
+                                System.Diagnostics.Debug.WriteLine("Tìm thấy parentForm qua Application.OpenForms");
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                System.Diagnostics.Debug.WriteLine($"parentForm: {(parentForm != null ? "NOT NULL" : "NULL")}");
+                System.Diagnostics.Debug.WriteLine("Đang tạo và mở frm_FoodLibrary...");
+
+                // Mở form FoodLibrary
+                var frmFoodLibrary = new frm_FoodLibrary();
+                
+                if (parentForm != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Mở frm_FoodLibrary với ShowDialog");
+                    frmFoodLibrary.ShowDialog(parentForm);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Mở frm_FoodLibrary độc lập với Show");
+                    frmFoodLibrary.Show();
+                }
+                
+                System.Diagnostics.Debug.WriteLine("Đã mở frm_FoodLibrary thành công");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi trong BtnNutri_Click: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+                if (ex.InnerException != null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                }
+                MessageBox.Show($"Lỗi khi mở trang thư viện món ăn: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Event handler cho button Mục Tiêu - điều hướng tới trang mục tiêu
+        /// </summary>
+        private void btnMuctieu_Click(object sender, EventArgs e)
         {
             try
             {
@@ -274,9 +364,9 @@ namespace HealthApp.Views.Dashboard
 
                 if (parentForm != null)
                 {
-                    // Tạo và load ucNutrition
-                    ucNutrition ucNutrition = new ucNutrition();
-                    parentForm.LoadUserControl(ucNutrition);
+                    // Tạo và load ucMucTieu
+                    ucMucTieu ucMucTieu = new ucMucTieu();
+                    parentForm.LoadUserControl(ucMucTieu);
                 }
                 else
                 {
@@ -302,11 +392,13 @@ namespace HealthApp.Views.Dashboard
                 // Nếu chưa có reference, thử tìm qua các cách khác
                 if (parentForm == null)
                 {
+                    // Cách 1: Tìm qua FindForm()
                     Form form = this.FindForm();
                     if (form is frmDashBoard)
                     {
                         parentForm = form as frmDashBoard;
                     }
+                    // Cách 2: Tìm qua Application.OpenForms
                     else
                     {
                         foreach (Form openForm in Application.OpenForms)
@@ -336,8 +428,58 @@ namespace HealthApp.Views.Dashboard
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi mở form tìm kiếm HLV: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi mở form tìm kiếm HLV: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Event handler cho button "Lên Kế Hoạch Ngay" - điều hướng tới trang kế hoạch luyện tập
+        /// </summary>
+        private void BtnLenKeHoachNgay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Tìm frmDashBoard
+                frmDashBoard parentForm = _parentForm;
+
+                // Nếu chưa có reference, thử tìm qua các cách khác
+                if (parentForm == null)
+                {
+                    // Cách 1: Tìm qua FindForm()
+                    Form form = this.FindForm();
+                    if (form is frmDashBoard)
+                    {
+                        parentForm = form as frmDashBoard;
+                    }
+                    // Cách 2: Tìm qua Application.OpenForms
+                    else
+                    {
+                        foreach (Form openForm in Application.OpenForms)
+                        {
+                            if (openForm is frmDashBoard)
+                            {
+                                parentForm = openForm as frmDashBoard;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (parentForm != null)
+                {
+                    // Tạo và load ucKeHoachLuyenTap
+                    ucKeHoachLuyenTap ucKeHoachLuyenTap = new ucKeHoachLuyenTap();
+                    parentForm.LoadUserControl(ucKeHoachLuyenTap);
+                }
+                else
+                {
+                    MessageBox.Show("Không thể tìm thấy form chính để điều hướng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi điều hướng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

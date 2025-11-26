@@ -36,11 +36,24 @@ namespace HealthApp.Services
             }
 
             email = email.Trim();
+            
+            // Debug logging
+            System.Diagnostics.Debug.WriteLine($"[ForgotPasswordService.SendOTPAsync] Input email: '{email}'");
+            System.Diagnostics.Debug.WriteLine($"[ForgotPasswordService.SendOTPAsync] Trimmed email: '{email}'");
+            System.Diagnostics.Debug.WriteLine($"[ForgotPasswordService.SendOTPAsync] Lowercase email: '{email.ToLower()}'");
 
             // Kiểm tra email có tồn tại trong hệ thống không
             var user = await _userRepository.GetByEmailAsync(email);
+            
+            System.Diagnostics.Debug.WriteLine($"[ForgotPasswordService.SendOTPAsync] User found: {(user != null ? "YES" : "NO")}");
+            if (user != null)
+            {
+                System.Diagnostics.Debug.WriteLine($"[ForgotPasswordService.SendOTPAsync] UserID: {user.UserID}, Username: {user.Username}, Email: '{user.Email}'");
+            }
+            
             if (user == null)
             {
+                System.Diagnostics.Debug.WriteLine($"[ForgotPasswordService.SendOTPAsync] ERROR: Email không tồn tại!");
                 return new SendOTPResult
                 {
                     Success = false,

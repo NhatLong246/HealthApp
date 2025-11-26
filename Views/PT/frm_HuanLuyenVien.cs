@@ -332,7 +332,6 @@ namespace HealthApp.Views.PT
                     .ToList();
                 var buttonsToRemove = pnlDanhsach.Controls
                     .OfType<Guna2Button>()
-                    .Where(b => b != btnGiaoBaiTap)
                     .ToList();
 
                 foreach (var panel in panelsToRemove)
@@ -348,7 +347,6 @@ namespace HealthApp.Views.PT
 
                 // Ẩn panel mẫu
                 pnlDanhSach1.Visible = false;
-                btnGiaoBaiTap.Visible = false;
 
                 var customers = await _ptDashboardService.GetActiveCustomersAsync(_ptId);
 
@@ -368,10 +366,6 @@ namespace HealthApp.Views.PT
                     // Tạo panel mới
                     var panel = CreateCustomerPanel(customer, yOffset);
                     pnlDanhsach.Controls.Add(panel);
-
-                    // Tạo nút giao bài tập
-                    var btnGiaoBai = CreateGiaoBaiTapButton(customer.DatLichID, yOffset + 37);
-                    pnlDanhsach.Controls.Add(btnGiaoBai);
 
                     yOffset += panelHeight + spacing;
                 }
@@ -452,23 +446,6 @@ namespace HealthApp.Views.PT
             return panel;
         }
 
-        private Guna2Button CreateGiaoBaiTapButton(string datLichID, int yPos)
-        {
-            var button = new Guna2Button
-            {
-                BackColor = Color.Transparent,
-                BorderRadius = 20,
-                Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(637, yPos),
-                Name = $"btnGiaoBai_{datLichID}",
-                Size = new Size(140, 45),
-                Text = "Giao bài tập",
-                Tag = datLichID
-            };
-            // Chưa có chức năng
-            return button;
-        }
 
         private async Task LoadTodaySchedule()
         {

@@ -45,8 +45,38 @@
             this.lblSucKhoe = new System.Windows.Forms.Label();
             this.lblDinhDuong = new System.Windows.Forms.Label();
             this.lblBangXepHang = new System.Windows.Forms.Label();
+            this.btnMap = new Guna.UI2.WinForms.Guna2Button();
+            this.btnMuctieu = new Guna.UI2.WinForms.Guna2Button();
+            this.btnSuckhoe = new Guna.UI2.WinForms.Guna2Button();
+            this.btnThongke = new Guna.UI2.WinForms.Guna2Button();
+            this.btnNutri = new Guna.UI2.WinForms.Guna2Button();
+            this.btnRankings = new Guna.UI2.WinForms.Guna2Button();
             this.pnlChuyenMuc = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblChuyenMuc = new System.Windows.Forms.Label();
+            this.picChuyenMuc = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblKehoachAU = new System.Windows.Forms.Label();
+            this.lblKeHoachTL = new System.Windows.Forms.Label();
+            this.lblThuePT = new System.Windows.Forms.Label();
+            this.pnlChuyenmuc3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2PictureBox9 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.lblChuyenmuc3 = new System.Windows.Forms.Label();
+            this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
+            this.pnlChuyenmuc2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2PictureBox8 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.lblChuyenMuc2 = new System.Windows.Forms.Label();
+            this.btnLenKeHoachNgay = new Guna.UI2.WinForms.Guna2Button();
+            this.pnlChuyenmuc1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2PictureBox7 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.lblThongTinCm1 = new System.Windows.Forms.Label();
+            this.btnThueNgay = new Guna.UI2.WinForms.Guna2Button();
             this.pnlInbody = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2PictureBox6 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox5 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pnlTinhNhanhBMI = new Guna.UI2.WinForms.Guna2Panel();
             this.lblKcal = new System.Windows.Forms.Label();
             this.lblTDEE = new System.Windows.Forms.Label();
@@ -64,57 +94,27 @@
             this.lblChieuCao = new System.Windows.Forms.Label();
             this.lblTinhNhanh = new System.Windows.Forms.Label();
             this.lblNoteInDash = new System.Windows.Forms.Label();
-            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblKehoachAU = new System.Windows.Forms.Label();
-            this.lblKeHoachTL = new System.Windows.Forms.Label();
-            this.lblThuePT = new System.Windows.Forms.Label();
-            this.pnlChuyenmuc3 = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblChuyenmuc3 = new System.Windows.Forms.Label();
-            this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
-            this.pnlChuyenmuc2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblChuyenMuc2 = new System.Windows.Forms.Label();
-            this.btnLenKeHoachNgay = new Guna.UI2.WinForms.Guna2Button();
-            this.pnlChuyenmuc1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblThongTinCm1 = new System.Windows.Forms.Label();
-            this.btnThueNgay = new Guna.UI2.WinForms.Guna2Button();
-            this.lblChuyenMuc = new System.Windows.Forms.Label();
-            this.guna2PictureBox6 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox5 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.picChuyenMuc = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox9 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox8 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox7 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.btnMap = new Guna.UI2.WinForms.Guna2Button();
-            this.btnMuctieu = new Guna.UI2.WinForms.Guna2Button();
-            this.btnSuckhoe = new Guna.UI2.WinForms.Guna2Button();
-            this.btnThongke = new Guna.UI2.WinForms.Guna2Button();
-            this.btnNutri = new Guna.UI2.WinForms.Guna2Button();
-            this.btnRankings = new Guna.UI2.WinForms.Guna2Button();
             this.pnlCard1.SuspendLayout();
             this.pnlCard2.SuspendLayout();
             this.pnlCard3.SuspendLayout();
             this.pnlQuickSection.SuspendLayout();
             this.pnlChuyenMuc.SuspendLayout();
-            this.pnlInbody.SuspendLayout();
-            this.pnlTinhNhanhBMI.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picChuyenMuc)).BeginInit();
             this.guna2Panel2.SuspendLayout();
             this.pnlChuyenmuc3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox9)).BeginInit();
             this.pnlChuyenmuc2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox8)).BeginInit();
             this.pnlChuyenmuc1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox7)).BeginInit();
+            this.pnlInbody.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picChuyenMuc)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox7)).BeginInit();
+            this.pnlTinhNhanhBMI.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlCard1
@@ -309,6 +309,115 @@
             this.lblBangXepHang.Text = "Bảng xếp hạng";
             this.lblBangXepHang.Click += new System.EventHandler(this.label4_Click);
             // 
+            // btnMap
+            // 
+            this.btnMap.BackColor = System.Drawing.Color.Transparent;
+            this.btnMap.BorderRadius = 20;
+            this.btnMap.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnMap.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnMap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnMap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnMap.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnMap.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnMap.ForeColor = System.Drawing.Color.White;
+            this.btnMap.Image = global::HealthApp.Properties.Resources.MapIcon;
+            this.btnMap.ImageSize = new System.Drawing.Size(120, 120);
+            this.btnMap.Location = new System.Drawing.Point(1045, 15);
+            this.btnMap.Name = "btnMap";
+            this.btnMap.Size = new System.Drawing.Size(148, 122);
+            this.btnMap.TabIndex = 6;
+            // 
+            // btnMuctieu
+            // 
+            this.btnMuctieu.BackColor = System.Drawing.Color.Transparent;
+            this.btnMuctieu.BorderRadius = 20;
+            this.btnMuctieu.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnMuctieu.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnMuctieu.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnMuctieu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnMuctieu.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnMuctieu.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnMuctieu.ForeColor = System.Drawing.Color.White;
+            this.btnMuctieu.Image = global::HealthApp.Properties.Resources.goalIcon;
+            this.btnMuctieu.ImageSize = new System.Drawing.Size(120, 120);
+            this.btnMuctieu.Location = new System.Drawing.Point(845, 15);
+            this.btnMuctieu.Name = "btnMuctieu";
+            this.btnMuctieu.Size = new System.Drawing.Size(148, 122);
+            this.btnMuctieu.TabIndex = 5;
+            this.btnMuctieu.Click += new System.EventHandler(this.btnMuctieu_Click);
+            // 
+            // btnSuckhoe
+            // 
+            this.btnSuckhoe.BackColor = System.Drawing.Color.Transparent;
+            this.btnSuckhoe.BorderRadius = 20;
+            this.btnSuckhoe.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSuckhoe.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSuckhoe.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSuckhoe.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSuckhoe.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnSuckhoe.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSuckhoe.ForeColor = System.Drawing.Color.White;
+            this.btnSuckhoe.Image = global::HealthApp.Properties.Resources.HealthIcon;
+            this.btnSuckhoe.ImageSize = new System.Drawing.Size(120, 120);
+            this.btnSuckhoe.Location = new System.Drawing.Point(646, 15);
+            this.btnSuckhoe.Name = "btnSuckhoe";
+            this.btnSuckhoe.Size = new System.Drawing.Size(148, 122);
+            this.btnSuckhoe.TabIndex = 4;
+            // 
+            // btnThongke
+            // 
+            this.btnThongke.BackColor = System.Drawing.Color.Transparent;
+            this.btnThongke.BorderRadius = 20;
+            this.btnThongke.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnThongke.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnThongke.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnThongke.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnThongke.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnThongke.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnThongke.ForeColor = System.Drawing.Color.White;
+            this.btnThongke.Image = global::HealthApp.Properties.Resources.statisticalIcon;
+            this.btnThongke.ImageSize = new System.Drawing.Size(120, 120);
+            this.btnThongke.Location = new System.Drawing.Point(430, 15);
+            this.btnThongke.Name = "btnThongke";
+            this.btnThongke.Size = new System.Drawing.Size(148, 122);
+            this.btnThongke.TabIndex = 3;
+            // 
+            // btnNutri
+            // 
+            this.btnNutri.BackColor = System.Drawing.Color.Transparent;
+            this.btnNutri.BorderRadius = 20;
+            this.btnNutri.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnNutri.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnNutri.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnNutri.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnNutri.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnNutri.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnNutri.ForeColor = System.Drawing.Color.White;
+            this.btnNutri.Image = global::HealthApp.Properties.Resources.nutritiousIcon;
+            this.btnNutri.ImageSize = new System.Drawing.Size(120, 120);
+            this.btnNutri.Location = new System.Drawing.Point(221, 15);
+            this.btnNutri.Name = "btnNutri";
+            this.btnNutri.Size = new System.Drawing.Size(146, 122);
+            this.btnNutri.TabIndex = 2;
+            // 
+            // btnRankings
+            // 
+            this.btnRankings.BackColor = System.Drawing.Color.Transparent;
+            this.btnRankings.BorderRadius = 20;
+            this.btnRankings.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnRankings.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnRankings.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnRankings.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnRankings.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnRankings.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnRankings.ForeColor = System.Drawing.Color.White;
+            this.btnRankings.Image = global::HealthApp.Properties.Resources.RankingIcon1;
+            this.btnRankings.ImageSize = new System.Drawing.Size(120, 120);
+            this.btnRankings.Location = new System.Drawing.Point(16, 15);
+            this.btnRankings.Name = "btnRankings";
+            this.btnRankings.Size = new System.Drawing.Size(148, 122);
+            this.btnRankings.TabIndex = 1;
+            // 
             // pnlChuyenMuc
             // 
             this.pnlChuyenMuc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
@@ -320,6 +429,220 @@
             this.pnlChuyenMuc.Size = new System.Drawing.Size(1217, 614);
             this.pnlChuyenMuc.TabIndex = 6;
             this.pnlChuyenMuc.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlChuyenMuc_Paint);
+            // 
+            // lblChuyenMuc
+            // 
+            this.lblChuyenMuc.AutoSize = true;
+            this.lblChuyenMuc.BackColor = System.Drawing.Color.Transparent;
+            this.lblChuyenMuc.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChuyenMuc.Location = new System.Drawing.Point(546, 34);
+            this.lblChuyenMuc.Name = "lblChuyenMuc";
+            this.lblChuyenMuc.Size = new System.Drawing.Size(142, 31);
+            this.lblChuyenMuc.TabIndex = 12;
+            this.lblChuyenMuc.Text = "Chuyên Mục";
+            this.lblChuyenMuc.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // picChuyenMuc
+            // 
+            this.picChuyenMuc.Image = global::HealthApp.Properties.Resources.categoryIcon;
+            this.picChuyenMuc.ImageRotate = 0F;
+            this.picChuyenMuc.Location = new System.Drawing.Point(502, 34);
+            this.picChuyenMuc.Name = "picChuyenMuc";
+            this.picChuyenMuc.Size = new System.Drawing.Size(45, 36);
+            this.picChuyenMuc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picChuyenMuc.TabIndex = 4;
+            this.picChuyenMuc.TabStop = false;
+            this.picChuyenMuc.Click += new System.EventHandler(this.guna2PictureBox10_Click);
+            // 
+            // guna2Panel2
+            // 
+            this.guna2Panel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.guna2Panel2.BorderRadius = 30;
+            this.guna2Panel2.BorderThickness = 2;
+            this.guna2Panel2.Controls.Add(this.lblKehoachAU);
+            this.guna2Panel2.Controls.Add(this.lblKeHoachTL);
+            this.guna2Panel2.Controls.Add(this.lblThuePT);
+            this.guna2Panel2.Controls.Add(this.pnlChuyenmuc3);
+            this.guna2Panel2.Controls.Add(this.pnlChuyenmuc2);
+            this.guna2Panel2.Controls.Add(this.pnlChuyenmuc1);
+            this.guna2Panel2.Location = new System.Drawing.Point(21, 49);
+            this.guna2Panel2.Name = "guna2Panel2";
+            this.guna2Panel2.Size = new System.Drawing.Size(1170, 527);
+            this.guna2Panel2.TabIndex = 5;
+            // 
+            // lblKehoachAU
+            // 
+            this.lblKehoachAU.AutoSize = true;
+            this.lblKehoachAU.BackColor = System.Drawing.Color.Transparent;
+            this.lblKehoachAU.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKehoachAU.Location = new System.Drawing.Point(904, 62);
+            this.lblKehoachAU.Name = "lblKehoachAU";
+            this.lblKehoachAU.Size = new System.Drawing.Size(150, 23);
+            this.lblKehoachAU.TabIndex = 11;
+            this.lblKehoachAU.Text = "Kế hoạch ăn uống";
+            // 
+            // lblKeHoachTL
+            // 
+            this.lblKeHoachTL.AutoSize = true;
+            this.lblKeHoachTL.BackColor = System.Drawing.Color.Transparent;
+            this.lblKeHoachTL.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKeHoachTL.Location = new System.Drawing.Point(508, 60);
+            this.lblKeHoachTL.Name = "lblKeHoachTL";
+            this.lblKeHoachTL.Size = new System.Drawing.Size(158, 23);
+            this.lblKeHoachTL.TabIndex = 10;
+            this.lblKeHoachTL.Text = "Kế hoạch luyện tập";
+            // 
+            // lblThuePT
+            // 
+            this.lblThuePT.AutoSize = true;
+            this.lblThuePT.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThuePT.Location = new System.Drawing.Point(148, 62);
+            this.lblThuePT.Name = "lblThuePT";
+            this.lblThuePT.Size = new System.Drawing.Size(72, 23);
+            this.lblThuePT.TabIndex = 7;
+            this.lblThuePT.Text = "Thuê PT";
+            // 
+            // pnlChuyenmuc3
+            // 
+            this.pnlChuyenmuc3.BackColor = System.Drawing.Color.White;
+            this.pnlChuyenmuc3.BorderRadius = 30;
+            this.pnlChuyenmuc3.Controls.Add(this.guna2PictureBox9);
+            this.pnlChuyenmuc3.Controls.Add(this.lblChuyenmuc3);
+            this.pnlChuyenmuc3.Controls.Add(this.guna2Button9);
+            this.pnlChuyenmuc3.Location = new System.Drawing.Point(779, 72);
+            this.pnlChuyenmuc3.Name = "pnlChuyenmuc3";
+            this.pnlChuyenmuc3.Size = new System.Drawing.Size(383, 453);
+            this.pnlChuyenmuc3.TabIndex = 9;
+            // 
+            // guna2PictureBox9
+            // 
+            this.guna2PictureBox9.Image = global::HealthApp.Properties.Resources.KeHoachAnUong;
+            this.guna2PictureBox9.ImageRotate = 0F;
+            this.guna2PictureBox9.Location = new System.Drawing.Point(37, 30);
+            this.guna2PictureBox9.Name = "guna2PictureBox9";
+            this.guna2PictureBox9.Size = new System.Drawing.Size(317, 298);
+            this.guna2PictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox9.TabIndex = 6;
+            this.guna2PictureBox9.TabStop = false;
+            // 
+            // lblChuyenmuc3
+            // 
+            this.lblChuyenmuc3.AutoSize = true;
+            this.lblChuyenmuc3.BackColor = System.Drawing.Color.Transparent;
+            this.lblChuyenmuc3.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChuyenmuc3.Location = new System.Drawing.Point(24, 334);
+            this.lblChuyenmuc3.Name = "lblChuyenmuc3";
+            this.lblChuyenmuc3.Size = new System.Drawing.Size(328, 69);
+            this.lblChuyenmuc3.TabIndex = 4;
+            this.lblChuyenmuc3.Text = "         Chế độ ăn uống cải thiện\r\nsức khỏe và nâng cao hiệu quả công việc\r\n\r\n";
+            // 
+            // guna2Button9
+            // 
+            this.guna2Button9.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button9.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button9.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button9.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button9.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2Button9.ForeColor = System.Drawing.Color.White;
+            this.guna2Button9.Location = new System.Drawing.Point(0, 404);
+            this.guna2Button9.Name = "guna2Button9";
+            this.guna2Button9.Size = new System.Drawing.Size(385, 49);
+            this.guna2Button9.TabIndex = 1;
+            this.guna2Button9.Text = "Lên Kế Hoạch Ngay";
+            // 
+            // pnlChuyenmuc2
+            // 
+            this.pnlChuyenmuc2.BackColor = System.Drawing.Color.White;
+            this.pnlChuyenmuc2.BorderRadius = 30;
+            this.pnlChuyenmuc2.Controls.Add(this.guna2PictureBox8);
+            this.pnlChuyenmuc2.Controls.Add(this.lblChuyenMuc2);
+            this.pnlChuyenmuc2.Controls.Add(this.btnLenKeHoachNgay);
+            this.pnlChuyenmuc2.Location = new System.Drawing.Point(387, 72);
+            this.pnlChuyenmuc2.Name = "pnlChuyenmuc2";
+            this.pnlChuyenmuc2.Size = new System.Drawing.Size(387, 453);
+            this.pnlChuyenmuc2.TabIndex = 8;
+            // 
+            // guna2PictureBox8
+            // 
+            this.guna2PictureBox8.Image = global::HealthApp.Properties.Resources.KehoachTapLuyen;
+            this.guna2PictureBox8.ImageRotate = 0F;
+            this.guna2PictureBox8.Location = new System.Drawing.Point(41, 30);
+            this.guna2PictureBox8.Name = "guna2PictureBox8";
+            this.guna2PictureBox8.Size = new System.Drawing.Size(312, 298);
+            this.guna2PictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox8.TabIndex = 5;
+            this.guna2PictureBox8.TabStop = false;
+            // 
+            // lblChuyenMuc2
+            // 
+            this.lblChuyenMuc2.AutoSize = true;
+            this.lblChuyenMuc2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChuyenMuc2.Location = new System.Drawing.Point(84, 332);
+            this.lblChuyenMuc2.Name = "lblChuyenMuc2";
+            this.lblChuyenMuc2.Size = new System.Drawing.Size(248, 46);
+            this.lblChuyenMuc2.TabIndex = 3;
+            this.lblChuyenMuc2.Text = "Kế hoạch tập luyện ảnh hưởng\r\n    đến hiệu quả cơ thể ";
+            // 
+            // btnLenKeHoachNgay
+            // 
+            this.btnLenKeHoachNgay.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLenKeHoachNgay.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLenKeHoachNgay.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLenKeHoachNgay.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLenKeHoachNgay.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLenKeHoachNgay.ForeColor = System.Drawing.Color.White;
+            this.btnLenKeHoachNgay.Location = new System.Drawing.Point(1, 404);
+            this.btnLenKeHoachNgay.Name = "btnLenKeHoachNgay";
+            this.btnLenKeHoachNgay.Size = new System.Drawing.Size(386, 49);
+            this.btnLenKeHoachNgay.TabIndex = 1;
+            this.btnLenKeHoachNgay.Text = "Lên Kế Hoạch Ngay";
+            // 
+            // pnlChuyenmuc1
+            // 
+            this.pnlChuyenmuc1.BackColor = System.Drawing.Color.White;
+            this.pnlChuyenmuc1.BorderRadius = 20;
+            this.pnlChuyenmuc1.Controls.Add(this.guna2PictureBox7);
+            this.pnlChuyenmuc1.Controls.Add(this.lblThongTinCm1);
+            this.pnlChuyenmuc1.Controls.Add(this.btnThueNgay);
+            this.pnlChuyenmuc1.Location = new System.Drawing.Point(8, 72);
+            this.pnlChuyenmuc1.Name = "pnlChuyenmuc1";
+            this.pnlChuyenmuc1.Size = new System.Drawing.Size(373, 453);
+            this.pnlChuyenmuc1.TabIndex = 6;
+            // 
+            // guna2PictureBox7
+            // 
+            this.guna2PictureBox7.Image = global::HealthApp.Properties.Resources.Ptpic;
+            this.guna2PictureBox7.ImageRotate = 0F;
+            this.guna2PictureBox7.Location = new System.Drawing.Point(41, 30);
+            this.guna2PictureBox7.Name = "guna2PictureBox7";
+            this.guna2PictureBox7.Size = new System.Drawing.Size(294, 298);
+            this.guna2PictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox7.TabIndex = 3;
+            this.guna2PictureBox7.TabStop = false;
+            // 
+            // lblThongTinCm1
+            // 
+            this.lblThongTinCm1.AutoSize = true;
+            this.lblThongTinCm1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThongTinCm1.Location = new System.Drawing.Point(81, 332);
+            this.lblThongTinCm1.Name = "lblThongTinCm1";
+            this.lblThongTinCm1.Size = new System.Drawing.Size(236, 46);
+            this.lblThongTinCm1.TabIndex = 2;
+            this.lblThongTinCm1.Text = "Nâng cao hiệu suất luyện tập\r\n     và hoàn thành tiến độ ";
+            // 
+            // btnThueNgay
+            // 
+            this.btnThueNgay.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnThueNgay.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnThueNgay.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnThueNgay.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnThueNgay.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThueNgay.ForeColor = System.Drawing.Color.White;
+            this.btnThueNgay.Location = new System.Drawing.Point(0, 404);
+            this.btnThueNgay.Name = "btnThueNgay";
+            this.btnThueNgay.Size = new System.Drawing.Size(376, 49);
+            this.btnThueNgay.TabIndex = 0;
+            this.btnThueNgay.Text = "Thuê Ngay";
             // 
             // pnlInbody
             // 
@@ -344,6 +667,72 @@
             this.pnlInbody.Size = new System.Drawing.Size(1223, 1532);
             this.pnlInbody.TabIndex = 0;
             this.pnlInbody.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
+            // 
+            // guna2PictureBox6
+            // 
+            this.guna2PictureBox6.Image = global::HealthApp.Properties.Resources.ArrowRightIcon;
+            this.guna2PictureBox6.ImageRotate = 0F;
+            this.guna2PictureBox6.Location = new System.Drawing.Point(31, 499);
+            this.guna2PictureBox6.Name = "guna2PictureBox6";
+            this.guna2PictureBox6.Size = new System.Drawing.Size(24, 27);
+            this.guna2PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox6.TabIndex = 17;
+            this.guna2PictureBox6.TabStop = false;
+            // 
+            // guna2PictureBox5
+            // 
+            this.guna2PictureBox5.Image = global::HealthApp.Properties.Resources.DataIcon;
+            this.guna2PictureBox5.ImageRotate = 0F;
+            this.guna2PictureBox5.Location = new System.Drawing.Point(31, 440);
+            this.guna2PictureBox5.Name = "guna2PictureBox5";
+            this.guna2PictureBox5.Size = new System.Drawing.Size(24, 27);
+            this.guna2PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox5.TabIndex = 16;
+            this.guna2PictureBox5.TabStop = false;
+            // 
+            // guna2PictureBox4
+            // 
+            this.guna2PictureBox4.Image = global::HealthApp.Properties.Resources.ChangeICon;
+            this.guna2PictureBox4.ImageRotate = 0F;
+            this.guna2PictureBox4.Location = new System.Drawing.Point(31, 386);
+            this.guna2PictureBox4.Name = "guna2PictureBox4";
+            this.guna2PictureBox4.Size = new System.Drawing.Size(24, 27);
+            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox4.TabIndex = 15;
+            this.guna2PictureBox4.TabStop = false;
+            // 
+            // guna2PictureBox2
+            // 
+            this.guna2PictureBox2.Image = global::HealthApp.Properties.Resources.QuestionIcon;
+            this.guna2PictureBox2.ImageRotate = 0F;
+            this.guna2PictureBox2.Location = new System.Drawing.Point(31, 322);
+            this.guna2PictureBox2.Name = "guna2PictureBox2";
+            this.guna2PictureBox2.Size = new System.Drawing.Size(24, 27);
+            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox2.TabIndex = 14;
+            this.guna2PictureBox2.TabStop = false;
+            // 
+            // guna2PictureBox3
+            // 
+            this.guna2PictureBox3.Image = global::HealthApp.Properties.Resources.RulerIcon;
+            this.guna2PictureBox3.ImageRotate = 0F;
+            this.guna2PictureBox3.Location = new System.Drawing.Point(31, 266);
+            this.guna2PictureBox3.Name = "guna2PictureBox3";
+            this.guna2PictureBox3.Size = new System.Drawing.Size(24, 27);
+            this.guna2PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox3.TabIndex = 13;
+            this.guna2PictureBox3.TabStop = false;
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.Image = global::HealthApp.Properties.Resources.PenIcon;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(26, 207);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(36, 23);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 11;
+            this.guna2PictureBox1.TabStop = false;
             // 
             // pnlTinhNhanhBMI
             // 
@@ -601,394 +990,6 @@
             this.lblNoteInDash.Text = resources.GetString("lblNoteInDash.Text");
             this.lblNoteInDash.Click += new System.EventHandler(this.label1_Click);
             // 
-            // guna2Panel2
-            // 
-            this.guna2Panel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.guna2Panel2.BorderRadius = 30;
-            this.guna2Panel2.BorderThickness = 2;
-            this.guna2Panel2.Controls.Add(this.lblKehoachAU);
-            this.guna2Panel2.Controls.Add(this.lblKeHoachTL);
-            this.guna2Panel2.Controls.Add(this.lblThuePT);
-            this.guna2Panel2.Controls.Add(this.pnlChuyenmuc3);
-            this.guna2Panel2.Controls.Add(this.pnlChuyenmuc2);
-            this.guna2Panel2.Controls.Add(this.pnlChuyenmuc1);
-            this.guna2Panel2.Location = new System.Drawing.Point(21, 49);
-            this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(1170, 527);
-            this.guna2Panel2.TabIndex = 5;
-            // 
-            // lblKehoachAU
-            // 
-            this.lblKehoachAU.AutoSize = true;
-            this.lblKehoachAU.BackColor = System.Drawing.Color.Transparent;
-            this.lblKehoachAU.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblKehoachAU.Location = new System.Drawing.Point(904, 62);
-            this.lblKehoachAU.Name = "lblKehoachAU";
-            this.lblKehoachAU.Size = new System.Drawing.Size(150, 23);
-            this.lblKehoachAU.TabIndex = 11;
-            this.lblKehoachAU.Text = "Kế hoạch ăn uống";
-            // 
-            // lblKeHoachTL
-            // 
-            this.lblKeHoachTL.AutoSize = true;
-            this.lblKeHoachTL.BackColor = System.Drawing.Color.Transparent;
-            this.lblKeHoachTL.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblKeHoachTL.Location = new System.Drawing.Point(508, 60);
-            this.lblKeHoachTL.Name = "lblKeHoachTL";
-            this.lblKeHoachTL.Size = new System.Drawing.Size(158, 23);
-            this.lblKeHoachTL.TabIndex = 10;
-            this.lblKeHoachTL.Text = "Kế hoạch luyện tập";
-            // 
-            // lblThuePT
-            // 
-            this.lblThuePT.AutoSize = true;
-            this.lblThuePT.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThuePT.Location = new System.Drawing.Point(148, 62);
-            this.lblThuePT.Name = "lblThuePT";
-            this.lblThuePT.Size = new System.Drawing.Size(72, 23);
-            this.lblThuePT.TabIndex = 7;
-            this.lblThuePT.Text = "Thuê PT";
-            // 
-            // pnlChuyenmuc3
-            // 
-            this.pnlChuyenmuc3.BackColor = System.Drawing.Color.White;
-            this.pnlChuyenmuc3.BorderRadius = 30;
-            this.pnlChuyenmuc3.Controls.Add(this.guna2PictureBox9);
-            this.pnlChuyenmuc3.Controls.Add(this.lblChuyenmuc3);
-            this.pnlChuyenmuc3.Controls.Add(this.guna2Button9);
-            this.pnlChuyenmuc3.Location = new System.Drawing.Point(779, 72);
-            this.pnlChuyenmuc3.Name = "pnlChuyenmuc3";
-            this.pnlChuyenmuc3.Size = new System.Drawing.Size(383, 453);
-            this.pnlChuyenmuc3.TabIndex = 9;
-            // 
-            // lblChuyenmuc3
-            // 
-            this.lblChuyenmuc3.AutoSize = true;
-            this.lblChuyenmuc3.BackColor = System.Drawing.Color.Transparent;
-            this.lblChuyenmuc3.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChuyenmuc3.Location = new System.Drawing.Point(24, 334);
-            this.lblChuyenmuc3.Name = "lblChuyenmuc3";
-            this.lblChuyenmuc3.Size = new System.Drawing.Size(328, 69);
-            this.lblChuyenmuc3.TabIndex = 4;
-            this.lblChuyenmuc3.Text = "         Chế độ ăn uống cải thiện\r\nsức khỏe và nâng cao hiệu quả công việc\r\n\r\n";
-            // 
-            // guna2Button9
-            // 
-            this.guna2Button9.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button9.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button9.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button9.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button9.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button9.ForeColor = System.Drawing.Color.White;
-            this.guna2Button9.Location = new System.Drawing.Point(0, 404);
-            this.guna2Button9.Name = "guna2Button9";
-            this.guna2Button9.Size = new System.Drawing.Size(385, 49);
-            this.guna2Button9.TabIndex = 1;
-            this.guna2Button9.Text = "Lên Kế Hoạch Ngay";
-            // 
-            // pnlChuyenmuc2
-            // 
-            this.pnlChuyenmuc2.BackColor = System.Drawing.Color.White;
-            this.pnlChuyenmuc2.BorderRadius = 30;
-            this.pnlChuyenmuc2.Controls.Add(this.guna2PictureBox8);
-            this.pnlChuyenmuc2.Controls.Add(this.lblChuyenMuc2);
-            this.pnlChuyenmuc2.Controls.Add(this.btnLenKeHoachNgay);
-            this.pnlChuyenmuc2.Location = new System.Drawing.Point(387, 72);
-            this.pnlChuyenmuc2.Name = "pnlChuyenmuc2";
-            this.pnlChuyenmuc2.Size = new System.Drawing.Size(387, 453);
-            this.pnlChuyenmuc2.TabIndex = 8;
-            // 
-            // lblChuyenMuc2
-            // 
-            this.lblChuyenMuc2.AutoSize = true;
-            this.lblChuyenMuc2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChuyenMuc2.Location = new System.Drawing.Point(84, 332);
-            this.lblChuyenMuc2.Name = "lblChuyenMuc2";
-            this.lblChuyenMuc2.Size = new System.Drawing.Size(248, 46);
-            this.lblChuyenMuc2.TabIndex = 3;
-            this.lblChuyenMuc2.Text = "Kế hoạch tập luyện ảnh hưởng\r\n    đến hiệu quả cơ thể ";
-            // 
-            // btnLenKeHoachNgay
-            // 
-            this.btnLenKeHoachNgay.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnLenKeHoachNgay.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnLenKeHoachNgay.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnLenKeHoachNgay.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnLenKeHoachNgay.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLenKeHoachNgay.ForeColor = System.Drawing.Color.White;
-            this.btnLenKeHoachNgay.Location = new System.Drawing.Point(1, 404);
-            this.btnLenKeHoachNgay.Name = "btnLenKeHoachNgay";
-            this.btnLenKeHoachNgay.Size = new System.Drawing.Size(386, 49);
-            this.btnLenKeHoachNgay.TabIndex = 1;
-            this.btnLenKeHoachNgay.Text = "Lên Kế Hoạch Ngay";
-            // 
-            // pnlChuyenmuc1
-            // 
-            this.pnlChuyenmuc1.BackColor = System.Drawing.Color.White;
-            this.pnlChuyenmuc1.BorderRadius = 20;
-            this.pnlChuyenmuc1.Controls.Add(this.guna2PictureBox7);
-            this.pnlChuyenmuc1.Controls.Add(this.lblThongTinCm1);
-            this.pnlChuyenmuc1.Controls.Add(this.btnThueNgay);
-            this.pnlChuyenmuc1.Location = new System.Drawing.Point(8, 72);
-            this.pnlChuyenmuc1.Name = "pnlChuyenmuc1";
-            this.pnlChuyenmuc1.Size = new System.Drawing.Size(373, 453);
-            this.pnlChuyenmuc1.TabIndex = 6;
-            // 
-            // lblThongTinCm1
-            // 
-            this.lblThongTinCm1.AutoSize = true;
-            this.lblThongTinCm1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThongTinCm1.Location = new System.Drawing.Point(81, 332);
-            this.lblThongTinCm1.Name = "lblThongTinCm1";
-            this.lblThongTinCm1.Size = new System.Drawing.Size(236, 46);
-            this.lblThongTinCm1.TabIndex = 2;
-            this.lblThongTinCm1.Text = "Nâng cao hiệu suất luyện tập\r\n     và hoàn thành tiến độ ";
-            // 
-            // btnThueNgay
-            // 
-            this.btnThueNgay.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnThueNgay.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnThueNgay.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnThueNgay.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnThueNgay.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThueNgay.ForeColor = System.Drawing.Color.White;
-            this.btnThueNgay.Location = new System.Drawing.Point(0, 404);
-            this.btnThueNgay.Name = "btnThueNgay";
-            this.btnThueNgay.Size = new System.Drawing.Size(376, 49);
-            this.btnThueNgay.TabIndex = 0;
-            this.btnThueNgay.Text = "Thuê Ngay";
-            // 
-            // lblChuyenMuc
-            // 
-            this.lblChuyenMuc.AutoSize = true;
-            this.lblChuyenMuc.BackColor = System.Drawing.Color.Transparent;
-            this.lblChuyenMuc.Font = new System.Drawing.Font("Segoe UI Semibold", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChuyenMuc.Location = new System.Drawing.Point(546, 34);
-            this.lblChuyenMuc.Name = "lblChuyenMuc";
-            this.lblChuyenMuc.Size = new System.Drawing.Size(142, 31);
-            this.lblChuyenMuc.TabIndex = 12;
-            this.lblChuyenMuc.Text = "Chuyên Mục";
-            this.lblChuyenMuc.Click += new System.EventHandler(this.label1_Click_1);
-            // 
-            // guna2PictureBox6
-            // 
-            this.guna2PictureBox6.Image = global::HealthApp.Properties.Resources.ArrowRightIcon;
-            this.guna2PictureBox6.ImageRotate = 0F;
-            this.guna2PictureBox6.Location = new System.Drawing.Point(30, 476);
-            this.guna2PictureBox6.Name = "guna2PictureBox6";
-            this.guna2PictureBox6.Size = new System.Drawing.Size(24, 27);
-            this.guna2PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox6.TabIndex = 17;
-            this.guna2PictureBox6.TabStop = false;
-            // 
-            // guna2PictureBox5
-            // 
-            this.guna2PictureBox5.Image = global::HealthApp.Properties.Resources.DataIcon;
-            this.guna2PictureBox5.ImageRotate = 0F;
-            this.guna2PictureBox5.Location = new System.Drawing.Point(30, 423);
-            this.guna2PictureBox5.Name = "guna2PictureBox5";
-            this.guna2PictureBox5.Size = new System.Drawing.Size(24, 27);
-            this.guna2PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox5.TabIndex = 16;
-            this.guna2PictureBox5.TabStop = false;
-            // 
-            // guna2PictureBox4
-            // 
-            this.guna2PictureBox4.Image = global::HealthApp.Properties.Resources.ChangeICon;
-            this.guna2PictureBox4.ImageRotate = 0F;
-            this.guna2PictureBox4.Location = new System.Drawing.Point(30, 363);
-            this.guna2PictureBox4.Name = "guna2PictureBox4";
-            this.guna2PictureBox4.Size = new System.Drawing.Size(24, 27);
-            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox4.TabIndex = 15;
-            this.guna2PictureBox4.TabStop = false;
-            // 
-            // guna2PictureBox2
-            // 
-            this.guna2PictureBox2.Image = global::HealthApp.Properties.Resources.QuestionIcon;
-            this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(29, 312);
-            this.guna2PictureBox2.Name = "guna2PictureBox2";
-            this.guna2PictureBox2.Size = new System.Drawing.Size(24, 27);
-            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox2.TabIndex = 14;
-            this.guna2PictureBox2.TabStop = false;
-            // 
-            // guna2PictureBox3
-            // 
-            this.guna2PictureBox3.Image = global::HealthApp.Properties.Resources.RulerIcon;
-            this.guna2PictureBox3.ImageRotate = 0F;
-            this.guna2PictureBox3.Location = new System.Drawing.Point(30, 256);
-            this.guna2PictureBox3.Name = "guna2PictureBox3";
-            this.guna2PictureBox3.Size = new System.Drawing.Size(24, 27);
-            this.guna2PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox3.TabIndex = 13;
-            this.guna2PictureBox3.TabStop = false;
-            // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.Image = global::HealthApp.Properties.Resources.PenIcon;
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(26, 207);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(36, 23);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox1.TabIndex = 11;
-            this.guna2PictureBox1.TabStop = false;
-            // 
-            // picChuyenMuc
-            // 
-            this.picChuyenMuc.Image = global::HealthApp.Properties.Resources.categoryIcon;
-            this.picChuyenMuc.ImageRotate = 0F;
-            this.picChuyenMuc.Location = new System.Drawing.Point(502, 34);
-            this.picChuyenMuc.Name = "picChuyenMuc";
-            this.picChuyenMuc.Size = new System.Drawing.Size(45, 36);
-            this.picChuyenMuc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picChuyenMuc.TabIndex = 4;
-            this.picChuyenMuc.TabStop = false;
-            this.picChuyenMuc.Click += new System.EventHandler(this.guna2PictureBox10_Click);
-            // 
-            // guna2PictureBox9
-            // 
-            this.guna2PictureBox9.Image = global::HealthApp.Properties.Resources.KeHoachAnUong;
-            this.guna2PictureBox9.ImageRotate = 0F;
-            this.guna2PictureBox9.Location = new System.Drawing.Point(37, 30);
-            this.guna2PictureBox9.Name = "guna2PictureBox9";
-            this.guna2PictureBox9.Size = new System.Drawing.Size(317, 298);
-            this.guna2PictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox9.TabIndex = 6;
-            this.guna2PictureBox9.TabStop = false;
-            // 
-            // guna2PictureBox8
-            // 
-            this.guna2PictureBox8.Image = global::HealthApp.Properties.Resources.KehoachTapLuyen;
-            this.guna2PictureBox8.ImageRotate = 0F;
-            this.guna2PictureBox8.Location = new System.Drawing.Point(41, 30);
-            this.guna2PictureBox8.Name = "guna2PictureBox8";
-            this.guna2PictureBox8.Size = new System.Drawing.Size(312, 298);
-            this.guna2PictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox8.TabIndex = 5;
-            this.guna2PictureBox8.TabStop = false;
-            // 
-            // guna2PictureBox7
-            // 
-            this.guna2PictureBox7.Image = global::HealthApp.Properties.Resources.Ptpic;
-            this.guna2PictureBox7.ImageRotate = 0F;
-            this.guna2PictureBox7.Location = new System.Drawing.Point(41, 30);
-            this.guna2PictureBox7.Name = "guna2PictureBox7";
-            this.guna2PictureBox7.Size = new System.Drawing.Size(294, 298);
-            this.guna2PictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox7.TabIndex = 3;
-            this.guna2PictureBox7.TabStop = false;
-            // 
-            // btnMap
-            // 
-            this.btnMap.BackColor = System.Drawing.Color.Transparent;
-            this.btnMap.BorderRadius = 20;
-            this.btnMap.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnMap.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnMap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnMap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnMap.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnMap.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnMap.ForeColor = System.Drawing.Color.White;
-            this.btnMap.Image = global::HealthApp.Properties.Resources.MapIcon;
-            this.btnMap.ImageSize = new System.Drawing.Size(120, 120);
-            this.btnMap.Location = new System.Drawing.Point(1045, 15);
-            this.btnMap.Name = "btnMap";
-            this.btnMap.Size = new System.Drawing.Size(148, 122);
-            this.btnMap.TabIndex = 6;
-            // 
-            // btnMuctieu
-            // 
-            this.btnMuctieu.BackColor = System.Drawing.Color.Transparent;
-            this.btnMuctieu.BorderRadius = 20;
-            this.btnMuctieu.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnMuctieu.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnMuctieu.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnMuctieu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnMuctieu.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnMuctieu.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnMuctieu.ForeColor = System.Drawing.Color.White;
-            this.btnMuctieu.Image = global::HealthApp.Properties.Resources.goalIcon;
-            this.btnMuctieu.ImageSize = new System.Drawing.Size(120, 120);
-            this.btnMuctieu.Location = new System.Drawing.Point(845, 15);
-            this.btnMuctieu.Name = "btnMuctieu";
-            this.btnMuctieu.Size = new System.Drawing.Size(148, 122);
-            this.btnMuctieu.TabIndex = 5;
-            // 
-            // btnSuckhoe
-            // 
-            this.btnSuckhoe.BackColor = System.Drawing.Color.Transparent;
-            this.btnSuckhoe.BorderRadius = 20;
-            this.btnSuckhoe.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnSuckhoe.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnSuckhoe.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnSuckhoe.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnSuckhoe.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnSuckhoe.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnSuckhoe.ForeColor = System.Drawing.Color.White;
-            this.btnSuckhoe.Image = global::HealthApp.Properties.Resources.HealthIconMain;
-            this.btnSuckhoe.ImageSize = new System.Drawing.Size(120, 120);
-            this.btnSuckhoe.Location = new System.Drawing.Point(646, 15);
-            this.btnSuckhoe.Name = "btnSuckhoe";
-            this.btnSuckhoe.Size = new System.Drawing.Size(148, 122);
-            this.btnSuckhoe.TabIndex = 4;
-            // 
-            // btnThongke
-            // 
-            this.btnThongke.BackColor = System.Drawing.Color.Transparent;
-            this.btnThongke.BorderRadius = 20;
-            this.btnThongke.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnThongke.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnThongke.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnThongke.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnThongke.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnThongke.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnThongke.ForeColor = System.Drawing.Color.White;
-            this.btnThongke.Image = global::HealthApp.Properties.Resources.statisticalIcon;
-            this.btnThongke.ImageSize = new System.Drawing.Size(120, 120);
-            this.btnThongke.Location = new System.Drawing.Point(430, 15);
-            this.btnThongke.Name = "btnThongke";
-            this.btnThongke.Size = new System.Drawing.Size(148, 122);
-            this.btnThongke.TabIndex = 3;
-            // 
-            // btnNutri
-            // 
-            this.btnNutri.BackColor = System.Drawing.Color.Transparent;
-            this.btnNutri.BorderRadius = 20;
-            this.btnNutri.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnNutri.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnNutri.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnNutri.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnNutri.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnNutri.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnNutri.ForeColor = System.Drawing.Color.White;
-            this.btnNutri.Image = global::HealthApp.Properties.Resources.nutritiousIcon;
-            this.btnNutri.ImageSize = new System.Drawing.Size(120, 120);
-            this.btnNutri.Location = new System.Drawing.Point(221, 15);
-            this.btnNutri.Name = "btnNutri";
-            this.btnNutri.Size = new System.Drawing.Size(146, 122);
-            this.btnNutri.TabIndex = 2;
-            // 
-            // btnRankings
-            // 
-            this.btnRankings.BackColor = System.Drawing.Color.Transparent;
-            this.btnRankings.BorderRadius = 20;
-            this.btnRankings.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnRankings.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnRankings.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnRankings.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnRankings.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnRankings.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnRankings.ForeColor = System.Drawing.Color.White;
-            this.btnRankings.Image = global::HealthApp.Properties.Resources.RankingIcon1;
-            this.btnRankings.ImageSize = new System.Drawing.Size(120, 120);
-            this.btnRankings.Location = new System.Drawing.Point(16, 15);
-            this.btnRankings.Name = "btnRankings";
-            this.btnRankings.Size = new System.Drawing.Size(148, 122);
-            this.btnRankings.TabIndex = 1;
-            // 
             // ucDashBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1008,28 +1009,28 @@
             this.pnlQuickSection.PerformLayout();
             this.pnlChuyenMuc.ResumeLayout(false);
             this.pnlChuyenMuc.PerformLayout();
-            this.pnlInbody.ResumeLayout(false);
-            this.pnlInbody.PerformLayout();
-            this.pnlTinhNhanhBMI.ResumeLayout(false);
-            this.pnlTinhNhanhBMI.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picChuyenMuc)).EndInit();
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel2.PerformLayout();
             this.pnlChuyenmuc3.ResumeLayout(false);
             this.pnlChuyenmuc3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox9)).EndInit();
             this.pnlChuyenmuc2.ResumeLayout(false);
             this.pnlChuyenmuc2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox8)).EndInit();
             this.pnlChuyenmuc1.ResumeLayout(false);
             this.pnlChuyenmuc1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox7)).EndInit();
+            this.pnlInbody.ResumeLayout(false);
+            this.pnlInbody.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picChuyenMuc)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox7)).EndInit();
+            this.pnlTinhNhanhBMI.ResumeLayout(false);
+            this.pnlTinhNhanhBMI.PerformLayout();
             this.ResumeLayout(false);
 
         }

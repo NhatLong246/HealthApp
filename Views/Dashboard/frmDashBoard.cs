@@ -139,19 +139,19 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Event handler cho button Ăn Uống - điều hướng tới trang dinh dưỡng
+        /// Event handler cho button Ăn Uống - điều hướng tới trang chế độ ăn uống đề xuất
         /// </summary>
         private void PicAnUong_Click(object sender, EventArgs e)
         {
             try
             {
-                // Load ucNutrition (trang dinh dưỡng)
-                ucNutrition ucNutrition = new ucNutrition();
-                LoadUserControl(ucNutrition);
+                // Load ucCheDoAnUongDeXuat (trang chế độ ăn uống đề xuất)
+                ucCheDoAnUongDeXuat ucCheDoAnUongDeXuat = new ucCheDoAnUongDeXuat();
+                LoadUserControl(ucCheDoAnUongDeXuat);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi điều hướng tới trang dinh dưỡng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi điều hướng tới trang chế độ ăn uống: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -201,13 +201,16 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Hiển thị lại form Dashboard (được gọi từ frm_DangKy khi quay lại)
+        /// Hiển thị lại form Dashboard (được gọi từ frm_DangKy hoặc frm_ThanhToanPT khi quay lại)
         /// </summary>
         public void ShowDashboard()
         {
             this.Show();
             this.BringToFront();
             this.Activate();
+            
+            // Reload trang chủ để cập nhật dữ liệu sau khi thanh toán
+            LoadUserControl();
         }
 
         /// <summary>

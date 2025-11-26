@@ -156,6 +156,38 @@ namespace HealthApp.Services
             });
         }
 
+        public Task<bool> IsCCCDRegisteredAsync(string soCCCD)
+        {
+            return Task.Run(() =>
+            {
+                try
+                {
+                    var normalized = soCCCD?.Trim();
+                    if (string.IsNullOrEmpty(normalized))
+                    {
+                        return false;
+                    }
+
+                    var pattern = $"\"SoCCCD\":\"{normalized}\"";
+                    return _context.HuanLuyenVien
+                        .Any(h => h.TieuSu != null && h.TieuSu.Contains(pattern));
+                }
+                catch (SqlException)
+                {
+                    // Nếu bảng chưa tồn tại, xem như chưa có CCCD nào được sử dụng
+                    return false;
+                }
+                catch (Exception ex) when (ex.Message.Contains("Invalid object name") || ex.InnerException?.Message?.Contains("Invalid object name") == true)
+                {
+                    return false;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
+        }
+
         public Task<string> GeneratePTIDAsync()
         {
             return Task.Run(() =>

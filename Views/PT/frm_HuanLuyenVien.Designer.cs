@@ -49,7 +49,6 @@
             this.lblDanhGia = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlKhachHangDangTap = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlDanhsach = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.btnGiaoBaiTap = new Guna.UI2.WinForms.Guna2Button();
             this.pnlDanhSach1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.lblThoiGianDanhSach1 = new System.Windows.Forms.Label();
             this.lblNgayDanhSach1 = new System.Windows.Forms.Label();
@@ -75,7 +74,6 @@
             this.ptrImageLichTrinh = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblTime1 = new System.Windows.Forms.Label();
             this.lbl_LichTrinh = new System.Windows.Forms.Label();
-            this.btn_Lich = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnBack = new Guna.UI2.WinForms.Guna2CircleButton();
             this.pnlKhachHang.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrKhachHang)).BeginInit();
@@ -326,28 +324,11 @@
             // pnlDanhsach
             // 
             this.pnlDanhsach.AutoScroll = true;
-            this.pnlDanhsach.Controls.Add(this.btnGiaoBaiTap);
             this.pnlDanhsach.Controls.Add(this.pnlDanhSach1);
             this.pnlDanhsach.Location = new System.Drawing.Point(27, 55);
             this.pnlDanhsach.Name = "pnlDanhsach";
             this.pnlDanhsach.Size = new System.Drawing.Size(793, 329);
             this.pnlDanhsach.TabIndex = 2;
-            // 
-            // btnGiaoBaiTap
-            // 
-            this.btnGiaoBaiTap.BackColor = System.Drawing.Color.Transparent;
-            this.btnGiaoBaiTap.BorderRadius = 20;
-            this.btnGiaoBaiTap.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnGiaoBaiTap.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnGiaoBaiTap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnGiaoBaiTap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnGiaoBaiTap.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGiaoBaiTap.ForeColor = System.Drawing.Color.White;
-            this.btnGiaoBaiTap.Location = new System.Drawing.Point(637, 37);
-            this.btnGiaoBaiTap.Name = "btnGiaoBaiTap";
-            this.btnGiaoBaiTap.Size = new System.Drawing.Size(140, 45);
-            this.btnGiaoBaiTap.TabIndex = 2;
-            this.btnGiaoBaiTap.Text = "Giao bài tập";
             // 
             // pnlDanhSach1
             // 
@@ -672,21 +653,6 @@
             this.lbl_LichTrinh.TabIndex = 3;
             this.lbl_LichTrinh.Text = "      Lịch Trình Hôm Nay";
             // 
-            // btn_Lich
-            // 
-            this.btn_Lich.BorderColor = System.Drawing.Color.Transparent;
-            this.btn_Lich.BorderRadius = 15;
-            this.btn_Lich.BorderThickness = 1;
-            this.btn_Lich.FillColor = System.Drawing.Color.Silver;
-            this.btn_Lich.FillColor2 = System.Drawing.Color.White;
-            this.btn_Lich.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Lich.ForeColor = System.Drawing.Color.Black;
-            this.btn_Lich.Location = new System.Drawing.Point(62, 960);
-            this.btn_Lich.Name = "btn_Lich";
-            this.btn_Lich.Size = new System.Drawing.Size(353, 40);
-            this.btn_Lich.TabIndex = 32;
-            this.btn_Lich.Text = "Hiển thị danh sách lịch trình";
-            // 
             // btnBack
             // 
             this.btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -712,7 +678,6 @@
             this.BackColor = System.Drawing.Color.LightCyan;
             this.ClientSize = new System.Drawing.Size(1390, 739);
             this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.btn_Lich);
             this.Controls.Add(this.pnlLichTrinh);
             this.Controls.Add(this.pnlYeuCauThuePT);
             this.Controls.Add(this.pnlKhachHangDangTap);
@@ -793,7 +758,6 @@
         private System.Windows.Forms.Label lblLichKhachHang1;
         private System.Windows.Forms.Label lblTime2;
         private System.Windows.Forms.Label lblTime;
-        private Guna.UI2.WinForms.Guna2GradientButton btn_Lich;
         private System.Windows.Forms.Label lblDienRa;
         private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel1;
         private System.Windows.Forms.Label lblMucTieuNguoiYeuCauThue;
@@ -803,7 +767,6 @@
         private System.Windows.Forms.Label lblNgayTap;
         private System.Windows.Forms.Label lblThoiGianDanhSach1;
         private Guna.UI2.WinForms.Guna2CircleButton btnDongY;
-        private Guna.UI2.WinForms.Guna2Button btnGiaoBaiTap;
         private Guna.UI2.WinForms.Guna2CircleButton btnXoa;
         private Guna.UI2.WinForms.Guna2CircleButton btnBack;
     }
