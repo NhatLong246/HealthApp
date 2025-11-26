@@ -1,6 +1,7 @@
 extern alias ef6;
 
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -227,6 +228,41 @@ namespace HealthApp.Services
                 {
                     // Các lỗi khác, bắt đầu từ 1
                     return "PT_0001";
+                }
+            });
+        }
+
+        /// <summary>
+        /// Lấy danh sách lịch đặt đã Confirmed của một PT trong một ngày cụ thể
+        /// </summary>
+        public Task<IList<DatLichPT>> GetConfirmedBookingsForPTOnDateAsync(string ptId, DateTime date)
+        {
+            if (string.IsNullOrWhiteSpace(ptId))
+                throw new ArgumentNullException(nameof(ptId));
+
+            return Task.Run<IList<DatLichPT>>(() =>
+            {
+                try
+                {
+                    var start = date.Date;
+                    var end = start.AddDays(1);
+
+                    return _context.DatLichPT
+                        .Where(d =>
+                            d.PTID == ptId &&
+                            d.NgayGioDat >= start &&
+                            d.NgayGioDat < end &&
+                            d.TrangThai == "Confirmed")
+                        .OrderBy(d => d.NgayGioDat)
+                        .ToList();
+                }
+                catch (SqlException)
+                {
+                    return new DatLichPT[0];
+                }
+                catch
+                {
+                    return new DatLichPT[0];
                 }
             });
         }

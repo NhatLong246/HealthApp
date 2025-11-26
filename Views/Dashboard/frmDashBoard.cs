@@ -1,6 +1,7 @@
 ﻿using HealthApp.Views.Nutrition;
 using HealthApp.Common.Helpers;
 using HealthApp.Views.PT;
+using HealthApp.Views.Reports;
 using HealthApp.Views.Auth;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,8 @@ namespace HealthApp.Views.Dashboard
             picHome.Click += PicHome_Click;
             picAnUong.Click += PicAnUong_Click;
             ptrDangKyLamPT.Click += PtrDangKyLamPT_Click;
+            picLich.Click += PicThongKe_Click;
+            lblThongKe.Click += PicThongKe_Click;
             
             // Gắn event handler cho panel thông tin user
             pnlThongTinUser.Click += PnlThongTinUser_Click;
@@ -114,12 +117,26 @@ namespace HealthApp.Views.Dashboard
 
         }
 
-        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        private void PicThongKe_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn)
+                {
+                    MessageBox.Show("Vui lòng đăng nhập trước khi xem thống kê!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
+                var reportForm = new ReportForm();
+                reportForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở trang thống kê: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
-        
 
         /// <summary>
         /// Event handler cho button Home - điều hướng về trang chủ

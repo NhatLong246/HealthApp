@@ -550,3 +550,31 @@ CREATE TABLE ThongBao (
         ON DELETE CASCADE
 );
 GO
+-- Bảng giao bài tập từ PT cho user đã thuê
+CREATE TABLE GiaoBaiTapChoUser (
+    GiaoBaiTapID VARCHAR(20) PRIMARY KEY, -- assign_0001
+    PTID VARCHAR(20) NOT NULL, -- PT phụ trách
+    UserID VARCHAR(20) NOT NULL, -- User nhận bài tập
+    DatLichID VARCHAR(20), -- Tham chiếu lịch PT cụ thể (nếu có)
+    ThuVienBaiTapID VARCHAR(20), -- Template bài tập gốc trong thư viện
+    TieuDe NVARCHAR(200) NOT NULL,
+    MoTa NVARCHAR(1000),
+    MucTieuBuoiTap NVARCHAR(200), -- ví dụ: "Tăng sức bền"
+    TrangThai NVARCHAR(20) DEFAULT 'Assigned',
+        CHECK (TrangThai IN ('Assigned', 'InProgress', 'Completed', 'Overdue')),
+    NgayGiao DATETIME DEFAULT GETDATE(),
+    HanHoanThanh DATETIME,
+    NgayHoanThanh DATETIME,
+    GhiChuPT NVARCHAR(500),
+    PhanHoiUser NVARCHAR(500),
+    CONSTRAINT FK_GiaoBaiTap_PT FOREIGN KEY (PTID)
+        REFERENCES HuanLuyenVien(PTID) ON DELETE CASCADE,
+    CONSTRAINT FK_GiaoBaiTap_User FOREIGN KEY (UserID)
+        REFERENCES Users(UserID) ON DELETE CASCADE,
+    CONSTRAINT FK_GiaoBaiTap_DatLich FOREIGN KEY (DatLichID)
+        REFERENCES DatLichPT(DatLichID) ON DELETE SET NULL,
+    CONSTRAINT FK_GiaoBaiTap_ThuVienBaiTap FOREIGN KEY (ThuVienBaiTapID)
+        REFERENCES ThuVienBaiTap(BaiTapID) ON DELETE SET NULL,
+    CONSTRAINT CK_GiaoBaiTap_HanNgay CHECK (HanHoanThanh IS NULL OR HanHoanThanh >= NgayGiao)
+);
+GO

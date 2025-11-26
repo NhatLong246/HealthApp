@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using HealthApp.Models;
 
@@ -30,6 +32,11 @@ namespace HealthApp.Services.Interfaces
         /// Tạo PTID mới
         /// </summary>
         Task<string> GeneratePTIDAsync();
+
+        /// <summary>
+        /// Lấy danh sách lịch đặt (DatLichPT) đã được xác nhận của một PT trong ngày
+        /// </summary>
+        Task<IList<DatLichPT>> GetConfirmedBookingsForPTOnDateAsync(string ptId, DateTime date);
     }
 
     /// <summary>

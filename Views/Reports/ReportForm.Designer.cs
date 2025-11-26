@@ -28,28 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.lbTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnGropress = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnExportEX = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.shadowpnSession = new Guna.UI2.WinForms.Guna2ShadowPanel();
-            this.lbSession = new System.Windows.Forms.Label();
-            this.lbGenSession = new System.Windows.Forms.Label();
-            this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
-            this.lbTotalTime = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.guna2ShadowPanel3 = new Guna.UI2.WinForms.Guna2ShadowPanel();
-            this.lbTarget = new System.Windows.Forms.Label();
-            this.lbgenTarget = new System.Windows.Forms.Label();
             this.guna2ShadowPanel4 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.guna2ShadowPanel5 = new Guna.UI2.WinForms.Guna2ShadowPanel();
@@ -65,14 +56,18 @@
             this.lbGenTBTime = new System.Windows.Forms.Label();
             this.lbNameAchivement1 = new System.Windows.Forms.Label();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.guna2ShadowPanel3 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.lbTarget = new System.Windows.Forms.Label();
+            this.lbgenTarget = new System.Windows.Forms.Label();
+            this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.lbTotalTime = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.shadowpnSession = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.lbSession = new System.Windows.Forms.Label();
+            this.lbGenSession = new System.Windows.Forms.Label();
             this.pnGropress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
-            this.shadowpnSession.SuspendLayout();
-            this.guna2ShadowPanel1.SuspendLayout();
-            this.guna2ShadowPanel3.SuspendLayout();
             this.guna2ShadowPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.guna2ShadowPanel5.SuspendLayout();
@@ -81,9 +76,10 @@
             this.pnAchivemented2.SuspendLayout();
             this.pnAchivemented3.SuspendLayout();
             this.pnAchivemented1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.guna2ShadowPanel3.SuspendLayout();
+            this.guna2ShadowPanel1.SuspendLayout();
+            this.shadowpnSession.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbTitle
@@ -109,16 +105,16 @@
             // 
             // chart2
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chart2.Legends.Add(legend4);
+            chartArea1.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart2.Legends.Add(legend1);
             this.chart2.Location = new System.Drawing.Point(3, 3);
             this.chart2.Name = "chart2";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chart2.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart2.Series.Add(series1);
             this.chart2.Size = new System.Drawing.Size(560, 346);
             this.chart2.TabIndex = 0;
             this.chart2.Text = "chart2";
@@ -136,108 +132,6 @@
             this.btnExportEX.TabIndex = 38;
             this.btnExportEX.Text = "Xuất Excel";
             // 
-            // shadowpnSession
-            // 
-            this.shadowpnSession.BackColor = System.Drawing.Color.Transparent;
-            this.shadowpnSession.Controls.Add(this.lbSession);
-            this.shadowpnSession.Controls.Add(this.guna2PictureBox1);
-            this.shadowpnSession.Controls.Add(this.lbGenSession);
-            this.shadowpnSession.FillColor = System.Drawing.Color.White;
-            this.shadowpnSession.Location = new System.Drawing.Point(98, 118);
-            this.shadowpnSession.Name = "shadowpnSession";
-            this.shadowpnSession.Radius = 10;
-            this.shadowpnSession.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(254)))), ((int)(((byte)(248)))));
-            this.shadowpnSession.Size = new System.Drawing.Size(200, 132);
-            this.shadowpnSession.TabIndex = 41;
-            // 
-            // lbSession
-            // 
-            this.lbSession.AutoSize = true;
-            this.lbSession.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSession.Location = new System.Drawing.Point(51, 97);
-            this.lbSession.Name = "lbSession";
-            this.lbSession.Size = new System.Drawing.Size(110, 20);
-            this.lbSession.TabIndex = 43;
-            this.lbSession.Text = "Tổng buổi tập";
-            // 
-            // lbGenSession
-            // 
-            this.lbGenSession.AutoSize = true;
-            this.lbGenSession.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbGenSession.Location = new System.Drawing.Point(85, 55);
-            this.lbGenSession.Name = "lbGenSession";
-            this.lbGenSession.Size = new System.Drawing.Size(20, 22);
-            this.lbGenSession.TabIndex = 0;
-            this.lbGenSession.Text = "#";
-            // 
-            // guna2ShadowPanel1
-            // 
-            this.guna2ShadowPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ShadowPanel1.Controls.Add(this.lbTotalTime);
-            this.guna2ShadowPanel1.Controls.Add(this.guna2PictureBox2);
-            this.guna2ShadowPanel1.Controls.Add(this.label2);
-            this.guna2ShadowPanel1.FillColor = System.Drawing.Color.White;
-            this.guna2ShadowPanel1.Location = new System.Drawing.Point(541, 118);
-            this.guna2ShadowPanel1.Name = "guna2ShadowPanel1";
-            this.guna2ShadowPanel1.Radius = 10;
-            this.guna2ShadowPanel1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(254)))), ((int)(((byte)(248)))));
-            this.guna2ShadowPanel1.Size = new System.Drawing.Size(200, 132);
-            this.guna2ShadowPanel1.TabIndex = 42;
-            // 
-            // lbTotalTime
-            // 
-            this.lbTotalTime.AutoSize = true;
-            this.lbTotalTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotalTime.Location = new System.Drawing.Point(44, 97);
-            this.lbTotalTime.Name = "lbTotalTime";
-            this.lbTotalTime.Size = new System.Drawing.Size(114, 20);
-            this.lbTotalTime.TabIndex = 43;
-            this.lbTotalTime.Text = "Tổng thời gian";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(72, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(20, 22);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "#";
-            // 
-            // guna2ShadowPanel3
-            // 
-            this.guna2ShadowPanel3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ShadowPanel3.Controls.Add(this.lbTarget);
-            this.guna2ShadowPanel3.Controls.Add(this.guna2PictureBox4);
-            this.guna2ShadowPanel3.Controls.Add(this.lbgenTarget);
-            this.guna2ShadowPanel3.FillColor = System.Drawing.Color.White;
-            this.guna2ShadowPanel3.Location = new System.Drawing.Point(1007, 118);
-            this.guna2ShadowPanel3.Name = "guna2ShadowPanel3";
-            this.guna2ShadowPanel3.Radius = 10;
-            this.guna2ShadowPanel3.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(254)))), ((int)(((byte)(248)))));
-            this.guna2ShadowPanel3.Size = new System.Drawing.Size(200, 132);
-            this.guna2ShadowPanel3.TabIndex = 44;
-            // 
-            // lbTarget
-            // 
-            this.lbTarget.AutoSize = true;
-            this.lbTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTarget.Location = new System.Drawing.Point(35, 97);
-            this.lbTarget.Name = "lbTarget";
-            this.lbTarget.Size = new System.Drawing.Size(142, 20);
-            this.lbTarget.TabIndex = 43;
-            this.lbTarget.Text = "Mục tiêu đạt được";
-            // 
-            // lbgenTarget
-            // 
-            this.lbgenTarget.AutoSize = true;
-            this.lbgenTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbgenTarget.Location = new System.Drawing.Point(86, 55);
-            this.lbgenTarget.Name = "lbgenTarget";
-            this.lbgenTarget.Size = new System.Drawing.Size(20, 22);
-            this.lbgenTarget.TabIndex = 0;
-            this.lbgenTarget.Text = "#";
-            // 
             // guna2ShadowPanel4
             // 
             this.guna2ShadowPanel4.BackColor = System.Drawing.Color.Transparent;
@@ -251,16 +145,16 @@
             // 
             // chart1
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.chart1.Series.Add(series5);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(533, 355);
             this.chart1.TabIndex = 49;
             this.chart1.Text = "chart1";
@@ -273,22 +167,22 @@
             this.guna2ShadowPanel5.Location = new System.Drawing.Point(51, 650);
             this.guna2ShadowPanel5.Name = "guna2ShadowPanel5";
             this.guna2ShadowPanel5.ShadowColor = System.Drawing.Color.Black;
-            this.guna2ShadowPanel5.Size = new System.Drawing.Size(566, 373);
+            this.guna2ShadowPanel5.Size = new System.Drawing.Size(566, 370);
             this.guna2ShadowPanel5.TabIndex = 47;
             // 
             // chart3
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.chart3.Legends.Add(legend6);
-            this.chart3.Location = new System.Drawing.Point(10, 3);
+            chartArea3.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart3.Legends.Add(legend3);
+            this.chart3.Location = new System.Drawing.Point(3, 6);
             this.chart3.Name = "chart3";
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.chart3.Series.Add(series6);
-            this.chart3.Size = new System.Drawing.Size(553, 367);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart3.Series.Add(series3);
+            this.chart3.Size = new System.Drawing.Size(560, 364);
             this.chart3.TabIndex = 50;
             this.chart3.Text = "chart3";
             // 
@@ -409,45 +303,129 @@
             this.guna2HtmlLabel1.TabIndex = 0;
             this.guna2HtmlLabel1.Text = "Thống kê chi tiết";
             // 
-            // guna2PictureBox4
+            // panel1
             // 
-            this.guna2PictureBox4.ImageRotate = 0F;
-            this.guna2PictureBox4.Location = new System.Drawing.Point(80, 17);
-            this.guna2PictureBox4.Name = "guna2PictureBox4";
-            this.guna2PictureBox4.Size = new System.Drawing.Size(42, 35);
-            this.guna2PictureBox4.TabIndex = 42;
-            this.guna2PictureBox4.TabStop = false;
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.guna2ShadowPanel3);
+            this.panel1.Controls.Add(this.guna2ShadowPanel1);
+            this.panel1.Controls.Add(this.shadowpnSession);
+            this.panel1.Location = new System.Drawing.Point(51, 98);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1185, 163);
+            this.panel1.TabIndex = 50;
             // 
-            // guna2PictureBox2
+            // guna2ShadowPanel3
             // 
-            this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(76, 17);
-            this.guna2PictureBox2.Name = "guna2PictureBox2";
-            this.guna2PictureBox2.Size = new System.Drawing.Size(42, 35);
-            this.guna2PictureBox2.TabIndex = 42;
-            this.guna2PictureBox2.TabStop = false;
+            this.guna2ShadowPanel3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ShadowPanel3.Controls.Add(this.lbTarget);
+            this.guna2ShadowPanel3.Controls.Add(this.lbgenTarget);
+            this.guna2ShadowPanel3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(244)))), ((int)(((byte)(253)))));
+            this.guna2ShadowPanel3.Location = new System.Drawing.Point(920, 16);
+            this.guna2ShadowPanel3.Name = "guna2ShadowPanel3";
+            this.guna2ShadowPanel3.Radius = 10;
+            this.guna2ShadowPanel3.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(254)))), ((int)(((byte)(248)))));
+            this.guna2ShadowPanel3.Size = new System.Drawing.Size(200, 132);
+            this.guna2ShadowPanel3.TabIndex = 47;
             // 
-            // guna2PictureBox1
+            // lbTarget
             // 
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(76, 17);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(42, 35);
-            this.guna2PictureBox1.TabIndex = 42;
-            this.guna2PictureBox1.TabStop = false;
+            this.lbTarget.AutoSize = true;
+            this.lbTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTarget.Location = new System.Drawing.Point(35, 97);
+            this.lbTarget.Name = "lbTarget";
+            this.lbTarget.Size = new System.Drawing.Size(142, 20);
+            this.lbTarget.TabIndex = 43;
+            this.lbTarget.Text = "Mục tiêu đạt được";
+            // 
+            // lbgenTarget
+            // 
+            this.lbgenTarget.AutoSize = true;
+            this.lbgenTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbgenTarget.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(144)))), ((int)(((byte)(90)))), ((int)(((byte)(182)))));
+            this.lbgenTarget.Location = new System.Drawing.Point(86, 55);
+            this.lbgenTarget.Name = "lbgenTarget";
+            this.lbgenTarget.Size = new System.Drawing.Size(20, 22);
+            this.lbgenTarget.TabIndex = 0;
+            this.lbgenTarget.Text = "#";
+            // 
+            // guna2ShadowPanel1
+            // 
+            this.guna2ShadowPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ShadowPanel1.Controls.Add(this.lbTotalTime);
+            this.guna2ShadowPanel1.Controls.Add(this.label2);
+            this.guna2ShadowPanel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(247)))), ((int)(((byte)(255)))));
+            this.guna2ShadowPanel1.Location = new System.Drawing.Point(483, 16);
+            this.guna2ShadowPanel1.Name = "guna2ShadowPanel1";
+            this.guna2ShadowPanel1.Radius = 10;
+            this.guna2ShadowPanel1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(254)))), ((int)(((byte)(248)))));
+            this.guna2ShadowPanel1.Size = new System.Drawing.Size(200, 132);
+            this.guna2ShadowPanel1.TabIndex = 46;
+            // 
+            // lbTotalTime
+            // 
+            this.lbTotalTime.AutoSize = true;
+            this.lbTotalTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalTime.Location = new System.Drawing.Point(44, 97);
+            this.lbTotalTime.Name = "lbTotalTime";
+            this.lbTotalTime.Size = new System.Drawing.Size(114, 20);
+            this.lbTotalTime.TabIndex = 43;
+            this.lbTotalTime.Text = "Tổng thời gian";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(119)))), ((int)(((byte)(185)))));
+            this.label2.Location = new System.Drawing.Point(72, 55);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 22);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "#";
+            // 
+            // shadowpnSession
+            // 
+            this.shadowpnSession.BackColor = System.Drawing.Color.Transparent;
+            this.shadowpnSession.Controls.Add(this.lbSession);
+            this.shadowpnSession.Controls.Add(this.lbGenSession);
+            this.shadowpnSession.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(244)))), ((int)(((byte)(240)))));
+            this.shadowpnSession.Location = new System.Drawing.Point(65, 16);
+            this.shadowpnSession.Name = "shadowpnSession";
+            this.shadowpnSession.Radius = 10;
+            this.shadowpnSession.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(254)))), ((int)(((byte)(248)))));
+            this.shadowpnSession.Size = new System.Drawing.Size(200, 132);
+            this.shadowpnSession.TabIndex = 45;
+            // 
+            // lbSession
+            // 
+            this.lbSession.AutoSize = true;
+            this.lbSession.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSession.Location = new System.Drawing.Point(51, 97);
+            this.lbSession.Name = "lbSession";
+            this.lbSession.Size = new System.Drawing.Size(110, 20);
+            this.lbSession.TabIndex = 43;
+            this.lbSession.Text = "Tổng buổi tập";
+            // 
+            // lbGenSession
+            // 
+            this.lbGenSession.AutoSize = true;
+            this.lbGenSession.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbGenSession.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(179)))), ((int)(((byte)(130)))));
+            this.lbGenSession.Location = new System.Drawing.Point(85, 55);
+            this.lbGenSession.Name = "lbGenSession";
+            this.lbGenSession.Size = new System.Drawing.Size(20, 22);
+            this.lbGenSession.TabIndex = 0;
+            this.lbGenSession.Text = "#";
             // 
             // ReportForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(254)))), ((int)(((byte)(248)))));
-            this.ClientSize = new System.Drawing.Size(1390, 751);
+            this.ClientSize = new System.Drawing.Size(1286, 751);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.shadowpnAchivement);
             this.Controls.Add(this.guna2ShadowPanel5);
             this.Controls.Add(this.guna2ShadowPanel4);
-            this.Controls.Add(this.guna2ShadowPanel3);
-            this.Controls.Add(this.guna2ShadowPanel1);
-            this.Controls.Add(this.shadowpnSession);
             this.Controls.Add(this.btnExportEX);
             this.Controls.Add(this.pnGropress);
             this.Controls.Add(this.lbTitle);
@@ -455,12 +433,6 @@
             this.Text = "ReportForm";
             this.pnGropress.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
-            this.shadowpnSession.ResumeLayout(false);
-            this.shadowpnSession.PerformLayout();
-            this.guna2ShadowPanel1.ResumeLayout(false);
-            this.guna2ShadowPanel1.PerformLayout();
-            this.guna2ShadowPanel3.ResumeLayout(false);
-            this.guna2ShadowPanel3.PerformLayout();
             this.guna2ShadowPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.guna2ShadowPanel5.ResumeLayout(false);
@@ -473,9 +445,13 @@
             this.pnAchivemented3.PerformLayout();
             this.pnAchivemented1.ResumeLayout(false);
             this.pnAchivemented1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.guna2ShadowPanel3.ResumeLayout(false);
+            this.guna2ShadowPanel3.PerformLayout();
+            this.guna2ShadowPanel1.ResumeLayout(false);
+            this.guna2ShadowPanel1.PerformLayout();
+            this.shadowpnSession.ResumeLayout(false);
+            this.shadowpnSession.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -486,18 +462,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lbTitle;
         private Guna.UI2.WinForms.Guna2ShadowPanel pnGropress;
         private Guna.UI2.WinForms.Guna2GradientButton btnExportEX;
-        private Guna.UI2.WinForms.Guna2ShadowPanel shadowpnSession;
-        private System.Windows.Forms.Label lbSession;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
-        private System.Windows.Forms.Label lbGenSession;
-        private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel1;
-        private System.Windows.Forms.Label lbTotalTime;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
-        private System.Windows.Forms.Label label2;
-        private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel3;
-        private System.Windows.Forms.Label lbTarget;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
-        private System.Windows.Forms.Label lbgenTarget;
         private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel4;
         private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel5;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
@@ -514,5 +478,15 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.Panel panel1;
+        private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel3;
+        private System.Windows.Forms.Label lbTarget;
+        private System.Windows.Forms.Label lbgenTarget;
+        private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel1;
+        private System.Windows.Forms.Label lbTotalTime;
+        private System.Windows.Forms.Label label2;
+        private Guna.UI2.WinForms.Guna2ShadowPanel shadowpnSession;
+        private System.Windows.Forms.Label lbSession;
+        private System.Windows.Forms.Label lbGenSession;
     }
 }

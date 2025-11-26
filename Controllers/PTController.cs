@@ -1,11 +1,10 @@
-extern alias ef6;
-
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using ef6::System.Data.Entity;
+using System.Linq;
 using HealthApp.Models;
 using HealthApp.Services;
 using HealthApp.Services.Interfaces;
@@ -226,6 +225,39 @@ namespace HealthApp.Controllers
         public Task<bool> IsCCCDAlreadyUsedAsync(string soCCCD)
         {
             return _ptService.IsCCCDRegisteredAsync(soCCCD);
+        }
+
+        /// <summary>
+        /// Lấy danh sách lịch đặt đã Confirmed của PT hiện tại trong một ngày (theo CurrentUser)
+        /// </summary>
+        public async Task<IList<DatLichPT>> GetBookingsForCurrentPTOnDateAsync(DateTime date)
+        {
+           if (!Common.Helpers.CurrentUser.IsLoggedIn || Common.Helpers.CurrentUser.User == null)
+           {
+               return new DatLichPT[0];
+           }
+
+           var userId = Common.Helpers.CurrentUser.UserID;
+
+           // Tìm PT tương ứng với user hiện tại
+           HuanLuyenVien pt = null;
+           try
+           {
+               // Sử dụng LINQ đồng bộ để tránh phụ thuộc FirstOrDefaultAsync
+               pt = _dbContext.HuanLuyenVien
+                   .FirstOrDefault(h => h.UserID == userId);
+           }
+           catch
+           {
+               return new DatLichPT[0];
+           }
+
+           if (pt == null || string.IsNullOrWhiteSpace(pt.PTID))
+           {
+               return new DatLichPT[0];
+           }
+
+           return await _ptService.GetConfirmedBookingsForPTOnDateAsync(pt.PTID, date);
         }
     }
 }

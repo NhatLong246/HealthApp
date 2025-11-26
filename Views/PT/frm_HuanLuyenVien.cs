@@ -34,6 +34,9 @@ namespace HealthApp.Views.PT
             InitializeEventHandlers();
             LoadData();
             StartAutoRefresh();
+
+            // Đảm bảo panel thao tác nhanh hiển thị trên cùng
+            pnThaoTacNhanh.BringToFront();
         }
 
         private void InitializeEventHandlers()
@@ -41,6 +44,7 @@ namespace HealthApp.Views.PT
             btnBack.Click += BtnBack_Click;
             btnDongY.Click += BtnDongY_Click;
             btnXoa.Click += BtnXoa_Click;
+            btnGiaoBT.Click += BtnGiaoBT_Click;
         }
 
         private async void LoadData()
@@ -765,6 +769,23 @@ namespace HealthApp.Views.PT
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi quay lại: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnGiaoBT_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var frm = new GiaoBTChoUser())
+                {
+                    frm.StartPosition = FormStartPosition.CenterParent;
+                    frm.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở màn hình giao bài tập: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
