@@ -3,6 +3,7 @@ extern alias ef6;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ef6::System.Data.Entity;
 using HealthApp.Models;
@@ -53,12 +54,33 @@ namespace HealthApp.Controllers
                     };
                 }
 
+                var normalizedCCCD = soCCCD.Trim();
+                if (!Regex.IsMatch(normalizedCCCD, @"^\d{12}$"))
+                {
+                    return new PTRegistrationResult
+                    {
+                        Success = false,
+                        Message = "Số CCCD phải gồm đúng 12 chữ số!"
+                    };
+                }
+
                 if (string.IsNullOrWhiteSpace(noiCap))
                 {
                     return new PTRegistrationResult
                     {
                         Success = false,
                         Message = "Vui lòng nhập nơi cấp CCCD!"
+                    };
+                }
+
+                // Kiểm tra số CCCD đã được sử dụng chưa
+                var isCCCDUsed = await _ptService.IsCCCDRegisteredAsync(normalizedCCCD);
+                if (isCCCDUsed)
+                {
+                    return new PTRegistrationResult
+                    {
+                        Success = false,
+                        Message = "Số CCCD này đã được sử dụng để đăng ký PT trước đó!"
                     };
                 }
 
@@ -126,7 +148,7 @@ namespace HealthApp.Controllers
                     GiaTheoGio = giaTheoGio,
                     ThanhPho = thanhPho,
                     // Lưu thông tin CCCD vào TieuSu dưới dạng JSON
-                    TieuSu = $"{{\"SoCCCD\":\"{soCCCD}\",\"NoiCap\":\"{noiCap}\",\"NgayCap\":\"{ngayCap:yyyy-MM-dd}\"}}"
+                    TieuSu = $"{{\"SoCCCD\":\"{normalizedCCCD}\",\"NoiCap\":\"{noiCap}\",\"NgayCap\":\"{ngayCap:yyyy-MM-dd}\"}}"
                 };
 
                 // Gọi service để đăng ký
@@ -196,6 +218,14 @@ namespace HealthApp.Controllers
         public void Dispose()
         {
             _dbContext?.Dispose();
+        }
+
+        /// <summary>
+        /// Kiểm tra số CCCD đã được sử dụng để đăng ký PT hay chưa
+        /// </summary>
+        public Task<bool> IsCCCDAlreadyUsedAsync(string soCCCD)
+        {
+            return _ptService.IsCCCDRegisteredAsync(soCCCD);
         }
     }
 }

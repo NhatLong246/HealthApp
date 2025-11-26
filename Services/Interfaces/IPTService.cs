@@ -22,6 +22,11 @@ namespace HealthApp.Services.Interfaces
         Task<bool> IsPTRegisteredAsync(string userId);
 
         /// <summary>
+        /// Kiểm tra số CCCD đã được sử dụng để đăng ký PT chưa
+        /// </summary>
+        Task<bool> IsCCCDRegisteredAsync(string soCCCD);
+
+        /// <summary>
         /// Tạo PTID mới
         /// </summary>
         Task<string> GeneratePTIDAsync();

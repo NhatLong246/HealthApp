@@ -154,6 +154,26 @@ namespace HealthApp.Controllers
         }
 
         /// <summary>
+        /// Lấy toàn bộ món ăn với đầy đủ thông tin (dùng cho UI cache)
+        /// </summary>
+        public List<ThuVienMonAn> GetAllFoods()
+        {
+            try
+            {
+                return _dbContext.ThuVienMonAn
+                    .OrderBy(m => m.TenMonAn)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetAllFoods error: {ex.Message}");
+                if (ex.InnerException != null)
+                    System.Diagnostics.Debug.WriteLine($"Inner: {ex.InnerException.Message}");
+                throw new Exception($"Lỗi khi tải danh sách món ăn: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
         /// Tìm món ăn trong thư viện (chỉ lấy các cột cần thiết)
         /// </summary>
         public List<FoodListItem> SearchFoodList(string keyword)

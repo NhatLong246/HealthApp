@@ -78,48 +78,6 @@ namespace HealthApp.Models
                 .Property(e => e.NguoiNhanID)
                 .IsUnicode(false);
 
-            // Map BuaAnChiTiet vào table NhatKyDinhDuong
-            modelBuilder.Entity<BuaAnChiTiet>()
-                .ToTable("NhatKyDinhDuong") // Đảm bảo map đúng table name
-                .HasKey(e => e.BuaAnID)
-                .Property(e => e.BuaAnID)
-                .HasColumnName("DinhDuongID")
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BuaAnChiTiet>()
-                .Property(e => e.KeHoachAnID)
-                .HasColumnName("UserID")
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BuaAnChiTiet>()
-                .Property(e => e.MonAnID)
-                .HasColumnName("MonAnID")
-                .IsUnicode(false);
-            
-            modelBuilder.Entity<BuaAnChiTiet>()
-                .Property(e => e.NgayAn)
-                .HasColumnName("NgayGhiLog");
-            
-            modelBuilder.Entity<BuaAnChiTiet>()
-                .Property(e => e.KhoiLuongChuan)
-                .HasColumnName("LuongThucAn");
-            
-            modelBuilder.Entity<BuaAnChiTiet>()
-                .Property(e => e.GhiChu)
-                .HasColumnName("GhiChu");
-            
-            // Ignore các property [NotMapped] và navigation properties
-            modelBuilder.Entity<BuaAnChiTiet>()
-                .Ignore(e => e.LoaiBuaAn)
-                .Ignore(e => e.TenMonAn)
-                .Ignore(e => e.Donvi)
-                .Ignore(e => e.Calories)
-                .Ignore(e => e.Protein)
-                .Ignore(e => e.Carbs)
-                .Ignore(e => e.Fat)
-                .Ignore(e => e.Fiber)
-                .Ignore(e => e.NgayCapNhat);
-
             modelBuilder.Entity<BuoiTap>()
                 .Property(e => e.BuoiTapID)
                 .IsUnicode(false);
@@ -348,40 +306,10 @@ namespace HealthApp.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ThuVienMonAn>()
-                .ToTable("DinhDuongMonAn") // Đảm bảo map đúng table name
+                .ToTable("ThuVienMonAn")
                 .HasKey(e => e.MonAnID)
                 .Property(e => e.MonAnID)
-                .HasColumnName("MonAnID")
                 .IsUnicode(false);
-            
-            // Map tất cả các property đúng với column names trong database
-            modelBuilder.Entity<ThuVienMonAn>()
-                .Property(e => e.TenMonAn)
-                .HasColumnName("TenMonAn");
-            
-            modelBuilder.Entity<ThuVienMonAn>()
-                .Property(e => e.Donvi)
-                .HasColumnName("DonViTinh");
-            
-            modelBuilder.Entity<ThuVienMonAn>()
-                .Property(e => e.imageURL)
-                .HasColumnName("HinhAnh");
-            
-            modelBuilder.Entity<ThuVienMonAn>()
-                .Property(e => e.Calories)
-                .HasColumnName("LuongCalo");
-            
-            modelBuilder.Entity<ThuVienMonAn>()
-                .Property(e => e.Protein)
-                .HasColumnName("Protein");
-            
-            modelBuilder.Entity<ThuVienMonAn>()
-                .Property(e => e.Fat)
-                .HasColumnName("ChatBeo");
-            
-            modelBuilder.Entity<ThuVienMonAn>()
-                .Property(e => e.Carbs)
-                .HasColumnName("Carbohydrate");
 
             modelBuilder.Entity<Users>()
                 .Property(e => e.UserID)

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HealthApp.Controllers;
 using HealthApp.Common.Helpers;
+using System.Text.RegularExpressions;
 
 namespace HealthApp.Views.PT
 {
@@ -20,6 +21,7 @@ namespace HealthApp.Views.PT
         private string _anhChanDungPath;
         private string _anhCCCDPath;
         private string _bangCapPath;
+        private DateTime? _minNgayCapCccd;
 
         public frm_DangKy(HealthApp.Views.Dashboard.frmDashBoard parentDashboard = null)
         {
@@ -126,6 +128,25 @@ namespace HealthApp.Views.PT
                 if (user.NgaySinh.HasValue)
                 {
                     guna2DateTimePicker1.Value = user.NgaySinh.Value;
+                    var minDate = user.NgaySinh.Value.AddYears(14);
+                    _minNgayCapCccd = minDate;
+                    dtp_NgayCap.MinDate = minDate > dtp_NgayCap.MinDate ? minDate : dtp_NgayCap.MinDate;
+                    dtp_NgayCap.MaxDate = DateTime.Today;
+
+                    if (minDate > DateTime.Today)
+                    {
+                        MessageBox.Show("Bạn chưa đủ 14 tuổi để được cấp CCCD, nên không thể đăng ký làm PT.", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        btn_GuiDonDangKy.Enabled = false;
+                    }
+                    else if (dtp_NgayCap.Value < minDate)
+                    {
+                        dtp_NgayCap.Value = minDate;
+                    }
+                }
+                else
+                {
+                    dtp_NgayCap.MaxDate = DateTime.Today;
                 }
                 guna2DateTimePicker1.Enabled = false;
                 guna2DateTimePicker1.FillColor = Color.LightGray;
@@ -224,9 +245,20 @@ namespace HealthApp.Views.PT
                 btn_GuiDonDangKy.Text = "Đang xử lý...";
 
                 // Validation
-                if (string.IsNullOrWhiteSpace(txt_SoCCCD.Text))
+                var soCCCDInput = txt_SoCCCD.Text?.Trim();
+
+                if (string.IsNullOrWhiteSpace(soCCCDInput))
                 {
                     MessageBox.Show("Vui lòng nhập số CCCD!", "Thông báo", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btn_GuiDonDangKy.Enabled = true;
+                    btn_GuiDonDangKy.Text = "Gửi Đơn Đăng Ký";
+                    return;
+                }
+
+                if (!Regex.IsMatch(soCCCDInput, @"^\d{12}$"))
+                {
+                    MessageBox.Show("Số CCCD phải gồm đúng 12 chữ số!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btn_GuiDonDangKy.Enabled = true;
                     btn_GuiDonDangKy.Text = "Gửi Đơn Đăng Ký";
@@ -236,6 +268,16 @@ namespace HealthApp.Views.PT
                 if (string.IsNullOrWhiteSpace(txt_NoiCap.Text))
                 {
                     MessageBox.Show("Vui lòng nhập nơi cấp CCCD!", "Thông báo", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btn_GuiDonDangKy.Enabled = true;
+                    btn_GuiDonDangKy.Text = "Gửi Đơn Đăng Ký";
+                    return;
+                }
+
+                var cccdAlreadyUsed = await _ptController.IsCCCDAlreadyUsedAsync(soCCCDInput);
+                if (cccdAlreadyUsed)
+                {
+                    MessageBox.Show("Số CCCD này đã được sử dụng để đăng ký PT!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btn_GuiDonDangKy.Enabled = true;
                     btn_GuiDonDangKy.Text = "Gửi Đơn Đăng Ký";
@@ -341,8 +383,17 @@ namespace HealthApp.Views.PT
                 }
 
                 // Gọi controller để đăng ký
+                if (_minNgayCapCccd.HasValue && dtp_NgayCap.Value.Date < _minNgayCapCccd.Value.Date)
+                {
+                    MessageBox.Show($"Ngày cấp CCCD không hợp lệ. CCCD chỉ hợp lệ từ ngày {_minNgayCapCccd.Value:dd/MM/yyyy} (sau 14 tuổi).", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btn_GuiDonDangKy.Enabled = true;
+                    btn_GuiDonDangKy.Text = "Gửi Đơn Đăng Ký";
+                    return;
+                }
+
                 var result = await _ptController.RegisterPTAsync(
-                    txt_SoCCCD.Text.Trim(),
+                    soCCCDInput,
                     txt_NoiCap.Text.Trim(),
                     dtp_NgayCap.Value,
                     savedAnhChanDung,
