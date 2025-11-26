@@ -672,7 +672,7 @@
             // 
             this.guna2PictureBox6.Image = global::HealthApp.Properties.Resources.ArrowRightIcon;
             this.guna2PictureBox6.ImageRotate = 0F;
-            this.guna2PictureBox6.Location = new System.Drawing.Point(30, 476);
+            this.guna2PictureBox6.Location = new System.Drawing.Point(31, 499);
             this.guna2PictureBox6.Name = "guna2PictureBox6";
             this.guna2PictureBox6.Size = new System.Drawing.Size(24, 27);
             this.guna2PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -683,7 +683,7 @@
             // 
             this.guna2PictureBox5.Image = global::HealthApp.Properties.Resources.DataIcon;
             this.guna2PictureBox5.ImageRotate = 0F;
-            this.guna2PictureBox5.Location = new System.Drawing.Point(30, 423);
+            this.guna2PictureBox5.Location = new System.Drawing.Point(31, 440);
             this.guna2PictureBox5.Name = "guna2PictureBox5";
             this.guna2PictureBox5.Size = new System.Drawing.Size(24, 27);
             this.guna2PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -694,7 +694,7 @@
             // 
             this.guna2PictureBox4.Image = global::HealthApp.Properties.Resources.ChangeICon;
             this.guna2PictureBox4.ImageRotate = 0F;
-            this.guna2PictureBox4.Location = new System.Drawing.Point(30, 363);
+            this.guna2PictureBox4.Location = new System.Drawing.Point(31, 386);
             this.guna2PictureBox4.Name = "guna2PictureBox4";
             this.guna2PictureBox4.Size = new System.Drawing.Size(24, 27);
             this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -705,7 +705,7 @@
             // 
             this.guna2PictureBox2.Image = global::HealthApp.Properties.Resources.QuestionIcon;
             this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(29, 312);
+            this.guna2PictureBox2.Location = new System.Drawing.Point(31, 322);
             this.guna2PictureBox2.Name = "guna2PictureBox2";
             this.guna2PictureBox2.Size = new System.Drawing.Size(24, 27);
             this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -716,7 +716,7 @@
             // 
             this.guna2PictureBox3.Image = global::HealthApp.Properties.Resources.RulerIcon;
             this.guna2PictureBox3.ImageRotate = 0F;
-            this.guna2PictureBox3.Location = new System.Drawing.Point(30, 256);
+            this.guna2PictureBox3.Location = new System.Drawing.Point(31, 266);
             this.guna2PictureBox3.Name = "guna2PictureBox3";
             this.guna2PictureBox3.Size = new System.Drawing.Size(24, 27);
             this.guna2PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;

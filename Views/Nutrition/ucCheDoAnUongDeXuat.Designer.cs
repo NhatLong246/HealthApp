@@ -67,9 +67,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblHienThiMucTieu = new System.Windows.Forms.Label();
             this.lblMucTieu = new System.Windows.Forms.Label();
             this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.lblHienThiMucTieu = new System.Windows.Forms.Label();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.guna2PictureBox5 = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -381,7 +381,7 @@
             // 
             this.lblChisoChatbeo.AutoSize = true;
             this.lblChisoChatbeo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChisoChatbeo.Location = new System.Drawing.Point(101, 106);
+            this.lblChisoChatbeo.Location = new System.Drawing.Point(83, 106);
             this.lblChisoChatbeo.Name = "lblChisoChatbeo";
             this.lblChisoChatbeo.Size = new System.Drawing.Size(24, 28);
             this.lblChisoChatbeo.TabIndex = 5;
@@ -415,7 +415,7 @@
             // 
             this.lblChisoCarbs.AutoSize = true;
             this.lblChisoCarbs.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChisoCarbs.Location = new System.Drawing.Point(102, 106);
+            this.lblChisoCarbs.Location = new System.Drawing.Point(86, 106);
             this.lblChisoCarbs.Name = "lblChisoCarbs";
             this.lblChisoCarbs.Size = new System.Drawing.Size(24, 28);
             this.lblChisoCarbs.TabIndex = 4;
@@ -449,7 +449,7 @@
             // 
             this.lblChisoProtein.AutoSize = true;
             this.lblChisoProtein.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChisoProtein.Location = new System.Drawing.Point(106, 106);
+            this.lblChisoProtein.Location = new System.Drawing.Point(90, 106);
             this.lblChisoProtein.Name = "lblChisoProtein";
             this.lblChisoProtein.Size = new System.Drawing.Size(24, 28);
             this.lblChisoProtein.TabIndex = 3;
@@ -494,7 +494,7 @@
             // 
             this.lblChisoCalo.AutoSize = true;
             this.lblChisoCalo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChisoCalo.Location = new System.Drawing.Point(100, 106);
+            this.lblChisoCalo.Location = new System.Drawing.Point(82, 106);
             this.lblChisoCalo.Name = "lblChisoCalo";
             this.lblChisoCalo.Size = new System.Drawing.Size(24, 28);
             this.lblChisoCalo.TabIndex = 2;
@@ -715,6 +715,17 @@
             this.guna2Panel1.Size = new System.Drawing.Size(354, 118);
             this.guna2Panel1.TabIndex = 15;
             // 
+            // lblHienThiMucTieu
+            // 
+            this.lblHienThiMucTieu.AutoSize = true;
+            this.lblHienThiMucTieu.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHienThiMucTieu.Location = new System.Drawing.Point(10, 46);
+            this.lblHienThiMucTieu.Name = "lblHienThiMucTieu";
+            this.lblHienThiMucTieu.Size = new System.Drawing.Size(140, 23);
+            this.lblHienThiMucTieu.TabIndex = 3;
+            this.lblHienThiMucTieu.Text = "hiển thị mục tiêu";
+            this.lblHienThiMucTieu.Click += new System.EventHandler(this.label5_Click);
+            // 
             // lblMucTieu
             // 
             this.lblMucTieu.AutoSize = true;
@@ -736,17 +747,6 @@
             this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.guna2PictureBox4.TabIndex = 2;
             this.guna2PictureBox4.TabStop = false;
-            // 
-            // lblHienThiMucTieu
-            // 
-            this.lblHienThiMucTieu.AutoSize = true;
-            this.lblHienThiMucTieu.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHienThiMucTieu.Location = new System.Drawing.Point(10, 46);
-            this.lblHienThiMucTieu.Name = "lblHienThiMucTieu";
-            this.lblHienThiMucTieu.Size = new System.Drawing.Size(140, 23);
-            this.lblHienThiMucTieu.TabIndex = 3;
-            this.lblHienThiMucTieu.Text = "hiển thị mục tiêu";
-            this.lblHienThiMucTieu.Click += new System.EventHandler(this.label5_Click);
             // 
             // guna2Panel2
             // 

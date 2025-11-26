@@ -31,6 +31,8 @@ namespace HealthApp.Views.MucTieu
         private Dictionary<string, WeeklySchedule> _weeklySchedules = new Dictionary<string, WeeklySchedule>(); // Lịch tập theo thứ
         private List<ThuVienMonAn> _selectedFoods = new List<ThuVienMonAn>(); // Danh sách món ăn đã chọn
         private ThuVienMonAn _currentSelectedFood = null; // Món ăn đang được chọn để xem chi tiết
+        private List<ThuVienMonAn> _foodLibraryCache = new List<ThuVienMonAn>(); // Cache toàn bộ thư viện món ăn
+        private bool _suppressFoodSelectionChanged = false;
 
         public ucMucTieu()
         {
@@ -58,7 +60,7 @@ namespace HealthApp.Views.MucTieu
             LoadCalendar();
 
             // Load danh sách món ăn
-            LoadFoodList();
+            LoadFoodList(forceReload: true);
 
             // Đăng ký event handlers
             RegisterEventHandlers();
@@ -1055,7 +1057,7 @@ namespace HealthApp.Views.MucTieu
             ResetGoalPanels();
             LoadCalendar();
             LoadExercises();
-            LoadFoodList();
+            LoadFoodList(forceReload: true);
             UpdateSelectedFoodsGrid();
             ClearFoodDetails();
         }
@@ -1065,20 +1067,26 @@ namespace HealthApp.Views.MucTieu
         /// <summary>
         /// Load danh sách món ăn vào DataGridView
         /// </summary>
-        private void LoadFoodList()
+        private void LoadFoodList(string keyword = null, bool forceReload = false)
         {
             try
             {
-                // Lấy tất cả món ăn từ database (chỉ các cột cần thiết)
-                List<FoodListItem> allFoods = _nutritionController.GetAllFoodsList();
-
-                if (allFoods == null || allFoods.Count == 0)
+                if (forceReload || _foodLibraryCache == null || _foodLibraryCache.Count == 0)
                 {
-                    dgvDanhSachMonAn.DataSource = null;
-                    dgvDanhSachMonAn.Rows.Clear();
-                    MessageBox.Show("Không tìm thấy món ăn nào trong thư viện.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
+                    _foodLibraryCache = _nutritionController.GetAllFoods();
                 }
+
+                IEnumerable<ThuVienMonAn> filteredFoods = _foodLibraryCache;
+
+                if (!string.IsNullOrWhiteSpace(keyword))
+                {
+                    string lowerKeyword = keyword.Trim().ToLower();
+                    filteredFoods = filteredFoods.Where(food =>
+                        (!string.IsNullOrWhiteSpace(food.TenMonAn) && food.TenMonAn.ToLower().Contains(lowerKeyword)) ||
+                        (!string.IsNullOrWhiteSpace(food.Loai) && food.Loai.ToLower().Contains(lowerKeyword)));
+                }
+
+                var filteredList = filteredFoods.ToList();
 
                 // Tạo DataTable chỉ với 3 cột: Tên món, Loại, Đơn vị (và MonAnID ẩn)
                 DataTable dt = new DataTable();
@@ -1087,19 +1095,20 @@ namespace HealthApp.Views.MucTieu
                 dt.Columns.Add("Loai", typeof(string));
                 dt.Columns.Add("Donvi", typeof(string));
 
-                // Điền dữ liệu
-                foreach (var food in allFoods)
+                foreach (var food in filteredList)
                 {
                     DataRow row = dt.NewRow();
                     row["MonAnID"] = food.MonAnID ?? "";
                     row["TenMonAn"] = food.TenMonAn ?? "";
-                    row["Loai"] = food.Loai ?? "";
-                    row["Donvi"] = food.Donvi ?? "";
+                    row["Loai"] = string.IsNullOrWhiteSpace(food.Loai) ? "Khác" : food.Loai;
+                    row["Donvi"] = string.IsNullOrWhiteSpace(food.Donvi) ? "g" : food.Donvi;
                     dt.Rows.Add(row);
                 }
 
-                // Bind vào DataGridView
+                _suppressFoodSelectionChanged = true;
+                dgvDanhSachMonAn.AutoGenerateColumns = true;
                 dgvDanhSachMonAn.DataSource = dt;
+                dgvDanhSachMonAn.Refresh();
 
                 // Cấu hình columns
                 if (dgvDanhSachMonAn.Columns.Count > 0)
@@ -1131,15 +1140,30 @@ namespace HealthApp.Views.MucTieu
                 dgvDanhSachMonAn.MultiSelect = false;
                 dgvDanhSachMonAn.ReadOnly = true;
                 dgvDanhSachMonAn.ClearSelection();
+
+                _suppressFoodSelectionChanged = false;
+
+                if (filteredList.Count > 0)
+                {
+                    dgvDanhSachMonAn.Rows[0].Selected = true;
+                    DisplayFoodDetails(filteredList[0]);
+                }
+                else
+                {
+                    ClearFoodDetails();
+                }
                 
-                System.Diagnostics.Debug.WriteLine($"LoadFoodList: Loaded {allFoods.Count} foods");
+                System.Diagnostics.Debug.WriteLine($"LoadFoodList: Loaded {filteredList.Count} foods (keyword='{keyword}')");
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"LoadFoodList error: {ex.Message}");
                 if (ex.InnerException != null)
                     System.Diagnostics.Debug.WriteLine($"Inner: {ex.InnerException.Message}");
-                MessageBox.Show($"Lỗi khi tải danh sách món ăn: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _suppressFoodSelectionChanged = false;
+                dgvDanhSachMonAn.DataSource = null;
+                dgvDanhSachMonAn.Rows.Clear();
+                ClearFoodDetails();
             }
         }
 
@@ -1150,73 +1174,8 @@ namespace HealthApp.Views.MucTieu
         {
             try
             {
-                string keyword = txtTimMonAn.Text?.Trim() ?? "";
-
-                if (string.IsNullOrWhiteSpace(keyword))
-                {
-                    // Nếu rỗng, load tất cả
-                    LoadFoodList();
-                    return;
-                }
-
-                // Tìm kiếm món ăn (chỉ lấy các cột cần thiết)
-                var foods = _nutritionController.SearchFoodList(keyword);
-
-                if (foods == null || foods.Count == 0)
-                {
-                    dgvDanhSachMonAn.DataSource = null;
-                    dgvDanhSachMonAn.Rows.Clear();
-                    return;
-                }
-
-                // Tạo DataTable chỉ với 3 cột: Tên món, Loại, Đơn vị (và MonAnID ẩn)
-                DataTable dt = new DataTable();
-                dt.Columns.Add("MonAnID", typeof(string)); // Ẩn, dùng để lấy chi tiết sau
-                dt.Columns.Add("TenMonAn", typeof(string));
-                dt.Columns.Add("Loai", typeof(string));
-                dt.Columns.Add("Donvi", typeof(string));
-
-                // Điền dữ liệu
-                foreach (var food in foods)
-                {
-                    DataRow row = dt.NewRow();
-                    row["MonAnID"] = food.MonAnID ?? "";
-                    row["TenMonAn"] = food.TenMonAn ?? "";
-                    row["Loai"] = food.Loai ?? "";
-                    row["Donvi"] = food.Donvi ?? "";
-                    dt.Rows.Add(row);
-                }
-
-                // Bind vào DataGridView
-                dgvDanhSachMonAn.DataSource = dt;
-
-                // Cấu hình columns (giống LoadFoodList)
-                if (dgvDanhSachMonAn.Columns.Count > 0)
-                {
-                    if (dgvDanhSachMonAn.Columns["MonAnID"] != null)
-                        dgvDanhSachMonAn.Columns["MonAnID"].Visible = false;
-
-                    if (dgvDanhSachMonAn.Columns["TenMonAn"] != null)
-                    {
-                        dgvDanhSachMonAn.Columns["TenMonAn"].HeaderText = "Tên món ăn";
-                        dgvDanhSachMonAn.Columns["TenMonAn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    }
-
-                    if (dgvDanhSachMonAn.Columns["Loai"] != null)
-                    {
-                        dgvDanhSachMonAn.Columns["Loai"].HeaderText = "Loại";
-                        dgvDanhSachMonAn.Columns["Loai"].Width = 150;
-                    }
-
-                    if (dgvDanhSachMonAn.Columns["Donvi"] != null)
-                    {
-                        dgvDanhSachMonAn.Columns["Donvi"].HeaderText = "Đơn vị";
-                        dgvDanhSachMonAn.Columns["Donvi"].Width = 100;
-                        dgvDanhSachMonAn.Columns["Donvi"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    }
-                }
-
-                dgvDanhSachMonAn.ClearSelection();
+                string keyword = txtTimMonAn.Text?.Trim();
+                LoadFoodList(keyword: keyword);
             }
             catch (Exception ex)
             {
@@ -1229,6 +1188,9 @@ namespace HealthApp.Views.MucTieu
         /// </summary>
         private void DgvDanhSachMonAn_SelectionChanged(object sender, EventArgs e)
         {
+            if (_suppressFoodSelectionChanged)
+                return;
+
             if (dgvDanhSachMonAn.SelectedRows.Count == 0 || dgvDanhSachMonAn.DataSource == null)
             {
                 ClearFoodDetails();
@@ -1258,7 +1220,8 @@ namespace HealthApp.Views.MucTieu
                     return;
 
                 // Lấy thông tin món ăn
-                var food = _nutritionController.GetFoodById(monAnId);
+                var food = _foodLibraryCache?.FirstOrDefault(f => f.MonAnID == monAnId) 
+                           ?? _nutritionController.GetFoodById(monAnId);
                 if (food == null)
                     return;
 
@@ -1303,7 +1266,8 @@ namespace HealthApp.Views.MucTieu
                     return;
 
                 // Lấy thông tin món ăn
-                var food = _nutritionController.GetFoodById(monAnId);
+                var food = _foodLibraryCache?.FirstOrDefault(f => f.MonAnID == monAnId)
+                           ?? _nutritionController.GetFoodById(monAnId);
                 if (food == null)
                     return;
 
@@ -1347,16 +1311,31 @@ namespace HealthApp.Views.MucTieu
             lblLoai.Text = food.Loai ?? "N/A";
 
             // Load ảnh nếu có
+            picMonAn.Image = null;
             if (!string.IsNullOrWhiteSpace(food.imageURL))
             {
                 try
                 {
-                    // Có thể load ảnh từ URL hoặc path
-                    // picMonAn.ImageLocation = food.imageURL;
+                    if (Uri.IsWellFormedUriString(food.imageURL, UriKind.Absolute))
+                    {
+                        picMonAn.LoadAsync(food.imageURL);
+                    }
+                    else
+                    {
+                        string resolvedPath = ResolveFoodImagePath(food.imageURL);
+                        if (!string.IsNullOrWhiteSpace(resolvedPath) && File.Exists(resolvedPath))
+                        {
+                            using (var img = Image.FromFile(resolvedPath))
+                            {
+                                picMonAn.Image = new Bitmap(img);
+                            }
+                        }
+                    }
                 }
-                catch
+                catch (Exception imgEx)
                 {
-                    // Ignore image loading errors
+                    System.Diagnostics.Debug.WriteLine($"DisplayFoodDetails image error: {imgEx.Message}");
+                    picMonAn.Image = null;
                 }
             }
         }
@@ -1372,7 +1351,38 @@ namespace HealthApp.Views.MucTieu
             lblFat.Text = "0";
             lblChatXo.Text = "0";
             lblLoai.Text = "N/A";
+            picMonAn.Image = null;
             _currentSelectedFood = null;
+        }
+
+        private string ResolveFoodImagePath(string rawPath)
+        {
+            if (string.IsNullOrWhiteSpace(rawPath))
+                return null;
+
+            try
+            {
+                string normalized = rawPath.Replace("/", "\\").Trim('\\');
+                if (Path.IsPathRooted(normalized) && File.Exists(normalized))
+                {
+                    return normalized;
+                }
+
+                string baseDir = Application.StartupPath;
+                string directPath = Path.Combine(baseDir, normalized);
+                if (File.Exists(directPath))
+                    return directPath;
+
+                string resourcesPath = Path.Combine(baseDir, "Resources", normalized);
+                if (File.Exists(resourcesPath))
+                    return resourcesPath;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"ResolveFoodImagePath error: {ex.Message}");
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -1494,7 +1504,7 @@ namespace HealthApp.Views.MucTieu
             // Load danh sách món ăn nếu chưa load
             if (dgvDanhSachMonAn.DataSource == null)
             {
-                LoadFoodList();
+                LoadFoodList(forceReload: true);
             }
         }
 
