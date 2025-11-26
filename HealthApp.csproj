@@ -296,12 +296,6 @@
     <Compile Include="Views\Nutrition\ucCheDoAnUongDeXuat.Designer.cs">
       <DependentUpon>ucCheDoAnUongDeXuat.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Nutrition\ucMonAnDeXuat.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Nutrition\ucMonAnDeXuat.Designer.cs">
-      <DependentUpon>ucMonAnDeXuat.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Reports\ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -398,12 +392,6 @@
     <Compile Include="Views\Nutrition\ucMonAnDaThemItem.Designer.cs">
       <DependentUpon>ucMonAnDaThemItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Nutrition\ucNutrition.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Nutrition\ucNutrition.Designer.cs">
-      <DependentUpon>ucNutrition.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -461,9 +449,6 @@
     <EmbeddedResource Include="Views\Nutrition\ucCheDoAnUongDeXuat.resx">
       <DependentUpon>ucCheDoAnUongDeXuat.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Nutrition\ucMonAnDeXuat.resx">
-      <DependentUpon>ucMonAnDeXuat.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Reports\ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -511,9 +496,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ucMonAnDaThemItem.resx">
       <DependentUpon>ucMonAnDaThemItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Nutrition\ucNutrition.resx">
-      <DependentUpon>ucNutrition.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Assets\.gitkeep" />
     <None Include="Assets\Reports\.gitkeep" />
@@ -988,6 +970,9 @@
     <Content Include="packages\System.ValueTuple.4.5.0\version.txt" />
     <None Include="Resources\Icons\icons-meal.png" />
     <None Include="Resources\icons-kcal.png" />
+    <None Include="Resources\backIcon.png" />
+    <None Include="Resources\AfterIcon.png" />
+    <None Include="Resources\BackbtnIcon.png" />
     <Content Include="Resources\Icons\AchivementIcon.png" />
     <Content Include="Resources\Icons\CommunityIcon.png" />
     <Content Include="Resources\Icons\folowIcon.png" />

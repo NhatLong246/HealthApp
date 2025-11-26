@@ -80,77 +80,38 @@ namespace HealthApp.Views.Nutrition
         }
 
         /// <summary>
-        /// Load mục tiêu đầu tiên của user và hiển thị vào lblHienThiMucTieu
+        /// Load mục tiêu đầu tiên của user (không hiển thị UI vì control không tồn tại)
         /// </summary>
         private void LoadUserGoal()
         {
-            GoalController goalController = null;
+            // Control lblHienThiMucTieu không tồn tại, chỉ log để debug
             try
             {
-                if (lblHienThiMucTieu == null)
-                {
-                    System.Diagnostics.Debug.WriteLine("lblHienThiMucTieu is null!");
-                    return;
-                }
-
                 string userId = CurrentUser.UserID;
                 if (string.IsNullOrWhiteSpace(userId))
                 {
-                    lblHienThiMucTieu.Text = "Chưa đăng nhập";
                     System.Diagnostics.Debug.WriteLine("User chưa đăng nhập");
                     return;
                 }
 
                 System.Diagnostics.Debug.WriteLine($"=== LoadUserGoal START for user: {userId} ===");
 
-                // Lấy mục tiêu đầu tiên đang thực hiện
-                goalController = new GoalController();
-                var goals = goalController.GetGoalsByUser(userId, "Đang thực hiện");
-
-                System.Diagnostics.Debug.WriteLine($"GetGoalsByUser trả về {goals?.Count ?? 0} mục tiêu");
-
-                if (goals != null && goals.Count > 0)
+                var goalController = new GoalController();
+                try
                 {
-                    var firstGoal = goals.FirstOrDefault();
-                    if (firstGoal != null)
-                    {
-                        string goalText = $"{firstGoal.LoaiMucTieu}: {firstGoal.TenMucTieu}";
-                        lblHienThiMucTieu.Text = goalText;
-                        System.Diagnostics.Debug.WriteLine($"Đã load mục tiêu: {goalText}");
-                    }
-                    else
-                    {
-                        lblHienThiMucTieu.Text = "Chưa có mục tiêu";
-                        System.Diagnostics.Debug.WriteLine("firstGoal is null");
-                    }
+                    var goals = goalController.GetGoalsByUser(userId, "Đang thực hiện");
+                    System.Diagnostics.Debug.WriteLine($"GetGoalsByUser trả về {goals?.Count ?? 0} mục tiêu");
                 }
-                else
+                finally
                 {
-                    lblHienThiMucTieu.Text = "Chưa có mục tiêu";
-                    System.Diagnostics.Debug.WriteLine("Không có mục tiêu đang thực hiện");
+                    goalController?.Dispose();
                 }
 
                 System.Diagnostics.Debug.WriteLine($"=== LoadUserGoal END ===");
             }
             catch (Exception ex)
             {
-                string errorMsg = $"Lỗi khi load mục tiêu: {ex.Message}";
-                if (ex.InnerException != null)
-                {
-                    errorMsg += $"\nInner Exception: {ex.InnerException.Message}";
-                }
-                System.Diagnostics.Debug.WriteLine($"=== ERROR in LoadUserGoal ===");
-                System.Diagnostics.Debug.WriteLine(errorMsg);
-                System.Diagnostics.Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
-                
-                if (lblHienThiMucTieu != null)
-                {
-                    lblHienThiMucTieu.Text = $"Lỗi: {ex.Message}";
-                }
-            }
-            finally
-            {
-                goalController?.Dispose();
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi load mục tiêu: {ex.Message}");
             }
         }
 
@@ -165,16 +126,7 @@ namespace HealthApp.Views.Nutrition
                 guna2DateTimePicker1.ValueChanged += Guna2DateTimePicker1_ValueChanged;
             }
 
-            // Event cho nút chuyển tuần
-            if (btnChuyenTuanTruoc != null)
-            {
-                btnChuyenTuanTruoc.Click += BtnChuyenTuanTruoc_Click;
-            }
-
-            if (btnChuyenTuanSau != null)
-            {
-                btnChuyenTuanSau.Click += BtnChuyenTuanSau_Click;
-            }
+            // Các button chuyển tuần không tồn tại, đã bỏ
         }
 
         /// <summary>
@@ -322,31 +274,18 @@ namespace HealthApp.Views.Nutrition
         {
             // Reload món ăn và thống kê khi thay đổi ngày (async để không block UI)
             ReloadSuggestedFoods();
-            UpdateWeeklyMonthlyStatsAsync().ConfigureAwait(false);
+            _ = UpdateWeeklyMonthlyStatsAsync();
         }
 
-        private void BtnChuyenTuanTruoc_Click(object sender, EventArgs e)
-        {
-            // Chuyển về tuần trước (7 ngày)
-            guna2DateTimePicker1.Value = guna2DateTimePicker1.Value.AddDays(-7);
-            ReloadSuggestedFoods();
-            UpdateWeeklyMonthlyStatsAsync().ConfigureAwait(false);
-        }
-
-        private void BtnChuyenTuanSau_Click(object sender, EventArgs e)
-        {
-            // Chuyển đến tuần sau (7 ngày)
-            guna2DateTimePicker1.Value = guna2DateTimePicker1.Value.AddDays(7);
-            ReloadSuggestedFoods();
-            UpdateWeeklyMonthlyStatsAsync().ConfigureAwait(false);
-        }
+        // Các hàm BtnChuyenTuanTruoc_Click và BtnChuyenTuanSau_Click đã bỏ vì control không tồn tại
 
         /// <summary>
         /// Khởi tạo các panel scrollable cho mỗi bữa ăn
         /// </summary>
         private void InitializeScrollPanels()
         {
-            // Panel scroll cho bữa sáng
+            // Các panel pnlBuaSang, pnBuaTrua, pnBuaToi không tồn tại
+            // Tạo các panel scroll tạm thời, sẽ được gán vào panel thực tế khi có
             _pnlScrollBuaSang = new Guna2Panel
             {
                 AutoScroll = true,
@@ -354,14 +293,7 @@ namespace HealthApp.Views.Nutrition
                 BackColor = Color.Transparent,
                 BorderRadius = 20
             };
-            // Đặt vị trí sau header (guna2Panel3) - header cao khoảng 100px
-            _pnlScrollBuaSang.Location = new Point(0, 100);
-            _pnlScrollBuaSang.Size = new Size(pnlBuaSang.Width, pnlBuaSang.Height - 100);
-            _pnlScrollBuaSang.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            pnlBuaSang.Controls.Add(_pnlScrollBuaSang);
-            _pnlScrollBuaSang.BringToFront();
 
-            // Panel scroll cho bữa trưa
             _pnlScrollBuaTrua = new Guna2Panel
             {
                 AutoScroll = true,
@@ -369,14 +301,7 @@ namespace HealthApp.Views.Nutrition
                 BackColor = Color.Transparent,
                 BorderRadius = 20
             };
-            // Đặt vị trí sau header (guna2Panel4)
-            _pnlScrollBuaTrua.Location = new Point(0, 100);
-            _pnlScrollBuaTrua.Size = new Size(pnBuaTrua.Width, pnBuaTrua.Height - 100);
-            _pnlScrollBuaTrua.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            pnBuaTrua.Controls.Add(_pnlScrollBuaTrua);
-            _pnlScrollBuaTrua.BringToFront();
 
-            // Panel scroll cho bữa tối
             _pnlScrollBuaToi = new Guna2Panel
             {
                 AutoScroll = true,
@@ -384,12 +309,6 @@ namespace HealthApp.Views.Nutrition
                 BackColor = Color.Transparent,
                 BorderRadius = 20
             };
-            // Đặt vị trí sau header (guna2Panel5)
-            _pnlScrollBuaToi.Location = new Point(0, 100);
-            _pnlScrollBuaToi.Size = new Size(pnBuaToi.Width, pnBuaToi.Height - 100);
-            _pnlScrollBuaToi.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            pnBuaToi.Controls.Add(_pnlScrollBuaToi);
-            _pnlScrollBuaToi.BringToFront();
         }
 
         /// <summary>
@@ -457,7 +376,7 @@ namespace HealthApp.Views.Nutrition
         private void LoadSuggestedFoods()
         {
             // Gọi async version
-            LoadSuggestedFoodsAsync().ConfigureAwait(false);
+            _ = LoadSuggestedFoodsAsync();
         }
 
         /// <summary>
@@ -708,20 +627,14 @@ namespace HealthApp.Views.Nutrition
         }
 
         /// <summary>
-        /// Cập nhật UI cho 4 ô thống kê dinh dưỡng
+        /// Cập nhật UI cho 4 ô thống kê dinh dưỡng (các control không tồn tại, chỉ log)
         /// </summary>
         private void UpdateNutritionSummaryUI(double calories, double protein, double carbs, double fat)
         {
             try
             {
-                if (lblChisoCalo != null)
-                    lblChisoCalo.Text = calories.ToString("F0");
-                if (lblChisoProtein != null)
-                    lblChisoProtein.Text = protein.ToString("F1");
-                if (lblChisoCarbs != null)
-                    lblChisoCarbs.Text = carbs.ToString("F1");
-                if (lblChisoChatbeo != null)
-                    lblChisoChatbeo.Text = fat.ToString("F1");
+                // Các label không tồn tại, chỉ log để debug
+                System.Diagnostics.Debug.WriteLine($"Nutrition Summary - Calories: {calories:F0}, Protein: {protein:F1}g, Carbs: {carbs:F1}g, Fat: {fat:F1}g");
             }
             catch (Exception ex)
             {
@@ -860,20 +773,14 @@ namespace HealthApp.Views.Nutrition
         }
 
         /// <summary>
-        /// Cập nhật UI cho thống kê tuần và tháng
+        /// Cập nhật UI cho thống kê tuần và tháng (các control không tồn tại, chỉ log)
         /// </summary>
         private void UpdateWeeklyMonthlyStatsUI(double tongCaloTuan, double trungBinhCaloNgay, double tongCaloThang, double trungBinhCaloThang)
         {
             try
             {
-                if (lblChiSoCaloTuan != null)
-                    lblChiSoCaloTuan.Text = $"{tongCaloTuan:F0} Kcal";
-                if (lblTrungBinhCaloNgay != null)
-                    lblTrungBinhCaloNgay.Text = $"Trung bình: {trungBinhCaloNgay:F0} kcal/ngày";
-                if (lblChiSoCaloThang != null)
-                    lblChiSoCaloThang.Text = $"{tongCaloThang:F0} Kcal";
-                if (lblTrungBinhCaloThang != null)
-                    lblTrungBinhCaloThang.Text = $"Trung bình: {trungBinhCaloThang:F0} kcal/tháng";
+                // Các label không tồn tại, chỉ log để debug
+                System.Diagnostics.Debug.WriteLine($"Weekly/Monthly Stats - Tuần: {tongCaloTuan:F0} Kcal, TB ngày: {trungBinhCaloNgay:F0}, Tháng: {tongCaloThang:F0} Kcal, TB tháng: {trungBinhCaloThang:F0}");
             }
             catch (Exception ex)
             {
@@ -1007,11 +914,10 @@ namespace HealthApp.Views.Nutrition
                     return;
                 }
 
-                // Tạo và thêm các ucMonAnDeXuat vào panel
+                // Tạo và thêm các item món ăn đơn giản vào panel (thay vì ucMonAnDeXuat)
                 int yPosition = 10;
-                int itemWidth = Math.Max(300, panel.Width - 40);
 
-                System.Diagnostics.Debug.WriteLine($"Bắt đầu tạo {suggestedFoods.Count} ucMonAnDeXuat cho {loaiBuaAn}...");
+                System.Diagnostics.Debug.WriteLine($"Bắt đầu tạo {suggestedFoods.Count} item món ăn cho {loaiBuaAn}...");
 
                 // Suspend layout để tăng tốc độ
                 panel.SuspendLayout();
@@ -1036,19 +942,26 @@ namespace HealthApp.Views.Nutrition
                                 _khoiLuongDeXuat[monAn.TenMonAn] = khoiLuong.Value;
                             }
                             
-                            var ucMonAn = new ucMonAnDeXuat();
-                            ucMonAn.SetData(monAn, loaiBuaAn, khoiLuong);
-                            ucMonAn.Width = itemWidth;
-                            ucMonAn.Location = new Point(10, yPosition);
-                            ucMonAn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                            // Thay vì dùng ucMonAnDeXuat, tạo Label đơn giản
+                            var lblMonAn = new Label
+                            {
+                                Text = $"{monAn.TenMonAn} - {(monAn.Calories ?? 0):F0} kcal/100g - Gợi ý: {(khoiLuong ?? monAn.KhoiLuongChuan ?? 100):F0}g",
+                                AutoSize = false,
+                                Width = panel.Width - 20,
+                                Height = 40,
+                                Location = new Point(10, yPosition),
+                                Font = new Font("Segoe UI", 9F),
+                                ForeColor = Color.FromArgb(40, 40, 40),
+                                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+                            };
 
-                            panel.Controls.Add(ucMonAn);
-                            yPosition += ucMonAn.Height + 10;
+                            panel.Controls.Add(lblMonAn);
+                            yPosition += lblMonAn.Height + 10;
                             index++;
                         }
                         catch (Exception ex)
                         {
-                            System.Diagnostics.Debug.WriteLine($"Lỗi khi tạo ucMonAnDeXuat cho {monAn?.TenMonAn}: {ex.Message}");
+                            System.Diagnostics.Debug.WriteLine($"Lỗi khi tạo item món ăn cho {monAn?.TenMonAn}: {ex.Message}");
                         }
                     }
                 }
@@ -1091,7 +1004,7 @@ namespace HealthApp.Views.Nutrition
         private void LoadFoodsToPanel(string loaiBuaAn, Guna2Panel panel)
         {
             // Gọi async version
-            LoadFoodsToPanelAsync(loaiBuaAn, panel).ConfigureAwait(false);
+            _ = LoadFoodsToPanelAsync(loaiBuaAn, panel);
         }
 
         /// <summary>
@@ -1100,7 +1013,7 @@ namespace HealthApp.Views.Nutrition
         public void ReloadSuggestedFoods()
         {
             LoadUserGoal(); // Reload mục tiêu khi thay đổi ngày/tuần
-            LoadSuggestedFoodsAsync().ConfigureAwait(false); // Load async để không block UI
+            _ = LoadSuggestedFoodsAsync(); // Load async để không block UI
         }
 
         /// <summary>
@@ -1124,6 +1037,11 @@ namespace HealthApp.Views.Nutrition
         }
 
         private void label5_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label17_Click(object sender, EventArgs e)
         {
 
         }

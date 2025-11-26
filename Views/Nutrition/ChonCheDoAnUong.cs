@@ -45,23 +45,9 @@ namespace HealthApp.Views.Nutrition
                 return;
             }
 
-            // Hiển thị ucNutrition trong form mới hoặc panel
-            var nutritionForm = new Form
-            {
-                Text = "Kế Hoạch Ăn Uống Tự Do",
-                Size = new Size(1200, 800),
-                StartPosition = FormStartPosition.CenterScreen,
-                WindowState = FormWindowState.Maximized
-            };
-
-            var ucNutrition = new ucNutrition();
-            ucNutrition.Dock = DockStyle.Fill;
-            nutritionForm.Controls.Add(ucNutrition);
-
-            // Đóng form hiện tại và mở form mới
-            this.Hide();
-            nutritionForm.FormClosed += (s, args) => this.Close();
-            nutritionForm.Show();
+            // Tạm thời chỉ thông báo vì các UserControl dinh dưỡng chi tiết đã được gỡ bỏ
+            MessageBox.Show("Tính năng 'Ăn Uống Tự Do' đang được cập nhật giao diện mới.\nVui lòng sử dụng phần 'Chế độ ăn uống đề xuất' trong Dashboard.", 
+                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

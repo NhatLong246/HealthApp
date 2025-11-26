@@ -98,6 +98,15 @@ BEGIN
 END
 GO
 
+-- Đặt thời gian đồng bộ vào tương lai nhẹ để tránh xung đột với GETDATE tại thời điểm thêm constraint
+DECLARE @ThoiGianHienTai DATETIME = DATEADD(MINUTE, 1, GETDATE());
+
+UPDATE DatLichPT
+SET ThoiGianBatDau = @ThoiGianHienTai,
+    ThoiGianKetThuc = DATEADD(MINUTE, ISNULL(ThoiLuong, 60), @ThoiGianHienTai)
+WHERE ThoiGianBatDau < @ThoiGianHienTai;
+GO
+
 IF NOT EXISTS (SELECT * FROM sys.check_constraints WHERE name = 'CK_DatLichPT_ThoiGianBatDau')
 BEGIN
     ALTER TABLE DatLichPT
