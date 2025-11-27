@@ -2,6 +2,7 @@
 using HealthApp.Common.Helpers;
 using HealthApp.Views.PT;
 using HealthApp.Views.Auth;
+using HealthApp.Views.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,50 +34,17 @@ namespace HealthApp.Views.Dashboard
             picAnUong.Click += PicAnUong_Click;
             ptrDangKyLamPT.Click += PtrDangKyLamPT_Click;
             
-            // Gắn event handler cho panel thông tin user
-            pnlThongTinUser.Click += PnlThongTinUser_Click;
+            // Nút cài đặt (hình bánh răng)
+            btnSettings.Click += BtnSettings_Click;
+
+            Back.Click += BtnBack_Click;
         }
 
         /// <summary>
-        /// Load thông tin người dùng hiện tại và hiển thị lên form
+        /// Header không hiển thị tên người dùng nên không cần load dữ liệu.
         /// </summary>
         private void LoadUserInfo()
         {
-            try
-            {
-                // Kiểm tra xem đã đăng nhập chưa
-                if (CurrentUser.IsLoggedIn && CurrentUser.User != null)
-                {
-                    var user = CurrentUser.User;
-                    
-                    // Hiển thị họ tên người dùng
-                    // Nếu không có HoTen thì dùng Username
-                    if (!string.IsNullOrWhiteSpace(user.HoTen))
-                    {
-                        lblTenNguoiDung.Text = user.HoTen;
-                    }
-                    else if (!string.IsNullOrWhiteSpace(user.Username))
-                    {
-                        lblTenNguoiDung.Text = user.Username;
-                    }
-                    else
-                    {
-                        lblTenNguoiDung.Text = "Người dùng";
-                    }
-                }
-                else
-                {
-                    // Nếu chưa đăng nhập, hiển thị mặc định
-                    lblTenNguoiDung.Text = "Người dùng";
-                }
-            }
-            catch (Exception ex)
-            {
-                // Nếu có lỗi, hiển thị mặc định
-                lblTenNguoiDung.Text = "Người dùng";
-                MessageBox.Show($"Lỗi khi load thông tin người dùng: {ex.Message}", "Lỗi", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
         private void LoadUserControl()
@@ -214,24 +182,6 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Event handler khi click vào panel thông tin user - hiển thị dropdown menu
-        /// </summary>
-        private void PnlThongTinUser_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Hiển thị context menu tại vị trí của panel
-                Point location = pnlThongTinUser.PointToScreen(new Point(0, pnlThongTinUser.Height));
-                contextMenuUser.Show(location);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi hiển thị menu: {ex.Message}", "Lỗi", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
         /// Event handler cho menu item "Đăng xuất"
         /// </summary>
         private void MenuItemDangXuat_Click(object sender, EventArgs e)
@@ -320,6 +270,46 @@ namespace HealthApp.Views.Dashboard
                 MessageBox.Show($"Lỗi khi mở trang thanh toán PT: {ex.Message}", "Lỗi", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Mở trang cài đặt trong vùng nội dung chính
+        /// </summary>
+        private void BtnSettings_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var ucSetting = new ucSetting();
+                LoadUserControl(ucSetting);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở trang cài đặt: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnBack_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadUserControl(); // quay lại dashboard chính
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Không thể quay lại màn hình chính: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void lblGreeting_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

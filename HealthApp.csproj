@@ -392,6 +392,12 @@
     <Compile Include="Views\Nutrition\ucMonAnDaThemItem.Designer.cs">
       <DependentUpon>ucMonAnDaThemItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\ucSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Settings\ucSetting.Designer.cs">
+      <DependentUpon>ucSetting.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -496,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ucMonAnDaThemItem.resx">
       <DependentUpon>ucMonAnDaThemItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Settings\ucSetting.resx">
+      <DependentUpon>ucSetting.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Assets\.gitkeep" />
     <None Include="Assets\Reports\.gitkeep" />
@@ -973,6 +982,9 @@
     <None Include="Resources\backIcon.png" />
     <None Include="Resources\AfterIcon.png" />
     <None Include="Resources\BackbtnIcon.png" />
+    <None Include="Resources\GoalBoardIcon.png" />
+    <None Include="Resources\FoodIcon.png" />
+    <None Include="Resources\ChartsIcon.png" />
     <Content Include="Resources\Icons\AchivementIcon.png" />
     <Content Include="Resources\Icons\CommunityIcon.png" />
     <Content Include="Resources\Icons\folowIcon.png" />
@@ -982,6 +994,18 @@
     <Content Include="Resources\Icons\Lock.png" />
     <Content Include="Resources\Icons\LockIcon.png" />
     <Content Include="Resources\Icons\Screenshot_2025-10-13_210618-removebg-preview.png" />
+    <None Include="Resources\PersonInSettingIcon.png" />
+    <None Include="Resources\RightArrowIcon.png" />
+    <None Include="Resources\NoticeIcon.png" />
+    <None Include="Resources\MailIcon.png" />
+    <None Include="Resources\PeopleIcon.png" />
+    <None Include="Resources\PickaxeIcon.png" />
+    <None Include="Resources\ToolsIcon.png" />
+    <None Include="Resources\ThunderIcon.png" />
+    <None Include="Resources\MealIcon.png" />
+    <None Include="Resources\ReserveIcon.png" />
+    <None Include="Resources\Mapsicon.png" />
+    <None Include="Resources\SettingsIcon.png" />
     <Content Include="Resources\Video\ren-luyen-dang.mp4" />
     <None Include="Resources\Icons\icons-deadlift.gif" />
     <None Include="Resources\Icons\icons-workout.png" />

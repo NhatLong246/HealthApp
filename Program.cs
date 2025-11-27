@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using HealthApp.Views.Nutrition;
+using HealthApp.Views.Dashboard;
 
 namespace HealthApp
 {
@@ -40,21 +40,8 @@ namespace HealthApp
             Application.SetCompatibleTextRenderingDefault(false);
 
 
-            // TẠM THỜI: Bỏ đăng nhập, mở trực tiếp form test chế độ ăn uống đề xuất
-            var testForm = new Form
-            {
-                Text = "Test Chế Độ Ăn Uống Đề Xuất",
-                Size = new System.Drawing.Size(1348, 900), // Chiều rộng cố định 1348, chiều cao tuỳ ý
-                StartPosition = FormStartPosition.CenterScreen
-            };
-
-            var uc = new ucCheDoAnUongDeXuat
-            {
-                Dock = DockStyle.Fill
-            };
-
-            testForm.Controls.Add(uc);
-            Application.Run(testForm);
+            // Tạm thời: mở trực tiếp Dashboard để test giao diện
+            Application.Run(new frmDashBoard());
         }
     }
 }
