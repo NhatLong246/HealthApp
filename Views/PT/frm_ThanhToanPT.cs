@@ -22,6 +22,7 @@ namespace HealthApp.Views.PT
         private readonly string _datLichID;
         private readonly WF_HealthTracker _context;
         private DatLichPT _datLich;
+        private List<DatLichPT> _datLichList = new List<DatLichPT>();
         private HuanLuyenVien _pt;
         private Users _khachHang;
         private string _selectedPaymentMethod = ""; // "MoMo" hoặc "ZaloPay"
@@ -85,6 +86,20 @@ namespace HealthApp.Views.PT
                 // Load khách hàng
                 _khachHang = await Task.Run(() => _context.Users.FirstOrDefault(u => u.UserID == _datLich.KhachHangID));
 
+                // Load danh sách lịch cùng trạng thái để hiển thị đầy đủ các ngày cần thanh toán
+                _datLichList = await Task.Run(() => _context.DatLichPT
+                    .Where(d => d.KhachHangID == _datLich.KhachHangID &&
+                                d.PTID == _datLich.PTID &&
+                                d.TrangThai == _datLich.TrangThai)
+                    .OrderBy(d => d.ThoiGianBatDau)
+                    .ToList());
+
+                if (!_datLichList.Any(d => d.DatLichID == _datLich.DatLichID))
+                {
+                    _datLichList.Add(_datLich);
+                    _datLichList = _datLichList.OrderBy(d => d.ThoiGianBatDau).ToList();
+                }
+
                 // Hiển thị dữ liệu
                 DisplayData();
             }
@@ -138,7 +153,7 @@ namespace HealthApp.Views.PT
                 CalculateAndDisplayPrice();
 
                 // Hiển thị pnlDanhSachThanhToan trong pnlTongTinDatLich
-                DisplayPaymentItem();
+                DisplayPaymentItems();
             }
             catch (Exception ex)
             {
@@ -147,17 +162,41 @@ namespace HealthApp.Views.PT
             }
         }
 
-        private void DisplayPaymentItem()
+        private void DisplayPaymentItems()
         {
             try
             {
+                foreach (var panel in _paymentPanels)
+                {
+                    pnlTongTinDatLich.Controls.Remove(panel);
+                    panel.Dispose();
+                }
+                _paymentPanels.Clear();
+
                 // Ẩn panel mẫu pnlDanhSachThanhToan
                 pnlDanhSachThanhToan.Visible = false;
 
-                // Tạo panel thanh toán động trong pnlTongTinDatLich
-                var paymentPanel = CreatePaymentItemPanel();
-                pnlTongTinDatLich.Controls.Add(paymentPanel);
-                _paymentPanels.Add(paymentPanel);
+                var panelsData = (_datLichList != null && _datLichList.Any())
+                    ? _datLichList
+                    : (_datLich != null ? new List<DatLichPT> { _datLich } : new List<DatLichPT>());
+
+                if (!panelsData.Any())
+                {
+                    return;
+                }
+
+                var baseLocation = pnlDanhSachThanhToan.Location;
+                int nextTop = baseLocation.Y;
+                const int verticalSpacing = 16;
+
+                foreach (var datLichItem in panelsData)
+                {
+                    var paymentPanel = CreatePaymentItemPanel(datLichItem);
+                    paymentPanel.Location = new Point(baseLocation.X, nextTop);
+                    nextTop += paymentPanel.Height + verticalSpacing;
+                    pnlTongTinDatLich.Controls.Add(paymentPanel);
+                    _paymentPanels.Add(paymentPanel);
+                }
             }
             catch (Exception ex)
             {
@@ -166,8 +205,13 @@ namespace HealthApp.Views.PT
             }
         }
 
-        private Guna2CustomGradientPanel CreatePaymentItemPanel()
+        private Guna2CustomGradientPanel CreatePaymentItemPanel(DatLichPT datLichItem)
         {
+            if (datLichItem == null)
+            {
+                throw new ArgumentNullException(nameof(datLichItem));
+            }
+
             var panel = new Guna2CustomGradientPanel
             {
                 BackColor = Color.White,
@@ -175,7 +219,7 @@ namespace HealthApp.Views.PT
                 BorderRadius = 20,
                 BorderThickness = 1,
                 Location = new Point(24, 53),
-                Name = $"pnlPaymentItem_{_datLichID}",
+                Name = $"pnlPaymentItem_{datLichItem.DatLichID}",
                 Size = new Size(958, 200)
             };
 
@@ -186,7 +230,7 @@ namespace HealthApp.Views.PT
                 BackColor = Color.Transparent,
                 FillColor = Color.Honeydew,
                 Location = new Point(49, 21),
-                Name = $"pnlNguoiDung_{_datLichID}",
+                Name = $"pnlNguoiDung_{datLichItem.DatLichID}",
                 Radius = 10,
                 ShadowColor = Color.FromArgb(0, 192, 0),
                 ShadowShift = 1,
@@ -197,7 +241,7 @@ namespace HealthApp.Views.PT
             {
                 ImageRotate = 0F,
                 Location = new Point(17, 12),
-                Name = $"ptrAvatar_{_datLichID}",
+                Name = $"ptrAvatar_{datLichItem.DatLichID}",
                 ShadowDecoration = { Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle },
                 Size = new Size(60, 53),
                 SizeMode = PictureBoxSizeMode.StretchImage
@@ -214,7 +258,7 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 13.2F, FontStyle.Bold),
                 ForeColor = Color.Black,
                 Location = new Point(82, 12),
-                Name = $"lblTen_{_datLichID}",
+                Name = $"lblTen_{datLichItem.DatLichID}",
                 Text = _khachHang?.HoTen ?? _khachHang?.Username ?? ""
             };
             pnlNguoiDungCopy.Controls.Add(lblTenCopy);
@@ -225,8 +269,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(83, 46),
-                Name = $"lblMucTieu_{_datLichID}",
-                Text = _datLich?.GhiChu ?? ""
+                Name = $"lblMucTieu_{datLichItem.DatLichID}",
+                Text = datLichItem?.GhiChu ?? ""
             };
             pnlNguoiDungCopy.Controls.Add(lblMucTieuCopy);
             panel.Controls.Add(pnlNguoiDungCopy);
@@ -237,7 +281,7 @@ namespace HealthApp.Views.PT
                 BackColor = Color.Transparent,
                 FillColor = Color.Honeydew,
                 Location = new Point(575, 21),
-                Name = $"pnlPT_{_datLichID}",
+                Name = $"pnlPT_{datLichItem.DatLichID}",
                 Radius = 10,
                 ShadowColor = Color.FromArgb(0, 192, 0),
                 ShadowShift = 1,
@@ -248,7 +292,7 @@ namespace HealthApp.Views.PT
             {
                 ImageRotate = 0F,
                 Location = new Point(17, 12),
-                Name = $"ptrPTAvatar_{_datLichID}",
+                Name = $"ptrPTAvatar_{datLichItem.DatLichID}",
                 ShadowDecoration = { Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle },
                 Size = new Size(60, 53),
                 SizeMode = PictureBoxSizeMode.StretchImage
@@ -265,7 +309,7 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 13.2F, FontStyle.Bold),
                 ForeColor = Color.Black,
                 Location = new Point(82, 12),
-                Name = $"lblPTTen_{_datLichID}",
+                Name = $"lblPTTen_{datLichItem.DatLichID}",
                 Text = ""
             };
             if (_pt != null)
@@ -286,7 +330,7 @@ namespace HealthApp.Views.PT
                 Image = ptrIcon.Image,
                 ImageRotate = 0F,
                 Location = new Point(52, 122),
-                Name = $"ptrIcon_{_datLichID}",
+                Name = $"ptrIcon_{datLichItem.DatLichID}",
                 Size = new Size(28, 26),
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
@@ -297,7 +341,7 @@ namespace HealthApp.Views.PT
                 BackColor = Color.Transparent,
                 Font = new Font("Times New Roman", 12F, FontStyle.Bold),
                 Location = new Point(86, 123),
-                Name = $"lblChonNgay_{_datLichID}",
+                Name = $"lblChonNgay_{datLichItem.DatLichID}",
                 Text = "Ngày giờ"
             };
             panel.Controls.Add(lblChonNgayCopy);
@@ -309,8 +353,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(57, 161),
-                Name = $"lblThoiGian_{_datLichID}",
-                Text = _datLich != null ? $"{_datLich.ThoiGianBatDau:HH:mm} - {_datLich.ThoiGianKetThuc:HH:mm}" : ""
+                Name = $"lblThoiGian_{datLichItem.DatLichID}",
+                Text = datLichItem != null ? $"{datLichItem.ThoiGianBatDau:HH:mm} - {datLichItem.ThoiGianKetThuc:HH:mm}" : ""
             };
             panel.Controls.Add(lblThoiGianCopy);
 
@@ -321,8 +365,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(170, 161),
-                Name = $"lblThu_{_datLichID}",
-                Text = _datLich != null ? GetDayOfWeekVietnamese(_datLich.ThoiGianBatDau.DayOfWeek) : ""
+                Name = $"lblThu_{datLichItem.DatLichID}",
+                Text = datLichItem != null ? GetDayOfWeekVietnamese(datLichItem.ThoiGianBatDau.DayOfWeek) : ""
             };
             panel.Controls.Add(lblThuCopy);
 
@@ -333,8 +377,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(227, 161),
-                Name = $"lblNgayTap_{_datLichID}",
-                Text = _datLich != null ? _datLich.ThoiGianBatDau.ToString("dd/MM/yyyy") : ""
+                Name = $"lblNgayTap_{datLichItem.DatLichID}",
+                Text = datLichItem != null ? datLichItem.ThoiGianBatDau.ToString("dd/MM/yyyy") : ""
             };
             panel.Controls.Add(lblNgayTapCopy);
 
@@ -345,7 +389,7 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(460, 53),
-                Name = $"lblDen_{_datLichID}",
+                Name = $"lblDen_{datLichItem.DatLichID}",
                 Text = "Đến"
             };
             panel.Controls.Add(lblDenCopy);
@@ -356,7 +400,7 @@ namespace HealthApp.Views.PT
                 BackColor = Color.Transparent,
                 Font = new Font("Times New Roman", 15F, FontStyle.Bold),
                 Location = new Point(492, 149),
-                Name = $"lblTien_{_datLichID}",
+                Name = $"lblTien_{datLichItem.DatLichID}",
                 Text = "Tiền:"
             };
             panel.Controls.Add(lblTienCopy);
@@ -367,8 +411,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 15F, FontStyle.Bold),
                 ForeColor = Color.Blue,
                 Location = new Point(575, 149),
-                Name = $"lblTienThanhToan_{_datLichID}",
-                Text = CalculatePrice().ToString("N0") + "đ"
+                Name = $"lblTienThanhToan_{datLichItem.DatLichID}",
+                Text = CalculatePrice(datLichItem).ToString("N0") + "đ"
             };
             panel.Controls.Add(lblTienThanhToanCopy);
 
@@ -379,7 +423,9 @@ namespace HealthApp.Views.PT
         {
             try
             {
-                double totalPrice = CalculatePrice();
+                double totalPrice = (_datLichList != null && _datLichList.Any())
+                    ? _datLichList.Sum(dl => CalculatePrice(dl))
+                    : CalculatePrice();
                 lblTienThanhToan.Text = totalPrice.ToString("N0") + "đ";
                 lblTongTienThanhToan.Text = totalPrice.ToString("N0") + "đ";
             }
@@ -392,13 +438,18 @@ namespace HealthApp.Views.PT
 
         private double CalculatePrice()
         {
-            if (_datLich == null || _pt == null || _pt.GiaTheoGio == null)
+            return CalculatePrice(_datLich);
+        }
+
+        private double CalculatePrice(DatLichPT datLich)
+        {
+            if (datLich == null || _pt == null || _pt.GiaTheoGio == null)
             {
                 return 0;
             }
 
             // Tính số giờ
-            TimeSpan duration = _datLich.ThoiGianKetThuc - _datLich.ThoiGianBatDau;
+            TimeSpan duration = datLich.ThoiGianKetThuc - datLich.ThoiGianBatDau;
             double hours = duration.TotalHours;
 
             // Tính tiền = số giờ * giá theo giờ

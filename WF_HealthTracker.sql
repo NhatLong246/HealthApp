@@ -308,6 +308,7 @@ CREATE TABLE DatLichPT (
     ChoXemSucKhoe BIT DEFAULT 0, -- Cấp quyền PT xem TinhTrangTongQuan: 1 (cho phép), 0 (không)
     GhiChu NVARCHAR(500), -- Ghi chú đặc biệt (e.g., 'Tập tại phòng gym A')
     NgayTao DATETIME DEFAULT GETDATE(), -- Ngày tạo booking
+    MucTieuLuyenTap NVARCHAR(200),
     NgayCapNhat DATETIME DEFAULT GETDATE(), -- Ngày cập nhật cuối
     -- KHÓA NGOẠI
     CONSTRAINT FK_DatLichPT_KhachHang

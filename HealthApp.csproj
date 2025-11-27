@@ -212,6 +212,42 @@
     <Compile Include="Views\Activity\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\frmDuyetPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\frmDuyetPT.Designer.cs">
+      <DependentUpon>frmDuyetPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\frmAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\frmAdmin.Designer.cs">
+      <DependentUpon>frmAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\frmThongTinChiTietPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\frmThongTinChiTietPT.Designer.cs">
+      <DependentUpon>frmThongTinChiTietPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucLichPT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucLichPT.Designer.cs">
+      <DependentUpon>ucLichPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucQuanLiPT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucQuanLiPT.Designer.cs">
+      <DependentUpon>ucQuanLiPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucThongTinChiTiet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucThongTinChiTiet.Designer.cs">
+      <DependentUpon>ucThongTinChiTiet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -418,6 +454,24 @@
     </Compile>
     <EmbeddedResource Include="Views\Activity\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\frmDuyetPT.resx">
+      <DependentUpon>frmDuyetPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\frmAdmin.resx">
+      <DependentUpon>frmAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\frmThongTinChiTietPT.resx">
+      <DependentUpon>frmThongTinChiTietPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucLichPT.resx">
+      <DependentUpon>ucLichPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucQuanLiPT.resx">
+      <DependentUpon>ucQuanLiPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucThongTinChiTiet.resx">
+      <DependentUpon>ucThongTinChiTiet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.resx">
       <DependentUpon>ucKeHoachLuyenTap.cs</DependentUpon>
