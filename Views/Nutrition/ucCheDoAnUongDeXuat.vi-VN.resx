@@ -118,21 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblTieuDe.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 14</value>
-  </data>
-  <data name="lblInfor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>107, 52</value>
-  </data>
-  <data name="lblHienThiMucTieu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>894, 31</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>727, 29</value>
-  </data>
-  <data name="guna2DateTimePicker1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>35, 106</value>
-  </data>
   <data name="btnThemMon1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 485</value>
   </data>
@@ -145,7 +130,7 @@
   <data name="btnThemMon3.Size" type="System.Drawing.Size, System.Drawing">
     <value>314, 53</value>
   </data>
-  <data name="pnlChuaDanhGia.Size" type="System.Drawing.Size, System.Drawing">
-    <value>334, 242</value>
+  <data name="guna2Panel15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1128, 465</value>
   </data>
 </root>

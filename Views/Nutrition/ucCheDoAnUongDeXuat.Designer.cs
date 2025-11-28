@@ -52,7 +52,7 @@ namespace HealthApp.Views.Nutrition
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.pnlChuaDanhGia = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.lblDanhGia = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -63,7 +63,6 @@ namespace HealthApp.Views.Nutrition
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.guna2Panel14 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.label20 = new System.Windows.Forms.Label();
             this.guna2Panel15 = new Guna.UI2.WinForms.Guna2Panel();
             this.label21 = new System.Windows.Forms.Label();
@@ -76,8 +75,7 @@ namespace HealthApp.Views.Nutrition
             this.guna2Panel10.SuspendLayout();
             this.guna2Panel12.SuspendLayout();
             this.guna2Panel13.SuspendLayout();
-            this.pnlChuaDanhGia.SuspendLayout();
-            this.guna2Panel14.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.guna2Panel15.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,9 +99,7 @@ namespace HealthApp.Views.Nutrition
             this.pnlTieuDe.Controls.Add(this.guna2Panel1);
             this.pnlTieuDe.Controls.Add(this.guna2DateTimePicker1);
             this.pnlTieuDe.Controls.Add(this.lblInfor);
-            this.pnlTieuDe.Controls.Add(this.lblHienThiMucTieu);
             this.pnlTieuDe.Controls.Add(this.lblTieuDe);
-            this.pnlTieuDe.Controls.Add(this.label1);
             this.pnlTieuDe.FillColor = System.Drawing.Color.White;
             this.pnlTieuDe.Name = "pnlTieuDe";
             // 
@@ -116,6 +112,8 @@ namespace HealthApp.Views.Nutrition
             this.guna2Panel1.Controls.Add(this.label3);
             this.guna2Panel1.Controls.Add(this.label2);
             this.guna2Panel1.Controls.Add(this.pnlChart);
+            this.guna2Panel1.Controls.Add(this.lblHienThiMucTieu);
+            this.guna2Panel1.Controls.Add(this.label1);
             this.guna2Panel1.Name = "guna2Panel1";
             // 
             // label3
@@ -375,7 +373,7 @@ namespace HealthApp.Views.Nutrition
             this.guna2Panel13.Controls.Add(this.label23);
             this.guna2Panel13.Controls.Add(this.label22);
             this.guna2Panel13.Controls.Add(this.label11);
-            this.guna2Panel13.Controls.Add(this.pnlChuaDanhGia);
+            this.guna2Panel13.Controls.Add(this.panel3);
             this.guna2Panel13.Controls.Add(this.label5);
             this.guna2Panel13.Controls.Add(this.label4);
             this.guna2Panel13.Controls.Add(this.pnlMonthChart);
@@ -411,11 +409,11 @@ namespace HealthApp.Views.Nutrition
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
             // 
-            // pnlChuaDanhGia
+            // panel3
             // 
-            resources.ApplyResources(this.pnlChuaDanhGia, "pnlChuaDanhGia");
-            this.pnlChuaDanhGia.Controls.Add(this.lblDanhGia);
-            this.pnlChuaDanhGia.Name = "pnlChuaDanhGia";
+            resources.ApplyResources(this.panel3, "panel3");
+            this.panel3.Controls.Add(this.lblDanhGia);
+            this.panel3.Name = "panel3";
             // 
             // lblDanhGia
             // 
@@ -474,24 +472,8 @@ namespace HealthApp.Views.Nutrition
             this.guna2Panel14.BorderRadius = 25;
             this.guna2Panel14.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             this.guna2Panel14.BorderThickness = 2;
-            this.guna2Panel14.Controls.Add(this.guna2Button1);
             this.guna2Panel14.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
             this.guna2Panel14.Name = "guna2Panel14";
-            // 
-            // guna2Button1
-            // 
-            resources.ApplyResources(this.guna2Button1, "guna2Button1");
-            this.guna2Button1.BorderRadius = 25;
-            this.guna2Button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.guna2Button1.CustomizableEdges.TopLeft = false;
-            this.guna2Button1.CustomizableEdges.TopRight = false;
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
-            this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.Name = "guna2Button1";
             // 
             // label20
             // 
@@ -507,8 +489,6 @@ namespace HealthApp.Views.Nutrition
             this.guna2Panel15.BorderThickness = 2;
             this.guna2Panel15.Controls.Add(this.label21);
             this.guna2Panel15.Controls.Add(this.label20);
-            this.guna2Panel15.CustomizableEdges.BottomLeft = false;
-            this.guna2Panel15.CustomizableEdges.BottomRight = false;
             this.guna2Panel15.FillColor = System.Drawing.Color.White;
             this.guna2Panel15.Name = "guna2Panel15";
             // 
@@ -547,9 +527,8 @@ namespace HealthApp.Views.Nutrition
             this.guna2Panel12.PerformLayout();
             this.guna2Panel13.ResumeLayout(false);
             this.guna2Panel13.PerformLayout();
-            this.pnlChuaDanhGia.ResumeLayout(false);
-            this.pnlChuaDanhGia.PerformLayout();
-            this.guna2Panel14.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.guna2Panel15.ResumeLayout(false);
             this.guna2Panel15.PerformLayout();
             this.ResumeLayout(false);
@@ -590,7 +569,6 @@ namespace HealthApp.Views.Nutrition
         private Guna.UI2.WinForms.Guna2Panel guna2Panel14;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel15;
         private System.Windows.Forms.Label label20;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private System.Windows.Forms.Label label21;
         private Guna.UI2.WinForms.Guna2Button btnThemMon1;
         private Guna.UI2.WinForms.Guna2Button btnThemMon2;
@@ -602,7 +580,7 @@ namespace HealthApp.Views.Nutrition
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Panel pnlChuaDanhGia;
+        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblDanhGia;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 using HealthApp.Controllers;
 using HealthApp.Models;
 using HealthApp.Common.Helpers;
@@ -57,6 +58,11 @@ namespace HealthApp.Views.Nutrition
         public ucCheDoAnUongDeXuat()
         {
             InitializeComponent();
+            
+            // LƯU Ý: Không set lại Location/Size của các controls ở phần header (lblTieuDe, lblInfor, 
+            // guna2DateTimePicker1, lblHienThiMucTieu, pnlTieuDe) vì chúng được load từ resx file.
+            // Nếu thay đổi layout trong Designer, cần rebuild project để resx được cập nhật.
+            
             try
             {
                 _nutritionController = new NutritionController();
@@ -65,8 +71,18 @@ namespace HealthApp.Views.Nutrition
                 InitializeEventHandlers();
                 InitializeLoadingOverlay();
                 
+                // Ẩn panel guna2Panel14 (thanh màu xanh) vì không còn button
+                if (guna2Panel14 != null)
+                {
+                    guna2Panel14.Visible = false;
+                    guna2Panel14.Enabled = false;
+                }
+                
                 // Load dữ liệu async để không block UI
                 LoadDataAsync();
+                
+                // Load facts về sức khỏe
+                _ = LoadHealthFactsAsync();
             }
             catch (Exception ex)
             {
@@ -151,18 +167,18 @@ namespace HealthApp.Views.Nutrition
                 var goalController = new GoalController();
                 try
                 {
-                    var goals = goalController.GetGoalsByUser(userId, "Đang thực hiện");
-                    System.Diagnostics.Debug.WriteLine($"GetGoalsByUser trả về {goals?.Count ?? 0} mục tiêu");
+                var goals = goalController.GetGoalsByUser(userId, "Đang thực hiện");
+                System.Diagnostics.Debug.WriteLine($"GetGoalsByUser trả về {goals?.Count ?? 0} mục tiêu");
 
                     // Cập nhật label với mục tiêu đầu tiên
                     if (lblHienThiMucTieu != null)
                     {
                         string goalText = "Chưa có mục tiêu";
-                        if (goals != null && goals.Count > 0)
-                        {
-                            var firstGoal = goals.FirstOrDefault();
-                            if (firstGoal != null)
-                            {
+                if (goals != null && goals.Count > 0)
+                {
+                    var firstGoal = goals.FirstOrDefault();
+                    if (firstGoal != null)
+                    {
                                 // Hiển thị tên mục tiêu hoặc loại mục tiêu
                                 if (!string.IsNullOrWhiteSpace(firstGoal.TenMucTieu))
                                 {
@@ -179,9 +195,9 @@ namespace HealthApp.Views.Nutrition
                         if (this.InvokeRequired)
                         {
                             this.Invoke(new Action(() => lblHienThiMucTieu.Text = goalText));
-                        }
-                        else
-                        {
+                }
+                else
+                {
                             lblHienThiMucTieu.Text = goalText;
                         }
                     }
@@ -203,10 +219,10 @@ namespace HealthApp.Views.Nutrition
                         this.Invoke(new Action(() => lblHienThiMucTieu.Text = "Không thể tải mục tiêu"));
                     }
                     else
-                    {
+                {
                         lblHienThiMucTieu.Text = "Không thể tải mục tiêu";
-                    }
                 }
+            }
             }
         }
 
@@ -231,26 +247,31 @@ namespace HealthApp.Views.Nutrition
                 lblDanhGia.AutoSize = false;
                 
                 // Kiểm tra và cấu hình panel
-                if (pnlChuaDanhGia != null)
-                {
-                    System.Diagnostics.Debug.WriteLine($"pnlChuaDanhGia initialized - Size: {pnlChuaDanhGia.Size}, Location: {pnlChuaDanhGia.Location}, Visible: {pnlChuaDanhGia.Visible}");
+                if (panel3 != null)
+            {
+                    System.Diagnostics.Debug.WriteLine($"pnlChuaDanhGia initialized - Size: {panel3.Size}, Location: {panel3.Location}, Visible: {panel3.Visible}");
                     
                     // Đảm bảo panel visible
-                    pnlChuaDanhGia.Visible = true;
+                    panel3.Visible = true;
                     
                     // Đảm bảo panel có BackColor (không trong suốt)
-                    if (pnlChuaDanhGia.BackColor == Color.Transparent)
+                    if (panel3.BackColor == Color.Transparent)
                     {
-                        pnlChuaDanhGia.BackColor = Color.White;
+                        panel3.BackColor = Color.White;
                     }
                     
                     // Cấu hình label theo kích thước panel
-                    int labelWidth = pnlChuaDanhGia.Width - 20; // Trừ padding
-                    if (labelWidth <= 0) labelWidth = pnlChuaDanhGia.Width;
+                    int labelWidth = panel3.Width - 20; // Trừ padding
+                    if (labelWidth <= 0) labelWidth = panel3.Width;
                     if (labelWidth <= 0) labelWidth = 300; // Fallback
+                    
+                    int labelHeight = panel3.Height - 30; // Trừ padding
+                    if (labelHeight <= 0) labelHeight = panel3.Height;
+                    if (labelHeight <= 0) labelHeight = 200; // Fallback
                     
                     lblDanhGia.MaximumSize = new Size(labelWidth, 0); // Cho phép wrap theo width
                     lblDanhGia.Width = labelWidth;
+                    lblDanhGia.Height = labelHeight; // Đảm bảo có chiều cao khi khởi tạo
                 }
                 else
                 {
@@ -262,8 +283,8 @@ namespace HealthApp.Views.Nutrition
                 if (string.IsNullOrWhiteSpace(lblDanhGia.Text))
                 {
                     lblDanhGia.Text = "Đang tải đánh giá dinh dưỡng...";
-                }
-                
+            }
+
                 lblDanhGia.Visible = true;
                 if (lblDanhGia.ForeColor == Color.Transparent || lblDanhGia.ForeColor == Color.White)
                 {
@@ -1391,36 +1412,110 @@ namespace HealthApp.Views.Nutrition
                     return;
                 }
 
+                // Khai báo biến labelWidth và labelHeight ở ngoài để có thể sử dụng ở nhiều nơi
+                int labelWidth = 300; // Fallback mặc định
+                int labelHeight = 200; // Fallback mặc định
+                
                 // Kiểm tra panel chứa label
-                if (pnlChuaDanhGia != null)
+                if (panel3 != null)
                 {
-                    System.Diagnostics.Debug.WriteLine($"pnlChuaDanhGia - Size: {pnlChuaDanhGia.Size}, Location: {pnlChuaDanhGia.Location}, Visible: {pnlChuaDanhGia.Visible}, BackColor: {pnlChuaDanhGia.BackColor}");
+                    System.Diagnostics.Debug.WriteLine($"pnlChuaDanhGia - Size: {panel3.Size}, Location: {panel3.Location}, Visible: {panel3.Visible}, BackColor: {panel3.BackColor}");
                     
                     // Đảm bảo panel visible và có kích thước hợp lệ
-                    if (!pnlChuaDanhGia.Visible)
+                    if (!panel3.Visible)
                     {
-                        pnlChuaDanhGia.Visible = true;
+                        panel3.Visible = true;
                         System.Diagnostics.Debug.WriteLine("Đã set pnlChuaDanhGia.Visible = true");
                     }
                     
-                    if (pnlChuaDanhGia.Width <= 0 || pnlChuaDanhGia.Height <= 0)
+                    // Tìm panel cha (guna2Panel13) để giới hạn kích thước
+                    Control parentPanel = panel3.Parent;
+                    int maxParentWidth = 1128; // Kích thước mặc định từ resx
+                    int maxParentHeight = 529;
+                    
+                    if (parentPanel != null)
                     {
-                        System.Diagnostics.Debug.WriteLine($"WARNING: pnlChuaDanhGia có kích thước không hợp lệ: {pnlChuaDanhGia.Size}");
+                        maxParentWidth = parentPanel.Width;
+                        maxParentHeight = parentPanel.Height;
+                        System.Diagnostics.Debug.WriteLine($"Parent panel ({parentPanel.Name}) - Size: {parentPanel.Size}");
                     }
                     
-                    // Đảm bảo label có kích thước phù hợp với panel
-                    int labelWidth = pnlChuaDanhGia.Width - 20; // Trừ padding
-                    if (labelWidth <= 0) labelWidth = pnlChuaDanhGia.Width;
+                    // Giới hạn pnlChuaDanhGia theo panel cha (trừ border và padding)
+                    // Border của guna2Panel13 là 2px mỗi bên, padding khoảng 20px mỗi bên
+                    int maxPanelWidth = maxParentWidth - 50; // Trừ border và padding
+                    
+                    // Tính chiều cao tối đa dựa trên vị trí của panel trong parent
+                    int panelTop = panel3.Top;
+                    // Trừ border (2px) và padding dưới (20px) = 22px
+                    int maxPanelHeight = maxParentHeight - panelTop - 22; // Đảm bảo không che border dưới
+                    
+                    // Đảm bảo panel có kích thước hợp lý nhưng không vượt quá panel cha
+                    if (panel3.Width > maxPanelWidth)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"pnlChuaDanhGia width ({panel3.Width}) > max ({maxPanelWidth}). Đang giới hạn...");
+                        panel3.Width = maxPanelWidth;
+                    }
+                    
+                    if (panel3.Height > maxPanelHeight)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"pnlChuaDanhGia height ({panel3.Height}) > max ({maxPanelHeight}). Đang giới hạn để không che border (panel top: {panelTop}, parent height: {maxParentHeight})");
+                        panel3.Height = maxPanelHeight;
+                    }
+                    
+                    // Kiểm tra lại: đảm bảo panel bottom không vượt quá parent bottom
+                    int panelBottom = panelTop + panel3.Height;
+                    if (panelBottom > maxParentHeight - 12) // Trừ border và padding
+                    {
+                        int newHeight = maxParentHeight - 12 - panelTop;
+                        if (newHeight > 0)
+                        {
+                            panel3.Height = newHeight;
+                            System.Diagnostics.Debug.WriteLine($"Điều chỉnh pnlChuaDanhGia height: {newHeight}px để không che border");
+                        }
+                    }
+                    
+                    // Nếu panel quá nhỏ, set lại nhưng không vượt quá panel cha
+                    if (panel3.Width < 300 || panel3.Height < 300)
+                    {
+                        int newWidth = Math.Min(334, maxPanelWidth);
+                        int newHeight = Math.Min(600, maxPanelHeight);
+                        System.Diagnostics.Debug.WriteLine($"pnlChuaDanhGia có kích thước nhỏ: {panel3.Size}. Đang set lại: {newWidth}x{newHeight}");
+                        panel3.Size = new Size(newWidth, newHeight);
+                    }
+                    
+                    // Đảm bảo label fill toàn bộ panel (trừ padding nhỏ) và không vượt quá panel cha
+                    labelWidth = panel3.Width - 10; // Padding nhỏ (5px mỗi bên)
+                    if (labelWidth <= 0) labelWidth = panel3.Width;
                     if (labelWidth <= 0) labelWidth = 300; // Fallback
                     
-                    lblDanhGia.MaximumSize = new Size(labelWidth, 0); // Cho phép wrap theo width
+                    // Đảm bảo label không vượt quá panel cha
+                    int maxLabelWidth = maxPanelWidth - 20; // Trừ thêm padding của pnlChuaDanhGia
+                    labelWidth = Math.Min(labelWidth, maxLabelWidth);
+                    
+                    // Label height sẽ được tính sau dựa trên text, nhưng không vượt quá panel cha
+                    labelHeight = panel3.Height - 10; // Padding nhỏ (5px trên dưới)
+                    if (labelHeight <= 0) labelHeight = panel3.Height;
+                    if (labelHeight <= 0) labelHeight = 500; // Fallback
+                    
+                    // Giới hạn label height theo panel cha
+                    int maxLabelHeight = maxPanelHeight - 20;
+                    labelHeight = Math.Min(labelHeight, maxLabelHeight);
+                    
+                    lblDanhGia.MaximumSize = new Size(labelWidth, 0); // Cho phép wrap theo width, KHÔNG giới hạn height (nhưng sẽ giới hạn sau)
                     lblDanhGia.Width = labelWidth;
+                    // KHÔNG set height ở đây, sẽ tính sau dựa trên text
+                    // Đảm bảo label có vị trí đúng (padding 5px)
+                    lblDanhGia.Location = new Point(5, 5);
                 }
                 else
                 {
                     System.Diagnostics.Debug.WriteLine("WARNING: pnlChuaDanhGia is NULL!");
                     // Fallback: dùng width hiện tại của label
-                    lblDanhGia.MaximumSize = new Size(lblDanhGia.Width, 0);
+                    if (lblDanhGia.Width > 0)
+                    {
+                        labelWidth = lblDanhGia.Width;
+                    }
+                    lblDanhGia.MaximumSize = new Size(labelWidth, 0);
                 }
 
                 // Đảm bảo label có thể xuống dòng tự động dựa trên kích thước
@@ -1433,6 +1528,7 @@ namespace HealthApp.Views.Nutrition
                     lblDanhGia.ForeColor = Color.Black;
                 }
                 
+                // Set text trước để có thể đo chính xác
                 if (string.IsNullOrWhiteSpace(danhGia))
                 {
                     lblDanhGia.Text = "Chưa có đánh giá dinh dưỡng.";
@@ -1444,16 +1540,138 @@ namespace HealthApp.Views.Nutrition
                     System.Diagnostics.Debug.WriteLine($"Đã cập nhật lblDanhGia: {danhGia.Substring(0, Math.Min(50, danhGia.Length))}...");
                 }
                 
+                // Tính lại chiều cao dựa trên text thực tế (SAU KHI SET TEXT)
+                string textToMeasure = lblDanhGia.Text ?? "Đang tải...";
+                int calculatedHeight = labelHeight; // Mặc định
+                
+                try
+                {
+                    using (Graphics g = lblDanhGia.CreateGraphics())
+                    {
+                        SizeF textSize = g.MeasureString(
+                            textToMeasure, 
+                            lblDanhGia.Font, 
+                            labelWidth
+                        );
+                        calculatedHeight = (int)Math.Ceiling(textSize.Height) + 20; // Thêm padding
+                        
+                        // Giới hạn chiều cao theo panel cha để KHÔNG CHE BORDER
+                        if (panel3 != null)
+                        {
+                            // Tìm panel cha để lấy kích thước tối đa
+                            Control parentPanel = panel3.Parent;
+                            int maxParentHeight = 529; // Mặc định từ resx
+                            
+                            if (parentPanel != null)
+                            {
+                                maxParentHeight = parentPanel.Height;
+                                System.Diagnostics.Debug.WriteLine($"Parent panel height: {maxParentHeight}");
+                            }
+                            
+                            // Tính toán vị trí của pnlChuaDanhGia trong panel cha
+                            int panelTop = panel3.Top;
+                            int panelBottom = panelTop + panel3.Height;
+                            
+                            // Chiều cao tối đa = khoảng cách từ top của panel đến bottom của panel cha - border - padding
+                            // Trừ border (2px mỗi bên = 4px) và padding (20px mỗi bên = 40px)
+                            int availableSpaceFromPanelTop = maxParentHeight - panelTop - 30; // Trừ border và padding dưới
+                            
+                            // Cho phép label sử dụng toàn bộ panel height (trừ padding nhỏ)
+                            int panelAvailableHeight = panel3.Height - 10; // Trừ padding
+                            
+                            // Giới hạn theo cả panel hiện tại và không gian còn lại trong panel cha
+                            int finalMaxHeight = Math.Min(panelAvailableHeight, availableSpaceFromPanelTop);
+                            
+                            // Đảm bảo không vượt quá để không che border
+                            if (calculatedHeight > finalMaxHeight)
+                            {
+                                calculatedHeight = finalMaxHeight;
+                                System.Diagnostics.Debug.WriteLine($"Text cần {calculatedHeight}px nhưng giới hạn để không che border: {finalMaxHeight}px (panel top: {panelTop}, parent height: {maxParentHeight})");
+                            }
+                            
+                            // Kiểm tra lại: đảm bảo label + location không vượt quá panel cha
+                            int labelBottom = panel3.Top + lblDanhGia.Top + calculatedHeight;
+                            if (labelBottom > maxParentHeight - 10) // Trừ border và padding
+                            {
+                                calculatedHeight = maxParentHeight - 10 - panel3.Top - lblDanhGia.Top;
+                                System.Diagnostics.Debug.WriteLine($"Điều chỉnh lại height để không che border: {calculatedHeight}px");
+                            }
+                        }
+                        else
+                        {
+                            // Không có panel, giới hạn 500px
+                            calculatedHeight = Math.Min(calculatedHeight, 500);
+                        }
+                    }
+                }
+                catch
+                {
+                    // Nếu không tính được, dùng labelHeight
+                    calculatedHeight = labelHeight;
+                }
+                
+                // Đảm bảo chiều cao tối thiểu
+                if (calculatedHeight <= 0)
+                {
+                    calculatedHeight = Math.Max(50, labelHeight); // Tối thiểu 50px
+                }
+                
+                // Set chiều cao cho label - ĐẢM BẢO KHÔNG CHE BORDER
+                if (panel3 != null)
+                {
+                    // Kiểm tra lại lần cuối: đảm bảo label không che border dưới của panel cha
+                    Control parentPanel = panel3.Parent;
+                    if (parentPanel != null)
+                    {
+                        // Tính vị trí bottom của label trong panel cha
+                        int labelTopInParent = panel3.Top + lblDanhGia.Top;
+                        int labelBottomInParent = labelTopInParent + calculatedHeight;
+                        int parentBottom = parentPanel.Height;
+                        
+                        // Trừ border (2px) và padding (10px) = 12px
+                        int safeBottom = parentBottom - 12;
+                        
+                        // Nếu label vượt quá, giới hạn lại
+                        if (labelBottomInParent > safeBottom)
+                        {
+                            calculatedHeight = safeBottom - labelTopInParent;
+                            if (calculatedHeight < 50) calculatedHeight = 50; // Tối thiểu 50px
+                            System.Diagnostics.Debug.WriteLine($"Điều chỉnh height để không che border: {calculatedHeight}px (labelBottom: {labelBottomInParent}, safeBottom: {safeBottom})");
+                        }
+                    }
+                }
+                
+                lblDanhGia.Height = calculatedHeight;
+                
+                // Log thông tin
+                if (panel3 != null)
+                {
+                    Control parentPanel = panel3.Parent;
+                    if (parentPanel != null)
+                    {
+                        int labelBottom = panel3.Top + lblDanhGia.Top + calculatedHeight;
+                        System.Diagnostics.Debug.WriteLine($"Đã set lblDanhGia.Height = {calculatedHeight}px. Label bottom trong parent: {labelBottom}px, Parent height: {parentPanel.Height}px");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Đã set lblDanhGia.Height = {calculatedHeight}px (panel height = {panel3.Height}, text length = {textToMeasure.Length})");
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"Đã set lblDanhGia.Height = {calculatedHeight}px (text length = {textToMeasure.Length})");
+                }
+                
                 // Log thông tin label sau khi cập nhật
                 System.Diagnostics.Debug.WriteLine($"lblDanhGia - Size: {lblDanhGia.Size}, Location: {lblDanhGia.Location}, Visible: {lblDanhGia.Visible}, ForeColor: {lblDanhGia.ForeColor}, Text length: {lblDanhGia.Text?.Length ?? 0}");
                 
                 // Force refresh
                 lblDanhGia.Invalidate();
                 lblDanhGia.Refresh();
-                if (pnlChuaDanhGia != null)
+                if (panel3 != null)
                 {
-                    pnlChuaDanhGia.Invalidate();
-                    pnlChuaDanhGia.Refresh();
+                    panel3.Invalidate();
+                    panel3.Refresh();
                 }
             }
             catch (Exception ex)
@@ -1862,19 +2080,19 @@ namespace HealthApp.Views.Nutrition
                 try
                 {
                     var controlsToRemove = panel.Controls.Cast<Control>().ToList();
-                    foreach (var ctrl in controlsToRemove)
-                    {
-                        panel.Controls.Remove(ctrl);
-                        if (ctrl is IDisposable disposable)
+                foreach (var ctrl in controlsToRemove)
+                {
+                    panel.Controls.Remove(ctrl);
+                    if (ctrl is IDisposable disposable)
                         {
                             try
-                            {
-                                disposable.Dispose();
+                    {
+                        disposable.Dispose();
                             }
                             catch { } // Bỏ qua lỗi dispose
-                        }
                     }
-                    panel.Controls.Clear();
+                }
+                panel.Controls.Clear();
                 }
                 finally
                 {
@@ -1883,8 +2101,8 @@ namespace HealthApp.Views.Nutrition
 
                 if (suggestedFoods == null || suggestedFoods.Count == 0)
                 {
-                var lblEmpty = new Label
-                {
+                    var lblEmpty = new Label
+                    {
                     Text = string.Format(NoSuggestionTextFormat, loaiBuaAn),
                         AutoSize = false,
                         Width = panel.Width - 10,
@@ -2054,7 +2272,7 @@ namespace HealthApp.Views.Nutrition
             var availableMeals = mealOptions.Where(o => o.Value != null && o.Value.Count > 0).ToList();
 
             if (availableMeals.Count == 0)
-            {
+        {
                 MessageBox.Show(NoGoalFoodsText, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -2155,8 +2373,8 @@ namespace HealthApp.Views.Nutrition
         {
             ShowLoading(LoadingMealsText);
             try
-            {
-                LoadUserGoal(); // Reload mục tiêu khi thay đổi ngày/tuần
+        {
+            LoadUserGoal(); // Reload mục tiêu khi thay đổi ngày/tuần
                 await LoadSuggestedFoodsAsync(); // Load async để không block UI
             }
             finally
@@ -2195,6 +2413,426 @@ namespace HealthApp.Views.Nutrition
         private void label17_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Load 3 facts về sức khỏe và hiển thị trong phần "Bạn có biết"
+        /// </summary>
+        private async Task LoadHealthFactsAsync()
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("=== LoadHealthFactsAsync START ===");
+                
+                // Lấy 3 facts về sức khỏe (có thể dùng ChatGPT hoặc danh sách có sẵn)
+                List<string> facts = await GetHealthFactsAsync();
+                
+                // Hiển thị facts trên UI thread
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => DisplayHealthFacts(facts)));
+                }
+                else
+                {
+                    DisplayHealthFacts(facts);
+                }
+                
+                System.Diagnostics.Debug.WriteLine("=== LoadHealthFactsAsync END ===");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi load health facts: {ex.Message}");
+                // Fallback: dùng facts mặc định
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => DisplayHealthFacts(GetDefaultHealthFacts())));
+                }
+                else
+                {
+                    DisplayHealthFacts(GetDefaultHealthFacts());
+                }
+            }
+        }
+
+        /// <summary>
+        /// Lấy 3 facts về sức khỏe (có thể dùng ChatGPT hoặc danh sách có sẵn)
+        /// </summary>
+        private async Task<List<string>> GetHealthFactsAsync()
+        {
+            try
+            {
+                // Thử dùng ChatGPT để lấy facts ngẫu nhiên
+                if (_chatGPTService != null)
+        {
+                    string prompt = "Hãy đưa ra 3 facts ngắn gọn về sức khỏe và dinh dưỡng (mỗi fact 1-2 câu, tối đa 50 từ). Format: mỗi fact trên một dòng, không đánh số.";
+                    string response = await _chatGPTService.GetSimpleResponseAsync(prompt);
+                    
+                    if (!string.IsNullOrWhiteSpace(response))
+                    {
+                        // Parse response thành list
+                        var facts = response.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Where(f => !string.IsNullOrWhiteSpace(f))
+                            .Select(f => f.Trim())
+                            .Where(f => f.Length > 10) // Bỏ qua dòng quá ngắn
+                            .Take(3)
+                            .ToList();
+                        
+                        if (facts.Count >= 3)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Đã lấy facts từ ChatGPT");
+                            return facts;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi lấy facts từ ChatGPT: {ex.Message}");
+            }
+            
+            // Fallback: dùng facts mặc định
+            return GetDefaultHealthFacts();
+        }
+
+        /// <summary>
+        /// Danh sách facts mặc định về sức khỏe
+        /// </summary>
+        private List<string> GetDefaultHealthFacts()
+        {
+            var defaultFacts = new List<string>
+            {
+                "Ăn uống cân đối với đủ chất dinh dưỡng giúp duy trì sức khỏe tốt.",
+                "Vận động thường xuyên giúp cải thiện sức khỏe tim mạch và hệ tiêu hóa.",
+                "Uống đủ nước hàng ngày giúp duy trì cân nặng và làm cho da sáng hơn."
+            };
+            
+            // Xáo trộn để hiển thị ngẫu nhiên
+            var random = new Random();
+            var shuffled = defaultFacts.OrderBy(x => random.Next()).Take(3).ToList();
+            
+            // Đảm bảo tất cả facts đều có giá trị
+            for (int i = 0; i < shuffled.Count; i++)
+            {
+                if (string.IsNullOrWhiteSpace(shuffled[i]))
+                {
+                    shuffled[i] = defaultFacts[i % defaultFacts.Count];
+                }
+            }
+            
+            System.Diagnostics.Debug.WriteLine($"GetDefaultHealthFacts: Trả về {shuffled.Count} facts");
+            foreach (var fact in shuffled)
+            {
+                System.Diagnostics.Debug.WriteLine($"  - '{fact}'");
+            }
+            
+            return shuffled;
+        }
+
+        /// <summary>
+        /// Hiển thị 3 facts trong guna2Panel15
+        /// </summary>
+        private void DisplayHealthFacts(List<string> facts)
+        {
+            try
+            {
+                if (guna2Panel15 == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("ERROR: guna2Panel15 is NULL!");
+                    return;
+                }
+
+                System.Diagnostics.Debug.WriteLine($"=== DisplayHealthFacts START ===");
+                System.Diagnostics.Debug.WriteLine($"guna2Panel15 - Size: {guna2Panel15.Size}, Location: {guna2Panel15.Location}, Visible: {guna2Panel15.Visible}");
+                System.Diagnostics.Debug.WriteLine($"label20 - Location: {label20?.Location}, Bottom: {label20?.Bottom}, Text: {label20?.Text}");
+                System.Diagnostics.Debug.WriteLine($"label21 - Location: {label21?.Location}, Bottom: {label21?.Bottom}, Text: {label21?.Text}");
+
+                // Xóa các controls cũ (trừ label20 và label21)
+                var controlsToRemove = guna2Panel15.Controls.Cast<Control>()
+                    .Where(c => c != label20 && c != label21 && c.Name != "label20" && c.Name != "label21")
+                    .ToList();
+                
+                System.Diagnostics.Debug.WriteLine($"Đang xóa {controlsToRemove.Count} controls cũ");
+                foreach (var ctrl in controlsToRemove)
+                {
+                    guna2Panel15.Controls.Remove(ctrl);
+                    ctrl.Dispose();
+                }
+
+                if (facts == null || facts.Count == 0)
+                {
+                    System.Diagnostics.Debug.WriteLine("Không có facts để hiển thị");
+                    return;
+                }
+
+                // Đảm bảo có đủ 3 facts
+                while (facts.Count < 3)
+                {
+                    facts.Add("Thông tin đang được cập nhật...");
+                }
+
+                // Tính toán kích thước và vị trí
+                int panelWidth = guna2Panel15.Width;
+                int panelHeight = guna2Panel15.Height;
+                int padding = 20;
+                int cardSpacing = 15;
+                
+                // Vị trí bắt đầu (dưới label20 và label21)
+                int startY = 80; // Bắt đầu từ 80px để tránh label
+                if (label20 != null && label21 != null)
+                {
+                    startY = Math.Max(label20.Bottom, label21.Bottom) + 25; // Lấy bottom lớn nhất + 25px
+                }
+                else if (label20 != null)
+                {
+                    startY = label20.Bottom + 25;
+                }
+                else if (label21 != null)
+                {
+                    startY = label21.Bottom + 25;
+                }
+                
+                int availableHeight = panelHeight - startY - 20; // Trừ padding dưới
+                
+                // Kích thước mỗi card
+                int cardWidth = Math.Max(200, panelWidth - (padding * 2));
+                int cardHeight = Math.Max(60, (availableHeight - (cardSpacing * 2)) / 3); // Chia đều cho 3 cards, tối thiểu 60px
+
+                System.Diagnostics.Debug.WriteLine($"Panel: {panelWidth}x{panelHeight}, StartY: {startY}, AvailableHeight: {availableHeight}, CardSize: {cardWidth}x{cardHeight}");
+
+                // Tạo 3 cards để hiển thị facts
+                for (int i = 0; i < 3 && i < facts.Count; i++)
+                {
+                    var factCard = CreateFactCard(facts[i], cardWidth, cardHeight);
+                    int cardY = startY + (cardHeight + cardSpacing) * i;
+                    factCard.Location = new Point(padding, cardY);
+                    
+                    System.Diagnostics.Debug.WriteLine($"Tạo card {i + 1}: Location=({padding}, {cardY}), Size=({cardWidth}, {cardHeight}), Text='{facts[i].Substring(0, Math.Min(30, facts[i].Length))}...'");
+                    
+                    guna2Panel15.Controls.Add(factCard);
+                    
+                    // Đảm bảo card và controls bên trong visible
+                    factCard.Visible = true;
+                    factCard.BringToFront();
+                    
+                    // Force refresh
+                    factCard.Invalidate();
+                    factCard.Refresh();
+                    
+                    // Kiểm tra label bên trong card
+                    var labelInCard = factCard.Controls.OfType<Label>().FirstOrDefault();
+                    if (labelInCard != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Label trong card {i + 1}: Text='{labelInCard.Text}', Visible={labelInCard.Visible}, ForeColor={labelInCard.ForeColor}, BackColor={labelInCard.BackColor}, Size={labelInCard.Size}, TextLength={labelInCard.Text?.Length ?? 0}");
+                        labelInCard.Visible = true;
+                        labelInCard.BringToFront();
+                        labelInCard.Invalidate();
+                        labelInCard.Refresh();
+                        labelInCard.Update();
+                        
+                        // Force update text
+                        string currentText = labelInCard.Text;
+                        if (!string.IsNullOrWhiteSpace(currentText))
+                        {
+                            labelInCard.Text = ""; // Clear
+                            Application.DoEvents();
+                            labelInCard.Text = currentText; // Set lại
+                            labelInCard.Update();
+                        }
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"WARNING: Không tìm thấy Label trong card {i + 1}!");
+                        // Kiểm tra có controls nào không
+                        System.Diagnostics.Debug.WriteLine($"Controls trong card: {factCard.Controls.Count}");
+                        foreach (Control ctrl in factCard.Controls)
+        {
+                            System.Diagnostics.Debug.WriteLine($"  - {ctrl.GetType().Name}: {ctrl.Name}, Visible={ctrl.Visible}, Text='{ctrl.Text}'");
+                        }
+                    }
+                }
+
+                // Đảm bảo panel visible
+                guna2Panel15.Visible = true;
+                guna2Panel15.Invalidate();
+                guna2Panel15.Refresh();
+
+                System.Diagnostics.Debug.WriteLine($"Đã hiển thị {Math.Min(3, facts.Count)} facts trong guna2Panel15");
+                System.Diagnostics.Debug.WriteLine($"=== DisplayHealthFacts END ===");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi hiển thị health facts: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+            }
+        }
+
+        /// <summary>
+        /// Tạo một card để hiển thị fact
+        /// </summary>
+        private Guna2Panel CreateFactCard(string fact, int width, int height)
+        {
+            // Đảm bảo fact không null
+            string factText = fact ?? "Thông tin đang được cập nhật...";
+            if (string.IsNullOrWhiteSpace(factText))
+            {
+                factText = "Thông tin đang được cập nhật...";
+            }
+
+            var card = new Guna2Panel
+            {
+                Size = new Size(width, height),
+                FillColor = Color.White, // Màu trắng rõ ràng
+                BorderRadius = 15,
+                BorderThickness = 2,
+                BorderColor = Color.FromArgb(19, 217, 195), // Border teal để dễ thấy
+                Padding = new Padding(15, 12, 15, 12),
+                Name = $"FactCard_{Guid.NewGuid()}" // Tên unique để debug
+            };
+            
+            // Label để hiển thị fact - dùng Label thông thường với cấu hình rõ ràng
+            // Đảm bảo factText không null và có giá trị
+            if (string.IsNullOrWhiteSpace(factText))
+            {
+                factText = "Thông tin đang được cập nhật...";
+            }
+            
+            // Thêm bullet point "-" ở đầu nếu chưa có
+            string displayText = factText;
+            if (!displayText.TrimStart().StartsWith("-"))
+            {
+                displayText = "- " + displayText.TrimStart();
+            }
+            
+            // Lưu displayText vào Tag để vẽ trong Paint event
+            card.Tag = displayText;
+            
+            var lblFact = new Label
+            {
+                Text = displayText,
+                AutoSize = false,
+                Size = new Size(Math.Max(100, width - 30), Math.Max(40, height - 24)),
+                Font = new Font("Segoe UI", 9.5F, FontStyle.Regular),
+                ForeColor = Color.Black, // Màu đen rõ ràng
+                Location = new Point(15, 12),
+                BackColor = Color.White, // Nền trắng để dễ thấy
+                Visible = true,
+                Enabled = true,
+                UseCompatibleTextRendering = true,
+                BorderStyle = BorderStyle.None // Không có border
+            };
+            
+            // Debug ngay sau khi tạo label
+            System.Diagnostics.Debug.WriteLine($"Tạo label với text: '{lblFact.Text}' (length={lblFact.Text?.Length ?? 0})");
+            
+            // Cho phép text wrap
+            lblFact.MaximumSize = new Size(width - 30, 0);
+            lblFact.AutoSize = false;
+            
+            // Tính toán chiều cao dựa trên text
+            try
+            {
+                using (Graphics g = card.CreateGraphics())
+                {
+                    SizeF textSize = g.MeasureString(displayText, lblFact.Font, width - 30);
+                    int calculatedHeight = (int)Math.Ceiling(textSize.Height) + 10;
+                    if (calculatedHeight > height - 24)
+                        calculatedHeight = height - 24;
+                    lblFact.Height = Math.Max(40, calculatedHeight);
+                }
+            }
+            catch
+            {
+                lblFact.Height = Math.Max(40, height - 24);
+            }
+            
+            // Thêm label vào card TRƯỚC khi set các thuộc tính khác
+            card.Controls.Add(lblFact);
+            
+            // Đảm bảo label hiển thị đúng - set lại sau khi add vào card
+            lblFact.BringToFront();
+            lblFact.Visible = true;
+            lblFact.Show();
+            lblFact.Invalidate();
+            lblFact.Refresh();
+            lblFact.Update();
+            
+            // Force text update
+            string tempText = lblFact.Text;
+            lblFact.Text = "";
+            Application.DoEvents();
+            lblFact.Text = tempText;
+            lblFact.Update();
+            
+            // Vẽ text trực tiếp lên card bằng Paint event (backup nếu label không hiển thị)
+            card.Paint += (s, e) =>
+            {
+                try
+                {
+                    Graphics g = e.Graphics;
+                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+                    
+                    string text = card.Tag as string;
+                    if (string.IsNullOrWhiteSpace(text))
+                        return;
+                    
+                    // Đảm bảo có bullet point (nếu chưa có)
+                    if (!text.TrimStart().StartsWith("-"))
+                    {
+                        text = "- " + text.TrimStart();
+                    }
+                    
+                    // Vùng vẽ text (trừ padding)
+                    Rectangle textRect = new Rectangle(15, 12, width - 30, height - 24);
+                    
+                    // Font và brush
+                    using (var font = new Font("Segoe UI", 9.5F, FontStyle.Regular))
+                    using (var brush = new SolidBrush(Color.Black))
+                    {
+                        // Vẽ text với wrap
+                        TextRenderer.DrawText(g, text, font, textRect, Color.Black, 
+                            TextFormatFlags.WordBreak | TextFormatFlags.Top | TextFormatFlags.Left | TextFormatFlags.NoPrefix);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Lỗi khi vẽ text trong Paint event: {ex.Message}");
+                }
+            };
+            
+            // Debug
+            System.Diagnostics.Debug.WriteLine($"Label fact: Text='{lblFact.Text}', Visible={lblFact.Visible}, ForeColor={lblFact.ForeColor}, BackColor={lblFact.BackColor}, Size={lblFact.Size}, Location={lblFact.Location}, Parent={lblFact.Parent?.Name}, TextLength={lblFact.Text?.Length ?? 0}");
+            
+            // Đảm bảo card visible
+            card.Visible = true;
+            card.BringToFront();
+            
+            // Force trigger Paint event để vẽ text
+            card.Invalidate();
+            card.Update();
+            card.Refresh();
+            
+            // Thêm hover effect
+            card.MouseEnter += (s, e) =>
+            {
+                card.FillColor = Color.FromArgb(240, 250, 248);
+                card.BorderColor = Color.FromArgb(19, 217, 195);
+                card.BorderThickness = 3;
+                card.Invalidate(); // Vẽ lại khi hover
+            };
+            
+            card.MouseLeave += (s, e) =>
+            {
+                card.FillColor = Color.White;
+                card.BorderColor = Color.FromArgb(19, 217, 195);
+                card.BorderThickness = 2;
+                card.Invalidate(); // Vẽ lại khi leave
+            };
+
+            System.Diagnostics.Debug.WriteLine($"Đã tạo card: Size=({card.Size}), FillColor={card.FillColor}, BorderColor={card.BorderColor}, Text='{displayText.Substring(0, Math.Min(50, displayText.Length))}...'");
+            System.Diagnostics.Debug.WriteLine($"Label: Size=({lblFact.Size}), Location=({lblFact.Location}), Text='{lblFact.Text}', Visible={lblFact.Visible}");
+
+            return card;
         }
     }
 }

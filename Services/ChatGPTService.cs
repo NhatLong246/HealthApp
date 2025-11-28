@@ -253,12 +253,14 @@ namespace HealthApp.Services
                     prompt.AppendLine($"- Mục tiêu: {mucTieu}");
                 
                 prompt.AppendLine();
-                prompt.AppendLine("Yêu cầu:");
-                prompt.AppendLine("- Đưa ra đánh giá ngắn gọn, dễ hiểu (khoảng 2-3 câu)");
-                prompt.AppendLine("- Phân tích mức độ phù hợp với mục tiêu");
-                prompt.AppendLine("- Đưa ra lời khuyên cụ thể để cải thiện (nếu cần)");
-                prompt.AppendLine("- Viết bằng tiếng Việt, thân thiện và động viên");
-                prompt.AppendLine("- Không quá 150 từ");
+                prompt.AppendLine("YÊU CẦU QUAN TRỌNG:");
+                prompt.AppendLine("- Đánh giá CHỈ 1-2 câu, CỰC KỲ ngắn gọn và dễ hiểu");
+                prompt.AppendLine("- Câu đầu: Đánh giá tình trạng hiện tại (tốt/chưa tốt/vượt mục tiêu)");
+                prompt.AppendLine("- Câu thứ 2 (nếu có): Lời khuyên ngắn gọn 1 dòng để cải thiện");
+                prompt.AppendLine("- Tổng cộng KHÔNG QUÁ 50 TỪ");
+                prompt.AppendLine("- Viết bằng tiếng Việt, thân thiện, không dài dòng");
+                prompt.AppendLine("- Ví dụ: 'Mức dinh dưỡng của bạn đang tốt, phù hợp với mục tiêu. Hãy tiếp tục duy trì!'");
+                prompt.AppendLine("- HOẶC: 'Bạn đang thiếu calo so với mục tiêu. Hãy bổ sung thêm bữa ăn phụ.'");
 
                 // Tạo request body
                 var requestBody = new
@@ -266,11 +268,11 @@ namespace HealthApp.Services
                     model = "gpt-3.5-turbo",
                     messages = new[]
                     {
-                        new { role = "system", content = "Bạn là chuyên gia dinh dưỡng chuyên nghiệp. Hãy đưa ra đánh giá chính xác, hữu ích và động viên người dùng." },
+                        new { role = "system", content = "Bạn là chuyên gia dinh dưỡng. QUAN TRỌNG: Đưa ra đánh giá CỰC KỲ NGẮN GỌN, chỉ 1-2 câu, không quá 50 từ. Phải dễ hiểu, thân thiện và động viên." },
                         new { role = "user", content = prompt.ToString() }
                     },
-                    max_tokens = 200,
-                    temperature = 0.7
+                    max_tokens = 100,
+                    temperature = 0.5
                 };
 
                 var json = JsonConvert.SerializeObject(requestBody);
@@ -335,23 +337,85 @@ namespace HealthApp.Services
 
             if (percent < 70)
             {
-                return "Mức dinh dưỡng của bạn đang thấp hơn mục tiêu. Hãy tăng cường bổ sung các bữa ăn đầy đủ chất dinh dưỡng để đạt được mục tiêu sức khỏe.";
+                return "Mức dinh dưỡng của bạn đang thấp hơn mục tiêu. Hãy bổ sung thêm bữa ăn để đạt mục tiêu.";
             }
             else if (percent >= 70 && percent < 90)
             {
-                return "Mức dinh dưỡng của bạn đang ở mức khá tốt nhưng vẫn còn thiếu một chút. Hãy cố gắng duy trì và cải thiện thêm để đạt mục tiêu.";
+                return "Mức dinh dưỡng của bạn khá tốt nhưng còn thiếu một chút. Hãy cố gắng cải thiện thêm.";
             }
             else if (percent >= 90 && percent <= 110)
             {
-                return "Mức dinh dưỡng của bạn đang rất tốt và phù hợp với mục tiêu. Hãy tiếp tục duy trì chế độ ăn uống lành mạnh này.";
+                return "Mức dinh dưỡng của bạn rất tốt và phù hợp với mục tiêu. Hãy tiếp tục duy trì!";
             }
             else if (percent > 110 && percent <= 130)
             {
-                return "Mức dinh dưỡng của bạn đang vượt quá mục tiêu một chút. Hãy điều chỉnh lại để phù hợp hơn với kế hoạch của bạn.";
+                return "Mức dinh dưỡng của bạn đang vượt quá mục tiêu một chút. Hãy điều chỉnh lại cho phù hợp.";
             }
             else
             {
-                return "Mức dinh dưỡng của bạn đang vượt quá mục tiêu nhiều. Hãy xem xét lại chế độ ăn uống và điều chỉnh để đạt được mục tiêu sức khỏe tốt hơn.";
+                return "Mức dinh dưỡng của bạn đang vượt quá mục tiêu nhiều. Hãy xem xét lại chế độ ăn uống.";
+            }
+        }
+
+        /// <summary>
+        /// Lấy response đơn giản từ ChatGPT (dùng cho facts, tips, etc.)
+        /// </summary>
+        public async Task<string> GetSimpleResponseAsync(string prompt)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(_apiKey))
+                {
+                    System.Diagnostics.Debug.WriteLine("ChatGPT API Key không được cấu hình!");
+                    return null;
+                }
+
+                // Tạo request body
+                var requestBody = new
+                {
+                    model = "gpt-3.5-turbo",
+                    messages = new[]
+                    {
+                        new { role = "system", content = "Bạn là chuyên gia sức khỏe và dinh dưỡng. Hãy trả lời ngắn gọn, dễ hiểu, bằng tiếng Việt." },
+                        new { role = "user", content = prompt }
+                    },
+                    max_tokens = 300,
+                    temperature = 0.7
+                };
+
+                var json = JsonConvert.SerializeObject(requestBody);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Gọi API
+                System.Diagnostics.Debug.WriteLine($"Đang gọi ChatGPT API cho simple response...");
+                var response = await _httpClient.PostAsync(ApiUrl, content);
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine($"ChatGPT API error: {response.StatusCode} - {errorContent}");
+                    return null;
+                }
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<ChatGPTResponse>(responseContent);
+
+                // Parse kết quả
+                if (result?.choices != null && result.choices.Length > 0)
+                {
+                    string text = result.choices[0].message.content?.Trim();
+                    if (!string.IsNullOrWhiteSpace(text))
+                    {
+                        return text;
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi gọi ChatGPT API cho simple response: {ex.Message}");
+                return null;
             }
         }
 
