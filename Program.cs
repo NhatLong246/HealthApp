@@ -1,7 +1,10 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using HealthApp.Common.Helpers;
+using HealthApp.Views.Auth;
 using HealthApp.Views.Dashboard;
+using HealthApp.Views.Settings;
 
 namespace HealthApp
 {
@@ -39,9 +42,22 @@ namespace HealthApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            using (var loginForm = new LoginForm())
+            {
+                var result = loginForm.ShowDialog();
+                if (result == DialogResult.OK && CurrentUser.IsLoggedIn)
+                {
+                    if (UserProfileHelper.NeedsBasicInfo())
+                    {
+                        using (var infoForm = new frmChangeInformationforNewuser(isMandatory: true))
+                        {
+                            infoForm.ShowDialog();
+                        }
+                    }
 
-            // Tạm thời: mở trực tiếp Dashboard để test giao diện
-            Application.Run(new frmDashBoard());
+                    Application.Run(new frmDashBoard());
+                }
+            }
         }
     }
 }

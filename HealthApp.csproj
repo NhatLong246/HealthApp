@@ -173,6 +173,7 @@
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\WF_HealthTracker.cs" />
     <Compile Include="Common\Helpers\CurrentUser.cs" />
+    <Compile Include="Common\Helpers\UserProfileHelper.cs" />
     <Compile Include="Common\Helpers\OTPHelper.cs" />
     <Compile Include="Common\Helpers\PasswordHelper.cs" />
     <Compile Include="Common\Helpers\ValidationHelper.cs" />
@@ -374,6 +375,12 @@
     <Compile Include="Views\Dashboard\ucDashBoard.Designer.cs">
       <DependentUpon>ucDashBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\frmChangeInformationforNewuser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Settings\frmChangeInformationforNewuser.Designer.cs">
+      <DependentUpon>frmChangeInformationforNewuser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Nutrition\frmThemMonAn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -502,6 +509,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ucMonAnDaThemItem.resx">
       <DependentUpon>ucMonAnDaThemItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Settings\frmChangeInformationforNewuser.resx">
+      <DependentUpon>frmChangeInformationforNewuser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Settings\ucSetting.resx">
       <DependentUpon>ucSetting.cs</DependentUpon>
@@ -979,12 +989,6 @@
     <Content Include="packages\System.ValueTuple.4.5.0\version.txt" />
     <None Include="Resources\Icons\icons-meal.png" />
     <None Include="Resources\icons-kcal.png" />
-    <None Include="Resources\backIcon.png" />
-    <None Include="Resources\AfterIcon.png" />
-    <None Include="Resources\BackbtnIcon.png" />
-    <None Include="Resources\GoalBoardIcon.png" />
-    <None Include="Resources\FoodIcon.png" />
-    <None Include="Resources\ChartsIcon.png" />
     <Content Include="Resources\Icons\AchivementIcon.png" />
     <Content Include="Resources\Icons\CommunityIcon.png" />
     <Content Include="Resources\Icons\folowIcon.png" />
@@ -994,18 +998,6 @@
     <Content Include="Resources\Icons\Lock.png" />
     <Content Include="Resources\Icons\LockIcon.png" />
     <Content Include="Resources\Icons\Screenshot_2025-10-13_210618-removebg-preview.png" />
-    <None Include="Resources\PersonInSettingIcon.png" />
-    <None Include="Resources\RightArrowIcon.png" />
-    <None Include="Resources\NoticeIcon.png" />
-    <None Include="Resources\MailIcon.png" />
-    <None Include="Resources\PeopleIcon.png" />
-    <None Include="Resources\PickaxeIcon.png" />
-    <None Include="Resources\ToolsIcon.png" />
-    <None Include="Resources\ThunderIcon.png" />
-    <None Include="Resources\MealIcon.png" />
-    <None Include="Resources\ReserveIcon.png" />
-    <None Include="Resources\Mapsicon.png" />
-    <None Include="Resources\SettingsIcon.png" />
     <Content Include="Resources\Video\ren-luyen-dang.mp4" />
     <None Include="Resources\Icons\icons-deadlift.gif" />
     <None Include="Resources\Icons\icons-workout.png" />

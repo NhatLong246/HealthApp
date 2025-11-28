@@ -29,77 +29,99 @@ namespace HealthApp.Views.Dashboard
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel8 = new Guna.UI2.WinForms.Guna2Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.guna2Panel9 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.guna2Panel7 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.pnlKeHoachAnUong = new Guna.UI2.WinForms.Guna2Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.label11 = new System.Windows.Forms.Label();
             this.lblMucTieuTuanNay = new System.Windows.Forms.Label();
             this.lblTenNgDung = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.pnlKeHoachAnUong = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel7 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel8 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel9 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel10 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel11 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.guna2Panel14 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel15 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel16 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2CirclePictureBox2 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.guna2Panel17 = new Guna.UI2.WinForms.Guna2Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.guna2CirclePictureBox8 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.guna2CirclePictureBox2 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            this.guna2CirclePictureBox8 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.guna2CirclePictureBox5 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.guna2Panel16 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2CirclePictureBox7 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.guna2CirclePictureBox4 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.guna2Panel15 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2CirclePictureBox6 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.guna2CirclePictureBox3 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            this.guna2PictureBox5 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel10 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2CirclePictureBox9 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.guna2CirclePictureBox10 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.btnTinhNhanhBMITDEE = new Guna.UI2.WinForms.Guna2Button();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2TextBox2 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2TextBox3 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.guna2ComboBox2 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.lblKetQuaTinhBMI = new System.Windows.Forms.Label();
+            this.lblKetQuaTinhTDEE = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.guna2Panel1.SuspendLayout();
-            this.pnlKeHoachAnUong.SuspendLayout();
-            this.guna2Panel3.SuspendLayout();
-            this.guna2Panel4.SuspendLayout();
-            this.guna2Panel5.SuspendLayout();
-            this.guna2Panel6.SuspendLayout();
-            this.guna2Panel7.SuspendLayout();
             this.guna2Panel8.SuspendLayout();
             this.guna2Panel9.SuspendLayout();
-            this.guna2Panel10.SuspendLayout();
-            this.guna2Panel11.SuspendLayout();
-            this.guna2Panel14.SuspendLayout();
-            this.guna2Panel15.SuspendLayout();
-            this.guna2Panel16.SuspendLayout();
-            this.guna2Panel17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).BeginInit();
+            this.guna2Panel4.SuspendLayout();
+            this.guna2Panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).BeginInit();
+            this.guna2Panel3.SuspendLayout();
+            this.guna2Panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
+            this.pnlKeHoachAnUong.SuspendLayout();
+            this.guna2Panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
+            this.guna2Panel14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox2)).BeginInit();
+            this.guna2Panel17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox5)).BeginInit();
+            this.guna2Panel16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox4)).BeginInit();
+            this.guna2Panel15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox3)).BeginInit();
+            this.guna2Panel2.SuspendLayout();
+            this.guna2Panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox10)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2Panel1
@@ -108,7 +130,7 @@ namespace HealthApp.Views.Dashboard
             this.guna2Panel1.BorderRadius = 25;
             this.guna2Panel1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             this.guna2Panel1.BorderThickness = 2;
-            this.guna2Panel1.Controls.Add(this.guna2Panel10);
+            this.guna2Panel1.Controls.Add(this.guna2Panel2);
             this.guna2Panel1.Controls.Add(this.guna2Panel8);
             this.guna2Panel1.Controls.Add(this.guna2Panel4);
             this.guna2Panel1.Controls.Add(this.guna2Panel3);
@@ -123,6 +145,194 @@ namespace HealthApp.Views.Dashboard
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1348, 950);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // guna2Panel8
+            // 
+            this.guna2Panel8.BorderRadius = 25;
+            this.guna2Panel8.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.guna2Panel8.BorderThickness = 2;
+            this.guna2Panel8.Controls.Add(this.label13);
+            this.guna2Panel8.Controls.Add(this.guna2Panel9);
+            this.guna2Panel8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.guna2Panel8.FillColor = System.Drawing.Color.White;
+            this.guna2Panel8.Location = new System.Drawing.Point(72, 603);
+            this.guna2Panel8.Name = "guna2Panel8";
+            this.guna2Panel8.Size = new System.Drawing.Size(245, 256);
+            this.guna2Panel8.TabIndex = 11;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(72, 214);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(102, 24);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "Thống Kê";
+            // 
+            // guna2Panel9
+            // 
+            this.guna2Panel9.BorderRadius = 25;
+            this.guna2Panel9.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.guna2Panel9.BorderThickness = 2;
+            this.guna2Panel9.Controls.Add(this.guna2PictureBox4);
+            this.guna2Panel9.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(240)))));
+            this.guna2Panel9.Location = new System.Drawing.Point(17, 16);
+            this.guna2Panel9.Name = "guna2Panel9";
+            this.guna2Panel9.Size = new System.Drawing.Size(207, 184);
+            this.guna2Panel9.TabIndex = 0;
+            // 
+            // guna2PictureBox4
+            // 
+            this.guna2PictureBox4.Image = global::HealthApp.Properties.Resources.ChartsIcon;
+            this.guna2PictureBox4.ImageRotate = 0F;
+            this.guna2PictureBox4.Location = new System.Drawing.Point(27, 13);
+            this.guna2PictureBox4.Name = "guna2PictureBox4";
+            this.guna2PictureBox4.Size = new System.Drawing.Size(145, 139);
+            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox4.TabIndex = 2;
+            this.guna2PictureBox4.TabStop = false;
+            // 
+            // guna2Panel4
+            // 
+            this.guna2Panel4.BorderRadius = 25;
+            this.guna2Panel4.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.guna2Panel4.BorderThickness = 2;
+            this.guna2Panel4.Controls.Add(this.label12);
+            this.guna2Panel4.Controls.Add(this.guna2Panel7);
+            this.guna2Panel4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.guna2Panel4.FillColor = System.Drawing.Color.White;
+            this.guna2Panel4.Location = new System.Drawing.Point(395, 603);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.Size = new System.Drawing.Size(257, 256);
+            this.guna2Panel4.TabIndex = 10;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(72, 214);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(120, 24);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Đặt Lịch PT";
+            // 
+            // guna2Panel7
+            // 
+            this.guna2Panel7.BorderRadius = 25;
+            this.guna2Panel7.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.guna2Panel7.BorderThickness = 2;
+            this.guna2Panel7.Controls.Add(this.guna2PictureBox3);
+            this.guna2Panel7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(240)))));
+            this.guna2Panel7.Location = new System.Drawing.Point(18, 16);
+            this.guna2Panel7.Name = "guna2Panel7";
+            this.guna2Panel7.Size = new System.Drawing.Size(217, 184);
+            this.guna2Panel7.TabIndex = 1;
+            // 
+            // guna2PictureBox3
+            // 
+            this.guna2PictureBox3.Image = global::HealthApp.Properties.Resources.MailIcon;
+            this.guna2PictureBox3.ImageRotate = 0F;
+            this.guna2PictureBox3.Location = new System.Drawing.Point(37, 22);
+            this.guna2PictureBox3.Name = "guna2PictureBox3";
+            this.guna2PictureBox3.Size = new System.Drawing.Size(137, 152);
+            this.guna2PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox3.TabIndex = 2;
+            this.guna2PictureBox3.TabStop = false;
+            // 
+            // guna2Panel3
+            // 
+            this.guna2Panel3.BorderRadius = 25;
+            this.guna2Panel3.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.guna2Panel3.BorderThickness = 2;
+            this.guna2Panel3.Controls.Add(this.label10);
+            this.guna2Panel3.Controls.Add(this.guna2Panel6);
+            this.guna2Panel3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.guna2Panel3.FillColor = System.Drawing.Color.White;
+            this.guna2Panel3.Location = new System.Drawing.Point(413, 212);
+            this.guna2Panel3.Name = "guna2Panel3";
+            this.guna2Panel3.Size = new System.Drawing.Size(239, 258);
+            this.guna2Panel3.TabIndex = 10;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(13, 210);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(203, 24);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Mục Tiêu Luyện Tập";
+            // 
+            // guna2Panel6
+            // 
+            this.guna2Panel6.BorderRadius = 25;
+            this.guna2Panel6.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.guna2Panel6.BorderThickness = 2;
+            this.guna2Panel6.Controls.Add(this.guna2PictureBox2);
+            this.guna2Panel6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(240)))));
+            this.guna2Panel6.Location = new System.Drawing.Point(24, 16);
+            this.guna2Panel6.Name = "guna2Panel6";
+            this.guna2Panel6.Size = new System.Drawing.Size(188, 171);
+            this.guna2Panel6.TabIndex = 1;
+            // 
+            // guna2PictureBox2
+            // 
+            this.guna2PictureBox2.Image = global::HealthApp.Properties.Resources.GoalBoardIcon;
+            this.guna2PictureBox2.ImageRotate = 0F;
+            this.guna2PictureBox2.Location = new System.Drawing.Point(20, 3);
+            this.guna2PictureBox2.Name = "guna2PictureBox2";
+            this.guna2PictureBox2.Size = new System.Drawing.Size(149, 153);
+            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox2.TabIndex = 1;
+            this.guna2PictureBox2.TabStop = false;
+            // 
+            // pnlKeHoachAnUong
+            // 
+            this.pnlKeHoachAnUong.BorderRadius = 25;
+            this.pnlKeHoachAnUong.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.pnlKeHoachAnUong.BorderThickness = 2;
+            this.pnlKeHoachAnUong.Controls.Add(this.label9);
+            this.pnlKeHoachAnUong.Controls.Add(this.guna2Panel5);
+            this.pnlKeHoachAnUong.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlKeHoachAnUong.FillColor = System.Drawing.Color.White;
+            this.pnlKeHoachAnUong.Location = new System.Drawing.Point(72, 212);
+            this.pnlKeHoachAnUong.Name = "pnlKeHoachAnUong";
+            this.pnlKeHoachAnUong.Size = new System.Drawing.Size(245, 258);
+            this.pnlKeHoachAnUong.TabIndex = 9;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(36, 210);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(188, 24);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Kế Hoạch Ăn Uống";
+            // 
+            // guna2Panel5
+            // 
+            this.guna2Panel5.BorderRadius = 25;
+            this.guna2Panel5.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.guna2Panel5.BorderThickness = 2;
+            this.guna2Panel5.Controls.Add(this.guna2PictureBox1);
+            this.guna2Panel5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(240)))));
+            this.guna2Panel5.Location = new System.Drawing.Point(17, 16);
+            this.guna2Panel5.Name = "guna2Panel5";
+            this.guna2Panel5.Size = new System.Drawing.Size(207, 171);
+            this.guna2Panel5.TabIndex = 0;
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.Image = global::HealthApp.Properties.Resources.FoodIcon;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(27, 3);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(149, 153);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 0;
+            this.guna2PictureBox1.TabStop = false;
             // 
             // label11
             // 
@@ -160,139 +370,21 @@ namespace HealthApp.Views.Dashboard
             this.label2.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(178, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 21);
+            this.label2.Size = new System.Drawing.Size(97, 21);
             this.label2.TabIndex = 5;
             this.label2.Text = "Xin Ch�o ,";
             // 
-            // pnlKeHoachAnUong
+            // guna2CirclePictureBox1
             // 
-            this.pnlKeHoachAnUong.BorderRadius = 25;
-            this.pnlKeHoachAnUong.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.pnlKeHoachAnUong.BorderThickness = 2;
-            this.pnlKeHoachAnUong.Controls.Add(this.label9);
-            this.pnlKeHoachAnUong.Controls.Add(this.guna2Panel5);
-            this.pnlKeHoachAnUong.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pnlKeHoachAnUong.FillColor = System.Drawing.Color.White;
-            this.pnlKeHoachAnUong.Location = new System.Drawing.Point(72, 212);
-            this.pnlKeHoachAnUong.Name = "pnlKeHoachAnUong";
-            this.pnlKeHoachAnUong.Size = new System.Drawing.Size(330, 326);
-            this.pnlKeHoachAnUong.TabIndex = 9;
-            // 
-            // guna2Panel3
-            // 
-            this.guna2Panel3.BorderRadius = 25;
-            this.guna2Panel3.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.guna2Panel3.BorderThickness = 2;
-            this.guna2Panel3.Controls.Add(this.label10);
-            this.guna2Panel3.Controls.Add(this.guna2Panel6);
-            this.guna2Panel3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.guna2Panel3.FillColor = System.Drawing.Color.White;
-            this.guna2Panel3.Location = new System.Drawing.Point(521, 212);
-            this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.Size = new System.Drawing.Size(330, 326);
-            this.guna2Panel3.TabIndex = 10;
-            // 
-            // guna2Panel4
-            // 
-            this.guna2Panel4.BorderRadius = 25;
-            this.guna2Panel4.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.guna2Panel4.BorderThickness = 2;
-            this.guna2Panel4.Controls.Add(this.label12);
-            this.guna2Panel4.Controls.Add(this.guna2Panel7);
-            this.guna2Panel4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.guna2Panel4.FillColor = System.Drawing.Color.White;
-            this.guna2Panel4.Location = new System.Drawing.Point(954, 212);
-            this.guna2Panel4.Name = "guna2Panel4";
-            this.guna2Panel4.Size = new System.Drawing.Size(330, 326);
-            this.guna2Panel4.TabIndex = 10;
-            // 
-            // guna2Panel5
-            // 
-            this.guna2Panel5.BorderRadius = 25;
-            this.guna2Panel5.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.guna2Panel5.BorderThickness = 2;
-            this.guna2Panel5.Controls.Add(this.guna2PictureBox1);
-            this.guna2Panel5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(240)))));
-            this.guna2Panel5.Location = new System.Drawing.Point(17, 16);
-            this.guna2Panel5.Name = "guna2Panel5";
-            this.guna2Panel5.Size = new System.Drawing.Size(295, 253);
-            this.guna2Panel5.TabIndex = 0;
-            // 
-            // guna2Panel6
-            // 
-            this.guna2Panel6.BorderRadius = 25;
-            this.guna2Panel6.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.guna2Panel6.BorderThickness = 2;
-            this.guna2Panel6.Controls.Add(this.guna2PictureBox2);
-            this.guna2Panel6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(240)))));
-            this.guna2Panel6.Location = new System.Drawing.Point(17, 16);
-            this.guna2Panel6.Name = "guna2Panel6";
-            this.guna2Panel6.Size = new System.Drawing.Size(295, 253);
-            this.guna2Panel6.TabIndex = 1;
-            // 
-            // guna2Panel7
-            // 
-            this.guna2Panel7.BorderRadius = 25;
-            this.guna2Panel7.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.guna2Panel7.BorderThickness = 2;
-            this.guna2Panel7.Controls.Add(this.guna2PictureBox3);
-            this.guna2Panel7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(240)))));
-            this.guna2Panel7.Location = new System.Drawing.Point(18, 16);
-            this.guna2Panel7.Name = "guna2Panel7";
-            this.guna2Panel7.Size = new System.Drawing.Size(295, 253);
-            this.guna2Panel7.TabIndex = 1;
-            // 
-            // guna2Panel8
-            // 
-            this.guna2Panel8.BorderRadius = 25;
-            this.guna2Panel8.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.guna2Panel8.BorderThickness = 2;
-            this.guna2Panel8.Controls.Add(this.label13);
-            this.guna2Panel8.Controls.Add(this.guna2Panel9);
-            this.guna2Panel8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.guna2Panel8.FillColor = System.Drawing.Color.White;
-            this.guna2Panel8.Location = new System.Drawing.Point(72, 603);
-            this.guna2Panel8.Name = "guna2Panel8";
-            this.guna2Panel8.Size = new System.Drawing.Size(330, 326);
-            this.guna2Panel8.TabIndex = 11;
-            // 
-            // guna2Panel9
-            // 
-            this.guna2Panel9.BorderRadius = 25;
-            this.guna2Panel9.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.guna2Panel9.BorderThickness = 2;
-            this.guna2Panel9.Controls.Add(this.guna2PictureBox4);
-            this.guna2Panel9.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(240)))));
-            this.guna2Panel9.Location = new System.Drawing.Point(17, 16);
-            this.guna2Panel9.Name = "guna2Panel9";
-            this.guna2Panel9.Size = new System.Drawing.Size(295, 253);
-            this.guna2Panel9.TabIndex = 0;
-            // 
-            // guna2Panel10
-            // 
-            this.guna2Panel10.BorderRadius = 25;
-            this.guna2Panel10.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.guna2Panel10.BorderThickness = 2;
-            this.guna2Panel10.Controls.Add(this.label14);
-            this.guna2Panel10.Controls.Add(this.guna2Panel11);
-            this.guna2Panel10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.guna2Panel10.FillColor = System.Drawing.Color.White;
-            this.guna2Panel10.Location = new System.Drawing.Point(521, 603);
-            this.guna2Panel10.Name = "guna2Panel10";
-            this.guna2Panel10.Size = new System.Drawing.Size(330, 326);
-            this.guna2Panel10.TabIndex = 10;
-            // 
-            // guna2Panel11
-            // 
-            this.guna2Panel11.BorderRadius = 25;
-            this.guna2Panel11.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.guna2Panel11.BorderThickness = 2;
-            this.guna2Panel11.Controls.Add(this.guna2PictureBox5);
-            this.guna2Panel11.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(240)))));
-            this.guna2Panel11.Location = new System.Drawing.Point(17, 16);
-            this.guna2Panel11.Name = "guna2Panel11";
-            this.guna2Panel11.Size = new System.Drawing.Size(295, 253);
-            this.guna2Panel11.TabIndex = 0;
+            this.guna2CirclePictureBox1.Image = global::HealthApp.Properties.Resources.PersonInSettingIcon;
+            this.guna2CirclePictureBox1.ImageRotate = 0F;
+            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(53, 53);
+            this.guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
+            this.guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.guna2CirclePictureBox1.Size = new System.Drawing.Size(120, 106);
+            this.guna2CirclePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2CirclePictureBox1.TabIndex = 1;
+            this.guna2CirclePictureBox1.TabStop = false;
             // 
             // guna2Panel14
             // 
@@ -300,6 +392,7 @@ namespace HealthApp.Views.Dashboard
             this.guna2Panel14.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
             this.guna2Panel14.BorderRadius = 25;
             this.guna2Panel14.BorderThickness = 2;
+            this.guna2Panel14.Controls.Add(this.guna2Panel10);
             this.guna2Panel14.Controls.Add(this.guna2CirclePictureBox2);
             this.guna2Panel14.Controls.Add(this.guna2Panel17);
             this.guna2Panel14.Controls.Add(this.label1);
@@ -308,40 +401,20 @@ namespace HealthApp.Views.Dashboard
             this.guna2Panel14.FillColor = System.Drawing.Color.White;
             this.guna2Panel14.Location = new System.Drawing.Point(0, 1041);
             this.guna2Panel14.Name = "guna2Panel14";
-            this.guna2Panel14.Size = new System.Drawing.Size(1348, 457);
+            this.guna2Panel14.Size = new System.Drawing.Size(1348, 587);
             this.guna2Panel14.TabIndex = 1;
             // 
-            // guna2Panel15
+            // guna2CirclePictureBox2
             // 
-            this.guna2Panel15.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
-            this.guna2Panel15.BorderRadius = 25;
-            this.guna2Panel15.BorderThickness = 2;
-            this.guna2Panel15.Controls.Add(this.guna2CirclePictureBox6);
-            this.guna2Panel15.Controls.Add(this.label4);
-            this.guna2Panel15.Controls.Add(this.label3);
-            this.guna2Panel15.Controls.Add(this.guna2CirclePictureBox3);
-            this.guna2Panel15.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.guna2Panel15.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(223)))), ((int)(((byte)(225)))));
-            this.guna2Panel15.Location = new System.Drawing.Point(18, 77);
-            this.guna2Panel15.Name = "guna2Panel15";
-            this.guna2Panel15.Size = new System.Drawing.Size(1309, 100);
-            this.guna2Panel15.TabIndex = 0;
-            // 
-            // guna2Panel16
-            // 
-            this.guna2Panel16.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
-            this.guna2Panel16.BorderRadius = 25;
-            this.guna2Panel16.BorderThickness = 2;
-            this.guna2Panel16.Controls.Add(this.guna2CirclePictureBox7);
-            this.guna2Panel16.Controls.Add(this.label5);
-            this.guna2Panel16.Controls.Add(this.label6);
-            this.guna2Panel16.Controls.Add(this.guna2CirclePictureBox4);
-            this.guna2Panel16.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.guna2Panel16.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(223)))), ((int)(((byte)(225)))));
-            this.guna2Panel16.Location = new System.Drawing.Point(18, 203);
-            this.guna2Panel16.Name = "guna2Panel16";
-            this.guna2Panel16.Size = new System.Drawing.Size(1309, 100);
-            this.guna2Panel16.TabIndex = 1;
+            this.guna2CirclePictureBox2.Image = global::HealthApp.Properties.Resources.ThunderIcon;
+            this.guna2CirclePictureBox2.ImageRotate = 0F;
+            this.guna2CirclePictureBox2.Location = new System.Drawing.Point(24, 3);
+            this.guna2CirclePictureBox2.Name = "guna2CirclePictureBox2";
+            this.guna2CirclePictureBox2.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.guna2CirclePictureBox2.Size = new System.Drawing.Size(49, 60);
+            this.guna2CirclePictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2CirclePictureBox2.TabIndex = 3;
+            this.guna2CirclePictureBox2.TabStop = false;
             // 
             // guna2Panel17
             // 
@@ -359,55 +432,17 @@ namespace HealthApp.Views.Dashboard
             this.guna2Panel17.Size = new System.Drawing.Size(1309, 100);
             this.guna2Panel17.TabIndex = 1;
             // 
-            // label1
+            // guna2CirclePictureBox8
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(77, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(184, 28);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Hành Động Nhanh";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(96, 30);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 23);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Bữa Ăn\r\n";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(94, 57);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(263, 23);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Di chuyển nhanh tới mục bữa ăn";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(94, 52);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(238, 23);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Di chuyển nhanh tới mục tiêu";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(96, 25);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(81, 23);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Mục Tiêu";
+            this.guna2CirclePictureBox8.Image = global::HealthApp.Properties.Resources.RightArrowIcon;
+            this.guna2CirclePictureBox8.ImageRotate = 0F;
+            this.guna2CirclePictureBox8.Location = new System.Drawing.Point(1254, 20);
+            this.guna2CirclePictureBox8.Name = "guna2CirclePictureBox8";
+            this.guna2CirclePictureBox8.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.guna2CirclePictureBox8.Size = new System.Drawing.Size(40, 64);
+            this.guna2CirclePictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2CirclePictureBox8.TabIndex = 10;
+            this.guna2CirclePictureBox8.TabStop = false;
             // 
             // label7
             // 
@@ -429,80 +464,6 @@ namespace HealthApp.Views.Dashboard
             this.label8.TabIndex = 8;
             this.label8.Text = "Chế Độ Luyện Tập";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(72, 284);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(188, 24);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Kế Hoạch Ăn Uống";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(66, 284);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(203, 24);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "Mục Tiêu Luyện Tập";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(105, 284);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(120, 24);
-            this.label12.TabIndex = 8;
-            this.label12.Text = "Đặt Lịch PT";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(107, 284);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(102, 24);
-            this.label13.TabIndex = 8;
-            this.label13.Text = "Thống Kê";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(111, 281);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(102, 24);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "GYM Map";
-            // 
-            // guna2CirclePictureBox2
-            // 
-            this.guna2CirclePictureBox2.Image = global::HealthApp.Properties.Resources.ThunderIcon;
-            this.guna2CirclePictureBox2.ImageRotate = 0F;
-            this.guna2CirclePictureBox2.Location = new System.Drawing.Point(24, 3);
-            this.guna2CirclePictureBox2.Name = "guna2CirclePictureBox2";
-            this.guna2CirclePictureBox2.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.guna2CirclePictureBox2.Size = new System.Drawing.Size(49, 60);
-            this.guna2CirclePictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2CirclePictureBox2.TabIndex = 3;
-            this.guna2CirclePictureBox2.TabStop = false;
-            // 
-            // guna2CirclePictureBox8
-            // 
-            this.guna2CirclePictureBox8.Image = global::HealthApp.Properties.Resources.RightArrowIcon;
-            this.guna2CirclePictureBox8.ImageRotate = 0F;
-            this.guna2CirclePictureBox8.Location = new System.Drawing.Point(1254, 20);
-            this.guna2CirclePictureBox8.Name = "guna2CirclePictureBox8";
-            this.guna2CirclePictureBox8.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.guna2CirclePictureBox8.Size = new System.Drawing.Size(40, 64);
-            this.guna2CirclePictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2CirclePictureBox8.TabIndex = 10;
-            this.guna2CirclePictureBox8.TabStop = false;
-            // 
             // guna2CirclePictureBox5
             // 
             this.guna2CirclePictureBox5.Image = global::HealthApp.Properties.Resources.ReserveIcon;
@@ -514,6 +475,32 @@ namespace HealthApp.Views.Dashboard
             this.guna2CirclePictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.guna2CirclePictureBox5.TabIndex = 7;
             this.guna2CirclePictureBox5.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(77, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(184, 28);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Hành Động Nhanh";
+            // 
+            // guna2Panel16
+            // 
+            this.guna2Panel16.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
+            this.guna2Panel16.BorderRadius = 25;
+            this.guna2Panel16.BorderThickness = 2;
+            this.guna2Panel16.Controls.Add(this.guna2CirclePictureBox7);
+            this.guna2Panel16.Controls.Add(this.label5);
+            this.guna2Panel16.Controls.Add(this.label6);
+            this.guna2Panel16.Controls.Add(this.guna2CirclePictureBox4);
+            this.guna2Panel16.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.guna2Panel16.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(223)))), ((int)(((byte)(225)))));
+            this.guna2Panel16.Location = new System.Drawing.Point(18, 203);
+            this.guna2Panel16.Name = "guna2Panel16";
+            this.guna2Panel16.Size = new System.Drawing.Size(1309, 100);
+            this.guna2Panel16.TabIndex = 1;
             // 
             // guna2CirclePictureBox7
             // 
@@ -527,6 +514,26 @@ namespace HealthApp.Views.Dashboard
             this.guna2CirclePictureBox7.TabIndex = 10;
             this.guna2CirclePictureBox7.TabStop = false;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(94, 52);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(238, 23);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Di chuyển nhanh tới mục tiêu";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(96, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(81, 23);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Mục Tiêu";
+            // 
             // guna2CirclePictureBox4
             // 
             this.guna2CirclePictureBox4.Image = global::HealthApp.Properties.Resources.GoalBoardIcon;
@@ -538,6 +545,22 @@ namespace HealthApp.Views.Dashboard
             this.guna2CirclePictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.guna2CirclePictureBox4.TabIndex = 7;
             this.guna2CirclePictureBox4.TabStop = false;
+            // 
+            // guna2Panel15
+            // 
+            this.guna2Panel15.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
+            this.guna2Panel15.BorderRadius = 25;
+            this.guna2Panel15.BorderThickness = 2;
+            this.guna2Panel15.Controls.Add(this.guna2CirclePictureBox6);
+            this.guna2Panel15.Controls.Add(this.label4);
+            this.guna2Panel15.Controls.Add(this.label3);
+            this.guna2Panel15.Controls.Add(this.guna2CirclePictureBox3);
+            this.guna2Panel15.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.guna2Panel15.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(223)))), ((int)(((byte)(225)))));
+            this.guna2Panel15.Location = new System.Drawing.Point(18, 77);
+            this.guna2Panel15.Name = "guna2Panel15";
+            this.guna2Panel15.Size = new System.Drawing.Size(1309, 100);
+            this.guna2Panel15.TabIndex = 0;
             // 
             // guna2CirclePictureBox6
             // 
@@ -551,6 +574,26 @@ namespace HealthApp.Views.Dashboard
             this.guna2CirclePictureBox6.TabIndex = 7;
             this.guna2CirclePictureBox6.TabStop = false;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(94, 57);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(263, 23);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Di chuyển nhanh tới mục bữa ăn";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(96, 30);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(66, 23);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Bữa Ăn\r\n";
+            // 
             // guna2CirclePictureBox3
             // 
             this.guna2CirclePictureBox3.Image = global::HealthApp.Properties.Resources.MealIcon;
@@ -563,72 +606,338 @@ namespace HealthApp.Views.Dashboard
             this.guna2CirclePictureBox3.TabIndex = 4;
             this.guna2CirclePictureBox3.TabStop = false;
             // 
-            // guna2PictureBox5
+            // guna2Panel2
             // 
-            this.guna2PictureBox5.Image = global::HealthApp.Properties.Resources.Mapsicon;
-            this.guna2PictureBox5.ImageRotate = 0F;
-            this.guna2PictureBox5.Location = new System.Drawing.Point(73, 50);
-            this.guna2PictureBox5.Name = "guna2PictureBox5";
-            this.guna2PictureBox5.Size = new System.Drawing.Size(149, 153);
-            this.guna2PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox5.TabIndex = 2;
-            this.guna2PictureBox5.TabStop = false;
+            this.guna2Panel2.BorderRadius = 25;
+            this.guna2Panel2.BorderThickness = 2;
+            this.guna2Panel2.Controls.Add(this.label28);
+            this.guna2Panel2.Controls.Add(this.label27);
+            this.guna2Panel2.Controls.Add(this.lblKetQuaTinhTDEE);
+            this.guna2Panel2.Controls.Add(this.lblKetQuaTinhBMI);
+            this.guna2Panel2.Controls.Add(this.guna2ComboBox2);
+            this.guna2Panel2.Controls.Add(this.guna2ComboBox1);
+            this.guna2Panel2.Controls.Add(this.guna2TextBox3);
+            this.guna2Panel2.Controls.Add(this.guna2TextBox2);
+            this.guna2Panel2.Controls.Add(this.guna2TextBox1);
+            this.guna2Panel2.Controls.Add(this.label24);
+            this.guna2Panel2.Controls.Add(this.label23);
+            this.guna2Panel2.Controls.Add(this.label22);
+            this.guna2Panel2.Controls.Add(this.btnTinhNhanhBMITDEE);
+            this.guna2Panel2.Controls.Add(this.label20);
+            this.guna2Panel2.Controls.Add(this.label19);
+            this.guna2Panel2.Controls.Add(this.label18);
+            this.guna2Panel2.Controls.Add(this.label17);
+            this.guna2Panel2.Controls.Add(this.label21);
+            this.guna2Panel2.Controls.Add(this.label16);
+            this.guna2Panel2.FillColor = System.Drawing.Color.White;
+            this.guna2Panel2.Location = new System.Drawing.Point(787, 212);
+            this.guna2Panel2.Name = "guna2Panel2";
+            this.guna2Panel2.Size = new System.Drawing.Size(480, 647);
+            this.guna2Panel2.TabIndex = 12;
             // 
-            // guna2PictureBox4
+            // guna2Panel10
             // 
-            this.guna2PictureBox4.Image = global::HealthApp.Properties.Resources.ChartsIcon;
-            this.guna2PictureBox4.ImageRotate = 0F;
-            this.guna2PictureBox4.Location = new System.Drawing.Point(73, 50);
-            this.guna2PictureBox4.Name = "guna2PictureBox4";
-            this.guna2PictureBox4.Size = new System.Drawing.Size(149, 153);
-            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox4.TabIndex = 2;
-            this.guna2PictureBox4.TabStop = false;
+            this.guna2Panel10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
+            this.guna2Panel10.BorderRadius = 25;
+            this.guna2Panel10.BorderThickness = 2;
+            this.guna2Panel10.Controls.Add(this.guna2CirclePictureBox9);
+            this.guna2Panel10.Controls.Add(this.label14);
+            this.guna2Panel10.Controls.Add(this.label15);
+            this.guna2Panel10.Controls.Add(this.guna2CirclePictureBox10);
+            this.guna2Panel10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.guna2Panel10.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(223)))), ((int)(((byte)(225)))));
+            this.guna2Panel10.Location = new System.Drawing.Point(18, 458);
+            this.guna2Panel10.Name = "guna2Panel10";
+            this.guna2Panel10.Size = new System.Drawing.Size(1309, 100);
+            this.guna2Panel10.TabIndex = 4;
             // 
-            // guna2PictureBox3
+            // guna2CirclePictureBox9
             // 
-            this.guna2PictureBox3.Image = global::HealthApp.Properties.Resources.MailIcon;
-            this.guna2PictureBox3.ImageRotate = 0F;
-            this.guna2PictureBox3.Location = new System.Drawing.Point(73, 50);
-            this.guna2PictureBox3.Name = "guna2PictureBox3";
-            this.guna2PictureBox3.Size = new System.Drawing.Size(149, 153);
-            this.guna2PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox3.TabIndex = 2;
-            this.guna2PictureBox3.TabStop = false;
+            this.guna2CirclePictureBox9.Image = global::HealthApp.Properties.Resources.RightArrowIcon;
+            this.guna2CirclePictureBox9.ImageRotate = 0F;
+            this.guna2CirclePictureBox9.Location = new System.Drawing.Point(1254, 20);
+            this.guna2CirclePictureBox9.Name = "guna2CirclePictureBox9";
+            this.guna2CirclePictureBox9.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.guna2CirclePictureBox9.Size = new System.Drawing.Size(40, 64);
+            this.guna2CirclePictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2CirclePictureBox9.TabIndex = 10;
+            this.guna2CirclePictureBox9.TabStop = false;
             // 
-            // guna2PictureBox2
+            // label14
             // 
-            this.guna2PictureBox2.Image = global::HealthApp.Properties.Resources.GoalBoardIcon;
-            this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(73, 50);
-            this.guna2PictureBox2.Name = "guna2PictureBox2";
-            this.guna2PictureBox2.Size = new System.Drawing.Size(149, 153);
-            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox2.TabIndex = 1;
-            this.guna2PictureBox2.TabStop = false;
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(94, 53);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(402, 23);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "Tra cứu nhanh vị trí các phòng tập đang ở gần bạn";
             // 
-            // guna2PictureBox1
+            // label15
             // 
-            this.guna2PictureBox1.Image = global::HealthApp.Properties.Resources.FoodIcon;
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(71, 41);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(149, 153);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox1.TabIndex = 0;
-            this.guna2PictureBox1.TabStop = false;
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(96, 26);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(236, 23);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "Xem Các Phòng Tập Gần Bạn";
             // 
-            // guna2CirclePictureBox1
+            // guna2CirclePictureBox10
             // 
-            this.guna2CirclePictureBox1.Image = global::HealthApp.Properties.Resources.PersonInSettingIcon;
-            this.guna2CirclePictureBox1.ImageRotate = 0F;
-            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(53, 53);
-            this.guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
-            this.guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.guna2CirclePictureBox1.Size = new System.Drawing.Size(120, 106);
-            this.guna2CirclePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2CirclePictureBox1.TabIndex = 1;
-            this.guna2CirclePictureBox1.TabStop = false;
+            this.guna2CirclePictureBox10.Image = global::HealthApp.Properties.Resources.Mapsicon;
+            this.guna2CirclePictureBox10.ImageRotate = 0F;
+            this.guna2CirclePictureBox10.Location = new System.Drawing.Point(21, 11);
+            this.guna2CirclePictureBox10.Name = "guna2CirclePictureBox10";
+            this.guna2CirclePictureBox10.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.guna2CirclePictureBox10.Size = new System.Drawing.Size(62, 77);
+            this.guna2CirclePictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2CirclePictureBox10.TabIndex = 7;
+            this.guna2CirclePictureBox10.TabStop = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(13, 12);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(260, 25);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Tính Nhanh Chỉ Số BMI - TDEE";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.BackColor = System.Drawing.Color.Transparent;
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
+            this.label21.Location = new System.Drawing.Point(15, 37);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(259, 16);
+            this.label21.TabIndex = 6;
+            this.label21.Text = "____________________________________";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(14, 110);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(92, 25);
+            this.label17.TabIndex = 7;
+            this.label17.Text = "Chiều cao";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(14, 179);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(90, 25);
+            this.label18.TabIndex = 8;
+            this.label18.Text = "Cân nặng";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(13, 247);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(48, 25);
+            this.label19.TabIndex = 9;
+            this.label19.Text = "Tuổi";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(14, 325);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(84, 25);
+            this.label20.TabIndex = 10;
+            this.label20.Text = "Giới tính";
+            // 
+            // btnTinhNhanhBMITDEE
+            // 
+            this.btnTinhNhanhBMITDEE.BorderRadius = 20;
+            this.btnTinhNhanhBMITDEE.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTinhNhanhBMITDEE.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTinhNhanhBMITDEE.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTinhNhanhBMITDEE.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTinhNhanhBMITDEE.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
+            this.btnTinhNhanhBMITDEE.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTinhNhanhBMITDEE.ForeColor = System.Drawing.Color.White;
+            this.btnTinhNhanhBMITDEE.Location = new System.Drawing.Point(19, 460);
+            this.btnTinhNhanhBMITDEE.Name = "btnTinhNhanhBMITDEE";
+            this.btnTinhNhanhBMITDEE.Size = new System.Drawing.Size(254, 45);
+            this.btnTinhNhanhBMITDEE.TabIndex = 11;
+            this.btnTinhNhanhBMITDEE.Text = "Tính Nhanh BMI - TDEE";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(14, 534);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(111, 25);
+            this.label22.TabIndex = 12;
+            this.label22.Text = "Chỉ Số BMI :";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(14, 586);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(119, 25);
+            this.label23.TabIndex = 13;
+            this.label23.Text = "Chỉ Số TDEE :";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(14, 407);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(154, 25);
+            this.label24.TabIndex = 14;
+            this.label24.Text = "Mức độ lao động";
+            // 
+            // guna2TextBox1
+            // 
+            this.guna2TextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2TextBox1.DefaultText = "";
+            this.guna2TextBox1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.guna2TextBox1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.guna2TextBox1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2TextBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox1.Location = new System.Drawing.Point(202, 105);
+            this.guna2TextBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2TextBox1.Name = "guna2TextBox1";
+            this.guna2TextBox1.PlaceholderText = "";
+            this.guna2TextBox1.SelectedText = "";
+            this.guna2TextBox1.Size = new System.Drawing.Size(253, 36);
+            this.guna2TextBox1.TabIndex = 15;
+            // 
+            // guna2TextBox2
+            // 
+            this.guna2TextBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2TextBox2.DefaultText = "";
+            this.guna2TextBox2.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.guna2TextBox2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.guna2TextBox2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox2.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2TextBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox2.Location = new System.Drawing.Point(202, 179);
+            this.guna2TextBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2TextBox2.Name = "guna2TextBox2";
+            this.guna2TextBox2.PlaceholderText = "";
+            this.guna2TextBox2.SelectedText = "";
+            this.guna2TextBox2.Size = new System.Drawing.Size(253, 36);
+            this.guna2TextBox2.TabIndex = 16;
+            // 
+            // guna2TextBox3
+            // 
+            this.guna2TextBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2TextBox3.DefaultText = "";
+            this.guna2TextBox3.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.guna2TextBox3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.guna2TextBox3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox3.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.guna2TextBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2TextBox3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2TextBox3.Location = new System.Drawing.Point(202, 244);
+            this.guna2TextBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2TextBox3.Name = "guna2TextBox3";
+            this.guna2TextBox3.PlaceholderText = "";
+            this.guna2TextBox3.SelectedText = "";
+            this.guna2TextBox3.Size = new System.Drawing.Size(253, 36);
+            this.guna2TextBox3.TabIndex = 17;
+            // 
+            // guna2ComboBox1
+            // 
+            this.guna2ComboBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.guna2ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.guna2ComboBox1.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.guna2ComboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.guna2ComboBox1.ItemHeight = 30;
+            this.guna2ComboBox1.Items.AddRange(new object[] {
+            "Nam",
+            "Nữ",
+            "Khác"});
+            this.guna2ComboBox1.Location = new System.Drawing.Point(202, 320);
+            this.guna2ComboBox1.Name = "guna2ComboBox1";
+            this.guna2ComboBox1.Size = new System.Drawing.Size(253, 36);
+            this.guna2ComboBox1.TabIndex = 18;
+            // 
+            // guna2ComboBox2
+            // 
+            this.guna2ComboBox2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.guna2ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.guna2ComboBox2.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.guna2ComboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.guna2ComboBox2.ItemHeight = 30;
+            this.guna2ComboBox2.Items.AddRange(new object[] {
+            "Ít Vận Động",
+            "Hoạt Động Nhẹ(1-3 Buổi/Tuần)",
+            "Hoạt Động Vừa(3-5 Buổi/Tuần)",
+            "Hoạt Động Cao(6-7 Buổi/Tuần)",
+            "Hoạt Động Rất Cao(2 Buổi/Ngày)"});
+            this.guna2ComboBox2.Location = new System.Drawing.Point(202, 403);
+            this.guna2ComboBox2.Name = "guna2ComboBox2";
+            this.guna2ComboBox2.Size = new System.Drawing.Size(253, 36);
+            this.guna2ComboBox2.TabIndex = 19;
+            // 
+            // lblKetQuaTinhBMI
+            // 
+            this.lblKetQuaTinhBMI.AutoSize = true;
+            this.lblKetQuaTinhBMI.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKetQuaTinhBMI.Location = new System.Drawing.Point(198, 536);
+            this.lblKetQuaTinhBMI.Name = "lblKetQuaTinhBMI";
+            this.lblKetQuaTinhBMI.Size = new System.Drawing.Size(19, 23);
+            this.lblKetQuaTinhBMI.TabIndex = 20;
+            this.lblKetQuaTinhBMI.Text = "0";
+            // 
+            // lblKetQuaTinhTDEE
+            // 
+            this.lblKetQuaTinhTDEE.AutoSize = true;
+            this.lblKetQuaTinhTDEE.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKetQuaTinhTDEE.Location = new System.Drawing.Point(198, 586);
+            this.lblKetQuaTinhTDEE.Name = "lblKetQuaTinhTDEE";
+            this.lblKetQuaTinhTDEE.Size = new System.Drawing.Size(19, 23);
+            this.lblKetQuaTinhTDEE.TabIndex = 21;
+            this.lblKetQuaTinhTDEE.Text = "0";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(298, 534);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(73, 23);
+            this.label27.TabIndex = 22;
+            this.label27.Text = "Kg/m^2";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(298, 588);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(89, 23);
+            this.label28.TabIndex = 23;
+            this.label28.Text = "Kcal/Ngày";
             // 
             // ucDashBoard
             // 
@@ -642,42 +951,44 @@ namespace HealthApp.Views.Dashboard
             this.Load += new System.EventHandler(this.ucDashBoard_Load);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
-            this.pnlKeHoachAnUong.ResumeLayout(false);
-            this.pnlKeHoachAnUong.PerformLayout();
-            this.guna2Panel3.ResumeLayout(false);
-            this.guna2Panel3.PerformLayout();
-            this.guna2Panel4.ResumeLayout(false);
-            this.guna2Panel4.PerformLayout();
-            this.guna2Panel5.ResumeLayout(false);
-            this.guna2Panel6.ResumeLayout(false);
-            this.guna2Panel7.ResumeLayout(false);
             this.guna2Panel8.ResumeLayout(false);
             this.guna2Panel8.PerformLayout();
             this.guna2Panel9.ResumeLayout(false);
-            this.guna2Panel10.ResumeLayout(false);
-            this.guna2Panel10.PerformLayout();
-            this.guna2Panel11.ResumeLayout(false);
-            this.guna2Panel14.ResumeLayout(false);
-            this.guna2Panel14.PerformLayout();
-            this.guna2Panel15.ResumeLayout(false);
-            this.guna2Panel15.PerformLayout();
-            this.guna2Panel16.ResumeLayout(false);
-            this.guna2Panel16.PerformLayout();
-            this.guna2Panel17.ResumeLayout(false);
-            this.guna2Panel17.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).EndInit();
+            this.guna2Panel4.ResumeLayout(false);
+            this.guna2Panel4.PerformLayout();
+            this.guna2Panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).EndInit();
+            this.guna2Panel3.ResumeLayout(false);
+            this.guna2Panel3.PerformLayout();
+            this.guna2Panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
+            this.pnlKeHoachAnUong.ResumeLayout(false);
+            this.pnlKeHoachAnUong.PerformLayout();
+            this.guna2Panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).EndInit();
+            this.guna2Panel14.ResumeLayout(false);
+            this.guna2Panel14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox2)).EndInit();
+            this.guna2Panel17.ResumeLayout(false);
+            this.guna2Panel17.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox5)).EndInit();
+            this.guna2Panel16.ResumeLayout(false);
+            this.guna2Panel16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox4)).EndInit();
+            this.guna2Panel15.ResumeLayout(false);
+            this.guna2Panel15.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox3)).EndInit();
+            this.guna2Panel2.ResumeLayout(false);
+            this.guna2Panel2.PerformLayout();
+            this.guna2Panel10.ResumeLayout(false);
+            this.guna2Panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox10)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -694,8 +1005,6 @@ namespace HealthApp.Views.Dashboard
         private System.Windows.Forms.Label lblMucTieuTuanNay;
         private System.Windows.Forms.Label lblTenNgDung;
         private System.Windows.Forms.Label label2;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel10;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel11;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel8;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel9;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel7;
@@ -718,15 +1027,38 @@ namespace HealthApp.Views.Dashboard
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox3;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox5;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox3;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
+        private System.Windows.Forms.Label label16;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel10;
+        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox9;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox10;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private Guna.UI2.WinForms.Guna2Button btnTinhNhanhBMITDEE;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label21;
+        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox2;
+        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox1;
+        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox3;
+        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox2;
+        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label lblKetQuaTinhTDEE;
+        private System.Windows.Forms.Label lblKetQuaTinhBMI;
     }
 }
