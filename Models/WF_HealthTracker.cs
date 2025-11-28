@@ -44,6 +44,7 @@ namespace HealthApp.Models
         public virtual DbSet<ThuVienBaiTap> ThuVienBaiTap { get; set; }
         public virtual DbSet<ThuVienMonAn> ThuVienMonAn { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<CheDoDinhDuongMau> CheDoDinhDuongMau { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -53,7 +54,12 @@ namespace HealthApp.Models
             // Explicit table mapping để đảm bảo sử dụng đúng tên bảng
             modelBuilder.Entity<ThuVienMonAn>().ToTable("ThuVienMonAn");
             modelBuilder.Entity<ThuVienBaiTap>().ToTable("ThuVienBaiTap");
+            modelBuilder.Entity<CheDoDinhDuongMau>().ToTable("CheDoDinhDuongMau");
             
+            modelBuilder.Entity<CheDoDinhDuongMau>()
+                .Property(e => e.CheDoID)
+                .IsUnicode(false);
+
             modelBuilder.Entity<BaiTapChiTiet>()
                 .Property(e => e.BaiTapChiTietID)
                 .IsUnicode(false);

@@ -24,6 +24,11 @@ namespace HealthApp.Views.KeHoachLuyenTap
         private List<Models.BuoiTap> _allBuoiTap;
         private DateTime _currentWeekStart; // Ngày bắt đầu tuần hiện tại
         private Models.BuoiTap _selectedBuoiTap; // Buổi tập được chọn
+        private Guna.UI2.WinForms.Guna2Button _selectedDayButton; // Button ngày đang được chọn
+        private DateTime? _lastSelectedDate; // Lưu ngày đang chọn để restore sau khi reload
+        
+        // Static variable để lưu ngày cần restore khi quay về từ ucTrienKhaiBaiTap
+        private static DateTime? _restoreDateAfterWorkout;
 
         // Mapping thứ trong tuần
         private readonly Dictionary<string, int> _thuMapping = new Dictionary<string, int>
@@ -70,7 +75,11 @@ namespace HealthApp.Views.KeHoachLuyenTap
             btnPrev.Click += BtnPrev_Click;
             btnNext.Click += BtnNext_Click;
             btnTroVe.Click += BtnTroVe_Click;
-            btnBatDauBaiTap.Click += BtnBatDauBaiTap_Click;
+            // Đăng ký event handler cho btnDoiLichTap
+            if (btnDoiLichTap != null)
+            {
+                btnDoiLichTap.Click += BtnDoiLichTap_Click;
+            }
             btnHoanThanh.Click += BtnHoanThanh_Click;
             btnHuyKeHoach.Click += BtnHuyKeHoach_Click;
 
@@ -91,7 +100,28 @@ namespace HealthApp.Views.KeHoachLuyenTap
             }
 
             await LoadWorkoutPlanAsync();
+            
+            // Restore ngày đã lưu nếu có (khi quay về từ ucTrienKhaiBaiTap)
+            if (_restoreDateAfterWorkout.HasValue)
+            {
+                _lastSelectedDate = _restoreDateAfterWorkout.Value;
+                _restoreDateAfterWorkout = null; // Clear sau khi dùng
+                
+                // Cập nhật tuần hiện tại nếu ngày restore không nằm trong tuần hiện tại
+                DateTime weekStartOfRestoreDate = GetStartOfWeek(_lastSelectedDate.Value);
+                if (weekStartOfRestoreDate != _currentWeekStart)
+                {
+                    _currentWeekStart = weekStartOfRestoreDate;
+                }
+            }
+            
             LoadWeekCalendar();
+            
+            // Luôn hiển thị panel danh sách bài tập
+            pnlDanhSachMucTieu.Visible = true;
+            
+            // Cập nhật trạng thái thông báo
+            UpdateThongBaoVisibility();
         }
 
         /// <summary>
@@ -119,6 +149,10 @@ namespace HealthApp.Views.KeHoachLuyenTap
                 {
                     MessageBox.Show("Bạn chưa có kế hoạch luyện tập nào đang hoạt động!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Reset thông tin
+                    ClearDetailInfo();
+                    // Hiển thị thông báo vì chưa có kế hoạch
+                    UpdateThongBaoVisibility();
                     return;
                 }
 
@@ -147,6 +181,9 @@ namespace HealthApp.Views.KeHoachLuyenTap
                 {
                     System.Diagnostics.Debug.WriteLine("  - Không có buổi tập nào!");
                 }
+                
+                // Cập nhật trạng thái thông báo sau khi load kế hoạch
+                UpdateThongBaoVisibility();
             }
             catch (Exception ex)
             {
@@ -167,6 +204,9 @@ namespace HealthApp.Views.KeHoachLuyenTap
                 DateTime weekEnd = _currentWeekStart.AddDays(6);
                 lblThangNam.Text = $"{_currentWeekStart:dd/MM/yyyy} - {weekEnd:dd/MM/yyyy}";
 
+                // Reset button đang chọn khi chuyển tuần
+                _selectedDayButton = null;
+
                 // Cập nhật các nút ngày
                 for (int i = 0; i < 7; i++)
                 {
@@ -174,7 +214,7 @@ namespace HealthApp.Views.KeHoachLuyenTap
                     _dayButtons[i].Text = currentDate.Day.ToString();
                     _dayButtons[i].Tag = currentDate;
 
-                    // Reset màu
+                    // Reset về màu bình thường
                     _dayButtons[i].FillColor = Color.White;
                     _dayButtons[i].ForeColor = Color.FromArgb(64, 64, 64);
 
@@ -182,9 +222,58 @@ namespace HealthApp.Views.KeHoachLuyenTap
                     bool hasWorkout = HasWorkoutOnDate(currentDate);
                     if (hasWorkout)
                     {
-                        // Highlight ngày có buổi tập
-                        _dayButtons[i].FillColor = Color.FromArgb(233, 252, 255); // Màu xanh nhạt
+                        // Highlight ngày có buổi tập (màu xanh nhạt)
+                        _dayButtons[i].FillColor = Color.FromArgb(233, 252, 255);
                         _dayButtons[i].ForeColor = Color.Teal;
+                    }
+                }
+
+                // Restore lại ngày đang chọn (ưu tiên _lastSelectedDate)
+                DateTime? dateToRestore = _lastSelectedDate;
+                if (dateToRestore.HasValue)
+                {
+                    // Tìm lại button tương ứng với ngày đã chọn
+                    for (int i = 0; i < 7; i++)
+                    {
+                        if (_dayButtons[i].Tag != null && ((DateTime)_dayButtons[i].Tag).Date == dateToRestore.Value.Date)
+                        {
+                            // Reset button trước đó
+                            if (_selectedDayButton != null && _selectedDayButton != _dayButtons[i])
+                            {
+                                ResetDayButton(_selectedDayButton);
+                            }
+                            
+                            HighlightSelectedDay(_dayButtons[i]);
+                            _selectedDayButton = _dayButtons[i];
+                            
+                            // Tìm lại buổi tập tương ứng
+                            _selectedBuoiTap = _allBuoiTap?.FirstOrDefault(b => 
+                                b.ThoiGianBatDau.HasValue && 
+                                b.ThoiGianBatDau.Value.Date == dateToRestore.Value.Date);
+                            
+                            if (_selectedBuoiTap != null)
+                            {
+                                UpdateDetailInfo(_selectedBuoiTap);
+                            }
+                            break;
+                        }
+                    }
+                }
+                else if (_selectedDayButton != null && _selectedDayButton.Tag != null)
+                {
+                    // Fallback: sử dụng _selectedDayButton nếu không có _lastSelectedDate
+                    DateTime selectedDate = (DateTime)_selectedDayButton.Tag;
+                    DateTime dateOnly = selectedDate.Date;
+                    
+                    // Tìm lại button tương ứng với ngày đã chọn
+                    for (int i = 0; i < 7; i++)
+                    {
+                        if (_dayButtons[i].Tag != null && ((DateTime)_dayButtons[i].Tag).Date == dateOnly)
+                        {
+                            HighlightSelectedDay(_dayButtons[i]);
+                            _selectedDayButton = _dayButtons[i];
+                            break;
+                        }
                     }
                 }
 
@@ -197,10 +286,49 @@ namespace HealthApp.Views.KeHoachLuyenTap
                 {
                     ClearDetailInfo();
                 }
+                
+                // Cập nhật thông báo
+                UpdateThongBaoVisibility();
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"LoadWeekCalendar error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Highlight nhẹ button ngày được chọn
+        /// </summary>
+        private void HighlightSelectedDay(Guna.UI2.WinForms.Guna2Button button)
+        {
+            if (button == null) return;
+
+            // Màu highlight nhẹ (màu tím nhạt)
+            button.FillColor = Color.FromArgb(200, 190, 255); // Màu tím nhạt hơn
+            button.ForeColor = Color.FromArgb(100, 88, 255); // Màu tím đậm hơn cho text
+        }
+
+        /// <summary>
+        /// Reset button về trạng thái ban đầu (có buổi tập hoặc bình thường)
+        /// </summary>
+        private void ResetDayButton(Guna.UI2.WinForms.Guna2Button button)
+        {
+            if (button == null || button.Tag == null) return;
+
+            DateTime date = (DateTime)button.Tag;
+            bool hasWorkout = HasWorkoutOnDate(date);
+
+            if (hasWorkout)
+            {
+                // Highlight ngày có buổi tập
+                button.FillColor = Color.FromArgb(233, 252, 255);
+                button.ForeColor = Color.Teal;
+            }
+            else
+            {
+                // Màu bình thường
+                button.FillColor = Color.White;
+                button.ForeColor = Color.FromArgb(64, 64, 64);
             }
         }
 
@@ -259,8 +387,21 @@ namespace HealthApp.Views.KeHoachLuyenTap
             {
                 if (sender is Guna.UI2.WinForms.Guna2Button btn && btn.Tag != null)
                 {
+                    // Reset button ngày trước đó về trạng thái ban đầu
+                    if (_selectedDayButton != null && _selectedDayButton != btn)
+                    {
+                        ResetDayButton(_selectedDayButton);
+                    }
+
+                    // Highlight button ngày được chọn
+                    HighlightSelectedDay(btn);
+                    _selectedDayButton = btn;
+
                     DateTime selectedDate = (DateTime)btn.Tag;
                     DateTime dateOnly = selectedDate.Date;
+                    
+                    // Lưu ngày đang chọn
+                    _lastSelectedDate = dateOnly;
 
                     // Tìm buổi tập tương ứng theo ngày thực tế (ThoiGianBatDau)
                     _selectedBuoiTap = _allBuoiTap?.FirstOrDefault(b => 
@@ -275,6 +416,9 @@ namespace HealthApp.Views.KeHoachLuyenTap
                     {
                         ClearDetailInfo();
                     }
+                    
+                    // Cập nhật thông báo
+                    UpdateThongBaoVisibility();
                 }
             }
             catch (Exception ex)
@@ -291,95 +435,53 @@ namespace HealthApp.Views.KeHoachLuyenTap
         {
             try
             {
-                // Parse giờ bắt đầu và kết thúc từ GhiChu hoặc từ ThoiGianBatDau/ThoiGianKetThuc
-                string gioBatDau = "hh:mm";
-                string gioKetThuc = "hh:mm";
+                // Tính số buổi tập (tổng số buổi tập trong kế hoạch)
+                int soBuoiTap = _allBuoiTap?.Count ?? 0;
+                lblSoBuoiTap.Text = soBuoiTap.ToString();
 
-                if (buoiTap.ThoiGianBatDau.HasValue)
-                {
-                    gioBatDau = buoiTap.ThoiGianBatDau.Value.ToString("HH:mm");
-                }
-                else if (!string.IsNullOrEmpty(buoiTap.GhiChu))
-                {
-                    // Parse từ GhiChu: "Giờ: 07:00 - 11:00"
-                    var timeMatch = System.Text.RegularExpressions.Regex.Match(
-                        buoiTap.GhiChu, @"Giờ:\s*(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})");
-                    if (timeMatch.Success)
-                    {
-                        gioBatDau = timeMatch.Groups[1].Value;
-                        gioKetThuc = timeMatch.Groups[2].Value;
-                    }
-                }
-
-                if (buoiTap.ThoiGianKetThuc.HasValue)
-                {
-                    gioKetThuc = buoiTap.ThoiGianKetThuc.Value.ToString("HH:mm");
-                }
-
-                lblGioBatDau.Text = gioBatDau;
-                lblGioKetThuc.Text = gioKetThuc;
+                // Tính số lượng bài tập (số bài tập trong buổi tập được chọn)
+                int soLuongBaiTap = buoiTap.BaiTapChiTiet?.Count ?? 0;
+                lblSoLuongBaiTap.Text = soLuongBaiTap.ToString();
 
                 // Tính số ngày còn tập
                 int soNgayConTap = CalculateRemainingDays();
                 lblSoNgayConTap.Text = soNgayConTap.ToString();
 
-                // Kiểm tra trạng thái và cập nhật nút "Bắt đầu bài tập"
+                // Kiểm tra trạng thái và cập nhật nút "Dời lịch tập"
                 bool isCompleted = buoiTap.TrangThai == "Hoàn thành";
-                btnBatDauBaiTap.Enabled = !isCompleted;
-                if (isCompleted)
+                if (btnDoiLichTap != null)
                 {
-                    btnBatDauBaiTap.Text = "Đã hoàn thành";
-                }
-                else
-                {
-                    btnBatDauBaiTap.Text = "Bắt đầu bài tập";
-                }
-
-                // Hiển thị chi tiết bài tập nếu có
-                if (buoiTap.BaiTapChiTiet != null && buoiTap.BaiTapChiTiet.Count > 0)
-                {
-                    var firstBaiTap = buoiTap.BaiTapChiTiet.FirstOrDefault();
-                    if (firstBaiTap?.ThuVienBaiTap != null)
+                    btnDoiLichTap.Enabled = !isCompleted;
+                    if (isCompleted)
                     {
-                        var baiTap = firstBaiTap.ThuVienBaiTap;
-                        lblTenBaiTap.Text = baiTap.TenBaiTap;
-                        
-                        // Load ảnh minh họa nếu có
-                        if (!string.IsNullOrEmpty(baiTap.AnhMinhHoa))
-                        {
-                            try
-                            {
-                                // Có thể là URL hoặc đường dẫn file
-                                if (baiTap.AnhMinhHoa.StartsWith("http://") || baiTap.AnhMinhHoa.StartsWith("https://"))
-                                {
-                                    // Load từ URL (cần thêm logic download image)
-                                    // Tạm thời bỏ qua
-                                }
-                                else
-                                {
-                                    // Load từ file path
-                                    if (System.IO.File.Exists(baiTap.AnhMinhHoa))
-                                    {
-                                        picAnhMinhHoa.Image = System.Drawing.Image.FromFile(baiTap.AnhMinhHoa);
-                                    }
-                                }
-                            }
-                            catch
-                            {
-                                // Nếu không load được ảnh, giữ nguyên ảnh mặc định
-                            }
-                        }
-
-                        // Hiển thị panel bài tập
-                        pnlDanhSachMucTieu.Visible = true;
+                        btnDoiLichTap.Text = "Đã hoàn thành";
+                    }
+                    else
+                    {
+                        btnDoiLichTap.Text = "Dời lịch tập";
                     }
                 }
-                else
+
+                // Load ThuVienBaiTap cho mỗi BaiTapChiTiet nếu chưa có
+                using (var dbContext = new WF_HealthTracker())
                 {
-                    // Không có bài tập, ẩn panel
-                    pnlDanhSachMucTieu.Visible = false;
-                    lblTenBaiTap.Text = "";
+                    foreach (var baiTapChiTiet in buoiTap.BaiTapChiTiet)
+                    {
+                        if (baiTapChiTiet.ThuVienBaiTap == null && !string.IsNullOrEmpty(baiTapChiTiet.BaiTapID))
+                        {
+                            dbContext.Entry(baiTapChiTiet)
+                                .Reference(bt => bt.ThuVienBaiTap)
+                                .Load();
+                        }
+                    }
                 }
+
+                // Load danh sách bài tập vào DataGridView
+                LoadBaiTapToDataGridView(buoiTap);
+
+                // Panel luôn hiển thị, chỉ cập nhật thông báo
+                pnlDanhSachMucTieu.Visible = true;
+                UpdateThongBaoVisibility();
             }
             catch (Exception ex)
             {
@@ -388,17 +490,367 @@ namespace HealthApp.Views.KeHoachLuyenTap
         }
 
         /// <summary>
+        /// Load danh sách bài tập vào DataGridView
+        /// </summary>
+        private void LoadBaiTapToDataGridView(Models.BuoiTap buoiTap)
+        {
+            try
+            {
+                if (dgvDanhSachBaiTap == null)
+                    return;
+
+                // Clear DataGridView
+                dgvDanhSachBaiTap.DataSource = null;
+                dgvDanhSachBaiTap.Rows.Clear();
+                dgvDanhSachBaiTap.Columns.Clear();
+
+                if (buoiTap.BaiTapChiTiet == null || buoiTap.BaiTapChiTiet.Count == 0)
+                {
+                    return;
+                }
+
+                // Xác định buổi (Sáng, Chiều, Tối) từ ThoiGianBatDau
+                string buoiText = GetBuoiText(buoiTap.ThoiGianBatDau);
+
+                // Kiểm tra trạng thái buổi tập
+                bool isBuoiTapCompleted = buoiTap.TrangThai == "Hoàn thành";
+
+                // Tạo DataTable với các cột mới
+                DataTable dt = new DataTable();
+                dt.Columns.Add("BaiTapChiTietID", typeof(string)); // Ẩn, dùng để lưu ID
+                dt.Columns.Add("Tên bài tập", typeof(string));
+                dt.Columns.Add("Số Set", typeof(string));
+                dt.Columns.Add("Số Rep", typeof(string));
+                dt.Columns.Add("Cấp độ", typeof(string));
+                dt.Columns.Add("Dụng cụ", typeof(string));
+                dt.Columns.Add("Buổi", typeof(string));
+                dt.Columns.Add("Tập luyện", typeof(string)); // Text column, sẽ thay bằng button sau
+
+                // Điền dữ liệu
+                foreach (var baiTapChiTiet in buoiTap.BaiTapChiTiet.OrderBy(b => b.ThuTuThucHien))
+                {
+                    DataRow row = dt.NewRow();
+                    row["BaiTapChiTietID"] = baiTapChiTiet.BaiTapChiTietID ?? "";
+                    row["Tên bài tập"] = baiTapChiTiet.ThuVienBaiTap?.TenBaiTap ?? "N/A";
+                    row["Số Set"] = baiTapChiTiet.SoSet?.ToString() ?? (baiTapChiTiet.ThuVienBaiTap?.SoSet ?? "N/A");
+                    row["Số Rep"] = baiTapChiTiet.SoRep?.ToString() ?? (baiTapChiTiet.ThuVienBaiTap?.SoRep ?? "N/A");
+                    
+                    // Cấp độ
+                    string capDo = baiTapChiTiet.ThuVienBaiTap?.CapDo ?? "";
+                    row["Cấp độ"] = MapCapDoToVietnamese(capDo);
+                    
+                    // Dụng cụ
+                    row["Dụng cụ"] = baiTapChiTiet.ThuVienBaiTap?.DungCu ?? "Không cần";
+                    
+                    // Buổi
+                    row["Buổi"] = buoiText;
+                    
+                    // Tập luyện
+                    row["Tập luyện"] = isBuoiTapCompleted ? "Đã tập" : "Bắt đầu";
+                    
+                    dt.Rows.Add(row);
+                }
+
+                // Bind vào DataGridView
+                dgvDanhSachBaiTap.DataSource = dt;
+
+                // Cấu hình columns và tăng kích thước font, row height
+                if (dgvDanhSachBaiTap.Columns.Count > 0)
+                {
+                    // Ẩn cột BaiTapChiTietID
+                    if (dgvDanhSachBaiTap.Columns["BaiTapChiTietID"] != null)
+                    {
+                        dgvDanhSachBaiTap.Columns["BaiTapChiTietID"].Visible = false;
+                    }
+
+                    // Tăng kích thước font cho header
+                    dgvDanhSachBaiTap.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+                    dgvDanhSachBaiTap.ColumnHeadersHeight = 45; // Tăng chiều cao header
+                    
+                    // Tăng kích thước font cho các dòng nội dung
+                    dgvDanhSachBaiTap.DefaultCellStyle.Font = new Font("Segoe UI", 10.5F, FontStyle.Regular);
+                    
+                    // Set row height SAU KHI bind để đảm bảo tất cả row đều có height đúng
+                    dgvDanhSachBaiTap.RowTemplate.Height = 50;
+                    foreach (DataGridViewRow row in dgvDanhSachBaiTap.Rows)
+                    {
+                        row.Height = 50;
+                    }
+                    
+                    // Cấu hình độ rộng cột
+                    if (dgvDanhSachBaiTap.Columns["Tên bài tập"] != null)
+                    {
+                        dgvDanhSachBaiTap.Columns["Tên bài tập"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    }
+                    if (dgvDanhSachBaiTap.Columns["Số Set"] != null)
+                    {
+                        dgvDanhSachBaiTap.Columns["Số Set"].Width = 80;
+                    }
+                    if (dgvDanhSachBaiTap.Columns["Số Rep"] != null)
+                    {
+                        dgvDanhSachBaiTap.Columns["Số Rep"].Width = 80;
+                    }
+                    if (dgvDanhSachBaiTap.Columns["Cấp độ"] != null)
+                    {
+                        dgvDanhSachBaiTap.Columns["Cấp độ"].Width = 100;
+                    }
+                    if (dgvDanhSachBaiTap.Columns["Dụng cụ"] != null)
+                    {
+                        dgvDanhSachBaiTap.Columns["Dụng cụ"].Width = 120;
+                    }
+                    if (dgvDanhSachBaiTap.Columns["Buổi"] != null)
+                    {
+                        dgvDanhSachBaiTap.Columns["Buổi"].Width = 80;
+                    }
+                    
+                    // Thay thế cột text "Tập luyện" bằng button column
+                    if (dgvDanhSachBaiTap.Columns["Tập luyện"] != null)
+                    {
+                        int columnIndex = dgvDanhSachBaiTap.Columns["Tập luyện"].Index;
+                        dgvDanhSachBaiTap.Columns.Remove("Tập luyện");
+                        
+                        var buttonColumn = new DataGridViewButtonColumn();
+                        buttonColumn.Name = "Tập luyện";
+                        buttonColumn.HeaderText = "Tập luyện";
+                        buttonColumn.UseColumnTextForButtonValue = true;
+                        buttonColumn.Width = 120;
+                        buttonColumn.FlatStyle = FlatStyle.Flat;
+                        
+                        // Set style đơn giản
+                        if (isBuoiTapCompleted)
+                        {
+                            buttonColumn.DefaultCellStyle.BackColor = Color.FromArgb(200, 200, 200);
+                            buttonColumn.DefaultCellStyle.ForeColor = Color.FromArgb(100, 100, 100);
+                        }
+                        else
+                        {
+                            buttonColumn.DefaultCellStyle.BackColor = Color.FromArgb(100, 88, 255);
+                            buttonColumn.DefaultCellStyle.ForeColor = Color.White;
+                        }
+                        buttonColumn.DefaultCellStyle.SelectionBackColor = buttonColumn.DefaultCellStyle.BackColor;
+                        buttonColumn.DefaultCellStyle.SelectionForeColor = buttonColumn.DefaultCellStyle.ForeColor;
+                        
+                        dgvDanhSachBaiTap.Columns.Insert(columnIndex, buttonColumn);
+                        
+                        // Set giá trị cho từng row
+                        for (int i = 0; i < dgvDanhSachBaiTap.Rows.Count; i++)
+                        {
+                            var cell = dgvDanhSachBaiTap.Rows[i].Cells["Tập luyện"];
+                            if (cell != null)
+                            {
+                                cell.Value = isBuoiTapCompleted ? "Đã tập" : "Bắt đầu";
+                                cell.ReadOnly = isBuoiTapCompleted;
+                            }
+                        }
+                    }
+                    
+                    // Đăng ký event handler cho button click (chỉ khi chưa hoàn thành)
+                    dgvDanhSachBaiTap.CellContentClick -= DgvDanhSachBaiTap_CellContentClick;
+                    if (buoiTap.TrangThai != "Hoàn thành")
+                    {
+                        dgvDanhSachBaiTap.CellContentClick += DgvDanhSachBaiTap_CellContentClick;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"LoadBaiTapToDataGridView error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Xác định buổi (Sáng, Chiều, Tối) từ ThoiGianBatDau
+        /// </summary>
+        private string GetBuoiText(DateTime? thoiGianBatDau)
+        {
+            if (!thoiGianBatDau.HasValue)
+                return "N/A";
+
+            int hour = thoiGianBatDau.Value.Hour;
+            
+            if (hour >= 5 && hour < 11)
+                return "Sáng";
+            else if (hour >= 11 && hour < 17)
+                return "Chiều";
+            else if (hour >= 17 && hour < 22)
+                return "Tối";
+            else
+                return "N/A";
+        }
+
+        /// <summary>
+        /// Map cấp độ từ tiếng Anh sang tiếng Việt
+        /// </summary>
+        private string MapCapDoToVietnamese(string capDo)
+        {
+            if (string.IsNullOrWhiteSpace(capDo))
+                return "N/A";
+
+            switch (capDo.ToLower())
+            {
+                case "beginner":
+                    return "Người mới";
+                case "intermediate":
+                    return "Trung cấp";
+                case "advanced":
+                    return "Nâng cao";
+                case "all levels":
+                    return "Tất cả";
+                default:
+                    return capDo;
+            }
+        }
+
+        /// <summary>
+        /// Event handler khi click button "Bắt đầu" trong DataGridView
+        /// </summary>
+        private void DgvDanhSachBaiTap_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                var dgv = sender as DataGridView;
+                if (dgv == null || e.RowIndex < 0) return;
+
+                // Chỉ xử lý khi click vào cột button "Tập luyện"
+                if (dgv.Columns[e.ColumnIndex] is DataGridViewButtonColumn && 
+                    dgv.Columns[e.ColumnIndex].Name == "Tập luyện")
+                {
+                    // Kiểm tra xem button có phải "Đã tập" không (đã hoàn thành)
+                    var buttonCell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    if (buttonCell != null && buttonCell.Value != null && 
+                        buttonCell.Value.ToString() == "Đã tập")
+                    {
+                        // Button "Đã tập" không thể click
+                        return;
+                    }
+                    
+                    // Lấy BaiTapChiTietID từ row
+                    string baiTapChiTietID = null;
+                    if (dgv.Rows[e.RowIndex].Cells["BaiTapChiTietID"] != null && 
+                        dgv.Rows[e.RowIndex].Cells["BaiTapChiTietID"].Value != null)
+                    {
+                        baiTapChiTietID = dgv.Rows[e.RowIndex].Cells["BaiTapChiTietID"].Value.ToString();
+                    }
+
+                    if (string.IsNullOrWhiteSpace(baiTapChiTietID) || _selectedBuoiTap == null)
+                    {
+                        MessageBox.Show("Không tìm thấy thông tin bài tập!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    
+                    // Kiểm tra trạng thái buổi tập
+                    if (_selectedBuoiTap.TrangThai == "Hoàn thành")
+                    {
+                        MessageBox.Show("Buổi tập này đã hoàn thành!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    // Lưu ngày đang chọn trước khi điều hướng
+                    if (_selectedBuoiTap?.ThoiGianBatDau.HasValue == true)
+                    {
+                        _restoreDateAfterWorkout = _selectedBuoiTap.ThoiGianBatDau.Value.Date;
+                    }
+                    
+                    // Tìm frmDashBoard để load ucTrienKhaiBaiTap
+                    Form form = this.FindForm();
+                    if (form is frmDashBoard dashboard)
+                    {
+                        var ucTrienKhai = new ucTrienKhaiBaiTap();
+                        ucTrienKhai.SetBuoiTap(_selectedBuoiTap);
+                        dashboard.LoadUserControl(ucTrienKhai);
+                    }
+                    else
+                    {
+                        // Fallback: mở form mới
+                        using (var newForm = new Form())
+                        {
+                            newForm.Text = $"Bắt đầu tập luyện - {_selectedBuoiTap.ThuNgay}";
+                            newForm.StartPosition = FormStartPosition.CenterScreen;
+                            newForm.Size = new System.Drawing.Size(1200, 800);
+                            newForm.WindowState = FormWindowState.Normal;
+
+                            var ucTrienKhai = new ucTrienKhaiBaiTap();
+                            ucTrienKhai.Dock = DockStyle.Fill;
+                            ucTrienKhai.SetBuoiTap(_selectedBuoiTap);
+                            newForm.Controls.Add(ucTrienKhai);
+
+                            newForm.ShowDialog();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi bắt đầu bài tập: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Diagnostics.Debug.WriteLine($"DgvDanhSachBaiTap_CellContentClick error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// Xóa thông tin chi tiết
         /// </summary>
         private void ClearDetailInfo()
         {
-            lblGioBatDau.Text = "hh:mm";
-            lblGioKetThuc.Text = "hh:mm";
+            lblSoBuoiTap.Text = "00";
+            lblSoLuongBaiTap.Text = "00";
             lblSoNgayConTap.Text = "00";
-            lblTenBaiTap.Text = "";
-            pnlDanhSachMucTieu.Visible = false;
-            btnBatDauBaiTap.Enabled = false;
-            btnBatDauBaiTap.Text = "Bắt đầu bài tập";
+            
+            // Panel luôn hiển thị
+            pnlDanhSachMucTieu.Visible = true;
+            
+            // Clear DataGridView
+            if (dgvDanhSachBaiTap != null)
+            {
+                dgvDanhSachBaiTap.DataSource = null;
+                dgvDanhSachBaiTap.Rows.Clear();
+            }
+            
+            // Reset button
+            if (btnDoiLichTap != null)
+            {
+                btnDoiLichTap.Enabled = false;
+                btnDoiLichTap.Text = "Dời lịch tập";
+            }
+            
+            // Reset button ngày được chọn về trạng thái ban đầu
+            if (_selectedDayButton != null)
+            {
+                ResetDayButton(_selectedDayButton);
+                _selectedDayButton = null;
+            }
+            
+            // Cập nhật thông báo
+            UpdateThongBaoVisibility();
+        }
+
+        /// <summary>
+        /// Cập nhật hiển thị/ẩn thông báo dựa trên việc có kế hoạch hay không
+        /// </summary>
+        private void UpdateThongBaoVisibility()
+        {
+            try
+            {
+                if (lblThongBao == null)
+                    return;
+
+                // Nếu chưa có kế hoạch hoặc không có buổi tập được chọn → hiển thị thông báo
+                if (_currentWorkoutPlan == null || _selectedBuoiTap == null)
+                {
+                    lblThongBao.Visible = true;
+                }
+                else
+                {
+                    // Có kế hoạch và có buổi tập được chọn → ẩn thông báo
+                    lblThongBao.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"UpdateThongBaoVisibility error: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -455,15 +907,15 @@ namespace HealthApp.Views.KeHoachLuyenTap
         }
 
         /// <summary>
-        /// Xử lý khi click nút "Bắt đầu bài tập"
+        /// Xử lý khi click nút "Dời lịch tập"
         /// </summary>
-        private void BtnBatDauBaiTap_Click(object sender, EventArgs e)
+        private async void BtnDoiLichTap_Click(object sender, EventArgs e)
         {
             try
             {
                 if (_selectedBuoiTap == null)
                 {
-                    MessageBox.Show("Vui lòng chọn một buổi tập để bắt đầu!", "Thông báo",
+                    MessageBox.Show("Vui lòng chọn một buổi tập để dời lịch!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -471,50 +923,120 @@ namespace HealthApp.Views.KeHoachLuyenTap
                 // Kiểm tra xem buổi tập đã hoàn thành chưa
                 if (_selectedBuoiTap.TrangThai == "Hoàn thành")
                 {
-                    MessageBox.Show("Buổi tập này đã hoàn thành, không thể tập lại!", "Thông báo",
+                    MessageBox.Show("Buổi tập này đã hoàn thành, không thể dời lịch!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
-                if (_selectedBuoiTap.BaiTapChiTiet == null || _selectedBuoiTap.BaiTapChiTiet.Count == 0)
-                {
-                    MessageBox.Show("Buổi tập này chưa có bài tập nào!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
+                // Lưu BuoiTapID để tìm lại sau khi dời lịch
+                string buoiTapIdToFind = _selectedBuoiTap?.BuoiTapID;
 
-                // Tìm frmDashBoard để load ucTrienKhaiBaiTap vào
-                Form form = this.FindForm();
-                if (form is frmDashBoard dashboard)
+                // Mở form dời lịch tập
+                using (var frmDoiLich = new frmDoiLichTap())
                 {
-                    var ucTrienKhai = new ucTrienKhaiBaiTap();
-                    ucTrienKhai.SetBuoiTap(_selectedBuoiTap);
-                    dashboard.LoadUserControl(ucTrienKhai);
-                }
-                else
-                {
-                    // Fallback: mở form mới
-                    using (var newForm = new Form())
+                    frmDoiLich.SetBuoiTap(_selectedBuoiTap, _allBuoiTap, _currentGoal);
+                    if (frmDoiLich.ShowDialog() == DialogResult.OK)
                     {
-                        newForm.Text = $"Bắt đầu tập luyện - {_selectedBuoiTap.ThuNgay}";
-                        newForm.StartPosition = FormStartPosition.CenterScreen;
-                        newForm.Size = new System.Drawing.Size(1200, 800);
-                        newForm.WindowState = FormWindowState.Normal;
-
-                        var ucTrienKhai = new ucTrienKhaiBaiTap();
-                        ucTrienKhai.Dock = DockStyle.Fill;
-                        ucTrienKhai.SetBuoiTap(_selectedBuoiTap);
-                        newForm.Controls.Add(ucTrienKhai);
-
-                        newForm.ShowDialog();
+                        // Reload data sau khi dời lịch thành công
+                        await LoadWorkoutPlanAsync();
+                        
+                        // Tìm lại buổi tập đã được dời (dựa vào BuoiTapID gốc)
+                        if (!string.IsNullOrEmpty(buoiTapIdToFind))
+                        {
+                            // Reload lại từ database để có thông tin mới nhất
+                            using (var dbContext = new WF_HealthTracker())
+                            {
+                                var updatedBuoiTap = dbContext.BuoiTap
+                                    .FirstOrDefault(b => b.BuoiTapID == buoiTapIdToFind);
+                                
+                                if (updatedBuoiTap != null)
+                                {
+                                    // Load BaiTapChiTiet navigation property
+                                    dbContext.Entry(updatedBuoiTap)
+                                        .Collection(bt => bt.BaiTapChiTiet)
+                                        .Load();
+                                    
+                                    // Load ThuVienBaiTap cho mỗi BaiTapChiTiet
+                                    foreach (var btc in updatedBuoiTap.BaiTapChiTiet)
+                                    {
+                                        if (btc.ThuVienBaiTap == null && !string.IsNullOrEmpty(btc.BaiTapID))
+                                        {
+                                            dbContext.Entry(btc)
+                                                .Reference(bt => bt.ThuVienBaiTap)
+                                                .Load();
+                                        }
+                                    }
+                                    
+                                    // Cập nhật lại trong _allBuoiTap
+                                    var index = _allBuoiTap?.FindIndex(b => b.BuoiTapID == buoiTapIdToFind);
+                                    if (index.HasValue && index.Value >= 0 && _allBuoiTap != null)
+                                    {
+                                        _allBuoiTap[index.Value] = updatedBuoiTap;
+                                    }
+                                    
+                                    _selectedBuoiTap = updatedBuoiTap;
+                                }
+                            }
+                            
+                            // Cập nhật lại calendar để highlight đúng ngày mới
+                            if (_selectedBuoiTap != null && _selectedBuoiTap.ThoiGianBatDau.HasValue)
+                            {
+                                DateTime newDate = _selectedBuoiTap.ThoiGianBatDau.Value.Date;
+                                // Cập nhật tuần hiện tại nếu ngày mới không nằm trong tuần hiện tại
+                                DateTime weekStartOfNewDate = GetStartOfWeek(newDate);
+                                if (weekStartOfNewDate != _currentWeekStart)
+                                {
+                                    _currentWeekStart = weekStartOfNewDate;
+                                }
+                            }
+                            
+                            // Reload calendar và cập nhật thông tin chi tiết
+                            LoadWeekCalendar();
+                            
+                            if (_selectedBuoiTap != null)
+                            {
+                                UpdateDetailInfo(_selectedBuoiTap);
+                                
+                                // Highlight button ngày mới
+                                if (_selectedBuoiTap.ThoiGianBatDau.HasValue)
+                                {
+                                    DateTime newDate = _selectedBuoiTap.ThoiGianBatDau.Value.Date;
+                                    for (int i = 0; i < 7; i++)
+                                    {
+                                        if (_dayButtons[i].Tag != null && 
+                                            ((DateTime)_dayButtons[i].Tag).Date == newDate.Date)
+                                        {
+                                            // Reset button trước đó
+                                            if (_selectedDayButton != null && _selectedDayButton != _dayButtons[i])
+                                            {
+                                                ResetDayButton(_selectedDayButton);
+                                            }
+                                            
+                                            // Highlight button ngày mới
+                                            HighlightSelectedDay(_dayButtons[i]);
+                                            _selectedDayButton = _dayButtons[i];
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // Nếu không tìm thấy, chỉ reload calendar
+                            LoadWeekCalendar();
+                        }
+                        
+                        // Cập nhật thông báo
+                        UpdateThongBaoVisibility();
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi bắt đầu bài tập: {ex.Message}", "Lỗi",
+                MessageBox.Show($"Lỗi khi dời lịch tập: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                System.Diagnostics.Debug.WriteLine($"BtnBatDauBaiTap_Click error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"BtnDoiLichTap_Click error: {ex.Message}");
             }
         }
 
@@ -540,6 +1062,10 @@ namespace HealthApp.Views.KeHoachLuyenTap
 
                 if (result == DialogResult.Yes)
                 {
+                    // Lưu ngày đang chọn và BuoiTapID trước khi cập nhật
+                    DateTime? currentSelectedDate = _selectedBuoiTap?.ThoiGianBatDau?.Date;
+                    string buoiTapIdToUpdate = _selectedBuoiTap?.BuoiTapID;
+                    
                     // Cập nhật trạng thái buổi tập
                     _selectedBuoiTap.TrangThai = "Hoàn thành";
                     
@@ -563,19 +1089,47 @@ namespace HealthApp.Views.KeHoachLuyenTap
 
                     // Reload data để cập nhật trạng thái
                     await LoadWorkoutPlanAsync();
+                    
+                    // Restore lại ngày đang chọn
+                    if (currentSelectedDate.HasValue)
+                    {
+                        _lastSelectedDate = currentSelectedDate.Value;
+                    }
+                    
                     LoadWeekCalendar();
                     
-                    // Cập nhật lại thông tin chi tiết nếu vẫn đang chọn buổi tập này
-                    if (_selectedBuoiTap != null)
+                    // Cập nhật lại thông tin chi tiết với buổi tập đã hoàn thành
+                    if (!string.IsNullOrEmpty(buoiTapIdToUpdate))
                     {
                         // Reload buổi tập từ database để có trạng thái mới nhất
-                        var updatedBuoiTap = _allBuoiTap?.FirstOrDefault(b => b.BuoiTapID == _selectedBuoiTap.BuoiTapID);
+                        var updatedBuoiTap = _allBuoiTap?.FirstOrDefault(b => b.BuoiTapID == buoiTapIdToUpdate);
                         if (updatedBuoiTap != null)
                         {
+                            // Load navigation properties
+                            using (var dbContext = new WF_HealthTracker())
+                            {
+                                dbContext.Entry(updatedBuoiTap)
+                                    .Collection(bt => bt.BaiTapChiTiet)
+                                    .Load();
+                                
+                                foreach (var btc in updatedBuoiTap.BaiTapChiTiet)
+                                {
+                                    if (btc.ThuVienBaiTap == null && !string.IsNullOrEmpty(btc.BaiTapID))
+                                    {
+                                        dbContext.Entry(btc)
+                                            .Reference(bt => bt.ThuVienBaiTap)
+                                            .Load();
+                                    }
+                                }
+                            }
+                            
                             _selectedBuoiTap = updatedBuoiTap;
                             UpdateDetailInfo(_selectedBuoiTap);
                         }
                     }
+                    
+                    // Cập nhật thông báo
+                    UpdateThongBaoVisibility();
                 }
             }
             catch (Exception ex)
@@ -637,5 +1191,6 @@ namespace HealthApp.Views.KeHoachLuyenTap
             _goalController?.Dispose();
             _dbContext?.Dispose();
         }
+
     }
 }

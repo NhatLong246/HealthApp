@@ -73,6 +73,7 @@
             this.lbSoBuoiTap = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lbGenSoBuoiTap = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnHoanThanh = new Guna.UI2.WinForms.Guna2Button();
+            this.pnlLichSuTap = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2GroupBox1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             this.guna2GroupBox2.SuspendLayout();
@@ -127,6 +128,7 @@
             this.guna2GroupBox1.BackColor = System.Drawing.Color.Transparent;
             this.guna2GroupBox1.BorderColor = System.Drawing.Color.Gray;
             this.guna2GroupBox1.BorderRadius = 20;
+            this.guna2GroupBox1.Controls.Add(this.pnlLichSuTap);
             this.guna2GroupBox1.Controls.Add(this.guna2Button2);
             this.guna2GroupBox1.Controls.Add(this.btnTamNghi);
             this.guna2GroupBox1.Controls.Add(this.btnXong);
@@ -134,16 +136,16 @@
             this.guna2GroupBox1.Controls.Add(this.guna2Panel2);
             this.guna2GroupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2GroupBox1.ForeColor = System.Drawing.Color.Teal;
-            this.guna2GroupBox1.Location = new System.Drawing.Point(58, 136);
+            this.guna2GroupBox1.Location = new System.Drawing.Point(86, 136);
             this.guna2GroupBox1.Name = "guna2GroupBox1";
-            this.guna2GroupBox1.Size = new System.Drawing.Size(488, 369);
+            this.guna2GroupBox1.Size = new System.Drawing.Size(488, 394);
             this.guna2GroupBox1.TabIndex = 13;
             this.guna2GroupBox1.Text = "Thời Gian Tập";
             // 
             // guna2Button2
             // 
             this.guna2Button2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button2.BorderRadius = 20;
+            this.guna2Button2.BorderRadius = 10;
             this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -160,7 +162,7 @@
             // btnTamNghi
             // 
             this.btnTamNghi.BackColor = System.Drawing.Color.Transparent;
-            this.btnTamNghi.BorderRadius = 20;
+            this.btnTamNghi.BorderRadius = 10;
             this.btnTamNghi.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnTamNghi.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnTamNghi.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -177,7 +179,7 @@
             // btnXong
             // 
             this.btnXong.BackColor = System.Drawing.Color.Transparent;
-            this.btnXong.BorderRadius = 20;
+            this.btnXong.BorderRadius = 10;
             this.btnXong.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnXong.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnXong.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -194,7 +196,7 @@
             // btnBatDauTap
             // 
             this.btnBatDauTap.BackColor = System.Drawing.Color.Transparent;
-            this.btnBatDauTap.BorderRadius = 20;
+            this.btnBatDauTap.BorderRadius = 10;
             this.btnBatDauTap.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnBatDauTap.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnBatDauTap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -348,8 +350,9 @@
             // 
             // guna2GradientPanel3
             // 
-            this.guna2GradientPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
+            this.guna2GradientPanel3.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2GradientPanel3.BorderRadius = 20;
+            this.guna2GradientPanel3.BorderThickness = 1;
             this.guna2GradientPanel3.Controls.Add(this.guna2HtmlLabel3);
             this.guna2GradientPanel3.Controls.Add(this.lbGenMucDo);
             this.guna2GradientPanel3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
@@ -383,8 +386,9 @@
             // 
             // guna2GradientPanel4
             // 
-            this.guna2GradientPanel4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
+            this.guna2GradientPanel4.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2GradientPanel4.BorderRadius = 20;
+            this.guna2GradientPanel4.BorderThickness = 1;
             this.guna2GradientPanel4.Controls.Add(this.guna2HtmlLabel9);
             this.guna2GradientPanel4.Controls.Add(this.guna2HtmlLabel8);
             this.guna2GradientPanel4.Controls.Add(this.guna2HtmlLabel5);
@@ -442,8 +446,9 @@
             // 
             // guna2GradientPanel5
             // 
-            this.guna2GradientPanel5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
+            this.guna2GradientPanel5.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2GradientPanel5.BorderRadius = 20;
+            this.guna2GradientPanel5.BorderThickness = 1;
             this.guna2GradientPanel5.Controls.Add(this.guna2HtmlLabel7);
             this.guna2GradientPanel5.Controls.Add(this.lbGenCalo);
             this.guna2GradientPanel5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
@@ -477,13 +482,14 @@
             // 
             // guna2GradientPanel2
             // 
-            this.guna2GradientPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
+            this.guna2GradientPanel2.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2GradientPanel2.BorderRadius = 20;
+            this.guna2GradientPanel2.BorderThickness = 1;
             this.guna2GradientPanel2.Controls.Add(this.guna2HtmlLabel2);
             this.guna2GradientPanel2.Controls.Add(this.lbGenHieuQua);
             this.guna2GradientPanel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
             this.guna2GradientPanel2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
-            this.guna2GradientPanel2.Location = new System.Drawing.Point(437, 59);
+            this.guna2GradientPanel2.Location = new System.Drawing.Point(446, 59);
             this.guna2GradientPanel2.Name = "guna2GradientPanel2";
             this.guna2GradientPanel2.Size = new System.Drawing.Size(136, 90);
             this.guna2GradientPanel2.TabIndex = 5;
@@ -512,13 +518,14 @@
             // 
             // guna2GradientPanel1
             // 
-            this.guna2GradientPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
+            this.guna2GradientPanel1.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2GradientPanel1.BorderRadius = 20;
+            this.guna2GradientPanel1.BorderThickness = 1;
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2GradientPanel1.Controls.Add(this.lbGenThoiLuong);
             this.guna2GradientPanel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
             this.guna2GradientPanel1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
-            this.guna2GradientPanel1.Location = new System.Drawing.Point(231, 59);
+            this.guna2GradientPanel1.Location = new System.Drawing.Point(240, 59);
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(136, 90);
             this.guna2GradientPanel1.TabIndex = 4;
@@ -547,13 +554,14 @@
             // 
             // pnRank
             // 
-            this.pnRank.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
+            this.pnRank.BorderColor = System.Drawing.Color.DarkGray;
             this.pnRank.BorderRadius = 20;
+            this.pnRank.BorderThickness = 1;
             this.pnRank.Controls.Add(this.lbSoBuoiTap);
             this.pnRank.Controls.Add(this.lbGenSoBuoiTap);
             this.pnRank.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
             this.pnRank.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(253)))), ((int)(((byte)(245)))));
-            this.pnRank.Location = new System.Drawing.Point(20, 59);
+            this.pnRank.Location = new System.Drawing.Point(29, 59);
             this.pnRank.Name = "pnRank";
             this.pnRank.Size = new System.Drawing.Size(136, 90);
             this.pnRank.TabIndex = 3;
@@ -595,6 +603,13 @@
             this.btnHoanThanh.Size = new System.Drawing.Size(203, 51);
             this.btnHoanThanh.TabIndex = 16;
             this.btnHoanThanh.Text = "Hoàn thành";
+            // 
+            // pnlLichSuTap
+            // 
+            this.pnlLichSuTap.Location = new System.Drawing.Point(12, 224);
+            this.pnlLichSuTap.Name = "pnlLichSuTap";
+            this.pnlLichSuTap.Size = new System.Drawing.Size(462, 149);
+            this.pnlLichSuTap.TabIndex = 18;
             // 
             // ucTrienKhaiBaiTap
             // 
@@ -670,5 +685,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbGenHieuQua;
         private Guna.UI2.WinForms.Guna2Button btnHoanThanh;
+        private Guna.UI2.WinForms.Guna2Panel pnlLichSuTap;
     }
 }

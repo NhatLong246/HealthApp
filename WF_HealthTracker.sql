@@ -13,7 +13,7 @@ CREATE TABLE Users (
 	Role NVARCHAR(20) DEFAULT 'Client', -- 'Client', 'PT', 'Admin'
 	CHECK (Role IN ('Client', 'PT', 'Admin')), -- Chỉ cho phép 3 roles
     Email NVARCHAR(100) UNIQUE, -- Email, duy nhất, tùy chọn
-	SDT NVARCHAR(20) UNIQUE,
+	SDT NVARCHAR(20), -- Cho phép NULL, unique thông qua filtered index
     HoTen NVARCHAR(100), -- Họ tên đầy đủ của người dùng
     NgaySinh DATE, -- Ngày sinh, dùng để tính tuổi hoặc gợi ý sức khỏe
 	CHECK (NgaySinh < GETDATE()), -- Không thể sinh trong tương lai
@@ -26,6 +26,12 @@ CREATE TABLE Users (
     ResetTokenExpiry DATETIME, -- Thời gian hết hạn token (thường 15-30 phút), tránh bị hack
     CreatedDate DATETIME DEFAULT GETDATE() -- Ngày tạo tài khoản, tự động lấy thời gian hiện tại
 );
+GO
+
+-- Unique filtered index cho SDT (cho phép nhiều giá trị NULL)
+CREATE UNIQUE NONCLUSTERED INDEX UQ_Users_SDT
+ON Users(SDT)
+WHERE SDT IS NOT NULL;
 GO
 
 CREATE TABLE HoSoBenhLi (
@@ -105,6 +111,18 @@ CREATE TABLE MucTieu (
         (NgayKetThucDuKien IS NULL OR NgayKetThucDuKien >= NgayBatDau) AND
         (NgayKetThucThucTe IS NULL OR NgayKetThucThucTe >= NgayBatDau)
     )
+);
+GO
+
+CREATE TABLE CheDoDinhDuongMau (
+    CheDoID VARCHAR(20) PRIMARY KEY,      -- vd: nutri_0001
+    LoaiMucTieu NVARCHAR(50) NOT NULL,    -- Cơ Ngực, Cơ Đùi, Tăng cân...
+    Calo INT NOT NULL,                   -- kcal mỗi ngày
+    Protein INT NOT NULL,                -- gram
+    Carbs INT NOT NULL,                  -- gram
+    Fat INT NOT NULL,                    -- gram
+    Fiber INT NOT NULL,                  -- gram chất xơ
+    MoTa NVARCHAR(500)                   -- ghi chú thêm (tùy chọn)
 );
 GO
 
@@ -218,7 +236,7 @@ GO
 CREATE TABLE BuoiTap (
     BuoiTapID VARCHAR(20) PRIMARY KEY, -- session_0001
     KeHoachTapID VARCHAR(20) NOT NULL,
-    ThuNgay VARCHAR(50), -- Thời gian tập vào thứ x
+    ThuNgay NVARCHAR(50), -- Thời gian tập vào thứ x
 	ThoiGianNgoaiLe VARCHAR(1000), -- Nếu thứ x trùng ngày với các ngày ngoại lệ này vào thực tế sẽ ko có lịch tập ví dụ như tết hay sinh nhật.
     ThoiGianBatDau DATETIME, -- thời gian bài tập bắt đầu ví dụ 7h
     ThoiGianKetThuc DATETIME, -- thời gian bài tập kết thúc ví dụ 11h
@@ -296,12 +314,10 @@ CREATE TABLE DatLichPT (
     DatLichID VARCHAR(20) PRIMARY KEY, -- bkg_0001
     KhachHangID VARCHAR(20) NOT NULL, -- User đặt lịch (Role='Client')
     PTID VARCHAR(20) NULL, -- PT được chọn (có thể null nếu chưa phân công)
-    NgayGioDat DATETIME NOT NULL, -- Ngày giờ tập (e.g., '2025-10-10 08:00')
+    NgayGioDat DATETIME NOT NULL, -- Ngày giờ đặt lịch gốc (giữ lại để tracking)
     ThoiLuong INT, -- Thời lượng buổi tập (phút), e.g., 60, 90
     LoaiBuoiTap NVARCHAR(50), -- 'Online' (video call), 'In-person' (trực tiếp)
-        CHECK (LoaiBuoiTap IN ('Online', 'In-person')),
     TrangThai NVARCHAR(20) DEFAULT 'Pending', 
-        CHECK (TrangThai IN ('Pending', 'Confirmed', 'Completed', 'Cancelled')),
     LyDoTuChoi NVARCHAR(500), -- Lý do PT từ chối (nếu TrangThai='Cancelled')
     NguoiHuy VARCHAR(20), -- UserID của người hủy (Client hoặc PT)
     TienHoan FLOAT, -- Số tiền hoàn lại (nếu cancel trước 24h)
@@ -309,6 +325,8 @@ CREATE TABLE DatLichPT (
     GhiChu NVARCHAR(500), -- Ghi chú đặc biệt (e.g., 'Tập tại phòng gym A')
     NgayTao DATETIME DEFAULT GETDATE(), -- Ngày tạo booking
     NgayCapNhat DATETIME DEFAULT GETDATE(), -- Ngày cập nhật cuối
+	ThoiGianBatDau DATETIME NOT NULL,
+	ThoiGianKetThuc DATETIME NOT NULL,
     -- KHÓA NGOẠI
     CONSTRAINT FK_DatLichPT_KhachHang
         FOREIGN KEY (KhachHangID) REFERENCES Users(UserID)
@@ -318,10 +336,16 @@ CREATE TABLE DatLichPT (
         ON DELETE NO ACTION, -- Xóa PT → set PTID = NULL (giữ lịch sử)
     -- CONSTRAINT FK_DatLichPT_NguoiHuy FOREIGN KEY (NguoiHuy) REFERENCES Users(UserID) ON DELETE NO ACTION, RÀNG BUỘC BẰNG C#
     -- RÀNG BUỘC LOGIC
-    CONSTRAINT CK_DatLichPT_NgayGio 
-        CHECK (NgayGioDat >= GETDATE()), -- Không đặt lịch quá khứ
+    CONSTRAINT CK_DatLichPT_LoaiBuoiTap
+        CHECK (LoaiBuoiTap IN ('Online', 'In-person') OR LoaiBuoiTap IS NULL),
+    CONSTRAINT CK_DatLichPT_TrangThai
+        CHECK (TrangThai IN ('Pending', 'Confirmed', 'Completed', 'Cancelled')),
     CONSTRAINT CK_DatLichPT_ThoiLuong
-        CHECK (ThoiLuong > 0)
+        CHECK (ThoiLuong > 0 OR ThoiLuong IS NULL),
+    CONSTRAINT CK_DatLichPT_ThoiGian
+        CHECK (ThoiGianKetThuc > ThoiGianBatDau),
+    CONSTRAINT CK_DatLichPT_ThoiGianBatDau
+        CHECK (ThoiGianBatDau >= GETDATE())
 );
 GO
 

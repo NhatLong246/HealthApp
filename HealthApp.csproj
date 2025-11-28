@@ -152,6 +152,7 @@
     <Compile Include="Models\BanBe.cs" />
     <Compile Include="Models\BuaAnChiTiet.cs" />
     <Compile Include="Models\BuoiTap.cs" />
+    <Compile Include="Models\CheDoDinhDuongMau.cs" />
     <Compile Include="Models\ChiaSeThanhTuu.cs" />
     <Compile Include="Models\DanhGiaPT.cs" />
     <Compile Include="Models\DatLichPT.cs" />
@@ -211,6 +212,12 @@
     </Compile>
     <Compile Include="Views\Activity\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KeHoachLuyenTap\frmDoiLichTap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\KeHoachLuyenTap\frmDoiLichTap.Designer.cs">
+      <DependentUpon>frmDoiLichTap.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.cs">
       <SubType>UserControl</SubType>
@@ -418,6 +425,9 @@
     </Compile>
     <EmbeddedResource Include="Views\Activity\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\KeHoachLuyenTap\frmDoiLichTap.resx">
+      <DependentUpon>frmDoiLichTap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.resx">
       <DependentUpon>ucKeHoachLuyenTap.cs</DependentUpon>

@@ -97,6 +97,24 @@ namespace HealthApp.Services
             }
         }
 
+        public Task<List<ThuVienBaiTap>> GetAllExercisesAsync()
+        {
+            try
+            {
+                var exercises = _dbContext.ThuVienBaiTap
+                    .OrderByDescending(b => b.DoPhoBien)
+                    .ThenBy(b => b.TenBaiTap)
+                    .ToList();
+
+                return Task.FromResult(exercises);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetAllExercisesAsync error: {ex.Message}");
+                return Task.FromResult(new List<ThuVienBaiTap>());
+            }
+        }
+
         public Task<ThuVienBaiTap> GetExerciseDetailAsync(string baiTapId)
         {
             try

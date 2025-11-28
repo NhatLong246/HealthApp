@@ -373,11 +373,39 @@ namespace HealthApp.Controllers
         }
 
         /// <summary>
+        /// Lấy tất cả bài tập từ thư viện
+        /// </summary>
+        public async Task<List<ThuVienBaiTap>> GetAllExercisesAsync()
+        {
+            return await _goalService.GetAllExercisesAsync();
+        }
+
+        /// <summary>
         /// Lấy chi tiết bài tập
         /// </summary>
         public async Task<ThuVienBaiTap> GetExerciseDetailAsync(string baiTapId)
         {
             return await _goalService.GetExerciseDetailAsync(baiTapId);
+        }
+
+        /// <summary>
+        /// Lấy chế độ dinh dưỡng mẫu theo loại mục tiêu
+        /// </summary>
+        public CheDoDinhDuongMau GetNutritionPresetByGoal(string loaiMucTieu)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(loaiMucTieu))
+                    return null;
+
+                return _dbContext.CheDoDinhDuongMau
+                    .FirstOrDefault(c => c.LoaiMucTieu == loaiMucTieu);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetNutritionPresetByGoal error: {ex.Message}");
+                return null;
+            }
         }
 
         /// <summary>

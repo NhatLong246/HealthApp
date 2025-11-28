@@ -111,7 +111,7 @@
             this.txtGio.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtGio.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtGio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtGio.Location = new System.Drawing.Point(249, 5);
+            this.txtGio.Location = new System.Drawing.Point(240, 7);
             this.txtGio.Margin = new System.Windows.Forms.Padding(5);
             this.txtGio.Name = "txtGio";
             this.txtGio.PlaceholderText = "";
@@ -122,18 +122,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 15);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 16);
+            this.label1.Size = new System.Drawing.Size(42, 20);
             this.label1.TabIndex = 59;
             this.label1.Text = "Lần:";
             // 
             // lbGenLan
             // 
             this.lbGenLan.AutoSize = true;
-            this.lbGenLan.Location = new System.Drawing.Point(32, 15);
+            this.lbGenLan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbGenLan.Location = new System.Drawing.Point(44, 12);
             this.lbGenLan.Name = "lbGenLan";
-            this.lbGenLan.Size = new System.Drawing.Size(14, 16);
+            this.lbGenLan.Size = new System.Drawing.Size(18, 20);
             this.lbGenLan.TabIndex = 60;
             this.lbGenLan.Text = "#";
             // 
@@ -149,7 +151,7 @@
             this.Controls.Add(this.txtPhut);
             this.Controls.Add(this.txtGio);
             this.Name = "ucLichSuTap";
-            this.Size = new System.Drawing.Size(429, 42);
+            this.Size = new System.Drawing.Size(462, 42);
             this.ResumeLayout(false);
             this.PerformLayout();
 

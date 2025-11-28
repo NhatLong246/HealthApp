@@ -13,6 +13,11 @@ namespace HealthApp.Services.Interfaces
         Task<List<ThuVienBaiTap>> GetExercisesByGoalAndLevelAsync(string loaiMucTieu, string nhomCoChinhNhat, string searchBy, string capDo = null);
 
         /// <summary>
+        /// Lấy tất cả bài tập từ thư viện
+        /// </summary>
+        Task<List<ThuVienBaiTap>> GetAllExercisesAsync();
+
+        /// <summary>
         /// Lấy chi tiết bài tập theo ID
         /// </summary>
         Task<ThuVienBaiTap> GetExerciseDetailAsync(string baiTapId);
