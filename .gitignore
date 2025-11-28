@@ -108,13 +108,8 @@ Assets/Reports/Generated/
 
 # Connection strings with sensitive data
 # IMPORTANT: App.config contains connection string with password
-# Option 1: Ignore App.config and use App.config.example (recommended for security)
-# Uncomment the next line to ignore App.config:
-# App.config
-# App.config.local
-
-# Option 2: Keep App.config but remove sensitive data before commit
 # Each developer should configure their own connection string locally
+# App.config.local
 
 ## Windows image file caches
 Thumbs.db
