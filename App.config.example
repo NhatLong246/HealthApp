@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<configSections>
+		<section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+	</configSections>
+	<startup>
+		<supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" />
+	</startup>
+	<runtime>
+		<assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+			<dependentAssembly>
+				<assemblyIdentity name="System.Runtime.CompilerServices.Unsafe" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
+				<bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
+			</dependentAssembly>
+		</assemblyBinding>
+	</runtime>
+	<entityFramework>
+		<providers>
+			<provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+		</providers>
+	</entityFramework>
+	<connectionStrings>
+		<!-- Connection string với Windows Authentication -->
+		<add name="WF_HealthTracker" connectionString="data source=YOUR_SERVER\INSTANCE;initial catalog=WF_HealthTracker;Integrated Security=True;trustservercertificate=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
+		
+		<!-- Nếu cần dùng SQL Server Authentication, uncomment dòng dưới và comment dòng trên, điền username/password -->
+		<!-- <add name="WF_HealthTracker" connectionString="data source=YOUR_SERVER\INSTANCE;initial catalog=WF_HealthTracker;user id=YOUR_USERNAME;password=YOUR_PASSWORD;trustservercertificate=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" /> -->
+	</connectionStrings>
+	<appSettings>
+		<!-- ChatGPT API Key -->
+		<!-- <add key="ChatGPTApiKey" value="YOUR_OPENAI_API_KEY_HERE" /> -->
+		
+		<!-- MoMo Payment Configuration -->
+		<add key="MoMo_PartnerCode" value="MOMO" />
+		<add key="MoMo_AccessKey" value="YOUR_MOMO_ACCESS_KEY" />
+		<add key="MoMo_SecretKey" value="YOUR_MOMO_SECRET_KEY" />
+		<add key="MoMo_ApiEndpoint" value="https://test-payment.momo.vn/v2/gateway/api/create" />
+		
+		<!-- ZaloPay Payment Configuration -->
+		<add key="ZaloPay_AppId" value="554" />
+		<add key="ZaloPay_Key1" value="YOUR_ZALOPAY_KEY1" />
+		<add key="ZaloPay_Key2" value="YOUR_ZALOPAY_KEY2" />
+		<add key="ZaloPay_AppUser" value="HealthWeb" />
+		<add key="ZaloPay_ApiEndpoint" value="https://sb-openapi.zalopay.vn/v2/create" />
+	</appSettings>
+</configuration>
+
