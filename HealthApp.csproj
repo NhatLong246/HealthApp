@@ -297,6 +297,9 @@
     <Compile Include="Views\Nutrition\ucCheDoAnUongDeXuat.Designer.cs">
       <DependentUpon>ucCheDoAnUongDeXuat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Nutrition\FlowLayoutPanelNoScrollbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\Reports\ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -460,6 +463,9 @@
       <DependentUpon>ChonCheDoAnUong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ucCheDoAnUongDeXuat.resx">
+      <DependentUpon>ucCheDoAnUongDeXuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Nutrition\ucCheDoAnUongDeXuat.vi-VN.resx">
       <DependentUpon>ucCheDoAnUongDeXuat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Reports\ReportForm.resx">
@@ -989,6 +995,7 @@
     <Content Include="packages\System.ValueTuple.4.5.0\version.txt" />
     <None Include="Resources\Icons\icons-meal.png" />
     <None Include="Resources\icons-kcal.png" />
+    <None Include="Resources\icons8-meal-48.png" />
     <Content Include="Resources\Icons\AchivementIcon.png" />
     <Content Include="Resources\Icons\CommunityIcon.png" />
     <Content Include="Resources\Icons\folowIcon.png" />
@@ -998,6 +1005,10 @@
     <Content Include="Resources\Icons\Lock.png" />
     <Content Include="Resources\Icons\LockIcon.png" />
     <Content Include="Resources\Icons\Screenshot_2025-10-13_210618-removebg-preview.png" />
+    <None Include="Resources\LogoMealIcon.png" />
+    <None Include="Resources\LogoGoalIcon.png" />
+    <None Include="Resources\LogostatisticalIcon.png" />
+    <None Include="Resources\LogoReservationIcon.png" />
     <Content Include="Resources\Video\ren-luyen-dang.mp4" />
     <None Include="Resources\Icons\icons-deadlift.gif" />
     <None Include="Resources\Icons\icons-workout.png" />

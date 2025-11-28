@@ -210,6 +210,151 @@ namespace HealthApp.Services
             return result;
         }
 
+        /// <summary>
+        /// Đánh giá mức dinh dưỡng bằng AI dựa trên thông tin người dùng
+        /// </summary>
+        public async Task<string> EvaluateNutritionAsync(
+            double trungBinhCaloNgay, 
+            double trungBinhCaloThang,
+            double targetCalories,
+            string mucTieu = null,
+            double? protein = null,
+            double? carbs = null,
+            double? fat = null)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"=== EvaluateNutritionAsync START ===");
+                System.Diagnostics.Debug.WriteLine($"API Key is null/empty: {string.IsNullOrWhiteSpace(_apiKey)}");
+                System.Diagnostics.Debug.WriteLine($"API Key length: {_apiKey?.Length ?? 0}");
+                
+                if (string.IsNullOrWhiteSpace(_apiKey))
+                {
+                    System.Diagnostics.Debug.WriteLine("ChatGPT API Key không được cấu hình!");
+                    return GetFallbackEvaluation(trungBinhCaloNgay, targetCalories);
+                }
+
+                // Tạo prompt cho ChatGPT
+                var prompt = new StringBuilder();
+                prompt.AppendLine("Bạn là chuyên gia dinh dưỡng. Hãy đánh giá mức dinh dưỡng của người dùng dựa trên thông tin sau:");
+                prompt.AppendLine();
+                prompt.AppendLine($"- Calo trung bình/ngày: {trungBinhCaloNgay:F0} kcal");
+                prompt.AppendLine($"- Calo trung bình/tháng: {trungBinhCaloThang:F0} kcal");
+                prompt.AppendLine($"- Mục tiêu calo/ngày: {targetCalories:F0} kcal");
+                
+                if (protein.HasValue)
+                    prompt.AppendLine($"- Protein: {protein.Value:F1}g");
+                if (carbs.HasValue)
+                    prompt.AppendLine($"- Carbs: {carbs.Value:F1}g");
+                if (fat.HasValue)
+                    prompt.AppendLine($"- Fat: {fat.Value:F1}g");
+                
+                if (!string.IsNullOrWhiteSpace(mucTieu))
+                    prompt.AppendLine($"- Mục tiêu: {mucTieu}");
+                
+                prompt.AppendLine();
+                prompt.AppendLine("Yêu cầu:");
+                prompt.AppendLine("- Đưa ra đánh giá ngắn gọn, dễ hiểu (khoảng 2-3 câu)");
+                prompt.AppendLine("- Phân tích mức độ phù hợp với mục tiêu");
+                prompt.AppendLine("- Đưa ra lời khuyên cụ thể để cải thiện (nếu cần)");
+                prompt.AppendLine("- Viết bằng tiếng Việt, thân thiện và động viên");
+                prompt.AppendLine("- Không quá 150 từ");
+
+                // Tạo request body
+                var requestBody = new
+                {
+                    model = "gpt-3.5-turbo",
+                    messages = new[]
+                    {
+                        new { role = "system", content = "Bạn là chuyên gia dinh dưỡng chuyên nghiệp. Hãy đưa ra đánh giá chính xác, hữu ích và động viên người dùng." },
+                        new { role = "user", content = prompt.ToString() }
+                    },
+                    max_tokens = 200,
+                    temperature = 0.7
+                };
+
+                var json = JsonConvert.SerializeObject(requestBody);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Gọi API
+                System.Diagnostics.Debug.WriteLine("Đang gọi ChatGPT API để đánh giá dinh dưỡng...");
+                
+                System.Diagnostics.Debug.WriteLine($"Đang gọi API: {ApiUrl}");
+                var response = await _httpClient.PostAsync(ApiUrl, content);
+                
+                System.Diagnostics.Debug.WriteLine($"API Response Status: {response.StatusCode}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine($"ChatGPT API error: {response.StatusCode} - {errorContent}");
+                    return GetFallbackEvaluation(trungBinhCaloNgay, targetCalories);
+                }
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine($"API Response Content (first 200 chars): {responseContent.Substring(0, Math.Min(200, responseContent.Length))}...");
+                
+                var result = JsonConvert.DeserializeObject<ChatGPTResponse>(responseContent);
+
+                // Parse kết quả
+                if (result?.choices != null && result.choices.Length > 0)
+                {
+                    string evaluation = result.choices[0].message.content?.Trim();
+                    if (!string.IsNullOrWhiteSpace(evaluation))
+                    {
+                        System.Diagnostics.Debug.WriteLine($"AI đánh giá (first 100 chars): {evaluation.Substring(0, Math.Min(100, evaluation.Length))}...");
+                        System.Diagnostics.Debug.WriteLine($"=== EvaluateNutritionAsync SUCCESS ===");
+                        return evaluation;
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("WARNING: AI trả về đánh giá rỗng!");
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("WARNING: API response không có choices!");
+                }
+
+                System.Diagnostics.Debug.WriteLine("Dùng fallback evaluation");
+                return GetFallbackEvaluation(trungBinhCaloNgay, targetCalories);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi gọi ChatGPT API để đánh giá dinh dưỡng: {ex.Message}");
+                return GetFallbackEvaluation(trungBinhCaloNgay, targetCalories);
+            }
+        }
+
+        /// <summary>
+        /// Đánh giá fallback khi không có AI hoặc lỗi
+        /// </summary>
+        private string GetFallbackEvaluation(double trungBinhCaloNgay, double targetCalories)
+        {
+            double percent = trungBinhCaloNgay > 0 ? (trungBinhCaloNgay / targetCalories) * 100 : 0;
+
+            if (percent < 70)
+            {
+                return "Mức dinh dưỡng của bạn đang thấp hơn mục tiêu. Hãy tăng cường bổ sung các bữa ăn đầy đủ chất dinh dưỡng để đạt được mục tiêu sức khỏe.";
+            }
+            else if (percent >= 70 && percent < 90)
+            {
+                return "Mức dinh dưỡng của bạn đang ở mức khá tốt nhưng vẫn còn thiếu một chút. Hãy cố gắng duy trì và cải thiện thêm để đạt mục tiêu.";
+            }
+            else if (percent >= 90 && percent <= 110)
+            {
+                return "Mức dinh dưỡng của bạn đang rất tốt và phù hợp với mục tiêu. Hãy tiếp tục duy trì chế độ ăn uống lành mạnh này.";
+            }
+            else if (percent > 110 && percent <= 130)
+            {
+                return "Mức dinh dưỡng của bạn đang vượt quá mục tiêu một chút. Hãy điều chỉnh lại để phù hợp hơn với kế hoạch của bạn.";
+            }
+            else
+            {
+                return "Mức dinh dưỡng của bạn đang vượt quá mục tiêu nhiều. Hãy xem xét lại chế độ ăn uống và điều chỉnh để đạt được mục tiêu sức khỏe tốt hơn.";
+            }
+        }
+
         public void Dispose()
         {
             _httpClient?.Dispose();

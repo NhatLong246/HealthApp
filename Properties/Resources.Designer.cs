@@ -433,6 +433,16 @@ namespace HealthApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_meal_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-meal-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap KeHoachAnUong {
             get {
                 object obj = ResourceManager.GetObject("KeHoachAnUong", resourceCulture);
@@ -483,9 +493,49 @@ namespace HealthApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LogoGoalIcon {
+            get {
+                object obj = ResourceManager.GetObject("LogoGoalIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LogoIcon {
             get {
                 object obj = ResourceManager.GetObject("LogoIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LogoMealIcon {
+            get {
+                object obj = ResourceManager.GetObject("LogoMealIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LogoReservationIcon {
+            get {
+                object obj = ResourceManager.GetObject("LogoReservationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LogostatisticalIcon {
+            get {
+                object obj = ResourceManager.GetObject("LogostatisticalIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
