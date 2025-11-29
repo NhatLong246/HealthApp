@@ -214,15 +214,23 @@ namespace HealthApp.Views.KeHoachLuyenTap
                     _dayButtons[i].Text = currentDate.Day.ToString();
                     _dayButtons[i].Tag = currentDate;
 
-                    // Reset về màu bình thường
+                    // Mặc định màu bình thường
                     _dayButtons[i].FillColor = Color.White;
                     _dayButtons[i].ForeColor = Color.FromArgb(64, 64, 64);
 
-                    // Kiểm tra xem ngày này có buổi tập không
+                    // Kiểm tra trạng thái buổi tập trong ngày
                     bool hasWorkout = HasWorkoutOnDate(currentDate);
-                    if (hasWorkout)
+                    bool hasCompletedWorkout = HasCompletedWorkoutOnDate(currentDate);
+
+                    if (hasCompletedWorkout)
                     {
-                        // Highlight ngày có buổi tập (màu xanh nhạt)
+                        // Ngày có buổi tập đã hoàn thành → tô xám
+                        _dayButtons[i].FillColor = Color.FromArgb(210, 210, 210);
+                        _dayButtons[i].ForeColor = Color.DimGray;
+                    }
+                    else if (hasWorkout)
+                    {
+                        // Ngày có buổi tập chưa hoàn thành → tô xanh nhạt
                         _dayButtons[i].FillColor = Color.FromArgb(233, 252, 255);
                         _dayButtons[i].ForeColor = Color.Teal;
                     }
@@ -317,10 +325,17 @@ namespace HealthApp.Views.KeHoachLuyenTap
 
             DateTime date = (DateTime)button.Tag;
             bool hasWorkout = HasWorkoutOnDate(date);
+            bool hasCompletedWorkout = HasCompletedWorkoutOnDate(date);
 
-            if (hasWorkout)
+            if (hasCompletedWorkout)
             {
-                // Highlight ngày có buổi tập
+                // Ngày có buổi tập đã hoàn thành → tô xám
+                button.FillColor = Color.FromArgb(210, 210, 210);
+                button.ForeColor = Color.DimGray;
+            }
+            else if (hasWorkout)
+            {
+                // Ngày có buổi tập chưa hoàn thành → tô xanh nhạt
                 button.FillColor = Color.FromArgb(233, 252, 255);
                 button.ForeColor = Color.Teal;
             }
@@ -349,6 +364,23 @@ namespace HealthApp.Views.KeHoachLuyenTap
                 b.ThoiGianBatDau.Value.Date == dateOnly);
             
             return hasWorkout;
+        }
+
+        /// <summary>
+        /// Kiểm tra xem ngày có buổi tập đã hoàn thành không
+        /// </summary>
+        private bool HasCompletedWorkoutOnDate(DateTime date)
+        {
+            if (_allBuoiTap == null || _allBuoiTap.Count == 0)
+            {
+                return false;
+            }
+
+            DateTime dateOnly = date.Date;
+            return _allBuoiTap.Any(b =>
+                b.ThoiGianBatDau.HasValue &&
+                b.ThoiGianBatDau.Value.Date == dateOnly &&
+                b.TrangThai == "Hoàn thành");
         }
 
         /// <summary>
@@ -612,9 +644,14 @@ namespace HealthApp.Views.KeHoachLuyenTap
                         var buttonColumn = new DataGridViewButtonColumn();
                         buttonColumn.Name = "Tập luyện";
                         buttonColumn.HeaderText = "Tập luyện";
-                        buttonColumn.UseColumnTextForButtonValue = true;
+                        // Sử dụng Value của từng ô để hiển thị text, tránh lệch / sai text
+                        buttonColumn.UseColumnTextForButtonValue = false;
+                        // Bind với cột "Tập luyện" trong DataTable để tự nhận giá trị "Bắt đầu"/"Đã tập"
+                        buttonColumn.DataPropertyName = "Tập luyện";
                         buttonColumn.Width = 120;
                         buttonColumn.FlatStyle = FlatStyle.Flat;
+                        // Căn giữa nội dung nút cho đẹp
+                        buttonColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                         
                         // Set style đơn giản
                         if (isBuoiTapCompleted)
@@ -632,15 +669,11 @@ namespace HealthApp.Views.KeHoachLuyenTap
                         
                         dgvDanhSachBaiTap.Columns.Insert(columnIndex, buttonColumn);
                         
-                        // Set giá trị cho từng row
-                        for (int i = 0; i < dgvDanhSachBaiTap.Rows.Count; i++)
+                        // Không cần tự set lại Value vì đã bind qua DataPropertyName.
+                        // Nếu buổi tập đã hoàn thành thì chặn sửa trên cả cột.
+                        if (isBuoiTapCompleted)
                         {
-                            var cell = dgvDanhSachBaiTap.Rows[i].Cells["Tập luyện"];
-                            if (cell != null)
-                            {
-                                cell.Value = isBuoiTapCompleted ? "Đã tập" : "Bắt đầu";
-                                cell.ReadOnly = isBuoiTapCompleted;
-                            }
+                            buttonColumn.ReadOnly = true;
                         }
                     }
                     

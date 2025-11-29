@@ -42,7 +42,7 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(359, 5);
+            this.label5.Location = new System.Drawing.Point(335, 5);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 28);
             this.label5.TabIndex = 58;
@@ -53,7 +53,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(287, 5);
+            this.label6.Location = new System.Drawing.Point(263, 5);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(17, 28);
             this.label6.TabIndex = 57;
@@ -71,7 +71,7 @@
             this.txtGiay.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtGiay.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtGiay.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtGiay.Location = new System.Drawing.Point(384, 7);
+            this.txtGiay.Location = new System.Drawing.Point(360, 7);
             this.txtGiay.Margin = new System.Windows.Forms.Padding(5);
             this.txtGiay.Name = "txtGiay";
             this.txtGiay.PlaceholderText = "";
@@ -91,7 +91,7 @@
             this.txtPhut.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPhut.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtPhut.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPhut.Location = new System.Drawing.Point(312, 7);
+            this.txtPhut.Location = new System.Drawing.Point(288, 7);
             this.txtPhut.Margin = new System.Windows.Forms.Padding(5);
             this.txtPhut.Name = "txtPhut";
             this.txtPhut.PlaceholderText = "";
@@ -111,7 +111,7 @@
             this.txtGio.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtGio.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtGio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtGio.Location = new System.Drawing.Point(240, 7);
+            this.txtGio.Location = new System.Drawing.Point(216, 7);
             this.txtGio.Margin = new System.Windows.Forms.Padding(5);
             this.txtGio.Name = "txtGio";
             this.txtGio.PlaceholderText = "";

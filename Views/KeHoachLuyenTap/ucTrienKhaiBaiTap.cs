@@ -23,15 +23,20 @@ namespace HealthApp.Views.KeHoachLuyenTap
         private DateTime _startTime;
         private TimeSpan _pausedTime;
         private WF_HealthTracker _dbContext;
+        private List<ucLichSuTap> _lichSuTapList; // Danh sách các lần tập đã lưu
+        private int _soLanTap; // Số lần tập hiện tại
 
         public ucTrienKhaiBaiTap()
         {
             InitializeComponent();
             _baiTapChiTietList = new List<Models.BaiTapChiTiet>();
             _dbContext = new WF_HealthTracker();
+            _lichSuTapList = new List<ucLichSuTap>();
+            _soLanTap = 0;
             InitializeTimer();
             ResetTimer();
             InitializeEventHandlers();
+            InitializeLichSuTapPanel();
         }
 
 
@@ -91,6 +96,18 @@ namespace HealthApp.Views.KeHoachLuyenTap
         }
 
         /// <summary>
+        /// Khởi tạo panel lịch sử tập
+        /// </summary>
+        private void InitializeLichSuTapPanel()
+        {
+            if (pnlLichSuTap != null)
+            {
+                pnlLichSuTap.Controls.Clear();
+                pnlLichSuTap.AutoScroll = true;
+            }
+        }
+
+        /// <summary>
         /// Reset timer về 00:00:00
         /// </summary>
         private void ResetTimer()
@@ -114,6 +131,15 @@ namespace HealthApp.Views.KeHoachLuyenTap
             {
                 _baiTapChiTietList = buoiTap.BaiTapChiTiet.ToList();
             }
+            
+            // Reset lịch sử tập khi load buổi tập mới
+            _soLanTap = 0;
+            _lichSuTapList.Clear();
+            if (pnlLichSuTap != null)
+            {
+                pnlLichSuTap.Controls.Clear();
+            }
+            
             LoadBaiTapData();
         }
 
@@ -402,7 +428,16 @@ namespace HealthApp.Views.KeHoachLuyenTap
                     _isPaused = false;
                     _timer.Stop();
 
-                    MessageBox.Show($"Đã lưu lần tập: {_elapsedTime.Hours:D2}:{_elapsedTime.Minutes:D2}:{_elapsedTime.Seconds:D2}", "Thông báo",
+                    // Tăng số lần tập
+                    _soLanTap++;
+                    
+                    // Lưu thời gian tập hiện tại
+                    TimeSpan thoiGianTap = _elapsedTime;
+
+                    // Tạo và thêm ucLichSuTap vào panel
+                    AddLichSuTapItem(_soLanTap, thoiGianTap);
+
+                    MessageBox.Show($"Đã lưu lần tập: {thoiGianTap.Hours:D2}:{thoiGianTap.Minutes:D2}:{thoiGianTap.Seconds:D2}", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Reset timer để có thể tập tiếp
@@ -413,6 +448,58 @@ namespace HealthApp.Views.KeHoachLuyenTap
             {
                 MessageBox.Show($"Lỗi khi lưu lần tập: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Thêm một item lịch sử tập vào panel
+        /// </summary>
+        private void AddLichSuTapItem(int lanTap, TimeSpan thoiGianTap)
+        {
+            try
+            {
+                if (pnlLichSuTap == null)
+                    return;
+
+                // Tạo ucLichSuTap mới
+                var ucLichSu = new ucLichSuTap();
+                ucLichSu.SetHistoryInfo(lanTap, thoiGianTap);
+                
+                // Tắt AutoSize để không tự động thay đổi kích thước
+                ucLichSu.AutoSize = false;
+                
+                // Chỉ set Anchor để giữ vị trí khi panel resize (không ảnh hưởng kích thước)
+                ucLichSu.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                
+                // Tính vị trí Y dựa trên kích thước gốc từ Designer (462x42)
+                int spacing = 2; // Khoảng cách giữa các item
+                int itemHeight = 42; // Chiều cao cố định từ Designer
+                int yPosition = _lichSuTapList.Count * (itemHeight + spacing);
+                
+                // Set vị trí
+                ucLichSu.Location = new Point(0, yPosition);
+                
+                // Set kích thước cố định TRƯỚC KHI thêm vào panel (462 = chiều rộng của panel)
+                ucLichSu.Size = new Size(462, 42);
+                ucLichSu.Width = 462;
+                ucLichSu.Height = 42;
+
+                // Thêm vào panel và list
+                pnlLichSuTap.Controls.Add(ucLichSu);
+                _lichSuTapList.Add(ucLichSu);
+
+                // QUAN TRỌNG: Set lại kích thước SAU KHI thêm vào panel để override bất kỳ scaling nào
+                // Điều này đảm bảo kích thước không bị thay đổi bởi AutoScaleMode hoặc layout
+                ucLichSu.Size = new Size(462, 42);
+                ucLichSu.Width = 462;
+                ucLichSu.Height = 42;
+
+                // Scroll xuống item mới nhất
+                pnlLichSuTap.ScrollControlIntoView(ucLichSu);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"AddLichSuTapItem error: {ex.Message}");
             }
         }
 
@@ -564,24 +651,27 @@ namespace HealthApp.Views.KeHoachLuyenTap
                     if (buoiTap != null)
                     {
                         buoiTap.TrangThai = "Hoàn thành";
+                        // Ngày thực hiện dùng ngày hiện tại, còn ThoiGianBatDau/ThoiGianKetThuc
+                        // vẫn giữ nguyên giá trị lịch gốc để không làm lệch lịch tuần
                         buoiTap.NgayThucHien = DateTime.Now;
                         buoiTap.NgayCapNhat = DateTime.Now;
                         
-                        // Cập nhật thời gian thực tế (lưu thời gian tập vào database)
+                        // Thời gian thực tế chỉ lưu vào GhiChu để tham khảo
                         DateTime thoiGianKetThucThucTe = DateTime.Now;
                         DateTime thoiGianBatDauThucTe = thoiGianKetThucThucTe - _elapsedTime;
                         
-                        buoiTap.ThoiGianBatDau = thoiGianBatDauThucTe;
-                        buoiTap.ThoiGianKetThuc = thoiGianKetThucThucTe;
+                        string thoiGianThucTeText =
+                            $"Thời gian tập thực tế: {_elapsedTime.Hours:D2}:{_elapsedTime.Minutes:D2}:{_elapsedTime.Seconds:D2} " +
+                            $"(bắt đầu: {thoiGianBatDauThucTe:HH:mm}, kết thúc: {thoiGianKetThucThucTe:HH:mm})";
                         
                         // Lưu thời gian tập vào GhiChu để dễ đọc
                         if (string.IsNullOrEmpty(buoiTap.GhiChu))
                         {
-                            buoiTap.GhiChu = $"Thời gian tập: {_elapsedTime.Hours:D2}:{_elapsedTime.Minutes:D2}:{_elapsedTime.Seconds:D2}";
+                            buoiTap.GhiChu = thoiGianThucTeText;
                         }
                         else
                         {
-                            buoiTap.GhiChu += $" | Thời gian tập: {_elapsedTime.Hours:D2}:{_elapsedTime.Minutes:D2}:{_elapsedTime.Seconds:D2}";
+                            buoiTap.GhiChu += $" | {thoiGianThucTeText}";
                         }
                         
                         // Cập nhật calories nếu có

@@ -39,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnTroVe = new Guna.UI2.WinForms.Guna2Button();
             this.guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.pnlLichSuTap = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.btnTamNghi = new Guna.UI2.WinForms.Guna2Button();
             this.btnXong = new Guna.UI2.WinForms.Guna2Button();
@@ -73,7 +74,6 @@
             this.lbSoBuoiTap = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lbGenSoBuoiTap = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnHoanThanh = new Guna.UI2.WinForms.Guna2Button();
-            this.pnlLichSuTap = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2GroupBox1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             this.guna2GroupBox2.SuspendLayout();
@@ -141,6 +141,14 @@
             this.guna2GroupBox1.Size = new System.Drawing.Size(488, 394);
             this.guna2GroupBox1.TabIndex = 13;
             this.guna2GroupBox1.Text = "Thời Gian Tập";
+            // 
+            // pnlLichSuTap
+            // 
+            this.pnlLichSuTap.AutoScroll = true;
+            this.pnlLichSuTap.Location = new System.Drawing.Point(12, 224);
+            this.pnlLichSuTap.Name = "pnlLichSuTap";
+            this.pnlLichSuTap.Size = new System.Drawing.Size(462, 149);
+            this.pnlLichSuTap.TabIndex = 18;
             // 
             // guna2Button2
             // 
@@ -603,13 +611,6 @@
             this.btnHoanThanh.Size = new System.Drawing.Size(203, 51);
             this.btnHoanThanh.TabIndex = 16;
             this.btnHoanThanh.Text = "Hoàn thành";
-            // 
-            // pnlLichSuTap
-            // 
-            this.pnlLichSuTap.Location = new System.Drawing.Point(12, 224);
-            this.pnlLichSuTap.Name = "pnlLichSuTap";
-            this.pnlLichSuTap.Size = new System.Drawing.Size(462, 149);
-            this.pnlLichSuTap.TabIndex = 18;
             // 
             // ucTrienKhaiBaiTap
             // 
