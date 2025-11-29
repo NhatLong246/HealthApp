@@ -232,6 +232,7 @@ namespace HealthApp.Views.KeHoachLuyenTap
                     {
                         // Ngày có buổi tập chưa hoàn thành → tô xanh nhạt
                         _dayButtons[i].FillColor = Color.FromArgb(233, 252, 255);
+
                         _dayButtons[i].ForeColor = Color.Teal;
                     }
                 }
@@ -1224,6 +1225,5 @@ namespace HealthApp.Views.KeHoachLuyenTap
             _goalController?.Dispose();
             _dbContext?.Dispose();
         }
-
     }
 }

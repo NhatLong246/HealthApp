@@ -1,4 +1,4 @@
-﻿using Guna.UI2.WinForms;
+using Guna.UI2.WinForms;
 using HealthApp.Common.Helpers;
 using HealthApp.Controllers;
 using HealthApp.Models;

@@ -122,7 +122,6 @@ namespace HealthApp.Repositories
             return await Task.Run(() =>
             {
                 user.Email = PrepareEmailValue(user.Email, user.Username ?? user.UserID);
-
                 _context.Users.Add(user);
                 _context.SaveChanges();
                 return user;

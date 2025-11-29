@@ -29,6 +29,8 @@ namespace HealthApp.Views.Nutrition
         private void InitializeComponent()
         {
             this.pnlMain = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnHuy = new Guna.UI2.WinForms.Guna2Button();
+            this.btnThem = new Guna.UI2.WinForms.Guna2GradientButton();
             this.txtGhiChu = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblGhiChu = new System.Windows.Forms.Label();
             this.dtpNgayAn = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -46,8 +48,6 @@ namespace HealthApp.Views.Nutrition
             this.lblTenMonAn = new System.Windows.Forms.Label();
             this.pnlHeader = new Guna.UI2.WinForms.Guna2Panel();
             this.lblTieuDe = new System.Windows.Forms.Label();
-            this.btnHuy = new Guna.UI2.WinForms.Guna2Button();
-            this.btnThem = new Guna.UI2.WinForms.Guna2GradientButton();
             this.pnlMain.SuspendLayout();
             this.pnlThongTin.SuspendLayout();
             this.pnlHeader.SuspendLayout();
@@ -75,6 +75,44 @@ namespace HealthApp.Views.Nutrition
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(500, 600);
             this.pnlMain.TabIndex = 0;
+            // 
+            // btnHuy
+            // 
+            this.btnHuy.BorderColor = System.Drawing.Color.Red;
+            this.btnHuy.BorderRadius = 10;
+            this.btnHuy.BorderThickness = 2;
+            this.btnHuy.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnHuy.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnHuy.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnHuy.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnHuy.FillColor = System.Drawing.Color.White;
+            this.btnHuy.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHuy.ForeColor = System.Drawing.Color.Red;
+            this.btnHuy.Location = new System.Drawing.Point(270, 530);
+            this.btnHuy.Name = "btnHuy";
+            this.btnHuy.Size = new System.Drawing.Size(200, 45);
+            this.btnHuy.TabIndex = 9;
+            this.btnHuy.Text = "Hủy";
+            this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
+            // 
+            // btnThem
+            // 
+            this.btnThem.BorderRadius = 10;
+            this.btnThem.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnThem.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnThem.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnThem.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnThem.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnThem.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
+            this.btnThem.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
+            this.btnThem.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.ForeColor = System.Drawing.Color.White;
+            this.btnThem.Location = new System.Drawing.Point(30, 530);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(200, 45);
+            this.btnThem.TabIndex = 8;
+            this.btnThem.Text = "Thêm";
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // txtGhiChu
             // 
@@ -104,7 +142,7 @@ namespace HealthApp.Views.Nutrition
             this.lblGhiChu.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGhiChu.Location = new System.Drawing.Point(26, 420);
             this.lblGhiChu.Name = "lblGhiChu";
-            this.lblGhiChu.Size = new System.Drawing.Size(68, 23);
+            this.lblGhiChu.Size = new System.Drawing.Size(73, 23);
             this.lblGhiChu.TabIndex = 6;
             this.lblGhiChu.Text = "Ghi chú:";
             // 
@@ -130,7 +168,7 @@ namespace HealthApp.Views.Nutrition
             this.lblNgayAn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNgayAn.Location = new System.Drawing.Point(26, 340);
             this.lblNgayAn.Name = "lblNgayAn";
-            this.lblNgayAn.Size = new System.Drawing.Size(78, 23);
+            this.lblNgayAn.Size = new System.Drawing.Size(79, 23);
             this.lblNgayAn.TabIndex = 4;
             this.lblNgayAn.Text = "Ngày ăn:";
             // 
@@ -157,7 +195,7 @@ namespace HealthApp.Views.Nutrition
             this.lblLoaiBuaAn.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLoaiBuaAn.Location = new System.Drawing.Point(26, 260);
             this.lblLoaiBuaAn.Name = "lblLoaiBuaAn";
-            this.lblLoaiBuaAn.Size = new System.Drawing.Size(100, 23);
+            this.lblLoaiBuaAn.Size = new System.Drawing.Size(104, 23);
             this.lblLoaiBuaAn.TabIndex = 2;
             this.lblLoaiBuaAn.Text = "Loại bữa ăn:";
             // 
@@ -188,20 +226,21 @@ namespace HealthApp.Views.Nutrition
             this.lblSoLuong.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoLuong.Location = new System.Drawing.Point(26, 180);
             this.lblSoLuong.Name = "lblSoLuong";
-            this.lblSoLuong.Size = new System.Drawing.Size(81, 23);
+            this.lblSoLuong.Size = new System.Drawing.Size(83, 23);
             this.lblSoLuong.TabIndex = 0;
             this.lblSoLuong.Text = "Số lượng:";
             // 
             // pnlThongTin
             // 
-            this.pnlThongTin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.pnlThongTin.BorderRadius = 15;
+            this.pnlThongTin.BackColor = System.Drawing.Color.Transparent;
+            this.pnlThongTin.BorderRadius = 25;
             this.pnlThongTin.Controls.Add(this.lblFat);
             this.pnlThongTin.Controls.Add(this.lblCarbs);
             this.pnlThongTin.Controls.Add(this.lblProtein);
             this.pnlThongTin.Controls.Add(this.lblCalories);
             this.pnlThongTin.Controls.Add(this.lblDonVi);
             this.pnlThongTin.Controls.Add(this.lblTenMonAn);
+            this.pnlThongTin.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
             this.pnlThongTin.Location = new System.Drawing.Point(30, 70);
             this.pnlThongTin.Name = "pnlThongTin";
             this.pnlThongTin.Size = new System.Drawing.Size(440, 100);
@@ -213,7 +252,7 @@ namespace HealthApp.Views.Nutrition
             this.lblFat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblFat.Location = new System.Drawing.Point(330, 65);
             this.lblFat.Name = "lblFat";
-            this.lblFat.Size = new System.Drawing.Size(40, 20);
+            this.lblFat.Size = new System.Drawing.Size(57, 20);
             this.lblFat.TabIndex = 5;
             this.lblFat.Text = "Fat: 0g";
             // 
@@ -223,7 +262,7 @@ namespace HealthApp.Views.Nutrition
             this.lblCarbs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblCarbs.Location = new System.Drawing.Point(220, 65);
             this.lblCarbs.Name = "lblCarbs";
-            this.lblCarbs.Size = new System.Drawing.Size(55, 20);
+            this.lblCarbs.Size = new System.Drawing.Size(74, 20);
             this.lblCarbs.TabIndex = 4;
             this.lblCarbs.Text = "Carbs: 0g";
             // 
@@ -233,7 +272,7 @@ namespace HealthApp.Views.Nutrition
             this.lblProtein.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblProtein.Location = new System.Drawing.Point(110, 65);
             this.lblProtein.Name = "lblProtein";
-            this.lblProtein.Size = new System.Drawing.Size(70, 20);
+            this.lblProtein.Size = new System.Drawing.Size(86, 20);
             this.lblProtein.TabIndex = 3;
             this.lblProtein.Text = "Protein: 0g";
             // 
@@ -243,7 +282,7 @@ namespace HealthApp.Views.Nutrition
             this.lblCalories.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblCalories.Location = new System.Drawing.Point(15, 65);
             this.lblCalories.Name = "lblCalories";
-            this.lblCalories.Size = new System.Drawing.Size(75, 20);
+            this.lblCalories.Size = new System.Drawing.Size(81, 20);
             this.lblCalories.TabIndex = 2;
             this.lblCalories.Text = "Calories: 0";
             // 
@@ -253,7 +292,7 @@ namespace HealthApp.Views.Nutrition
             this.lblDonVi.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblDonVi.Location = new System.Drawing.Point(15, 40);
             this.lblDonVi.Name = "lblDonVi";
-            this.lblDonVi.Size = new System.Drawing.Size(60, 20);
+            this.lblDonVi.Size = new System.Drawing.Size(68, 20);
             this.lblDonVi.TabIndex = 1;
             this.lblDonVi.Text = "Đơn vị: g";
             // 
@@ -263,13 +302,13 @@ namespace HealthApp.Views.Nutrition
             this.lblTenMonAn.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTenMonAn.Location = new System.Drawing.Point(15, 10);
             this.lblTenMonAn.Name = "lblTenMonAn";
-            this.lblTenMonAn.Size = new System.Drawing.Size(100, 28);
+            this.lblTenMonAn.Size = new System.Drawing.Size(120, 28);
             this.lblTenMonAn.TabIndex = 0;
             this.lblTenMonAn.Text = "Tên món ăn";
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
             this.pnlHeader.BorderRadius = 20;
             this.pnlHeader.Controls.Add(this.lblTieuDe);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
@@ -285,47 +324,9 @@ namespace HealthApp.Views.Nutrition
             this.lblTieuDe.ForeColor = System.Drawing.Color.White;
             this.lblTieuDe.Location = new System.Drawing.Point(180, 15);
             this.lblTieuDe.Name = "lblTieuDe";
-            this.lblTieuDe.Size = new System.Drawing.Size(140, 31);
+            this.lblTieuDe.Size = new System.Drawing.Size(160, 31);
             this.lblTieuDe.TabIndex = 0;
             this.lblTieuDe.Text = "Thêm Món Ăn";
-            // 
-            // btnHuy
-            // 
-            this.btnHuy.BorderColor = System.Drawing.Color.Red;
-            this.btnHuy.BorderRadius = 10;
-            this.btnHuy.BorderThickness = 2;
-            this.btnHuy.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnHuy.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnHuy.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnHuy.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnHuy.FillColor = System.Drawing.Color.White;
-            this.btnHuy.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHuy.ForeColor = System.Drawing.Color.Red;
-            this.btnHuy.Location = new System.Drawing.Point(270, 530);
-            this.btnHuy.Name = "btnHuy";
-            this.btnHuy.Size = new System.Drawing.Size(200, 45);
-            this.btnHuy.TabIndex = 9;
-            this.btnHuy.Text = "Hủy";
-            this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
-            // 
-            // btnThem
-            // 
-            this.btnThem.BorderRadius = 10;
-            this.btnThem.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnThem.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnThem.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnThem.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnThem.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnThem.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnThem.FillColor2 = System.Drawing.Color.Cyan;
-            this.btnThem.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(30, 530);
-            this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(200, 45);
-            this.btnThem.TabIndex = 8;
-            this.btnThem.Text = "Thêm";
-            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // frmThemMonAn
             // 
