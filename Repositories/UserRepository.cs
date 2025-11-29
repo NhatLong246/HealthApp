@@ -116,12 +116,33 @@ namespace HealthApp.Repositories
 
         public async Task<Users> CreateAsync(Users user)
         {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
             return await Task.Run(() =>
             {
+                user.Email = PrepareEmailValue(user.Email, user.Username ?? user.UserID);
+
                 _context.Users.Add(user);
                 _context.SaveChanges();
                 return user;
             });
+        }
+
+        private static string PrepareEmailValue(string email, string identityFallback)
+        {
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                return email.Trim();
+            }
+
+            // SQL unique constraint không cho nhiều giá trị NULL,
+            // tạo placeholder duy nhất để thỏa mãn ràng buộc.
+            var safeIdentity = string.IsNullOrWhiteSpace(identityFallback)
+                ? Guid.NewGuid().ToString("N")
+                : identityFallback.Trim().Replace("@", "_");
+
+            return $"placeholder_{safeIdentity}_{Guid.NewGuid():N}@noemail.healthapp";
         }
 
         public async Task<bool> UpdateResetTokenAsync(string email, string resetToken, DateTime? expiryTime)

@@ -30,6 +30,7 @@ namespace HealthApp.Models
         public virtual DbSet<DatLichPT> DatLichPT { get; set; }
         public virtual DbSet<GoiThanhVien> GoiThanhVien { get; set; }
         public virtual DbSet<GiaoDich> GiaoDich { get; set; }
+        public virtual DbSet<GiaoBaiTapChoUser> GiaoBaiTapChoUser { get; set; }
         public virtual DbSet<HoSoBenhLi> HoSoBenhLi { get; set; }
         public virtual DbSet<HuanLuyenVien> HuanLuyenVien { get; set; }
         public virtual DbSet<KeHoachAnUong> KeHoachAnUong { get; set; }
@@ -146,6 +147,50 @@ namespace HealthApp.Models
             modelBuilder.Entity<DatLichPT>()
                 .Property(e => e.NguoiHuy)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<GiaoBaiTapChoUser>()
+                .Property(e => e.GiaoBaiTapID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaoBaiTapChoUser>()
+                .Property(e => e.PTID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaoBaiTapChoUser>()
+                .Property(e => e.UserID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaoBaiTapChoUser>()
+                .Property(e => e.DatLichID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaoBaiTapChoUser>()
+                .Property(e => e.ThuVienBaiTapID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GiaoBaiTapChoUser>()
+                .HasRequired(e => e.HuanLuyenVien)
+                .WithMany()
+                .HasForeignKey(e => e.PTID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<GiaoBaiTapChoUser>()
+                .HasRequired(e => e.Users)
+                .WithMany()
+                .HasForeignKey(e => e.UserID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<GiaoBaiTapChoUser>()
+                .HasOptional(e => e.DatLichPT)
+                .WithMany()
+                .HasForeignKey(e => e.DatLichID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<GiaoBaiTapChoUser>()
+                .HasOptional(e => e.ThuVienBaiTap)
+                .WithMany()
+                .HasForeignKey(e => e.ThuVienBaiTapID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<GoiThanhVien>()
                 .Property(e => e.GoiThanhVienID)

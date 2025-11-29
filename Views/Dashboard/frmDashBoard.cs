@@ -1,7 +1,9 @@
 ﻿using HealthApp.Views.Nutrition;
 using HealthApp.Common.Helpers;
 using HealthApp.Views.PT;
+using HealthApp.Views.Reports;
 using HealthApp.Views.Auth;
+using HealthApp.Views.GiaoBTChoUser;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,6 +34,8 @@ namespace HealthApp.Views.Dashboard
             picHome.Click += PicHome_Click;
             picAnUong.Click += PicAnUong_Click;
             ptrDangKyLamPT.Click += PtrDangKyLamPT_Click;
+            picLich.Click += PicThongKe_Click;
+            lblThongKe.Click += PicThongKe_Click;
             
             // Gắn event handler cho panel thông tin user
             pnlThongTinUser.Click += PnlThongTinUser_Click;
@@ -114,12 +118,26 @@ namespace HealthApp.Views.Dashboard
 
         }
 
-        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        private void PicThongKe_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn)
+                {
+                    MessageBox.Show("Vui lòng đăng nhập trước khi xem thống kê!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
+                var reportForm = new ReportForm();
+                reportForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở trang thống kê: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
-        
 
         /// <summary>
         /// Event handler cho button Home - điều hướng về trang chủ
@@ -234,7 +252,7 @@ namespace HealthApp.Views.Dashboard
         /// <summary>
         /// Event handler cho menu item "Đăng xuất"
         /// </summary>
-        private void MenuItemDangXuat_Click(object sender, EventArgs e)
+        private async void MenuItemDangXuat_Click(object sender, EventArgs e)
         {
             try
             {
@@ -247,22 +265,25 @@ namespace HealthApp.Views.Dashboard
                     // Đăng xuất
                     CurrentUser.Logout();
 
-                    // Đóng form Dashboard
+                    // Ẩn dashboard hiện tại
                     this.Hide();
 
-                    // Mở lại form đăng nhập
+                    // Mở lại form đăng nhập trên UI thread
+                    await Task.Run(() => { });
                     var loginForm = new LoginForm();
-                    if (loginForm.ShowDialog() == DialogResult.OK)
+                    var dialogResult = loginForm.ShowDialog();
+
+                    if (dialogResult == DialogResult.OK)
                     {
-                        // Nếu đăng nhập thành công, mở lại Dashboard và đóng form cũ
-                        var newDashboard = new frmDashBoard();
-                        this.Close();
-                        newDashboard.Show();
+                        // Cập nhật lại UI với user mới
+                        LoadUserInfo();
+                        LoadUserControl();
+                        this.Show();
                     }
                     else
                     {
-                        // Nếu không đăng nhập, đóng ứng dụng
-                        Application.Exit();
+                        // Nếu không đăng nhập lại, chỉ đóng dashboard (không tắt toàn app)
+                        this.Close();
                     }
                 }
             }

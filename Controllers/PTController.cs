@@ -1,11 +1,10 @@
-extern alias ef6;
-
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using ef6::System.Data.Entity;
+using System.Linq;
 using HealthApp.Models;
 using HealthApp.Services;
 using HealthApp.Services.Interfaces;
@@ -226,6 +225,144 @@ namespace HealthApp.Controllers
         public Task<bool> IsCCCDAlreadyUsedAsync(string soCCCD)
         {
             return _ptService.IsCCCDRegisteredAsync(soCCCD);
+        }
+
+        /// <summary>
+        /// Lấy danh sách lịch đặt đã Confirmed của PT hiện tại trong một ngày (theo CurrentUser)
+        /// </summary>
+        public async Task<IList<DatLichPT>> GetBookingsForCurrentPTOnDateAsync(DateTime date)
+        {
+           if (!Common.Helpers.CurrentUser.IsLoggedIn || Common.Helpers.CurrentUser.User == null)
+           {
+               return new DatLichPT[0];
+           }
+
+           var userId = Common.Helpers.CurrentUser.UserID;
+
+           // Tìm PT tương ứng với user hiện tại
+           HuanLuyenVien pt = null;
+           try
+           {
+               // Dùng context tạm để tránh NullReference nếu _dbContext đã dispose ở nơi khác
+               using (var tempContext = new WF_HealthTracker())
+               {
+                   pt = tempContext.HuanLuyenVien
+                       .FirstOrDefault(h => h.UserID == userId);
+               }
+           }
+           catch (Exception ex)
+           {
+               System.Diagnostics.Debug.WriteLine($"[PTController] Lỗi khi truy vấn PT hiện tại: {ex.Message}");
+               return new DatLichPT[0];
+           }
+
+           if (pt == null || string.IsNullOrWhiteSpace(pt.PTID))
+           {
+               return new DatLichPT[0];
+           }
+
+           return await _ptService.GetConfirmedBookingsForPTOnDateAsync(pt.PTID, date);
+        }
+
+        public Task<IList<ThuVienBaiTap>> GetExercisesByGoalAsync(string goal)
+        {
+            return _ptService.GetExercisesByGoalAsync(goal);
+        }
+
+        public Task<IList<GiaoBaiTapChoUser>> GetAssignmentsForBookingsAsync(IEnumerable<DatLichPT> bookings)
+        {
+            var ids = bookings?
+                .Where(b => !string.IsNullOrWhiteSpace(b.DatLichID))
+                .Select(b => b.DatLichID)
+                .ToList() ?? new List<string>();
+
+            return _ptService.GetAssignmentsByDatLichIdsAsync(ids);
+        }
+
+        public Task<GiaoBaiTapChoUser> GetAssignmentAsync(string datLichId, string thuVienBaiTapId)
+        {
+            return _ptService.GetAssignmentAsync(datLichId, thuVienBaiTapId);
+        }
+
+        public Task ClearAssignmentsForBookingAsync(string datLichId)
+        {
+            return _ptService.ClearAssignmentsForBookingAsync(datLichId);
+        }
+
+        public async Task<GiaoBaiTapChoUser> SaveAssignmentAsync(
+            DatLichPT booking,
+            ThuVienBaiTap exercise,
+            string customPayload,
+            string customDescription = null)
+        {
+            if (booking == null || exercise == null)
+                return null;
+
+            if (string.IsNullOrWhiteSpace(booking.DatLichID) ||
+                string.IsNullOrWhiteSpace(booking.KhachHangID))
+                return null;
+
+            var assignment = await _ptService.GetAssignmentAsync(booking.DatLichID, exercise.BaiTapID);
+            var truncatedPayload = string.IsNullOrEmpty(customPayload)
+                ? null
+                : (customPayload.Length > 500 ? customPayload.Substring(0, 500) : customPayload);
+
+            if (assignment == null)
+            {
+                assignment = new GiaoBaiTapChoUser
+                {
+                    PTID = booking.PTID,
+                    UserID = booking.KhachHangID,
+                    DatLichID = booking.DatLichID,
+                    ThuVienBaiTapID = exercise.BaiTapID,
+                    TieuDe = exercise.TenBaiTap,
+                    MoTa = string.IsNullOrWhiteSpace(customDescription) ? exercise.MoTa : customDescription,
+                    MucTieuBuoiTap = booking.MucTieuLuyenTap ?? exercise.LoaiMucTieu,
+                    HanHoanThanh = booking.ThoiGianKetThuc,
+                    GhiChuPT = truncatedPayload,
+                    TrangThai = "Assigned"
+                };
+
+                return await _ptService.CreateAssignmentAsync(assignment);
+            }
+
+            assignment.TieuDe = exercise.TenBaiTap;
+            assignment.MoTa = string.IsNullOrWhiteSpace(customDescription) ? exercise.MoTa : customDescription;
+            assignment.MucTieuBuoiTap = booking.MucTieuLuyenTap ?? exercise.LoaiMucTieu;
+            assignment.HanHoanThanh = booking.ThoiGianKetThuc;
+            assignment.GhiChuPT = truncatedPayload;
+            assignment.TrangThai = "Assigned";
+            assignment.NgayHoanThanh = null;
+
+            return await _ptService.UpdateAssignmentAsync(assignment);
+        }
+
+        public async Task<IList<GiaoBaiTapChoUser>> GetAssignmentsByPTAndDateAsync(DateTime date)
+        {
+            if (!Common.Helpers.CurrentUser.IsLoggedIn || Common.Helpers.CurrentUser.User == null)
+                return new List<GiaoBaiTapChoUser>();
+
+            string ptId = null;
+            using (var tempContext = new WF_HealthTracker())
+            {
+                var pt = tempContext.HuanLuyenVien
+                    .FirstOrDefault(h => h.UserID == Common.Helpers.CurrentUser.User.UserID);
+                ptId = pt?.PTID;
+            }
+
+            if (string.IsNullOrWhiteSpace(ptId))
+                return new List<GiaoBaiTapChoUser>();
+
+            return await _ptService.GetAssignmentsByPTAndDateAsync(ptId, date);
+        }
+
+        public async Task<IList<GiaoBaiTapChoUser>> GetAssignmentsByUserAndDateAsync(DateTime date)
+        {
+            if (!Common.Helpers.CurrentUser.IsLoggedIn || Common.Helpers.CurrentUser.User == null)
+                return new List<GiaoBaiTapChoUser>();
+
+            var userId = Common.Helpers.CurrentUser.UserID;
+            return await _ptService.GetAssignmentsByUserAndDateAsync(userId, date);
         }
     }
 }

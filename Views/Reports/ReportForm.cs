@@ -324,16 +324,28 @@ namespace HealthApp.Views.Reports
             Series seriesSessions = new Series("Số buổi tập");
             seriesSessions.ChartType = SeriesChartType.Column;
             seriesSessions.Color = Color.FromArgb(59, 130, 246);
+            seriesSessions.IsValueShownAsLabel = true;
+            seriesSessions.LabelForeColor = Color.FromArgb(22, 22, 22);
+            seriesSessions.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            seriesSessions.LabelFormat = "#,##0";
 
             // Series 2: Thời gian (phút)
             Series seriesTime = new Series("Thời gian (phút)");
             seriesTime.ChartType = SeriesChartType.Column;
             seriesTime.Color = Color.FromArgb(34, 198, 94);
+            seriesTime.IsValueShownAsLabel = true;
+            seriesTime.LabelForeColor = Color.FromArgb(22, 22, 22);
+            seriesTime.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            seriesTime.LabelFormat = "#,##0";
 
             // Series 3: Calories
             Series seriesCalories = new Series("Calories");
             seriesCalories.ChartType = SeriesChartType.Column;
             seriesCalories.Color = Color.FromArgb(239, 68, 68);
+            seriesCalories.IsValueShownAsLabel = true;
+            seriesCalories.LabelForeColor = Color.FromArgb(22, 22, 22);
+            seriesCalories.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            seriesCalories.LabelFormat = "#,##0";
 
             // Thêm dữ liệu
             if (twoWeeksComparison != null && twoWeeksComparison.Count > 0)

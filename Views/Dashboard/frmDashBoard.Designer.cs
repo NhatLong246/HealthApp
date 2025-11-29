@@ -41,6 +41,7 @@
             this.lblDangKyPT = new System.Windows.Forms.Label();
             this.lblAnUong = new System.Windows.Forms.Label();
             this.lblHome = new System.Windows.Forms.Label();
+            this.lblThongKe = new System.Windows.Forms.Label();
             this.picCaiDat = new Guna.UI2.WinForms.Guna2PictureBox();
             this.ptrDangKyLamPT = new Guna.UI2.WinForms.Guna2PictureBox();
             this.picAnUong = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -148,6 +149,7 @@
             this.pnlFooterContainer.Controls.Add(this.lblDangKyPT);
             this.pnlFooterContainer.Controls.Add(this.lblAnUong);
             this.pnlFooterContainer.Controls.Add(this.lblHome);
+            this.pnlFooterContainer.Controls.Add(this.lblThongKe);
             this.pnlFooterContainer.Controls.Add(this.picCaiDat);
             this.pnlFooterContainer.Controls.Add(this.ptrDangKyLamPT);
             this.pnlFooterContainer.Controls.Add(this.picAnUong);
@@ -198,6 +200,17 @@
             this.lblHome.Size = new System.Drawing.Size(57, 23);
             this.lblHome.TabIndex = 5;
             this.lblHome.Text = "Home";
+            // 
+            // lblThongKe
+            // 
+            this.lblThongKe.AutoSize = true;
+            this.lblThongKe.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblThongKe.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThongKe.Location = new System.Drawing.Point(637, 68);
+            this.lblThongKe.Name = "lblThongKe";
+            this.lblThongKe.Size = new System.Drawing.Size(87, 23);
+            this.lblThongKe.TabIndex = 9;
+            this.lblThongKe.Text = "Thống kê";
             // 
             // picCaiDat
             // 
@@ -258,7 +271,6 @@
             this.picLich.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLich.TabIndex = 0;
             this.picLich.TabStop = false;
-            this.picLich.Click += new System.EventHandler(this.guna2PictureBox1_Click);
             // 
             // pnlBody
             // 
@@ -353,6 +365,7 @@
         private System.Windows.Forms.Label lblDangKyPT;
         private System.Windows.Forms.Label lblAnUong;
         private System.Windows.Forms.Label lblHome;
+        private System.Windows.Forms.Label lblThongKe;
         private Guna.UI2.WinForms.Guna2ContextMenuStrip contextMenuUser;
         private System.Windows.Forms.ToolStripMenuItem menuItemDangXuat;
         private System.Windows.Forms.ToolStripMenuItem menuItemThanhToanPT;

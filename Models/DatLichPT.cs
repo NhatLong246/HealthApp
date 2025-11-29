@@ -50,6 +50,9 @@ namespace HealthApp.Models
 
         public bool? ChoXemSucKhoe { get; set; }
 
+        [StringLength(200)]
+        public string MucTieuLuyenTap { get; set; }
+
         [StringLength(500)]
         public string GhiChu { get; set; }
 

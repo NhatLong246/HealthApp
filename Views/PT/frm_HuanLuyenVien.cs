@@ -34,6 +34,9 @@ namespace HealthApp.Views.PT
             InitializeEventHandlers();
             LoadData();
             StartAutoRefresh();
+
+            // Đảm bảo panel thao tác nhanh hiển thị trên cùng
+            pnThaoTacNhanh.BringToFront();
         }
 
         private void InitializeEventHandlers()
@@ -41,6 +44,8 @@ namespace HealthApp.Views.PT
             btnBack.Click += BtnBack_Click;
             btnDongY.Click += BtnDongY_Click;
             btnXoa.Click += BtnXoa_Click;
+            btnGiaoBT.Click += BtnGiaoBT_Click;
+            btnLichPT.Click += BtnLichPT_Click;
         }
 
         private async void LoadData()
@@ -765,6 +770,41 @@ namespace HealthApp.Views.PT
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi quay lại: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnGiaoBT_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var frm = new GiaoBTChoUser())
+                {
+                    frm.StartPosition = FormStartPosition.CenterParent;
+                    frm.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở màn hình giao bài tập: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void BtnLichPT_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var frm = new frm_LichPT())
+                {
+                    frm.StartPosition = FormStartPosition.CenterParent;
+                    await frm.EnsureCurrentWeekLoadedAsync();
+                    frm.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở Lịch PT: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
