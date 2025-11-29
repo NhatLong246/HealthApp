@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GiaoBTChoUser));
             this.grbMain = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.flpBookings = new System.Windows.Forms.FlowLayoutPanel();
             this.btnNext = new Guna.UI2.WinForms.Guna2Button();
             this.btnPrev = new Guna.UI2.WinForms.Guna2Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -44,7 +45,6 @@
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.ptrAvatarNguoiYeuCauach1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.grbMain.SuspendLayout();
-            this.pnLichDat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarNguoiYeuCauach1)).BeginInit();
             this.SuspendLayout();
@@ -54,17 +54,27 @@
             this.grbMain.BackColor = System.Drawing.Color.White;
             this.grbMain.BorderColor = System.Drawing.Color.Gray;
             this.grbMain.BorderRadius = 20;
-            this.grbMain.Controls.Add(this.pnLichDat);
+            this.grbMain.Controls.Add(this.flpBookings);
             this.grbMain.Controls.Add(this.btnHomNay);
             this.grbMain.Controls.Add(this.dtpTime);
             this.grbMain.Controls.Add(this.btnNext);
             this.grbMain.Controls.Add(this.btnPrev);
             this.grbMain.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbMain.ForeColor = System.Drawing.Color.Teal;
-            this.grbMain.Location = new System.Drawing.Point(118, 75);
+            this.grbMain.Location = new System.Drawing.Point(60, 75);
             this.grbMain.Name = "grbMain";
-            this.grbMain.Size = new System.Drawing.Size(745, 496);
+            this.grbMain.Size = new System.Drawing.Size(975, 520);
             this.grbMain.TabIndex = 8;
+            // 
+            // flpBookings
+            // 
+            this.flpBookings.AutoScroll = true;
+            this.flpBookings.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpBookings.Location = new System.Drawing.Point(20, 135);
+            this.flpBookings.Name = "flpBookings";
+            this.flpBookings.Size = new System.Drawing.Size(935, 365);
+            this.flpBookings.TabIndex = 12;
+            this.flpBookings.WrapContents = false;
             // 
             // btnNext
             // 
@@ -78,7 +88,7 @@
             this.btnNext.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.ForeColor = System.Drawing.Color.Black;
             this.btnNext.HoverState.FillColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(489, 48);
+            this.btnNext.Location = new System.Drawing.Point(690, 48);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(45, 45);
             this.btnNext.TabIndex = 9;
@@ -96,7 +106,7 @@
             this.btnPrev.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrev.ForeColor = System.Drawing.Color.Black;
             this.btnPrev.HoverState.FillColor = System.Drawing.Color.White;
-            this.btnPrev.Location = new System.Drawing.Point(123, 48);
+            this.btnPrev.Location = new System.Drawing.Point(150, 48);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(45, 45);
             this.btnPrev.TabIndex = 8;
@@ -120,11 +130,11 @@
             this.dtpTime.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpTime.ForeColor = System.Drawing.Color.Black;
             this.dtpTime.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtpTime.Location = new System.Drawing.Point(174, 58);
+            this.dtpTime.Location = new System.Drawing.Point(263, 58);
             this.dtpTime.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtpTime.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtpTime.Name = "dtpTime";
-            this.dtpTime.Size = new System.Drawing.Size(309, 36);
+            this.dtpTime.Size = new System.Drawing.Size(360, 36);
             this.dtpTime.TabIndex = 10;
             this.dtpTime.Value = new System.DateTime(2025, 11, 26, 18, 48, 37, 63);
             // 
@@ -144,7 +154,7 @@
             this.pnLichDat.Radius = 10;
             this.pnLichDat.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.pnLichDat.ShadowShift = 1;
-            this.pnLichDat.Size = new System.Drawing.Size(748, 114);
+            this.pnLichDat.Size = new System.Drawing.Size(900, 120);
             this.pnLichDat.TabIndex = 12;
             // 
             // btnGiaoBT
@@ -156,7 +166,7 @@
             this.btnGiaoBT.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnGiaoBT.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnGiaoBT.ForeColor = System.Drawing.Color.White;
-            this.btnGiaoBT.Location = new System.Drawing.Point(579, 31);
+            this.btnGiaoBT.Location = new System.Drawing.Point(730, 35);
             this.btnGiaoBT.Name = "btnGiaoBT";
             this.btnGiaoBT.Size = new System.Drawing.Size(125, 45);
             this.btnGiaoBT.TabIndex = 5;
@@ -216,7 +226,7 @@
             this.btnHomNay.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(176)))), ((int)(((byte)(80)))));
             this.btnHomNay.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnHomNay.ForeColor = System.Drawing.Color.White;
-            this.btnHomNay.Location = new System.Drawing.Point(540, 54);
+            this.btnHomNay.Location = new System.Drawing.Point(780, 54);
             this.btnHomNay.Name = "btnHomNay";
             this.btnHomNay.Size = new System.Drawing.Size(125, 45);
             this.btnHomNay.TabIndex = 11;
@@ -250,15 +260,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(948, 599);
+            this.ClientSize = new System.Drawing.Size(1100, 640);
             this.Controls.Add(this.guna2PictureBox2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.grbMain);
             this.Name = "GiaoBTChoUser";
             this.Text = "GiaoBTChoUser";
             this.grbMain.ResumeLayout(false);
-            this.pnLichDat.ResumeLayout(false);
-            this.pnLichDat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarNguoiYeuCauach1)).EndInit();
             this.ResumeLayout(false);
@@ -282,5 +290,6 @@
         private System.Windows.Forms.Label lblTenNguoiYeuCauThue;
         private Guna.UI2.WinForms.Guna2CirclePictureBox ptrAvatarNguoiYeuCauach1;
         private Guna.UI2.WinForms.Guna2Button btnHomNay;
+        private System.Windows.Forms.FlowLayoutPanel flpBookings;
     }
 }

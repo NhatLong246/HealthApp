@@ -79,6 +79,8 @@
             this.btnGiaoBT = new Guna.UI2.WinForms.Guna2Button();
             this.lbThaoTac = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnThaoTacNhanh = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnLichPT = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pnlKhachHang.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrKhachHang)).BeginInit();
             this.pnlBuoiTap.SuspendLayout();
@@ -99,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ptrImageLichTrinh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picGiaoBT)).BeginInit();
             this.pnThaoTacNhanh.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTieuDe
@@ -718,13 +721,44 @@
             // pnThaoTacNhanh
             // 
             this.pnThaoTacNhanh.BackColor = System.Drawing.Color.White;
+            this.pnThaoTacNhanh.Controls.Add(this.guna2PictureBox2);
+            this.pnThaoTacNhanh.Controls.Add(this.btnLichPT);
             this.pnThaoTacNhanh.Controls.Add(this.lbThaoTac);
             this.pnThaoTacNhanh.Controls.Add(this.picGiaoBT);
             this.pnThaoTacNhanh.Controls.Add(this.btnGiaoBT);
             this.pnThaoTacNhanh.Location = new System.Drawing.Point(929, 697);
             this.pnThaoTacNhanh.Name = "pnThaoTacNhanh";
-            this.pnThaoTacNhanh.Size = new System.Drawing.Size(408, 182);
+            this.pnThaoTacNhanh.Size = new System.Drawing.Size(408, 254);
             this.pnThaoTacNhanh.TabIndex = 35;
+            // 
+            // btnLichPT
+            // 
+            this.btnLichPT.BackColor = System.Drawing.Color.White;
+            this.btnLichPT.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLichPT.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLichPT.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLichPT.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLichPT.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(213)))), ((int)(((byte)(138)))));
+            this.btnLichPT.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnLichPT.ForeColor = System.Drawing.Color.White;
+            this.btnLichPT.Location = new System.Drawing.Point(162, 160);
+            this.btnLichPT.Name = "btnLichPT";
+            this.btnLichPT.Size = new System.Drawing.Size(167, 45);
+            this.btnLichPT.TabIndex = 3;
+            this.btnLichPT.Text = "Lịch Trình";
+            // 
+            // guna2PictureBox2
+            // 
+            this.guna2PictureBox2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.guna2PictureBox2.ErrorImage = null;
+            this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
+            this.guna2PictureBox2.ImageRotate = 0F;
+            this.guna2PictureBox2.Location = new System.Drawing.Point(105, 160);
+            this.guna2PictureBox2.Name = "guna2PictureBox2";
+            this.guna2PictureBox2.Size = new System.Drawing.Size(38, 45);
+            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox2.TabIndex = 4;
+            this.guna2PictureBox2.TabStop = false;
             // 
             // frm_HuanLuyenVien
             // 
@@ -776,6 +810,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picGiaoBT)).EndInit();
             this.pnThaoTacNhanh.ResumeLayout(false);
             this.pnThaoTacNhanh.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -833,5 +868,7 @@
         private Guna.UI2.WinForms.Guna2PictureBox picGiaoBT;
         private Guna.UI2.WinForms.Guna2Button btnGiaoBT;
         private Guna.UI2.WinForms.Guna2Panel pnThaoTacNhanh;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
+        private Guna.UI2.WinForms.Guna2Button btnLichPT;
     }
 }

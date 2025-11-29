@@ -3,6 +3,7 @@ using HealthApp.Common.Helpers;
 using HealthApp.Views.PT;
 using HealthApp.Views.Reports;
 using HealthApp.Views.Auth;
+using HealthApp.Views.GiaoBTChoUser;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -251,7 +252,7 @@ namespace HealthApp.Views.Dashboard
         /// <summary>
         /// Event handler cho menu item "Đăng xuất"
         /// </summary>
-        private void MenuItemDangXuat_Click(object sender, EventArgs e)
+        private async void MenuItemDangXuat_Click(object sender, EventArgs e)
         {
             try
             {
@@ -264,22 +265,25 @@ namespace HealthApp.Views.Dashboard
                     // Đăng xuất
                     CurrentUser.Logout();
 
-                    // Đóng form Dashboard
+                    // Ẩn dashboard hiện tại
                     this.Hide();
 
-                    // Mở lại form đăng nhập
+                    // Mở lại form đăng nhập trên UI thread
+                    await Task.Run(() => { });
                     var loginForm = new LoginForm();
-                    if (loginForm.ShowDialog() == DialogResult.OK)
+                    var dialogResult = loginForm.ShowDialog();
+
+                    if (dialogResult == DialogResult.OK)
                     {
-                        // Nếu đăng nhập thành công, mở lại Dashboard và đóng form cũ
-                        var newDashboard = new frmDashBoard();
-                        this.Close();
-                        newDashboard.Show();
+                        // Cập nhật lại UI với user mới
+                        LoadUserInfo();
+                        LoadUserControl();
+                        this.Show();
                     }
                     else
                     {
-                        // Nếu không đăng nhập, đóng ứng dụng
-                        Application.Exit();
+                        // Nếu không đăng nhập lại, chỉ đóng dashboard (không tắt toàn app)
+                        this.Close();
                     }
                 }
             }

@@ -3,6 +3,7 @@ using HealthApp.Views.MucTieu;
 using HealthApp.Views.PT;
 using HealthApp.Views.Food;
 using HealthApp.Views.KeHoachLuyenTap;
+using HealthApp.Views.GiaoBTChoUser;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,7 +60,18 @@ namespace HealthApp.Views.Dashboard
                 btnLenKeHoachNgay.Click += BtnLenKeHoachNgay_Click;
             }
 
-           
+            // Gắn event handler cho button Thống kê
+            if (btnThongke != null)
+            {
+                btnThongke.Click += BtnThongke_Click;
+            }
+
+            // Gắn event handler cho label Thống kê
+            if (lblThongKe != null)
+            {
+                lblThongKe.Click += BtnThongke_Click;
+                lblThongKe.Cursor = Cursors.Hand;
+            }
         }
 
         private void guna2TextBox1_TextChanged(object sender, EventArgs e)
@@ -471,6 +483,56 @@ namespace HealthApp.Views.Dashboard
                     // Tạo và load ucKeHoachLuyenTap
                     ucKeHoachLuyenTap ucKeHoachLuyenTap = new ucKeHoachLuyenTap();
                     parentForm.LoadUserControl(ucKeHoachLuyenTap);
+                }
+                else
+                {
+                    MessageBox.Show("Không thể tìm thấy form chính để điều hướng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi điều hướng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Event handler cho button Thống kê - điều hướng tới trang quản lý luyện tập với PT
+        /// </summary>
+        private void BtnThongke_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Tìm frmDashBoard
+                frmDashBoard parentForm = _parentForm;
+
+                // Nếu chưa có reference, thử tìm qua các cách khác
+                if (parentForm == null)
+                {
+                    // Cách 1: Tìm qua FindForm()
+                    Form form = this.FindForm();
+                    if (form is frmDashBoard)
+                    {
+                        parentForm = form as frmDashBoard;
+                    }
+                    // Cách 2: Tìm qua Application.OpenForms
+                    else
+                    {
+                        foreach (Form openForm in Application.OpenForms)
+                        {
+                            if (openForm is frmDashBoard)
+                            {
+                                parentForm = openForm as frmDashBoard;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (parentForm != null)
+                {
+                    // Tạo và load BaiTapCuaPTGiao
+                    var ucQuanLyLuyenTap = new BaiTapCuaPTGiao();
+                    parentForm.LoadUserControl(ucQuanLyLuyenTap);
                 }
                 else
                 {

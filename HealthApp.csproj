@@ -155,6 +155,7 @@
     <Compile Include="Models\ChiaSeThanhTuu.cs" />
     <Compile Include="Models\DanhGiaPT.cs" />
     <Compile Include="Models\DatLichPT.cs" />
+    <Compile Include="Models\GiaoBaiTapChoUser.cs" />
     <Compile Include="Models\GiaoDich.cs" />
     <Compile Include="Models\GoiThanhVien.cs" />
     <Compile Include="Models\HoSoBenhLi.cs" />
@@ -211,6 +212,12 @@
     </Compile>
     <Compile Include="Views\Activity\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GiaoBTChoUser\BaiTapCuaPTGiao.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\GiaoBTChoUser\BaiTapCuaPTGiao.Designer.cs">
+      <DependentUpon>BaiTapCuaPTGiao.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.cs">
       <SubType>UserControl</SubType>
@@ -302,22 +309,22 @@
     <Compile Include="Views\Nutrition\ucMonAnDeXuat.Designer.cs">
       <DependentUpon>ucMonAnDeXuat.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PT\ChiTietBaiGiao.cs">
+    <Compile Include="Views\GiaoBTChoUser\ChiTietBaiGiao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\PT\ChiTietBaiGiao.Designer.cs">
+    <Compile Include="Views\GiaoBTChoUser\ChiTietBaiGiao.Designer.cs">
       <DependentUpon>ChiTietBaiGiao.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PT\GiaoBaiTap.cs">
+    <Compile Include="Views\GiaoBTChoUser\GiaoBaiTap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\PT\GiaoBaiTap.Designer.cs">
+    <Compile Include="Views\GiaoBTChoUser\GiaoBaiTap.Designer.cs">
       <DependentUpon>GiaoBaiTap.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PT\GiaoBTChoUser.cs">
+    <Compile Include="Views\GiaoBTChoUser\GiaoBTChoUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\PT\GiaoBTChoUser.Designer.cs">
+    <Compile Include="Views\GiaoBTChoUser\GiaoBTChoUser.Designer.cs">
       <DependentUpon>GiaoBTChoUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Reports\ReportForm.cs">
@@ -437,6 +444,9 @@
     <EmbeddedResource Include="Views\Activity\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\GiaoBTChoUser\BaiTapCuaPTGiao.resx">
+      <DependentUpon>BaiTapCuaPTGiao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.resx">
       <DependentUpon>ucKeHoachLuyenTap.cs</DependentUpon>
     </EmbeddedResource>
@@ -482,13 +492,13 @@
     <EmbeddedResource Include="Views\Nutrition\ucMonAnDeXuat.resx">
       <DependentUpon>ucMonAnDeXuat.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PT\ChiTietBaiGiao.resx">
+    <EmbeddedResource Include="Views\GiaoBTChoUser\ChiTietBaiGiao.resx">
       <DependentUpon>ChiTietBaiGiao.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PT\GiaoBaiTap.resx">
+    <EmbeddedResource Include="Views\GiaoBTChoUser\GiaoBaiTap.resx">
       <DependentUpon>GiaoBaiTap.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PT\GiaoBTChoUser.resx">
+    <EmbeddedResource Include="Views\GiaoBTChoUser\GiaoBTChoUser.resx">
       <DependentUpon>GiaoBTChoUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Reports\ReportForm.resx">
