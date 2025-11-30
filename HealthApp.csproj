@@ -230,6 +230,24 @@
     <Compile Include="Views\Admin\frmThongTinChiTietPT.Designer.cs">
       <DependentUpon>frmThongTinChiTietPT.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\ucDanhGiaPT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucDanhGiaPT.Designer.cs">
+      <DependentUpon>ucDanhGiaPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucHieuSuat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucHieuSuat.Designer.cs">
+      <DependentUpon>ucHieuSuat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucKhachHang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucKhachHang.Designer.cs">
+      <DependentUpon>ucKhachHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\ucLichPT.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -463,6 +481,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Admin\frmThongTinChiTietPT.resx">
       <DependentUpon>frmThongTinChiTietPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucDanhGiaPT.resx">
+      <DependentUpon>ucDanhGiaPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucHieuSuat.resx">
+      <DependentUpon>ucHieuSuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucKhachHang.resx">
+      <DependentUpon>ucKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Admin\ucLichPT.resx">
       <DependentUpon>ucLichPT.cs</DependentUpon>

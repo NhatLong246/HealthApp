@@ -598,6 +598,7 @@
             // 
             // txtTiemKiem
             // 
+            this.txtTiemKiem.BackColor = System.Drawing.Color.Transparent;
             this.txtTiemKiem.BorderRadius = 10;
             this.txtTiemKiem.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtTiemKiem.DefaultText = "Tìm kiếm..,";
