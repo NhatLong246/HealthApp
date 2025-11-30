@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label5.Text" xml:space="preserve">
-    <value>________________</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="pnlLoadBuaToi.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -137,20 +134,23 @@
   <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 10.2pt, style=Bold</value>
   </data>
-  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="&gt;&gt;label9.Name" xml:space="preserve">
     <value>label9</value>
   </data>
   <data name="guna2Panel9.Size" type="System.Drawing.Size, System.Drawing">
     <value>363, 453</value>
   </data>
+  <data name="pnlChart.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
   <data name="label18.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
     <value>12</value>
+  </data>
+  <data name="&gt;&gt;guna2Panel2.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="label10.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -167,20 +167,14 @@
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>760, 107</value>
   </data>
-  <data name="pnlTieuDe.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 17</value>
-  </data>
   <data name="&gt;&gt;guna2Panel13.Name" xml:space="preserve">
     <value>guna2Panel13</value>
   </data>
   <data name="&gt;&gt;label25.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label23.Text" xml:space="preserve">
-    <value>________________</value>
-  </data>
-  <data name="label16.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 16.2pt, style=Bold</value>
+  <data name="guna2Button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-3, 274</value>
   </data>
   <data name="lblHienThiMucTieu.Location" type="System.Drawing.Point, System.Drawing">
     <value>584, 7</value>
@@ -221,9 +215,6 @@
   <data name="label21.Text" xml:space="preserve">
     <value>________________________</value>
   </data>
-  <data name="guna2Panel7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 584</value>
-  </data>
   <data name="&gt;&gt;guna2Panel4.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
@@ -260,8 +251,8 @@
   <data name="btnThemMon3.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="label14.Text" xml:space="preserve">
-    <value>_______________</value>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
   </data>
   <data name="lblInfor.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -302,14 +293,14 @@
   <data name="&gt;&gt;label11.Parent" xml:space="preserve">
     <value>guna2Panel13</value>
   </data>
-  <data name="&gt;&gt;guna2Panel12.Name" xml:space="preserve">
-    <value>guna2Panel12</value>
-  </data>
   <data name="lblHienThiMucTieu.Text" xml:space="preserve">
     <value>Chua C� M?c Ti�u</value>
   </data>
   <data name="label20.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label25.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
   <data name="guna2Panel8.Size" type="System.Drawing.Size, System.Drawing">
     <value>405, 480</value>
@@ -320,8 +311,8 @@
   <data name="&gt;&gt;pnlTieuDe.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;guna2Panel15.Name" xml:space="preserve">
-    <value>guna2Panel15</value>
+  <data name="&gt;&gt;lblDanhGia.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label14.Parent" xml:space="preserve">
     <value>guna2Panel11</value>
@@ -338,9 +329,6 @@
   <data name="pnlLoadBuaToi.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 56</value>
   </data>
-  <data name="guna2Button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-3, 274</value>
-  </data>
   <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
     <value>27, 21</value>
   </data>
@@ -353,20 +341,17 @@
   <data name="&gt;&gt;label7.Parent" xml:space="preserve">
     <value>guna2Panel8</value>
   </data>
-  <data name="guna2DateTimePicker1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>468, 42</value>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;guna2Panel5.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
-  <data name="&gt;&gt;btnThemMon3.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="lblInfor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>420, 44</value>
   </data>
   <data name="&gt;&gt;label10.Name" xml:space="preserve">
     <value>label10</value>
-  </data>
-  <data name="label22.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 13.8pt, style=Bold</value>
   </data>
   <data name="&gt;&gt;guna2Panel15.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
@@ -386,8 +371,8 @@
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="btnThemMon1.Text" xml:space="preserve">
-    <value>Thêm món</value>
+  <data name="pnlLoadBuaSang.Size" type="System.Drawing.Size, System.Drawing">
+    <value>399, 206</value>
   </data>
   <data name="&gt;&gt;guna2DateTimePicker1.Parent" xml:space="preserve">
     <value>pnlTieuDe</value>
@@ -439,12 +424,6 @@
   </data>
   <data name="&gt;&gt;guna2Panel7.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
-  </data>
-  <data name="label27.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label24.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -500,11 +479,11 @@
   <data name="&gt;&gt;guna2Panel9.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
-  <data name="&gt;&gt;label27.Parent" xml:space="preserve">
-    <value>guna2Panel3</value>
-  </data>
   <data name="guna2DateTimePicker1.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
+  </data>
+  <data name="guna2Panel13.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
@@ -518,8 +497,8 @@
   <data name="&gt;&gt;guna2Panel11.Parent" xml:space="preserve">
     <value>guna2Panel9</value>
   </data>
-  <data name="pnlLoadBuaToi.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 327</value>
+  <data name="label14.Text" xml:space="preserve">
+    <value>_______________</value>
   </data>
   <data name="&gt;&gt;btnThemMon1.Name" xml:space="preserve">
     <value>btnThemMon1</value>
@@ -530,11 +509,17 @@
   <data name="&gt;&gt;label14.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="guna2Panel12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 294</value>
+  </data>
   <data name="label16.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label13.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 38</value>
@@ -545,6 +530,9 @@
   <data name="&gt;&gt;guna2Button1.Parent" xml:space="preserve">
     <value>guna2Panel2</value>
   </data>
+  <data name="guna2Panel11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>363, 391</value>
+  </data>
   <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
     <value>497, 426</value>
   </data>
@@ -553,6 +541,12 @@
   </data>
   <data name="&gt;&gt;guna2DateTimePicker1.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2DateTimePicker, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  </data>
+  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 33</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;guna2Panel1.Name" xml:space="preserve">
     <value>guna2Panel1</value>
@@ -563,8 +557,14 @@
   <data name="&gt;&gt;pnlLoadBuaTrua.Parent" xml:space="preserve">
     <value>guna2Panel8</value>
   </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Tuần này</value>
+  </data>
   <data name="&gt;&gt;guna2Panel14.Name" xml:space="preserve">
     <value>guna2Panel14</value>
+  </data>
+  <data name="pnlLoadBuaToi.Size" type="System.Drawing.Size, System.Drawing">
+    <value>357, 327</value>
   </data>
   <data name="&gt;&gt;label16.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -584,14 +584,17 @@
   <data name="&gt;&gt;label12.Name" xml:space="preserve">
     <value>label12</value>
   </data>
-  <data name="&gt;&gt;label15.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;btnThemMon3.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;pnlWeekChart.Name" xml:space="preserve">
     <value>pnlWeekChart</value>
   </data>
-  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 23</value>
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 16</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
   </data>
   <data name="&gt;&gt;panel3.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -626,9 +629,6 @@
   <data name="guna2DateTimePicker1.Location" type="System.Drawing.Point, System.Drawing">
     <value>348, 106</value>
   </data>
-  <data name="&gt;&gt;guna2Panel8.Parent" xml:space="preserve">
-    <value>guna2Panel7</value>
-  </data>
   <data name="&gt;&gt;guna2Panel11.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
@@ -651,9 +651,6 @@
 |
 </value>
   </data>
-  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>751, 149</value>
-  </data>
   <data name="label9.Text" xml:space="preserve">
     <value>Bữa Tối</value>
   </data>
@@ -666,8 +663,8 @@
   <data name="&gt;&gt;guna2Panel10.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>guna2Panel13</value>
+  <data name="&gt;&gt;guna2Panel15.Name" xml:space="preserve">
+    <value>guna2Panel15</value>
   </data>
   <data name="guna2Panel1.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -687,6 +684,12 @@
   <data name="&gt;&gt;label18.Parent" xml:space="preserve">
     <value>guna2Panel13</value>
   </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>guna2Panel13</value>
+  </data>
   <data name="&gt;&gt;pnlTieuDe.Name" xml:space="preserve">
     <value>pnlTieuDe</value>
   </data>
@@ -696,8 +699,14 @@
   <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
+  </data>
+  <data name="lblTieuDe.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;btnThemMon1.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -717,15 +726,6 @@
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value> Fact:Khi bạn ăn chậm và tập trung vào bữa ăn, cơ thể
- có thời gian để giải phóng các hormone báo hiệu cảm
- giác no như leptin và cholecystokinin. Nhờ đó, bạn dễ
- kiểm soát lượng thức ăn hơn, giảm nguy cơ ăn quá mức
- và hỗ trợ tiêu hoá tốt hơn.
-
-</value>
   </data>
   <data name="&gt;&gt;guna2Panel10.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -757,6 +757,9 @@
   <data name="lblDanhGia.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 10.2pt, style=Bold</value>
   </data>
+  <data name="pnlChuaDanhGia.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
   <data name="label4.Text" xml:space="preserve">
     <value>Đánh giá</value>
   </data>
@@ -768,15 +771,6 @@
   </data>
   <data name="&gt;&gt;pnlMonthChart.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label19.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblInfor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>420, 44</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>guna2Panel13</value>
   </data>
   <data name="guna2Panel3.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -817,6 +811,9 @@
   <data name="&gt;&gt;label11.Name" xml:space="preserve">
     <value>label11</value>
   </data>
+  <data name="btnThemMon1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 10</value>
   </data>
@@ -826,14 +823,8 @@
   <data name="&gt;&gt;guna2Panel12.Parent" xml:space="preserve">
     <value>guna2Panel10</value>
   </data>
-  <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
-    <value>guna2Panel13</value>
-  </data>
   <data name="&gt;&gt;guna2Panel12.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -847,15 +838,15 @@
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>348, 102</value>
   </data>
-  <data name="btnThemMon2.Text" xml:space="preserve">
-    <value>Thêm món</value>
-  </data>
   <data name="lblDanhGia.Text" xml:space="preserve">
     <value>Đánh giá mức độ
  dinh dưỡng tuần và tháng</value>
   </data>
   <data name="label27.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 10</value>
+  </data>
+  <data name="&gt;&gt;pnlLoadBuaPhu.Type" xml:space="preserve">
+    <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
   <data name="&gt;&gt;label6.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -878,20 +869,26 @@
   <data name="&gt;&gt;label21.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
+    <value>guna2Panel13</value>
+  </data>
   <data name="guna2Panel10.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
   </data>
   <data name="btnThemMon2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 10.2pt, style=Bold</value>
   </data>
-  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 16</value>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 23</value>
   </data>
   <data name="pnlLoadBuaSang.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 57</value>
   </data>
   <data name="&gt;&gt;guna2Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
     <value>505, 33</value>
@@ -917,11 +914,11 @@
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;label23.Type" xml:space="preserve">
+  <data name="&gt;&gt;label26.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
-    <value>11</value>
+  <data name="&gt;&gt;label23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;pnlTieuDe.Parent" xml:space="preserve">
     <value>$this</value>
@@ -932,8 +929,8 @@
   <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 31</value>
   </data>
-  <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="label23.Text" xml:space="preserve">
+    <value>________________</value>
   </data>
   <data name="&gt;&gt;lblDanhGia.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -1004,8 +1001,8 @@
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 16</value>
   </data>
-  <data name="pnlChart.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;guna2Panel8.Parent" xml:space="preserve">
+    <value>guna2Panel7</value>
   </data>
   <data name="&gt;&gt;pnlLoadBuaToi.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
@@ -1031,6 +1028,9 @@
   <data name="guna2Panel10.Location" type="System.Drawing.Point, System.Drawing">
     <value>912, 584</value>
   </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="label12.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
@@ -1040,11 +1040,8 @@
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="btnKhamPhaNgay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-3, 274</value>
-  </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
+  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>751, 149</value>
   </data>
   <data name="&gt;&gt;btnThemMon3.Name" xml:space="preserve">
     <value>btnThemMon3</value>
@@ -1066,9 +1063,6 @@
   </data>
   <data name="label21.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="guna2Panel12.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
   </data>
   <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 16</value>
@@ -1097,13 +1091,11 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Hiển thị mức độ dinh dưỡng bạn có được.
-Cố gắng duy trì mức độ ăn uống ổn định 
-và lành mạnh giúp cơ thể phát triển một
-cách toàn diện hơn
-
-</value>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;guna2Panel12.Name" xml:space="preserve">
+    <value>guna2Panel12</value>
   </data>
   <data name="&gt;&gt;label23.Parent" xml:space="preserve">
     <value>guna2Panel13</value>
@@ -1123,17 +1115,17 @@ cách toàn diện hơn
   <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="&gt;&gt;guna2Panel14.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="guna2Panel13.Size" type="System.Drawing.Size, System.Drawing">
     <value>1128, 529</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;lblTieuDe.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="pnlLoadBuaSang.Size" type="System.Drawing.Size, System.Drawing">
-    <value>399, 206</value>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>guna2Panel13</value>
   </data>
   <data name="pnlWeekChart.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 107</value>
@@ -1144,9 +1136,6 @@ cách toàn diện hơn
   <data name="&gt;&gt;label20.Name" xml:space="preserve">
     <value>label20</value>
   </data>
-  <data name="&gt;&gt;guna2Button1.Name" xml:space="preserve">
-    <value>guna2Button1</value>
-  </data>
   <data name="label13.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
@@ -1156,8 +1145,14 @@ cách toàn diện hơn
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 16</value>
   </data>
-  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 33</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value> Fact:Khi bạn ăn chậm và tập trung vào bữa ăn, cơ thể
+ có thời gian để giải phóng các hormone báo hiệu cảm
+ giác no như leptin và cholecystokinin. Nhờ đó, bạn dễ
+ kiểm soát lượng thức ăn hơn, giảm nguy cơ ăn quá mức
+ và hỗ trợ tiêu hoá tốt hơn.
+
+</value>
   </data>
   <data name="&gt;&gt;guna2Panel15.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -1204,11 +1199,14 @@ cách toàn diện hơn
   <data name="pnlMonthChart.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
+  <data name="guna2Button1.Text" xml:space="preserve">
+    <value>Khám phá ngay</value>
+  </data>
   <data name="&gt;&gt;pnlWeekChart.Parent" xml:space="preserve">
     <value>guna2Panel13</value>
   </data>
-  <data name="&gt;&gt;guna2Panel14.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="label22.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 13.8pt, style=Bold</value>
   </data>
   <data name="lblHienThiMucTieu.Size" type="System.Drawing.Size, System.Drawing">
     <value>142, 20</value>
@@ -1237,8 +1235,8 @@ cách toàn diện hơn
   <data name="&gt;&gt;guna2Panel13.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
-  <data name="guna2Panel11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>363, 391</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>________________</value>
   </data>
   <data name="btnThemMon3.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 10.2pt, style=Bold</value>
@@ -1276,17 +1274,14 @@ cách toàn diện hơn
   <data name="label12.Text" xml:space="preserve">
     <value>__________________</value>
   </data>
-  <data name="&gt;&gt;guna2Panel12.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="&gt;&gt;guna2Panel11.Name" xml:space="preserve">
     <value>guna2Panel11</value>
   </data>
-  <data name="&gt;&gt;lblDanhGia.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;guna2Panel12.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;label26.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label14.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 264</value>
@@ -1300,20 +1295,20 @@ cách toàn diện hơn
   <data name="label15.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="guna2Button1.Text" xml:space="preserve">
-    <value>Khám phá ngay</value>
+  <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;label13.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
-    <value>guna2Panel13</value>
+  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
   <data name="lblTieuDe.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 18pt, style=Bold</value>
   </data>
-  <data name="&gt;&gt;pnlLoadBuaPhu.Type" xml:space="preserve">
-    <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  <data name="label16.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 16.2pt, style=Bold</value>
   </data>
   <data name="&gt;&gt;guna2Panel14.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1333,14 +1328,14 @@ cách toàn diện hơn
   <data name="label10.Text" xml:space="preserve">
     <value>Bữa Phụ</value>
   </data>
-  <data name="btnThemMon1.TabIndex" type="System.Int32, mscorlib">
+  <data name="guna2Panel12.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;pnlLoadBuaTrua.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;guna2Button1.Name" xml:space="preserve">
+    <value>guna2Button1</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
     <value>Bữa Sáng</value>
@@ -1357,8 +1352,13 @@ cách toàn diện hơn
   <data name="&gt;&gt;pnlChart.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Hiển thị mức độ dinh dưỡng bạn có được.
+Cố gắng duy trì mức độ ăn uống ổn định 
+và lành mạnh giúp cơ thể phát triển một
+cách toàn diện hơn
+
+</value>
   </data>
   <data name="&gt;&gt;label9.Parent" xml:space="preserve">
     <value>guna2Panel11</value>
@@ -1387,6 +1387,9 @@ cách toàn diện hơn
   <data name="&gt;&gt;lblInfor.Name" xml:space="preserve">
     <value>lblInfor</value>
   </data>
+  <data name="guna2Panel7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>405, 544</value>
+  </data>
   <data name="&gt;&gt;guna2Panel13.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
@@ -1399,14 +1402,14 @@ cách toàn diện hơn
   <data name="pnlLoadBuaSang.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;btnKhamPhaNgay.Name" xml:space="preserve">
-    <value>btnKhamPhaNgay</value>
+  <data name="btnKhamPhaNgay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-3, 274</value>
   </data>
   <data name="&gt;&gt;btnKhamPhaNgay.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Button, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Tuần này</value>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="lblInfor.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Light, 10.8pt</value>
@@ -1422,9 +1425,6 @@ cách toàn diện hơn
   </data>
   <data name="&gt;&gt;pnlMonthChart.Name" xml:space="preserve">
     <value>pnlMonthChart</value>
-  </data>
-  <data name="pnlChart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 58</value>
   </data>
   <data name="&gt;&gt;lblTieuDe.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1459,23 +1459,26 @@ cách toàn diện hơn
   <data name="&gt;&gt;guna2Panel14.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
-  <data name="pnlChuaDanhGia.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+  <data name="guna2DateTimePicker1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>468, 42</value>
+  </data>
+  <data name="&gt;&gt;btnKhamPhaNgay.Name" xml:space="preserve">
+    <value>btnKhamPhaNgay</value>
   </data>
   <data name="&gt;&gt;btnThemMon2.Parent" xml:space="preserve">
     <value>guna2Panel9</value>
   </data>
-  <data name="label25.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;label27.Parent" xml:space="preserve">
+    <value>guna2Panel3</value>
   </data>
   <data name="&gt;&gt;pnlLoadBuaTrua.Name" xml:space="preserve">
     <value>pnlLoadBuaTrua</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="pnlTieuDe.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 17</value>
   </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="guna2Panel7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 584</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -1495,9 +1498,6 @@ cách toàn diện hơn
   <data name="lblInfor.Size" type="System.Drawing.Size, System.Drawing">
     <value>291, 25</value>
   </data>
-  <data name="&gt;&gt;guna2Panel5.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 16</value>
   </data>
@@ -1510,8 +1510,8 @@ cách toàn diện hơn
   <data name="&gt;&gt;label24.Parent" xml:space="preserve">
     <value>guna2Panel13</value>
   </data>
-  <data name="&gt;&gt;guna2Panel2.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;lblTieuDe.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="lblDanhGia.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1519,14 +1519,14 @@ cách toàn diện hơn
   <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 10.8pt, style=Bold</value>
   </data>
-  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;guna2Panel5.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="lblTieuDe.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;pnlLoadBuaTrua.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="guna2Panel7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 544</value>
+  <data name="pnlChart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 58</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1552,8 +1552,8 @@ cách toàn diện hơn
   <data name="pnlChuaDanhGia.Location" type="System.Drawing.Point, System.Drawing">
     <value>751, 149</value>
   </data>
-  <data name="guna2Panel13.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
+  <data name="btnThemMon1.Text" xml:space="preserve">
+    <value>Thêm món</value>
   </data>
   <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1573,8 +1573,8 @@ cách toàn diện hơn
   <data name="&gt;&gt;label16.Name" xml:space="preserve">
     <value>label16</value>
   </data>
-  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="label27.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="guna2Panel14.Location" type="System.Drawing.Point, System.Drawing">
     <value>104, 1839</value>
@@ -1582,8 +1582,8 @@ cách toàn diện hơn
   <data name="guna2Panel9.Location" type="System.Drawing.Point, System.Drawing">
     <value>529, 584</value>
   </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1600,14 +1600,14 @@ cách toàn diện hơn
   <data name="&gt;&gt;pnlWeekChart.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="guna2Panel12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 294</value>
+  <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
+    <value>guna2Panel13</value>
   </data>
   <data name="&gt;&gt;label3.Parent" xml:space="preserve">
     <value>guna2Panel1</value>
   </data>
-  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="label19.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;label26.Parent" xml:space="preserve">
     <value>guna2Panel3</value>
@@ -1621,8 +1621,8 @@ cách toàn diện hơn
   <data name="&gt;&gt;label8.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label15.Name" xml:space="preserve">
-    <value>label15</value>
+  <data name="btnThemMon2.Text" xml:space="preserve">
+    <value>Thêm món</value>
   </data>
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1630,7 +1630,7 @@ cách toàn diện hơn
   <data name="guna2Panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 154</value>
   </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+  <data name="&gt;&gt;label24.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="label22.Text" xml:space="preserve">

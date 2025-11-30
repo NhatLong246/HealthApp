@@ -39,10 +39,17 @@ namespace HealthApp.Views.Nutrition
         private FlowLayoutPanelNoScrollbar _pnlScrollBuaToi;
         private FlowLayoutPanelNoScrollbar _pnlScrollBuaPhu;
 
+        private Guna2Button _btnLuu;
         private Guna2Panel _loadingOverlay;
         private Guna2WinProgressIndicator _loadingIndicator;
         private Label _loadingLabel;
         private int _loadingCounter;
+
+        // Labels để hiển thị cảnh báo dinh dưỡng cho từng chỉ số
+        private Label _lblWarningCalories;
+        private Label _lblWarningProtein;
+        private Label _lblWarningCarbs;
+        private Label _lblWarningFat;
 
         private const string LoadingDefaultText = "\u0110ang t\u1ea3i d\u1eef li\u1ec7u...";
         private const string LoadingMealsText = "\u0110ang c\u1eadp nh\u1eadt m\u00f3n \u0103n...";
@@ -70,6 +77,7 @@ namespace HealthApp.Views.Nutrition
                 InitializeScrollPanels();
                 InitializeEventHandlers();
                 InitializeLoadingOverlay();
+                InitializeSaveButton(); // Gọi ngay sau khi khởi tạo panels
                 
                 // Ẩn panel guna2Panel14 (thanh màu xanh) vì không còn button
                 if (guna2Panel14 != null)
@@ -320,6 +328,104 @@ namespace HealthApp.Views.Nutrition
 
             // Tạo panel để vẽ biểu đồ tuần và tháng
             InitializeWeekMonthCharts();
+
+            // Khởi tạo các label cảnh báo dinh dưỡng
+            InitializeNutritionWarningLabels();
+        }
+
+        /// <summary>
+        /// Khởi tạo 4 label để hiển thị cảnh báo dinh dưỡng cho từng chỉ số
+        /// </summary>
+        private void InitializeNutritionWarningLabels()
+        {
+            try
+            {
+                if (label3 == null) return;
+
+                // Tìm panel cha chứa label3 (guna2Panel1)
+                Control parentPanel = label3.Parent;
+                if (parentPanel == null) return;
+
+                // Vị trí bắt đầu: dưới label3 (khoảng cách nhỏ hơn)
+                int startY = label3.Bottom + 3;
+                int labelWidth = label3.Width;
+                int labelHeight = 20; // Chiều cao mỗi label (giảm từ 25)
+                int spacing = 2; // Khoảng cách giữa các label (giảm từ 5)
+
+                // Tạo label cho Calories
+                _lblWarningCalories = new Label
+                {
+                    Name = "lblWarningCalories",
+                    AutoSize = false,
+                    Size = new Size(labelWidth, labelHeight),
+                    Location = new Point(label3.Left, startY),
+                    Font = new Font("Segoe UI", 9F, FontStyle.Regular),
+                    ForeColor = Color.Black,
+                    BackColor = Color.Transparent,
+                    Visible = false,
+                    TextAlign = ContentAlignment.MiddleLeft
+                };
+
+                // Tạo label cho Protein
+                _lblWarningProtein = new Label
+                {
+                    Name = "lblWarningProtein",
+                    AutoSize = false,
+                    Size = new Size(labelWidth, labelHeight),
+                    Location = new Point(label3.Left, startY + (labelHeight + spacing) * 1),
+                    Font = new Font("Segoe UI", 9F, FontStyle.Regular),
+                    ForeColor = Color.Black,
+                    BackColor = Color.Transparent,
+                    Visible = false,
+                    TextAlign = ContentAlignment.MiddleLeft
+                };
+
+                // Tạo label cho Carbs
+                _lblWarningCarbs = new Label
+                {
+                    Name = "lblWarningCarbs",
+                    AutoSize = false,
+                    Size = new Size(labelWidth, labelHeight),
+                    Location = new Point(label3.Left, startY + (labelHeight + spacing) * 2),
+                    Font = new Font("Segoe UI", 9F, FontStyle.Regular),
+                    ForeColor = Color.Black,
+                    BackColor = Color.Transparent,
+                    Visible = false,
+                    TextAlign = ContentAlignment.MiddleLeft
+                };
+
+                // Tạo label cho Fat
+                _lblWarningFat = new Label
+                {
+                    Name = "lblWarningFat",
+                    AutoSize = false,
+                    Size = new Size(labelWidth, labelHeight),
+                    Location = new Point(label3.Left, startY + (labelHeight + spacing) * 3),
+                    Font = new Font("Segoe UI", 9F, FontStyle.Regular),
+                    ForeColor = Color.Black,
+                    BackColor = Color.Transparent,
+                    Visible = false,
+                    TextAlign = ContentAlignment.MiddleLeft
+                };
+
+                // Thêm các label vào panel cha
+                parentPanel.Controls.Add(_lblWarningCalories);
+                parentPanel.Controls.Add(_lblWarningProtein);
+                parentPanel.Controls.Add(_lblWarningCarbs);
+                parentPanel.Controls.Add(_lblWarningFat);
+
+                // Đảm bảo các label nằm trên cùng
+                _lblWarningCalories.BringToFront();
+                _lblWarningProtein.BringToFront();
+                _lblWarningCarbs.BringToFront();
+                _lblWarningFat.BringToFront();
+
+                System.Diagnostics.Debug.WriteLine("[InitializeNutritionWarningLabels] Đã tạo 4 label cảnh báo dinh dưỡng");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[InitializeNutritionWarningLabels] Lỗi: {ex.Message}");
+            }
         }
 
         private void InitializeLoadingOverlay()
@@ -572,6 +678,96 @@ namespace HealthApp.Views.Nutrition
         }
 
         /// <summary>
+        /// Khởi tạo button Lưu phía dưới bữa phụ
+        /// </summary>
+        private void InitializeSaveButton()
+        {
+            try
+            {
+                // Tìm guna2Panel10 (panel chứa bữa phụ và btnThemMon3)
+                Control parentPanel = this.Controls.Find("guna2Panel10", true).FirstOrDefault();
+
+                if (parentPanel == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("[InitializeSaveButton] Không tìm thấy guna2Panel10");
+                    // Thử tìm bằng cách khác
+                    foreach (Control ctrl in this.Controls)
+                    {
+                        if (ctrl is Guna2Panel && ctrl.Controls.Contains(btnThemMon3))
+                        {
+                            parentPanel = ctrl;
+                            break;
+                        }
+                    }
+                }
+
+                if (parentPanel == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("[InitializeSaveButton] Vẫn không tìm thấy parent panel");
+                    return;
+                }
+
+                // Tìm guna2Panel12 (panel bên trong chứa pnlLoadBuaPhu)
+                Control guna2Panel12 = parentPanel.Controls.Find("guna2Panel12", true).FirstOrDefault();
+
+                if (guna2Panel12 == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("[InitializeSaveButton] Không tìm thấy guna2Panel12");
+                    // Thử tìm pnlLoadBuaPhu trực tiếp
+                    Control pnlBuaPhu = parentPanel.Controls.Find("pnlLoadBuaPhu", true).FirstOrDefault();
+                    if (pnlBuaPhu != null)
+                    {
+                        guna2Panel12 = pnlBuaPhu.Parent;
+                    }
+                }
+
+                if (guna2Panel12 == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("[InitializeSaveButton] Vẫn không tìm thấy guna2Panel12");
+                    return;
+                }
+
+                // Tạo button Lưu
+                _btnLuu = new Guna2Button
+                {
+                    Text = "Lưu",
+                    Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                    ForeColor = Color.White,
+                    FillColor = Color.FromArgb(19, 217, 195), // Teal color
+                    BorderRadius = 20,
+                    BorderThickness = 2,
+                    BorderColor = Color.FromArgb(19, 217, 195),
+                    Size = new Size(200, 50),
+                    Cursor = Cursors.Hand,
+                    Name = "btnLuu",
+                    Visible = true,
+                    Enabled = true
+                };
+
+                // Đặt vị trí button (phía dưới guna2Panel12, căn giữa theo parentPanel)
+                int buttonX = parentPanel.Left + (parentPanel.Width - _btnLuu.Width) / 2;
+                int buttonY = parentPanel.Bottom + 35; // Phía dưới parentPanel, tăng khoảng cách từ 20 lên 35
+
+                _btnLuu.Location = new Point(buttonX, buttonY);
+
+                // Gắn event handler
+                _btnLuu.Click += BtnLuu_Click;
+
+                // Thêm vào this (UserControl) thay vì parentPanel để đảm bảo hiển thị
+                this.Controls.Add(_btnLuu);
+                _btnLuu.BringToFront();
+
+                System.Diagnostics.Debug.WriteLine($"[InitializeSaveButton] Đã tạo button Lưu tại ({_btnLuu.Location.X}, {_btnLuu.Location.Y}) trong {parentPanel.Name}");
+                System.Diagnostics.Debug.WriteLine($"[InitializeSaveButton] ParentPanel: Location=({parentPanel.Location.X}, {parentPanel.Location.Y}), Size=({parentPanel.Width}, {parentPanel.Height})");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[InitializeSaveButton] Lỗi: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"[InitializeSaveButton] StackTrace: {ex.StackTrace}");
+            }
+        }
+
+        /// <summary>
         /// Load món ăn đề xuất từ database vào các panel (async)
         /// </summary>
         private async Task LoadSuggestedFoodsAsync()
@@ -588,11 +784,21 @@ namespace HealthApp.Views.Nutrition
                 _monAnDaDeXuatTrongNgay.Clear(); // Clear danh sách món đã đề xuất khi load lại
                 _khoiLuongDeXuat.Clear(); // Clear số lượng đề xuất
                 
-                // Load món ăn tuần tự để tránh trùng lặp (bữa sau biết bữa trước đã đề xuất gì)
+                // Load món ăn đề xuất tuần tự để tránh trùng lặp (bữa sau biết bữa trước đã đề xuất gì)
                 await LoadFoodsToPanelAsync("Sáng", _pnlScrollBuaSang, 3);
                 await LoadFoodsToPanelAsync("Trưa", _pnlScrollBuaTrua, 3);
                 await LoadFoodsToPanelAsync("Tối", _pnlScrollBuaToi, 3);
                 await LoadFoodsToPanelAsync("Bữa phụ", _pnlScrollBuaPhu, 3);
+
+                // Load món ăn đã thêm vào các panel SAU khi load món đề xuất (để không bị xóa)
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => LoadAddedFoodsToPanels()));
+                }
+                else
+                {
+                    LoadAddedFoodsToPanels();
+                }
 
                 // Đã load tuần tự ở trên, không cần Task.WhenAll nữa
 
@@ -601,13 +807,15 @@ namespace HealthApp.Views.Nutrition
                 {
                     this.Invoke(new Action(() =>
                     {
-                        UpdateNutritionSummary(); // Tính từ dữ liệu đã load, không block
+                        // Cập nhật biểu đồ từ các món ăn thực tế trong panel
+                        UpdateNutritionChartFromPanels();
                         _ = UpdateWeeklyMonthlyStatsAsync(); // Fire and forget - không block
                     }));
                 }
                 else
                 {
-                    UpdateNutritionSummary(); // Tính từ dữ liệu đã load, không block
+                    // Cập nhật biểu đồ từ các món ăn thực tế trong panel
+                    UpdateNutritionChartFromPanels();
                     _ = UpdateWeeklyMonthlyStatsAsync(); // Fire and forget - không block
                 }
 
@@ -2075,24 +2283,59 @@ namespace HealthApp.Views.Nutrition
             {
                 System.Diagnostics.Debug.WriteLine($"=== UpdatePanelUI START: {loaiBuaAn}, {suggestedFoods?.Count ?? 0} món ăn ===");
                 
-                // Xóa các control cũ (trên UI thread) - cải thiện để tránh chồng chéo
+                // Chỉ xóa các món ăn đề xuất cũ, giữ lại món ăn đã thêm từ BuaAnChiTiet
                 panel.SuspendLayout();
                 try
                 {
-                    var controlsToRemove = panel.Controls.Cast<Control>().ToList();
-                foreach (var ctrl in controlsToRemove)
-                {
-                    panel.Controls.Remove(ctrl);
-                    if (ctrl is IDisposable disposable)
+                    // Lấy danh sách MonAnID đã thêm từ BuaAnChiTiet để không xóa
+                    var monAnIDsDaThem = new HashSet<string>();
+                    try
+                    {
+                        if (CurrentUser.IsLoggedIn)
+                        {
+                            using (var dbContext = new WF_HealthTracker())
+                            {
+                                string keHoachAnID = GetOrCreateKeHoachAnUong(dbContext);
+                                if (!string.IsNullOrEmpty(keHoachAnID))
+                                {
+                                    DateTime selectedDate = guna2DateTimePicker1?.Value.Date ?? DateTime.Today;
+                                    var ngayBatDau = selectedDate.Date;
+                                    var ngayKetThuc = selectedDate.Date.AddDays(1).AddTicks(-1);
+
+                                    monAnIDsDaThem = new HashSet<string>(dbContext.BuaAnChiTiet
+                                        .Where(b => b.KeHoachAnID == keHoachAnID &&
+                                               b.NgayAn >= ngayBatDau &&
+                                               b.NgayAn < ngayKetThuc &&
+                                               b.LoaiBuaAn == loaiBuaAn)
+                                        .Select(b => b.MonAnID)
+                                        .Where(id => !string.IsNullOrEmpty(id)));
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Lỗi khi lấy danh sách món đã thêm: {ex.Message}");
+                    }
+
+                    // Chỉ xóa các control là món đề xuất (không phải món đã thêm)
+                    var controlsToRemove = panel.Controls.Cast<ucMonAnItem>()
+                        .Where(item => item.MonAn != null && !monAnIDsDaThem.Contains(item.MonAn.MonAnID))
+                        .Cast<Control>()
+                        .ToList();
+
+                    foreach (var ctrl in controlsToRemove)
+                    {
+                        panel.Controls.Remove(ctrl);
+                        if (ctrl is IDisposable disposable)
                         {
                             try
-                    {
-                        disposable.Dispose();
+                            {
+                                disposable.Dispose();
                             }
                             catch { } // Bỏ qua lỗi dispose
+                        }
                     }
-                }
-                panel.Controls.Clear();
                 }
                 finally
                 {
@@ -2175,7 +2418,12 @@ namespace HealthApp.Views.Nutrition
                             }
                             item.Margin = new Padding(0, 3, 0, 8);
 
-                            item.MonAnClicked += (s, food) => OpenAddFoodForm(food);
+                            // Gắn event handler để xử lý khi món ăn bị xóa hoặc cập nhật
+                            item.MonAnDeleted += (s, deletedItem) => HandleMonAnDeleted(deletedItem, panel);
+                            item.MonAnUpdated += (s, updatedItem) => HandleMonAnUpdated(updatedItem, item);
+
+                            // Không cần gắn event handler nữa vì ucMonAnItem tự xử lý click để mở frmChinhSuaMonAn
+                            // item.MonAnClicked += (s, food) => OpenAddFoodForm(food);
                             panel.Controls.Add(item);
                             index++;
                         }
@@ -2190,6 +2438,9 @@ namespace HealthApp.Views.Nutrition
                     // Resume layout sau khi thêm xong tất cả
                     panel.ResumeLayout(true);
                     panel.PerformLayout();
+                    
+                    // Cập nhật biểu đồ dinh dưỡng sau khi load món ăn đề xuất
+                    UpdateNutritionChartFromPanels();
                 }
 
                 System.Diagnostics.Debug.WriteLine($"=== UpdatePanelUI END: {loaiBuaAn} - Đã thêm {panel.Controls.Count} controls ===");
@@ -2237,27 +2488,870 @@ namespace HealthApp.Views.Nutrition
 
         private void BtnThemMon1_Click(object sender, EventArgs e)
         {
-            ShowMealSelectionMenu(sender as Control, new Dictionary<string, List<ThuVienMonAn>>
-            {
-                { "Bữa sáng", _loadedFoodsSang },
-                { "Bữa trưa", _loadedFoodsTrua }
-            });
+            OpenDanhSachMonAnForm();
         }
 
         private void BtnThemMon2_Click(object sender, EventArgs e)
         {
-            ShowMealSelectionMenu(sender as Control, new Dictionary<string, List<ThuVienMonAn>>
-            {
-                { "Bữa tối", _loadedFoodsToi }
-            });
+            OpenDanhSachMonAnForm();
         }
 
         private void BtnThemMon3_Click(object sender, EventArgs e)
         {
-            ShowMealSelectionMenu(sender as Control, new Dictionary<string, List<ThuVienMonAn>>
+            OpenDanhSachMonAnForm();
+        }
+
+        private void OpenDanhSachMonAnForm()
+        {
+            try
             {
-                { "Bữa phụ", _loadedFoodsPhu }
-            });
+                using (var frm = new frmDanhSachMonAn())
+                {
+                    if (frm.ShowDialog() == DialogResult.OK && frm.SelectedFood != null)
+                    {
+                        // Mở form thêm món ăn với món đã chọn
+                        using (var db = new WF_HealthTracker())
+                        {
+                            using (var form = new frmThemMonAn(frm.SelectedFood, db))
+                            {
+                                if (form.ShowDialog() == DialogResult.OK && form.MonAnDaThem != null)
+                                {
+                                    // Hiển thị món ăn đã thêm ngay lập tức (không cần đọc từ database)
+                                    AddFoodItemToPanel(form.MonAnDaThem);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở danh sách món ăn:\n\n{ex.Message}", 
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Thêm món ăn vào panel tương ứng dựa trên BuaAnChiTiet (không cần đọc từ database)
+        /// </summary>
+        private void AddFoodItemToPanel(BuaAnChiTiet buaAnChiTiet)
+        {
+            try
+            {
+                if (buaAnChiTiet == null || string.IsNullOrEmpty(buaAnChiTiet.MonAnID))
+                {
+                    System.Diagnostics.Debug.WriteLine("[AddFoodItemToPanel] BuaAnChiTiet hoặc MonAnID null");
+                    return;
+                }
+
+                // Xác định panel tương ứng dựa trên LoaiBuaAn
+                string loaiBuaAn = buaAnChiTiet.LoaiBuaAn ?? "Sáng";
+                FlowLayoutPanelNoScrollbar panel = null;
+
+                if (loaiBuaAn == "Sáng")
+                    panel = _pnlScrollBuaSang;
+                else if (loaiBuaAn == "Trưa")
+                    panel = _pnlScrollBuaTrua;
+                else if (loaiBuaAn == "Tối")
+                    panel = _pnlScrollBuaToi;
+                else if (loaiBuaAn == "Phụ" || loaiBuaAn == "Bữa phụ")
+                    panel = _pnlScrollBuaPhu;
+
+                if (panel == null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[AddFoodItemToPanel] Không tìm thấy panel cho LoaiBuaAn: {loaiBuaAn}");
+                    return;
+                }
+
+                // Kiểm tra xem món ăn này đã có trong panel chưa (tránh trùng lặp)
+                bool daCo = panel.Controls.OfType<ucMonAnItem>()
+                    .Any(item => item.MonAn != null && item.MonAn.MonAnID == buaAnChiTiet.MonAnID);
+
+                if (daCo)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[AddFoodItemToPanel] Món ăn {buaAnChiTiet.MonAnID} đã có trong panel {loaiBuaAn}");
+                    return;
+                }
+
+                // Load ThuVienMonAn từ MonAnID
+                using (var dbContext = new WF_HealthTracker())
+                {
+                    var thuVienMonAn = dbContext.ThuVienMonAn
+                        .FirstOrDefault(m => m.MonAnID == buaAnChiTiet.MonAnID);
+
+                    if (thuVienMonAn == null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[AddFoodItemToPanel] Không tìm thấy ThuVienMonAn với MonAnID: {buaAnChiTiet.MonAnID}");
+                        return;
+                    }
+
+                    // Tạo ucMonAnItem và thêm vào panel
+                    var item = new ucMonAnItem(thuVienMonAn);
+                    item.Width = panel.ClientSize.Width - panel.Padding.Horizontal;
+                    item.Margin = new Padding(0, 3, 0, 8);
+
+                    // Gắn event handler
+                    item.MonAnDeleted += (s, deletedItem) => HandleMonAnDeleted(deletedItem, panel);
+                    item.MonAnUpdated += (s, updatedItem) => HandleMonAnUpdated(updatedItem, item);
+
+                    // Thêm vào panel
+                    panel.Controls.Add(item);
+                    
+                    System.Diagnostics.Debug.WriteLine($"[AddFoodItemToPanel] Đã thêm {thuVienMonAn.TenMonAn} vào panel {loaiBuaAn}");
+                    
+                    // Cập nhật biểu đồ dinh dưỡng
+                    UpdateNutritionChartFromPanels();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[AddFoodItemToPanel] Lỗi: {ex.Message}");
+                MessageBox.Show($"Lỗi khi thêm món ăn vào panel:\n\n{ex.Message}", 
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Refresh các panel bữa ăn để hiển thị món ăn đã thêm từ BuaAnChiTiet
+        /// </summary>
+        private void RefreshMealPanels()
+        {
+            try
+            {
+                // Load lại món ăn đã thêm vào các bữa ăn từ BuaAnChiTiet
+                LoadAddedFoodsToPanels();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi refresh meal panels: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Load và hiển thị món ăn đã thêm vào các panel bữa ăn từ BuaAnChiTiet
+        /// </summary>
+        private void LoadAddedFoodsToPanels()
+        {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn) return;
+
+                using (var dbContext = new WF_HealthTracker())
+                {
+                    // Lấy KeHoachAnID
+                    string keHoachAnID = GetOrCreateKeHoachAnUong(dbContext);
+                    if (string.IsNullOrEmpty(keHoachAnID)) return;
+
+                    // Lấy ngày được chọn
+                    DateTime selectedDate = guna2DateTimePicker1?.Value.Date ?? DateTime.Today;
+                    var ngayBatDau = selectedDate.Date;
+                    var ngayKetThuc = selectedDate.Date.AddDays(1).AddTicks(-1);
+
+                    // Load món ăn đã thêm hôm nay
+                    var monAnDaThem = dbContext.BuaAnChiTiet
+                        .Where(b => b.KeHoachAnID == keHoachAnID &&
+                               b.NgayAn >= ngayBatDau &&
+                               b.NgayAn < ngayKetThuc)
+                        .ToList();
+
+                    System.Diagnostics.Debug.WriteLine($"[LoadAddedFoodsToPanels] Tìm thấy {monAnDaThem.Count} món ăn đã thêm cho ngày {selectedDate:dd/MM/yyyy}");
+
+                    // Nhóm theo LoaiBuaAn và thêm vào panel tương ứng
+                    var monAnTheoBua = monAnDaThem.GroupBy(b => b.LoaiBuaAn ?? "Sáng");
+
+                    foreach (var group in monAnTheoBua)
+                    {
+                        string loaiBuaAn = group.Key;
+                        FlowLayoutPanelNoScrollbar panel = null;
+
+                        // Xác định panel tương ứng
+                        if (loaiBuaAn == "Sáng")
+                            panel = _pnlScrollBuaSang;
+                        else if (loaiBuaAn == "Trưa")
+                            panel = _pnlScrollBuaTrua;
+                        else if (loaiBuaAn == "Tối")
+                            panel = _pnlScrollBuaToi;
+                        else if (loaiBuaAn == "Phụ" || loaiBuaAn == "Bữa phụ")
+                            panel = _pnlScrollBuaPhu;
+
+                        if (panel == null) continue;
+
+                        // Thêm các món ăn đã thêm vào panel
+                        foreach (var buaAnChiTiet in group)
+                        {
+                            // Kiểm tra xem món ăn này đã có trong panel chưa (tránh trùng lặp)
+                            bool daCo = panel.Controls.OfType<ucMonAnItem>()
+                                .Any(item => item.MonAn != null && item.MonAn.MonAnID == buaAnChiTiet.MonAnID);
+
+                            if (!daCo)
+                            {
+                                // Load ThuVienMonAn từ MonAnID
+                                var thuVienMonAn = dbContext.ThuVienMonAn
+                                    .FirstOrDefault(m => m.MonAnID == buaAnChiTiet.MonAnID);
+
+                                if (thuVienMonAn != null)
+                                {
+                                    var item = new ucMonAnItem(thuVienMonAn);
+                                    item.Width = panel.ClientSize.Width - panel.Padding.Horizontal;
+                                    item.Margin = new Padding(0, 3, 0, 8);
+
+                                    // Gắn event handler
+                                    item.MonAnDeleted += (s, deletedItem) => HandleMonAnDeleted(deletedItem, panel);
+                                    item.MonAnUpdated += (s, updatedItem) => HandleMonAnUpdated(updatedItem, item);
+
+                                    panel.Controls.Add(item);
+                                    System.Diagnostics.Debug.WriteLine($"[LoadAddedFoodsToPanels] Đã thêm {thuVienMonAn.TenMonAn} vào {loaiBuaAn}");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi load món ăn đã thêm: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Lấy hoặc tạo KeHoachAnUong (giống logic trong ucMonAnItem)
+        /// </summary>
+        private string GetOrCreateKeHoachAnUong(WF_HealthTracker dbContext)
+        {
+            try
+            {
+                // Tìm KeHoachAnUong đang hoạt động
+                var keHoachAn = dbContext.KeHoachAnUong
+                    .Where(k => k.TrangThai == "Đang hoạt động" ||
+                           k.TrangThai == "N'Đang hoạt động'" ||
+                           k.TrangThai == null ||
+                           string.IsNullOrEmpty(k.TrangThai))
+                    .FirstOrDefault();
+
+                if (keHoachAn == null)
+                {
+                    // Tạo mới KeHoachAnUong
+                    keHoachAn = new KeHoachAnUong
+                    {
+                        KeHoachAnID = $"meal_{DateTime.Now:yyyyMMddHHmmss}",
+                        TrangThai = "Đang hoạt động",
+                        MoTa = "Kế hoạch ăn uống tự do"
+                    };
+                    dbContext.KeHoachAnUong.Add(keHoachAn);
+                    dbContext.SaveChanges();
+                }
+
+                return keHoachAn.KeHoachAnID;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi tạo/lấy KeHoachAnUong: {ex.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Xử lý sự kiện click button Lưu - lưu tất cả món ăn vào database
+        /// </summary>
+        private void BtnLuu_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn)
+                {
+                    MessageBox.Show("Vui lòng đăng nhập để lưu món ăn!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Xác nhận trước khi lưu
+                var result = MessageBox.Show(
+                    "Bạn có chắc chắn muốn lưu tất cả các món ăn đã thêm vào database?",
+                    "Xác nhận lưu",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes)
+                    return;
+
+                ShowLoading("Đang lưu món ăn...");
+
+                try
+                {
+                    using (var dbContext = new WF_HealthTracker())
+                    {
+                        // Lấy KeHoachAnID
+                        string keHoachAnID = GetOrCreateKeHoachAnUong(dbContext);
+                        if (string.IsNullOrEmpty(keHoachAnID))
+                        {
+                            MessageBox.Show("Không thể tạo hoặc lấy kế hoạch ăn uống!", "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // Lấy ngày được chọn
+                        DateTime selectedDate = guna2DateTimePicker1?.Value.Date ?? DateTime.Today;
+
+                        // Thu thập tất cả món ăn từ các panel
+                        var monAnCanLuu = new List<BuaAnChiTiet>();
+
+                        // Lấy món ăn từ các panel
+                        CollectFoodsFromPanel(_pnlScrollBuaSang, "Sáng", selectedDate, keHoachAnID, monAnCanLuu);
+                        CollectFoodsFromPanel(_pnlScrollBuaTrua, "Trưa", selectedDate, keHoachAnID, monAnCanLuu);
+                        CollectFoodsFromPanel(_pnlScrollBuaToi, "Tối", selectedDate, keHoachAnID, monAnCanLuu);
+                        CollectFoodsFromPanel(_pnlScrollBuaPhu, "Bữa phụ", selectedDate, keHoachAnID, monAnCanLuu);
+
+                        if (monAnCanLuu.Count == 0)
+                        {
+                            MessageBox.Show("Không có món ăn nào để lưu!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+
+                        // Lưu vào database
+                        int soMonAnLuu = 0;
+                        foreach (var buaAnChiTiet in monAnCanLuu)
+                        {
+                            try
+                            {
+                                // Kiểm tra xem đã có trong database chưa (tránh trùng lặp)
+                                var existing = dbContext.BuaAnChiTiet
+                                    .FirstOrDefault(b => b.BuaAnID == buaAnChiTiet.BuaAnID);
+
+                                if (existing == null)
+                                {
+                                    // Tạo BuaAnID mới nếu chưa có
+                                    if (string.IsNullOrEmpty(buaAnChiTiet.BuaAnID))
+                                    {
+                                        buaAnChiTiet.BuaAnID = GenerateBuaAnID(dbContext);
+                                    }
+
+                                    dbContext.BuaAnChiTiet.Add(buaAnChiTiet);
+                                    soMonAnLuu++;
+                                }
+                                else
+                                {
+                                    // Cập nhật nếu đã có
+                                    existing.KhoiLuongChuan = buaAnChiTiet.KhoiLuongChuan;
+                                    existing.Calories = buaAnChiTiet.Calories;
+                                    existing.Protein = buaAnChiTiet.Protein;
+                                    existing.Carbs = buaAnChiTiet.Carbs;
+                                    existing.Fat = buaAnChiTiet.Fat;
+                                    existing.NgayCapNhat = DateTime.Now;
+                                    soMonAnLuu++;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Lỗi khi lưu món ăn {buaAnChiTiet.MonAnID}: {ex.Message}");
+                            }
+                        }
+
+                        // Lưu tất cả thay đổi
+                        dbContext.SaveChanges();
+
+                        MessageBox.Show($"Đã lưu thành công {soMonAnLuu} món ăn vào database!", "Thành công",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Đã lưu {soMonAnLuu} món ăn vào database");
+                    }
+                }
+                finally
+                {
+                    HideLoading();
+                }
+            }
+            catch (Exception ex)
+            {
+                HideLoading();
+                MessageBox.Show($"Lỗi khi lưu món ăn:\n\n{ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Lỗi: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Thu thập món ăn từ panel và tạo BuaAnChiTiet
+        /// </summary>
+        private void CollectFoodsFromPanel(FlowLayoutPanelNoScrollbar panel, string loaiBuaAn, 
+            DateTime ngayAn, string keHoachAnID, List<BuaAnChiTiet> monAnCanLuu)
+        {
+            if (panel == null) return;
+
+            foreach (var item in panel.Controls.OfType<ucMonAnItem>())
+            {
+                if (item.MonAn == null) continue;
+
+                try
+                {
+                    // Lấy thông tin từ ucMonAnItem
+                    // ucMonAnItem có thể đã có BuaAnChiTiet hoặc cần tạo mới
+                    using (var dbContext = new WF_HealthTracker())
+                    {
+                        // Tìm BuaAnChiTiet hiện tại (nếu có)
+                        var existingBuaAn = dbContext.BuaAnChiTiet
+                            .FirstOrDefault(b => b.KeHoachAnID == keHoachAnID &&
+                                            b.MonAnID == item.MonAn.MonAnID &&
+                                            b.NgayAn.HasValue && b.NgayAn.Value.Date == ngayAn.Date &&
+                                            b.LoaiBuaAn == loaiBuaAn);
+
+                        BuaAnChiTiet buaAnChiTiet;
+
+                        if (existingBuaAn != null)
+                        {
+                            // Cập nhật thông tin từ ThuVienMonAn
+                            buaAnChiTiet = existingBuaAn;
+                        }
+                        else
+                        {
+                            // Tạo mới BuaAnChiTiet
+                            string buaAnID = GenerateBuaAnID(dbContext);
+                            
+                            // Tính toán dinh dưỡng dựa trên KhoiLuongChuan từ ThuVienMonAn
+                            double khoiLuong = item.MonAn.KhoiLuongChuan ?? 100;
+                            double tiLe = khoiLuong / 100.0;
+
+                            buaAnChiTiet = new BuaAnChiTiet
+                            {
+                                BuaAnID = buaAnID,
+                                KeHoachAnID = keHoachAnID,
+                                MonAnID = item.MonAn.MonAnID,
+                                LoaiBuaAn = loaiBuaAn,
+                                NgayAn = ngayAn,
+                                TenMonAn = item.MonAn.TenMonAn,
+                                Donvi = item.MonAn.Donvi ?? "g",
+                                KhoiLuongChuan = khoiLuong,
+                                Calories = (item.MonAn.Calories ?? 0) * tiLe,
+                                Protein = (item.MonAn.Protein ?? 0) * tiLe,
+                                Carbs = (item.MonAn.Carbs ?? 0) * tiLe,
+                                Fat = (item.MonAn.Fat ?? 0) * tiLe,
+                                Fiber = (item.MonAn.Fiber ?? 0) * tiLe,
+                                GhiChu = $"LoaiBuaAn: {loaiBuaAn}",
+                                NgayCapNhat = DateTime.Now
+                            };
+                        }
+
+                        monAnCanLuu.Add(buaAnChiTiet);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Lỗi khi thu thập món ăn {item.MonAn?.TenMonAn}: {ex.Message}");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Tạo BuaAnID mới (giống logic trong frmThemMonAn)
+        /// </summary>
+        private string GenerateBuaAnID(WF_HealthTracker dbContext)
+        {
+            var lastMeal = dbContext.BuaAnChiTiet
+                .OrderByDescending(m => m.BuaAnID)
+                .FirstOrDefault();
+
+            if (lastMeal == null || !lastMeal.BuaAnID.StartsWith("meal_"))
+            {
+                return "meal_0001";
+            }
+
+            string numberPart = lastMeal.BuaAnID.Substring(5);
+            if (int.TryParse(numberPart, out int lastNumber))
+            {
+                int newNumber = lastNumber + 1;
+                return $"meal_{newNumber:D4}";
+            }
+
+            int mealCount = dbContext.BuaAnChiTiet.Count();
+            return $"meal_{(mealCount + 1):D4}";
+        }
+
+        /// <summary>
+        /// Tính tổng dinh dưỡng từ tất cả các món ăn trong các panel và cập nhật biểu đồ
+        /// </summary>
+        private void UpdateNutritionChartFromPanels()
+        {
+            try
+            {
+                double totalCalories = 0;
+                double totalProtein = 0;
+                double totalCarbs = 0;
+                double totalFat = 0;
+
+                // Tính tổng từ tất cả các panel
+                CalculateNutritionFromPanel(_pnlScrollBuaSang, ref totalCalories, ref totalProtein, ref totalCarbs, ref totalFat);
+                CalculateNutritionFromPanel(_pnlScrollBuaTrua, ref totalCalories, ref totalProtein, ref totalCarbs, ref totalFat);
+                CalculateNutritionFromPanel(_pnlScrollBuaToi, ref totalCalories, ref totalProtein, ref totalCarbs, ref totalFat);
+                CalculateNutritionFromPanel(_pnlScrollBuaPhu, ref totalCalories, ref totalProtein, ref totalCarbs, ref totalFat);
+
+                System.Diagnostics.Debug.WriteLine($"[UpdateNutritionChartFromPanels] Tổng dinh dưỡng: {totalCalories:F0} kcal, P:{totalProtein:F1}g, C:{totalCarbs:F1}g, F:{totalFat:F1}g");
+
+                // Cập nhật biểu đồ
+                UpdateNutritionSummaryUI(totalCalories, totalProtein, totalCarbs, totalFat);
+                
+                // Cập nhật cảnh báo so sánh với kế hoạch ăn uống
+                UpdateNutritionWarning(totalCalories, totalProtein, totalCarbs, totalFat);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[UpdateNutritionChartFromPanels] Lỗi: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Tính dinh dưỡng từ một panel cụ thể
+        /// </summary>
+        private void CalculateNutritionFromPanel(FlowLayoutPanelNoScrollbar panel, 
+            ref double totalCalories, ref double totalProtein, ref double totalCarbs, ref double totalFat)
+        {
+            if (panel == null) return;
+
+            foreach (var item in panel.Controls.OfType<ucMonAnItem>())
+            {
+                if (item.MonAn == null) continue;
+
+                try
+                {
+                    // Lấy giá trị dinh dưỡng trực tiếp từ ucMonAnItem (đã được tính toán)
+                    double calories, protein, carbs, fat;
+                    item.GetCurrentNutrition(out calories, out protein, out carbs, out fat);
+
+                    totalCalories += calories;
+                    totalProtein += protein;
+                    totalCarbs += carbs;
+                    totalFat += fat;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Lỗi khi tính dinh dưỡng cho {item.MonAn?.TenMonAn}: {ex.Message}");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Lấy kế hoạch ăn uống đang hoạt động từ database
+        /// </summary>
+        private KeHoachAnUong GetActiveMealPlan()
+        {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn) return null;
+
+                using (var dbContext = new WF_HealthTracker())
+                {
+                    var keHoachAn = dbContext.KeHoachAnUong
+                        .Where(k => k.TrangThai == "Đang hoạt động" ||
+                               k.TrangThai == "N'Đang hoạt động'" ||
+                               k.TrangThai == null ||
+                               string.IsNullOrEmpty(k.TrangThai))
+                        .FirstOrDefault();
+
+                    return keHoachAn;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi lấy kế hoạch ăn uống: {ex.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Tính độ chênh lệch phần trăm giữa giá trị thực tế và mục tiêu
+        /// </summary>
+        private double CalculateDeviationPercent(double actual, double target)
+        {
+            if (target <= 0) return 0;
+            return ((actual - target) / target) * 100.0;
+        }
+
+        /// <summary>
+        /// Xác định mức cảnh báo dựa trên độ chênh lệch
+        /// </summary>
+        private WarningLevel GetWarningLevel(double deviationPercent, double acceptablePercent, double warningPercent)
+        {
+            double absDeviation = Math.Abs(deviationPercent);
+            
+            if (absDeviation <= acceptablePercent)
+                return WarningLevel.Acceptable;
+            else if (absDeviation <= warningPercent)
+                return WarningLevel.Warning;
+            else
+                return WarningLevel.Exceeded;
+        }
+
+        /// <summary>
+        /// Enum để xác định mức cảnh báo
+        /// </summary>
+        private enum WarningLevel
+        {
+            Acceptable,  // Chấp nhận được (màu xanh)
+            Warning,     // Cảnh báo (màu vàng)
+            Exceeded     // Vượt quá (màu đỏ)
+        }
+
+        /// <summary>
+        /// Cập nhật cảnh báo dinh dưỡng so sánh với kế hoạch ăn uống
+        /// </summary>
+        private void UpdateNutritionWarning(double currentCalories, double currentProtein, double currentCarbs, double currentFat)
+        {
+            try
+            {
+                if (label3 == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("[UpdateNutritionWarning] label3 is null");
+                    return;
+                }
+
+                // Lấy kế hoạch ăn uống đang hoạt động
+                var keHoachAn = GetActiveMealPlan();
+                
+                if (keHoachAn == null || 
+                    !keHoachAn.TongCalories.HasValue || 
+                    !keHoachAn.TongProtein.HasValue || 
+                    !keHoachAn.TongCarbs.HasValue || 
+                    !keHoachAn.TongFat.HasValue)
+                {
+                    // Không có kế hoạch ăn uống hoặc thiếu dữ liệu
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            if (label3 != null)
+                            {
+                                label3.Text = "Chưa có kế hoạch ăn uống để so sánh";
+                                label3.ForeColor = Color.Gray;
+                                label3.Visible = true;
+                            }
+                            // Ẩn các label chi tiết
+                            if (_lblWarningCalories != null) _lblWarningCalories.Visible = false;
+                            if (_lblWarningProtein != null) _lblWarningProtein.Visible = false;
+                            if (_lblWarningCarbs != null) _lblWarningCarbs.Visible = false;
+                            if (_lblWarningFat != null) _lblWarningFat.Visible = false;
+                        }));
+                    }
+                    else
+                    {
+                        if (label3 != null)
+                        {
+                            label3.Text = "Chưa có kế hoạch ăn uống để so sánh";
+                            label3.ForeColor = Color.Gray;
+                            label3.Visible = true;
+                        }
+                        // Ẩn các label chi tiết
+                        if (_lblWarningCalories != null) _lblWarningCalories.Visible = false;
+                        if (_lblWarningProtein != null) _lblWarningProtein.Visible = false;
+                        if (_lblWarningCarbs != null) _lblWarningCarbs.Visible = false;
+                        if (_lblWarningFat != null) _lblWarningFat.Visible = false;
+                    }
+                    return;
+                }
+
+                double targetCalories = keHoachAn.TongCalories.Value;
+                double targetProtein = keHoachAn.TongProtein.Value;
+                double targetCarbs = keHoachAn.TongCarbs.Value;
+                double targetFat = keHoachAn.TongFat.Value;
+
+                // Tính độ chênh lệch phần trăm cho từng chỉ số
+                double deviationCalories = CalculateDeviationPercent(currentCalories, targetCalories);
+                double deviationProtein = CalculateDeviationPercent(currentProtein, targetProtein);
+                double deviationCarbs = CalculateDeviationPercent(currentCarbs, targetCarbs);
+                double deviationFat = CalculateDeviationPercent(currentFat, targetFat);
+
+                // Xác định mức cảnh báo cho từng chỉ số (theo khuyến nghị)
+                WarningLevel levelCalories = GetWarningLevel(deviationCalories, 5.0, 10.0);
+                WarningLevel levelProtein = GetWarningLevel(deviationProtein, 10.0, 15.0);
+                WarningLevel levelCarbs = GetWarningLevel(deviationCarbs, 15.0, 20.0);
+                WarningLevel levelFat = GetWarningLevel(deviationFat, 10.0, 15.0);
+
+                // Lấy mức cảnh báo cao nhất (ưu tiên mức nghiêm trọng nhất)
+                WarningLevel maxLevel = (WarningLevel)Math.Max(
+                    Math.Max((int)levelCalories, (int)levelProtein),
+                    Math.Max((int)levelCarbs, (int)levelFat)
+                );
+
+                // Tạo text hiển thị cho label3 (tiêu đề)
+                string warningTitle = "";
+                Color warningColor = Color.Green;
+
+                if (maxLevel == WarningLevel.Exceeded)
+                {
+                    warningTitle = "⚠️ Vượt quá mục tiêu:";
+                    warningColor = Color.Red;
+                }
+                else if (maxLevel == WarningLevel.Warning)
+                {
+                    warningTitle = "⚠️ Cảnh báo:";
+                    warningColor = Color.Orange;
+                }
+                else
+                {
+                    // Tất cả đều trong mức chấp nhận được
+                    warningTitle = "✓ Dinh dưỡng phù hợp với kế hoạch";
+                    warningColor = Color.FromArgb(19, 217, 195); // Teal color
+                }
+
+                // Cập nhật UI trên UI thread
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        UpdateWarningLabelsUI(warningTitle, warningColor, 
+                            levelCalories, deviationCalories,
+                            levelProtein, deviationProtein,
+                            levelCarbs, deviationCarbs,
+                            levelFat, deviationFat);
+                    }));
+                }
+                else
+                {
+                    UpdateWarningLabelsUI(warningTitle, warningColor,
+                        levelCalories, deviationCalories,
+                        levelProtein, deviationProtein,
+                        levelCarbs, deviationCarbs,
+                        levelFat, deviationFat);
+                }
+
+                System.Diagnostics.Debug.WriteLine($"[UpdateNutritionWarning] {warningTitle} - Calories: {deviationCalories:+#0.0;-#0.0}%, Protein: {deviationProtein:+#0.0;-#0.0}%, Carbs: {deviationCarbs:+#0.0;-#0.0}%, Fat: {deviationFat:+#0.0;-#0.0}%");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[UpdateNutritionWarning] Lỗi: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Cập nhật UI cho các label cảnh báo dinh dưỡng
+        /// </summary>
+        private void UpdateWarningLabelsUI(string title, Color titleColor,
+            WarningLevel levelCalories, double deviationCalories,
+            WarningLevel levelProtein, double deviationProtein,
+            WarningLevel levelCarbs, double deviationCarbs,
+            WarningLevel levelFat, double deviationFat)
+        {
+            try
+            {
+                // Cập nhật label3 (tiêu đề)
+                if (label3 != null)
+                {
+                    label3.Text = title;
+                    label3.ForeColor = titleColor;
+                    label3.Visible = true;
+                    
+                    // Đảm bảo label3 có AutoSize = false và chiều cao cố định (chỉ 1 dòng)
+                    label3.AutoSize = false;
+                    
+                    // Tính chiều cao phù hợp cho 1 dòng text
+                    using (Graphics g = label3.CreateGraphics())
+                    {
+                        SizeF textSize = g.MeasureString(title, label3.Font);
+                        int calculatedHeight = (int)Math.Ceiling(textSize.Height) + 4; // Thêm padding nhỏ
+                        // Giới hạn chiều cao tối đa 30px để tránh khoảng trống thừa
+                        label3.Height = Math.Min(calculatedHeight, 30);
+                    }
+                    
+                    // Đảm bảo label3 có chiều rộng phù hợp
+                    if (label3.Width <= 0)
+                    {
+                        label3.Width = 300; // Fallback width
+                    }
+                }
+
+                // Nếu tất cả đều trong mức chấp nhận được, ẩn các label chi tiết
+                if (levelCalories == WarningLevel.Acceptable &&
+                    levelProtein == WarningLevel.Acceptable &&
+                    levelCarbs == WarningLevel.Acceptable &&
+                    levelFat == WarningLevel.Acceptable)
+                {
+                    if (_lblWarningCalories != null) _lblWarningCalories.Visible = false;
+                    if (_lblWarningProtein != null) _lblWarningProtein.Visible = false;
+                    if (_lblWarningCarbs != null) _lblWarningCarbs.Visible = false;
+                    if (_lblWarningFat != null) _lblWarningFat.Visible = false;
+                    return;
+                }
+
+                // Tính toán vị trí động dựa trên label3 thực tế (sau khi đã cập nhật chiều cao)
+                // Sử dụng Top + Height thay vì Bottom để đảm bảo chính xác
+                int startY = label3 != null ? (label3.Top + label3.Height) + 3 : 0;
+                int labelHeight = 20;
+                int spacing = 2;
+                int currentY = startY;
+
+                // Cập nhật label Calories
+                if (_lblWarningCalories != null)
+                {
+                    if (levelCalories != WarningLevel.Acceptable)
+                    {
+                        Color itemColor = levelCalories == WarningLevel.Exceeded ? Color.Red : Color.Orange;
+                        _lblWarningCalories.Text = $"  • Calories: {deviationCalories:+#0.0;-#0.0}%";
+                        _lblWarningCalories.ForeColor = itemColor;
+                        _lblWarningCalories.Location = new Point(label3 != null ? label3.Left : 0, currentY);
+                        _lblWarningCalories.Visible = true;
+                        currentY += labelHeight + spacing;
+                    }
+                    else
+                    {
+                        _lblWarningCalories.Visible = false;
+                    }
+                }
+
+                // Cập nhật label Protein
+                if (_lblWarningProtein != null)
+                {
+                    if (levelProtein != WarningLevel.Acceptable)
+                    {
+                        Color itemColor = levelProtein == WarningLevel.Exceeded ? Color.Red : Color.Orange;
+                        _lblWarningProtein.Text = $"  • Protein: {deviationProtein:+#0.0;-#0.0}%";
+                        _lblWarningProtein.ForeColor = itemColor;
+                        _lblWarningProtein.Location = new Point(label3 != null ? label3.Left : 0, currentY);
+                        _lblWarningProtein.Visible = true;
+                        currentY += labelHeight + spacing;
+                    }
+                    else
+                    {
+                        _lblWarningProtein.Visible = false;
+                    }
+                }
+
+                // Cập nhật label Carbs
+                if (_lblWarningCarbs != null)
+                {
+                    if (levelCarbs != WarningLevel.Acceptable)
+                    {
+                        Color itemColor = levelCarbs == WarningLevel.Exceeded ? Color.Red : Color.Orange;
+                        _lblWarningCarbs.Text = $"  • Carbs: {deviationCarbs:+#0.0;-#0.0}%";
+                        _lblWarningCarbs.ForeColor = itemColor;
+                        _lblWarningCarbs.Location = new Point(label3 != null ? label3.Left : 0, currentY);
+                        _lblWarningCarbs.Visible = true;
+                        currentY += labelHeight + spacing;
+                    }
+                    else
+                    {
+                        _lblWarningCarbs.Visible = false;
+                    }
+                }
+
+                // Cập nhật label Fat
+                if (_lblWarningFat != null)
+                {
+                    if (levelFat != WarningLevel.Acceptable)
+                    {
+                        Color itemColor = levelFat == WarningLevel.Exceeded ? Color.Red : Color.Orange;
+                        _lblWarningFat.Text = $"  • Fat: {deviationFat:+#0.0;-#0.0}%";
+                        _lblWarningFat.ForeColor = itemColor;
+                        _lblWarningFat.Location = new Point(label3 != null ? label3.Left : 0, currentY);
+                        _lblWarningFat.Visible = true;
+                    }
+                    else
+                    {
+                        _lblWarningFat.Visible = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[UpdateWarningLabelsUI] Lỗi: {ex.Message}");
+            }
         }
 
         private void ShowMealSelectionMenu(Control anchorControl, Dictionary<string, List<ThuVienMonAn>> mealOptions)
@@ -2323,6 +3417,102 @@ namespace HealthApp.Views.Nutrition
                     }
                 };
                 items.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Xử lý khi món ăn bị xóa - xóa item khỏi panel
+        /// </summary>
+        private void HandleMonAnDeleted(BuaAnChiTiet deletedItem, FlowLayoutPanelNoScrollbar panel)
+        {
+            try
+            {
+                if (panel == null || deletedItem == null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[HandleMonAnDeleted] Panel hoặc deletedItem null. Panel: {panel != null}, DeletedItem: {deletedItem != null}");
+                    return;
+                }
+
+                System.Diagnostics.Debug.WriteLine($"[HandleMonAnDeleted] Đang xử lý xóa món ăn. MonAnID: {deletedItem.MonAnID}, BuaAnID: {deletedItem.BuaAnID}");
+
+                // Tìm ucMonAnItem tương ứng với MonAnID đã xóa
+                var items = panel.Controls.OfType<ucMonAnItem>().ToList();
+                System.Diagnostics.Debug.WriteLine($"[HandleMonAnDeleted] Tìm thấy {items.Count} ucMonAnItem trong panel");
+
+                ucMonAnItem itemToRemove = null;
+                foreach (ucMonAnItem item in items)
+                {
+                    // Kiểm tra xem item này có phải là món ăn đã bị xóa không
+                    // Bằng cách kiểm tra MonAnID
+                    if (item.MonAn != null && !string.IsNullOrEmpty(deletedItem.MonAnID))
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[HandleMonAnDeleted] So sánh: item.MonAn.MonAnID = '{item.MonAn.MonAnID}', deletedItem.MonAnID = '{deletedItem.MonAnID}'");
+                        
+                        if (item.MonAn.MonAnID == deletedItem.MonAnID)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"[HandleMonAnDeleted] Tìm thấy item tương ứng, đang xóa khỏi panel...");
+                            itemToRemove = item;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[HandleMonAnDeleted] Item không hợp lệ: MonAn={item.MonAn != null}, MonAnID={deletedItem.MonAnID}");
+                    }
+                }
+
+                // Xóa item khỏi panel nếu tìm thấy
+                if (itemToRemove != null)
+                {
+                    // Unsubscribe events trước khi xóa
+                    itemToRemove.MonAnDeleted -= (s, e) => HandleMonAnDeleted(e, panel);
+                    itemToRemove.MonAnUpdated -= (s, e) => HandleMonAnUpdated(e, itemToRemove);
+                    
+                    // Xóa khỏi panel
+                    panel.Controls.Remove(itemToRemove);
+                    
+                    // Dispose để giải phóng tài nguyên
+                    itemToRemove.Dispose();
+                    
+                    System.Diagnostics.Debug.WriteLine($"[HandleMonAnDeleted] Đã xóa item khỏi panel thành công. Số lượng item còn lại: {panel.Controls.OfType<ucMonAnItem>().Count()}");
+                    
+                    // Cập nhật lại layout
+                    panel.PerformLayout();
+                    
+                    // Cập nhật biểu đồ dinh dưỡng sau khi xóa món ăn
+                    UpdateNutritionChartFromPanels();
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"[HandleMonAnDeleted] Không tìm thấy item tương ứng để xóa");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[HandleMonAnDeleted] Lỗi khi xử lý xóa món ăn: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"[HandleMonAnDeleted] Stack trace: {ex.StackTrace}");
+            }
+        }
+
+        /// <summary>
+        /// Xử lý khi món ăn được cập nhật - refresh lại item
+        /// </summary>
+        private void HandleMonAnUpdated(BuaAnChiTiet updatedItem, ucMonAnItem item)
+        {
+            try
+            {
+                if (item == null || updatedItem == null) return;
+
+                // Refresh item để hiển thị số lượng và dinh dưỡng mới
+                // LoadData() sẽ được gọi tự động trong ucMonAnItem sau khi cập nhật
+                item.LoadData();
+                
+                // Cập nhật biểu đồ dinh dưỡng
+                UpdateNutritionChartFromPanels();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi xử lý cập nhật món ăn: {ex.Message}");
             }
         }
 

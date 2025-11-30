@@ -360,6 +360,18 @@
     <Compile Include="Views\Nutrition\ChonCheDoAnUong.Designer.cs">
       <DependentUpon>ChonCheDoAnUong.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Nutrition\frmChinhSuaMonAn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Nutrition\frmChinhSuaMonAn.Designer.cs">
+      <DependentUpon>frmChinhSuaMonAn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Nutrition\frmDanhSachMonAn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Nutrition\frmDanhSachMonAn.Designer.cs">
+      <DependentUpon>frmDanhSachMonAn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Nutrition\ucCheDoAnUongDeXuat.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -593,6 +605,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ChonCheDoAnUong.resx">
       <DependentUpon>ChonCheDoAnUong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Nutrition\frmDanhSachMonAn.resx">
+      <DependentUpon>frmDanhSachMonAn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ucCheDoAnUongDeXuat.resx">
       <DependentUpon>ucCheDoAnUongDeXuat.cs</DependentUpon>

@@ -31,6 +31,7 @@ namespace HealthApp.Views.Nutrition
             this.guna2Panel8 = new Guna.UI2.WinForms.Guna2Panel();
             this.pnlLoadBuaTrua = new Guna.UI2.WinForms.Guna2Panel();
             this.pnlLoadBuaSang = new Guna.UI2.WinForms.Guna2Panel();
+            this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -65,7 +66,6 @@ namespace HealthApp.Views.Nutrition
             this.label20 = new System.Windows.Forms.Label();
             this.guna2Panel15 = new Guna.UI2.WinForms.Guna2Panel();
             this.label21 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.pnlTieuDe.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel7.SuspendLayout();
@@ -219,6 +219,12 @@ namespace HealthApp.Views.Nutrition
             // 
             resources.ApplyResources(this.pnlLoadBuaSang, "pnlLoadBuaSang");
             this.pnlLoadBuaSang.Name = "pnlLoadBuaSang";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
+            this.label13.Name = "label13";
             // 
             // label12
             // 
@@ -452,7 +458,6 @@ namespace HealthApp.Views.Nutrition
             // 
             resources.ApplyResources(this.label17, "label17");
             this.label17.Name = "label17";
-            this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
             // label16
             // 
@@ -492,12 +497,6 @@ namespace HealthApp.Views.Nutrition
             this.label21.BackColor = System.Drawing.Color.Transparent;
             this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
             this.label21.Name = "label21";
-            // 
-            // label13
-            // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(217)))), ((int)(((byte)(195)))));
-            this.label13.Name = "label13";
             // 
             // ucCheDoAnUongDeXuat
             // 

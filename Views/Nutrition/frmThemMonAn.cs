@@ -258,10 +258,16 @@ namespace HealthApp.Views.Nutrition
 
                 System.Diagnostics.Debug.WriteLine($"[DEBUG] Đã tạo BuaAnChiTiet object");
                 System.Diagnostics.Debug.WriteLine($"[DEBUG] BuaAnID: {MonAnDaThem.BuaAnID}");
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] KeHoachAnID (UserID): {MonAnDaThem.KeHoachAnID}");
+                System.Diagnostics.Debug.WriteLine($"[DEBUG] KeHoachAnID: {MonAnDaThem.KeHoachAnID}");
                 System.Diagnostics.Debug.WriteLine($"[DEBUG] MonAnID: {MonAnDaThem.MonAnID}");
                 System.Diagnostics.Debug.WriteLine($"[DEBUG] NgayAn: {MonAnDaThem.NgayAn}");
                 System.Diagnostics.Debug.WriteLine($"[DEBUG] KhoiLuongChuan: {MonAnDaThem.KhoiLuongChuan}");
+
+                // KHÔNG lưu vào database (theo yêu cầu - chỉ hiển thị)
+                // _dbContext.BuaAnChiTiet.Add(MonAnDaThem);
+                // _dbContext.SaveChanges();
+                
+                System.Diagnostics.Debug.WriteLine($"[DEBUG] Đã tạo BuaAnChiTiet object (chưa lưu database)");
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
