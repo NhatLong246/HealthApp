@@ -474,22 +474,26 @@ namespace HealthApp.Views.PT
         {
             try
             {
-                // Ẩn form đăng ký
-                this.Hide();
-
-                // Mở form PT Dashboard
-                var frmPT = new frm_HuanLuyenVien(_parentDashboard);
-                frmPT.Show();
-
                 // Đóng form đăng ký
                 this.Close();
+
+                // Đóng form Dashboard nếu đang mở
+                if (_parentDashboard != null && !_parentDashboard.IsDisposed)
+                {
+                    _parentDashboard.Hide();
+                    _parentDashboard.Close();
+                }
+
+                // Mở form PT Dashboard (không có parent để tránh hiển thị Dashboard khi quay lại)
+                var frmPT = new frm_HuanLuyenVien(null);
+                frmPT.Show();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi chuyển đến PT Dashboard: {ex.Message}", "Lỗi", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Nếu có lỗi, quay lại Dashboard
-                NavigateBackToDashboard();
+                // Nếu có lỗi, tạo lại Dashboard
+                Application.Restart();
             }
         }
 

@@ -354,6 +354,7 @@ CREATE TABLE DatLichPT (
     MucTieuLuyenTap NVARCHAR(200), -- Mục tiêu khách hàng đặt cho buổi tập
     GhiChu NVARCHAR(500), -- Ghi chú đặc biệt (e.g., 'Tập tại phòng gym A')
     NgayTao DATETIME DEFAULT GETDATE(), -- Ngày tạo booking
+    MucTieuLuyenTap NVARCHAR(200),
     NgayCapNhat DATETIME DEFAULT GETDATE(), -- Ngày cập nhật cuối
 	ThoiGianBatDau DATETIME NOT NULL,
 	ThoiGianKetThuc DATETIME NOT NULL,

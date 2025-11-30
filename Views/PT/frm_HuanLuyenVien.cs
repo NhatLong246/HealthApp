@@ -12,6 +12,7 @@ using HealthApp.Models;
 using HealthApp.Services;
 using HealthApp.Services.Interfaces;
 using HealthApp.Common.Helpers;
+using HealthApp.Views.Dashboard;
 using Guna.UI2.WinForms;
 using System.Drawing.Imaging;
 
@@ -764,7 +765,10 @@ namespace HealthApp.Views.PT
                 }
                 else
                 {
+                    // Nếu không có parent dashboard, tạo Dashboard mới
+                    var newDashboard = new frmDashBoard();
                     this.Close();
+                    newDashboard.Show();
                 }
             }
             catch (Exception ex)
