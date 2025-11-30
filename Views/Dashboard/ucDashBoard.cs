@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using HealthApp.Common.Helpers;
 using HealthApp.Controllers;
 using HealthApp.Views.Nutrition;
+using HealthApp.Views.MucTieu;
+using HealthApp.Views.KeHoachLuyenTap;
 
 namespace HealthApp.Views.Dashboard
 {
@@ -27,6 +29,18 @@ namespace HealthApp.Views.Dashboard
             AttachMealPlanNavigation(pnlKeHoachAnUong);
             AttachMealPlanNavigation(label9);
             AttachMealPlanNavigation(guna2PictureBox1);
+
+            // Gắn event handler cho pnlMucTieu và tất cả các control con
+            AttachGoalNavigation(pnlMucTieu);
+            AttachGoalNavigation(lblMucTieu);
+            AttachGoalNavigation(guna2Panel6);
+            AttachGoalNavigation(guna2PictureBox2);
+
+            // Gắn event handler cho pnlKeHoachLuyenTap và tất cả các control con
+            AttachWorkoutPlanNavigation(pnlKeHoachLuyenTap);
+            AttachWorkoutPlanNavigation(lblLuyenTap);
+            AttachWorkoutPlanNavigation(pnlLuyenTap);
+            AttachWorkoutPlanNavigation(picLuyenTap);
 
             btnTinhNhanhBMITDEE.Click -= BtnTinhNhanhBMITDEE_Click;
             btnTinhNhanhBMITDEE.Click += BtnTinhNhanhBMITDEE_Click;
@@ -56,6 +70,54 @@ namespace HealthApp.Views.Dashboard
             else
             {
                 MessageBox.Show("Không thể mở trang kế hoạch ăn uống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AttachGoalNavigation(Control control)
+        {
+            if (control == null) return;
+            control.Cursor = Cursors.Hand;
+            control.Click -= NavigateToGoal;
+            control.Click += NavigateToGoal;
+        }
+
+        private void NavigateToGoal(object sender, EventArgs e)
+        {
+            var parentForm = _parentForm
+                ?? this.FindForm() as frmDashBoard
+                ?? Application.OpenForms.OfType<frmDashBoard>().FirstOrDefault();
+
+            if (parentForm != null)
+            {
+                parentForm.LoadUserControl(new ucMucTieu());
+            }
+            else
+            {
+                MessageBox.Show("Không thể mở trang mục tiêu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AttachWorkoutPlanNavigation(Control control)
+        {
+            if (control == null) return;
+            control.Cursor = Cursors.Hand;
+            control.Click -= NavigateToWorkoutPlan;
+            control.Click += NavigateToWorkoutPlan;
+        }
+
+        private void NavigateToWorkoutPlan(object sender, EventArgs e)
+        {
+            var parentForm = _parentForm
+                ?? this.FindForm() as frmDashBoard
+                ?? Application.OpenForms.OfType<frmDashBoard>().FirstOrDefault();
+
+            if (parentForm != null)
+            {
+                parentForm.LoadUserControl(new ucKeHoachLuyenTap());
+            }
+            else
+            {
+                MessageBox.Show("Không thể mở trang kế hoạch luyện tập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

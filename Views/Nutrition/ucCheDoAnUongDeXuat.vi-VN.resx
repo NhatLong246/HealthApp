@@ -118,11 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblHienThiMucTieu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 20</value>
+  </data>
+  <data name="lblHienThiMucTieu.Text" xml:space="preserve">
+    <value>Chua Có Mục Tiêu</value>
+  </data>
   <data name="btnThemMon1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 485</value>
   </data>
   <data name="btnThemMon1.Size" type="System.Drawing.Size, System.Drawing">
     <value>405, 59</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnThemMon3.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 300</value>
@@ -130,7 +140,19 @@
   <data name="btnThemMon3.Size" type="System.Drawing.Size, System.Drawing">
     <value>314, 53</value>
   </data>
+  <data name="guna2Panel13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 1173</value>
+  </data>
+  <data name="guna2Panel14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 1863</value>
+  </data>
+  <data name="guna2Panel15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 1747</value>
+  </data>
   <data name="guna2Panel15.Size" type="System.Drawing.Size, System.Drawing">
     <value>1128, 465</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1348, 2800</value>
   </data>
 </root>
