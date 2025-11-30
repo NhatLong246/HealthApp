@@ -17,7 +17,6 @@ namespace HealthApp.Views.KeHoachLuyenTap
         public ucLichSuTap()
         {
             InitializeComponent();
-            
             // Tắt AutoScaleMode để tránh scaling kích thước
             // Điều này đảm bảo kích thước luôn là 462x42 như trong Designer
             this.AutoScaleMode = AutoScaleMode.None;

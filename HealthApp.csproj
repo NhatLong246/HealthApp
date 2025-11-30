@@ -175,9 +175,11 @@
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\WF_HealthTracker.cs" />
     <Compile Include="Common\Helpers\CurrentUser.cs" />
+    <Compile Include="Common\Helpers\UserProfileHelper.cs" />
     <Compile Include="Common\Helpers\OTPHelper.cs" />
     <Compile Include="Common\Helpers\PasswordHelper.cs" />
     <Compile Include="Common\Helpers\ValidationHelper.cs" />
+    <Compile Include="Repositories\ReportRepository.cs" />
     <Compile Include="Scripts\GeneratePasswordHashForNewUser.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
@@ -219,7 +221,7 @@
     </Compile>
     <Compile Include="Views\KeHoachLuyenTap\frmDoiLichTap.Designer.cs">
       <DependentUpon>frmDoiLichTap.cs</DependentUpon>
-  </Compile>
+    </Compile>
     <Compile Include="Views\GiaoBTChoUser\BaiTapCuaPTGiao.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -334,6 +336,9 @@
     <Compile Include="Views\GiaoBTChoUser\GiaoBTChoUser.Designer.cs">
       <DependentUpon>GiaoBTChoUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Nutrition\FlowLayoutPanelNoScrollbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\Reports\ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -412,6 +417,12 @@
     <Compile Include="Views\Dashboard\ucDashBoard.Designer.cs">
       <DependentUpon>ucDashBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\frmChangeInformationforNewuser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Settings\frmChangeInformationforNewuser.Designer.cs">
+      <DependentUpon>frmChangeInformationforNewuser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Nutrition\frmThemMonAn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -435,6 +446,12 @@
     </Compile>
     <Compile Include="Views\Nutrition\ucNutrition.Designer.cs">
       <DependentUpon>ucNutrition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\ucSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Settings\ucSetting.Designer.cs">
+      <DependentUpon>ucSetting.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -511,6 +528,9 @@
     <EmbeddedResource Include="Views\GiaoBTChoUser\GiaoBTChoUser.resx">
       <DependentUpon>GiaoBTChoUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Nutrition\ucCheDoAnUongDeXuat.vi-VN.resx">
+      <DependentUpon>ucCheDoAnUongDeXuat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Reports\ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -561,6 +581,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ucNutrition.resx">
       <DependentUpon>ucNutrition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Settings\frmChangeInformationforNewuser.resx">
+      <DependentUpon>frmChangeInformationforNewuser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Settings\ucSetting.resx">
+      <DependentUpon>ucSetting.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Assets\.gitkeep" />
     <None Include="Assets\Reports\.gitkeep" />
@@ -1035,6 +1061,7 @@
     <Content Include="packages\System.ValueTuple.4.5.0\version.txt" />
     <None Include="Resources\Icons\icons-meal.png" />
     <None Include="Resources\icons-kcal.png" />
+    <None Include="Resources\icons8-meal-48.png" />
     <Content Include="Resources\Icons\AchivementIcon.png" />
     <Content Include="Resources\Icons\CommunityIcon.png" />
     <Content Include="Resources\Icons\folowIcon.png" />
@@ -1044,6 +1071,10 @@
     <Content Include="Resources\Icons\Lock.png" />
     <Content Include="Resources\Icons\LockIcon.png" />
     <Content Include="Resources\Icons\Screenshot_2025-10-13_210618-removebg-preview.png" />
+    <None Include="Resources\LogoMealIcon.png" />
+    <None Include="Resources\LogoGoalIcon.png" />
+    <None Include="Resources\LogostatisticalIcon.png" />
+    <None Include="Resources\LogoReservationIcon.png" />
     <Content Include="Resources\Video\ren-luyen-dang.mp4" />
     <None Include="Resources\Icons\icons-deadlift.gif" />
     <None Include="Resources\Icons\icons-workout.png" />

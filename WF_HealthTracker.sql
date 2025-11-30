@@ -13,7 +13,7 @@ CREATE TABLE Users (
 	Role NVARCHAR(20) DEFAULT 'Client', -- 'Client', 'PT', 'Admin'
 	CHECK (Role IN ('Client', 'PT', 'Admin')), -- Chỉ cho phép 3 roles
     Email NVARCHAR(100) UNIQUE, -- Email, duy nhất, tùy chọn
-	SDT NVARCHAR(20), -- Cho phép NULL, unique thông qua filtered index
+	SDT NVARCHAR(20) UNIQUE,
     HoTen NVARCHAR(100), -- Họ tên đầy đủ của người dùng
     NgaySinh DATE, -- Ngày sinh, dùng để tính tuổi hoặc gợi ý sức khỏe
 	CHECK (NgaySinh < GETDATE()), -- Không thể sinh trong tương lai

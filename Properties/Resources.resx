@@ -175,11 +175,29 @@
   <data name="Lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\Lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="DataIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DataIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="History2Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\History2Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons-deadlift" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\icons-deadlift.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="scheduleIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\scheduleIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="settingIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\settingIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ptpic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ptpic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PickaxeIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PickaxeIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-meal-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-meal-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="galuoc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Food\galuoc.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -198,9 +216,6 @@
   </data>
   <data name="MapIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="History2Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\History2Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons-meal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\icons-meal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -226,9 +241,6 @@
   <data name="starIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\starIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DataIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DataIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="LogoIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogoIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -241,26 +253,26 @@
   <data name="folowIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\folowIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ReserveIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReserveIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GoalBoardIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GoalBoardIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="categoryIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\categoryIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="QuestionIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QuestionIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="settingIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\settingIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="dumbbellsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dumbbellsIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ptpic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ptpic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="goal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\goal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HistoryIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HistoryIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChartsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChartsIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HealthLogo2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\HealthLogo2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -271,7 +283,88 @@
   <data name="HealthIconMain" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HealthICon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PersonInSettingIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PersonInSettingIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToolsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ToolsIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoticeIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoticeIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MapIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MapIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MealIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MealIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="KeHoachAnUong" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KeHoachAnUong.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MailIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MailIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LogostatisticalIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogostatisticalIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ListIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ListIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LogoMealIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogoMealIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PenIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PenIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RulerIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RulerIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SettingsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SettingsIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AfterIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AfterIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons-kcal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons-kcal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons-workout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\icons-workout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Mapsicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mapsicon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ThunderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ThunderIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BackbtnIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BackbtnIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PeopleIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PeopleIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RankingIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RankingIcon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="nutritiousIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nutritiousIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LogoGoalIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogoGoalIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AchivementIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\AchivementIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="backIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\backIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RightArrowIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RightArrowIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FoodIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FoodIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LogoReservationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogoReservationIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

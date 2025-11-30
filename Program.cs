@@ -1,8 +1,10 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using HealthApp.Common.Helpers;
 using HealthApp.Views.Auth;
 using HealthApp.Views.Dashboard;
+using HealthApp.Views.Settings;
 
 namespace HealthApp
 {
@@ -40,13 +42,19 @@ namespace HealthApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
             // Hiển thị form đăng nhập
             using (var loginForm = new LoginForm())
             {
-                // Nếu đăng nhập thành công, điều hướng đến Dashboard
-                if (loginForm.ShowDialog() == DialogResult.OK)
+                var result = loginForm.ShowDialog();
+                if (result == DialogResult.OK && CurrentUser.IsLoggedIn)
                 {
+                    if (UserProfileHelper.NeedsBasicInfo())
+                    {
+                        using (var infoForm = new frmChangeInformationforNewuser(isMandatory: true))
+                        {
+                            infoForm.ShowDialog();
+                        }
+                    }
                     Application.Run(new frmDashBoard());
                 }
             }
