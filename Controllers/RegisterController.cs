@@ -249,12 +249,26 @@ namespace HealthApp.Controllers
                     User = newUser
                 };
             }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
+                // Xử lý lỗi validation/constraint với message rõ ràng
                 return new RegisterResult
                 {
                     Success = false,
-                    Message = $"Đã xảy ra lỗi: {ex.Message}"
+                    Message = ex.Message,
+                    FieldToFocus = ex.Message.Contains("tên đăng nhập") ? "username" : 
+                                  ex.Message.Contains("Email") ? "email" : null
+                };
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[RegisterAsync] Exception: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"[RegisterAsync] StackTrace: {ex.StackTrace}");
+                
+                return new RegisterResult
+                {
+                    Success = false,
+                    Message = $"Đã xảy ra lỗi khi đăng ký: {ex.Message}"
                 };
             }
         }

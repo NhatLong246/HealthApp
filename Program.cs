@@ -5,6 +5,7 @@ using HealthApp.Common.Helpers;
 using HealthApp.Views.Auth;
 using HealthApp.Views.Dashboard;
 using HealthApp.Views.Settings;
+using HealthApp.Views.Admin;
 
 namespace HealthApp
 {
@@ -48,14 +49,30 @@ namespace HealthApp
                 var result = loginForm.ShowDialog();
                 if (result == DialogResult.OK && CurrentUser.IsLoggedIn)
                 {
-                    if (UserProfileHelper.NeedsBasicInfo())
+                    // Kiểm tra role để hiển thị form phù hợp
+                    string userRole = CurrentUser.Role;
+                    
+                    System.Diagnostics.Debug.WriteLine($"[Program] User logged in - Role: '{userRole}'");
+                    
+                    if (userRole == "Admin")
                     {
-                        using (var infoForm = new frmChangeInformationforNewuser(isMandatory: true))
-                        {
-                            infoForm.ShowDialog();
-                        }
+                        // Mở form Admin cho user có role Admin
+                        System.Diagnostics.Debug.WriteLine("[Program] Opening frmAdmin for Admin user");
+                        Application.Run(new frmAdmin());
                     }
-                    Application.Run(new frmDashBoard());
+                    else
+                    {
+                        // Mở form Dashboard cho Client và PT
+                        if (UserProfileHelper.NeedsBasicInfo())
+                        {
+                            using (var infoForm = new frmChangeInformationforNewuser(isMandatory: true))
+                            {
+                                infoForm.ShowDialog();
+                            }
+                        }
+                        System.Diagnostics.Debug.WriteLine("[Program] Opening frmDashBoard for Client/PT user");
+                        Application.Run(new frmDashBoard());
+                    }
                 }
             }
         }
