@@ -748,6 +748,7 @@
             // 
             // pnlChiTiet
             // 
+            this.pnlChiTiet.AutoScroll = true;
             this.pnlChiTiet.BorderRadius = 20;
             this.pnlChiTiet.Controls.Add(this.pnlChiTietChungChi);
             this.pnlChiTiet.Controls.Add(this.lblChiTietChungChi);
@@ -892,7 +893,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(1348, 739);
+            this.ClientSize = new System.Drawing.Size(1348, 799);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.pnlChiTiet);
             this.Controls.Add(this.pnlThongTinPT);

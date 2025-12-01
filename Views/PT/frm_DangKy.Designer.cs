@@ -34,6 +34,10 @@
             this.btnBack = new Guna.UI2.WinForms.Guna2CircleButton();
             this.lbl_TieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnl_background2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.txt_ChungChi = new Guna.UI2.WinForms.Guna2TextBox();
+            this.lbl_ChungChi = new System.Windows.Forms.Label();
+            this.txt_TienTheoGio = new Guna.UI2.WinForms.Guna2TextBox();
+            this.lbl_TienTheoGio = new System.Windows.Forms.Label();
             this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.btn_GuiDonDangKy = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2CustomGradientPanel2 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
@@ -74,10 +78,6 @@
             this.lbl_Email = new System.Windows.Forms.Label();
             this.lbl_HoVaTen = new System.Windows.Forms.Label();
             this.lbl_ThongTinCaNhan = new System.Windows.Forms.Label();
-            this.txt_TienTheoGio = new Guna.UI2.WinForms.Guna2TextBox();
-            this.lbl_TienTheoGio = new System.Windows.Forms.Label();
-            this.txt_ChungChi = new Guna.UI2.WinForms.Guna2TextBox();
-            this.lbl_ChungChi = new System.Windows.Forms.Label();
             this.pnl_background.SuspendLayout();
             this.pnl_background2.SuspendLayout();
             this.guna2CustomGradientPanel2.SuspendLayout();
@@ -179,6 +179,66 @@
             this.pnl_background2.Name = "pnl_background2";
             this.pnl_background2.Size = new System.Drawing.Size(896, 1456);
             this.pnl_background2.TabIndex = 3;
+            // 
+            // txt_ChungChi
+            // 
+            this.txt_ChungChi.BorderRadius = 15;
+            this.txt_ChungChi.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_ChungChi.DefaultText = "";
+            this.txt_ChungChi.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txt_ChungChi.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txt_ChungChi.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_ChungChi.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_ChungChi.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_ChungChi.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txt_ChungChi.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_ChungChi.Location = new System.Drawing.Point(490, 828);
+            this.txt_ChungChi.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_ChungChi.Name = "txt_ChungChi";
+            this.txt_ChungChi.PlaceholderText = "";
+            this.txt_ChungChi.SelectedText = "";
+            this.txt_ChungChi.Size = new System.Drawing.Size(365, 41);
+            this.txt_ChungChi.TabIndex = 36;
+            // 
+            // lbl_ChungChi
+            // 
+            this.lbl_ChungChi.AutoSize = true;
+            this.lbl_ChungChi.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ChungChi.Location = new System.Drawing.Point(487, 808);
+            this.lbl_ChungChi.Name = "lbl_ChungChi";
+            this.lbl_ChungChi.Size = new System.Drawing.Size(68, 17);
+            this.lbl_ChungChi.TabIndex = 35;
+            this.lbl_ChungChi.Text = "Chứng chỉ";
+            // 
+            // txt_TienTheoGio
+            // 
+            this.txt_TienTheoGio.BorderRadius = 15;
+            this.txt_TienTheoGio.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_TienTheoGio.DefaultText = "";
+            this.txt_TienTheoGio.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txt_TienTheoGio.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txt_TienTheoGio.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_TienTheoGio.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txt_TienTheoGio.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_TienTheoGio.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txt_TienTheoGio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txt_TienTheoGio.Location = new System.Drawing.Point(490, 906);
+            this.txt_TienTheoGio.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_TienTheoGio.Name = "txt_TienTheoGio";
+            this.txt_TienTheoGio.PlaceholderText = "";
+            this.txt_TienTheoGio.SelectedText = "";
+            this.txt_TienTheoGio.Size = new System.Drawing.Size(365, 41);
+            this.txt_TienTheoGio.TabIndex = 34;
+            // 
+            // lbl_TienTheoGio
+            // 
+            this.lbl_TienTheoGio.AutoSize = true;
+            this.lbl_TienTheoGio.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_TienTheoGio.Location = new System.Drawing.Point(487, 886);
+            this.lbl_TienTheoGio.Name = "lbl_TienTheoGio";
+            this.lbl_TienTheoGio.Size = new System.Drawing.Size(84, 17);
+            this.lbl_TienTheoGio.TabIndex = 33;
+            this.lbl_TienTheoGio.Text = "Tiền theo giờ";
             // 
             // guna2DateTimePicker1
             // 
@@ -740,66 +800,6 @@
             this.lbl_ThongTinCaNhan.TabIndex = 1;
             this.lbl_ThongTinCaNhan.Text = "      Thông tin cá nhân";
             // 
-            // txt_TienTheoGio
-            // 
-            this.txt_TienTheoGio.BorderRadius = 15;
-            this.txt_TienTheoGio.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt_TienTheoGio.DefaultText = "";
-            this.txt_TienTheoGio.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txt_TienTheoGio.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txt_TienTheoGio.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt_TienTheoGio.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt_TienTheoGio.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_TienTheoGio.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txt_TienTheoGio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_TienTheoGio.Location = new System.Drawing.Point(490, 906);
-            this.txt_TienTheoGio.Margin = new System.Windows.Forms.Padding(4);
-            this.txt_TienTheoGio.Name = "txt_TienTheoGio";
-            this.txt_TienTheoGio.PlaceholderText = "";
-            this.txt_TienTheoGio.SelectedText = "";
-            this.txt_TienTheoGio.Size = new System.Drawing.Size(365, 41);
-            this.txt_TienTheoGio.TabIndex = 34;
-            // 
-            // lbl_TienTheoGio
-            // 
-            this.lbl_TienTheoGio.AutoSize = true;
-            this.lbl_TienTheoGio.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_TienTheoGio.Location = new System.Drawing.Point(487, 886);
-            this.lbl_TienTheoGio.Name = "lbl_TienTheoGio";
-            this.lbl_TienTheoGio.Size = new System.Drawing.Size(84, 17);
-            this.lbl_TienTheoGio.TabIndex = 33;
-            this.lbl_TienTheoGio.Text = "Tiền theo giờ";
-            // 
-            // txt_ChungChi
-            // 
-            this.txt_ChungChi.BorderRadius = 15;
-            this.txt_ChungChi.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt_ChungChi.DefaultText = "";
-            this.txt_ChungChi.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txt_ChungChi.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txt_ChungChi.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt_ChungChi.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txt_ChungChi.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_ChungChi.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txt_ChungChi.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txt_ChungChi.Location = new System.Drawing.Point(490, 828);
-            this.txt_ChungChi.Margin = new System.Windows.Forms.Padding(4);
-            this.txt_ChungChi.Name = "txt_ChungChi";
-            this.txt_ChungChi.PlaceholderText = "";
-            this.txt_ChungChi.SelectedText = "";
-            this.txt_ChungChi.Size = new System.Drawing.Size(365, 41);
-            this.txt_ChungChi.TabIndex = 36;
-            // 
-            // lbl_ChungChi
-            // 
-            this.lbl_ChungChi.AutoSize = true;
-            this.lbl_ChungChi.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ChungChi.Location = new System.Drawing.Point(487, 808);
-            this.lbl_ChungChi.Name = "lbl_ChungChi";
-            this.lbl_ChungChi.Size = new System.Drawing.Size(68, 17);
-            this.lbl_ChungChi.TabIndex = 35;
-            this.lbl_ChungChi.Text = "Chứng chỉ";
-            // 
             // frm_DangKy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -808,6 +808,7 @@
             this.ClientSize = new System.Drawing.Size(1348, 739);
             this.Controls.Add(this.pnl_background);
             this.Name = "frm_DangKy";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.pnl_background.ResumeLayout(false);
             this.pnl_background.PerformLayout();

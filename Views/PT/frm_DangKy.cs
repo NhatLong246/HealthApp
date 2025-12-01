@@ -473,27 +473,30 @@ namespace HealthApp.Views.PT
         private void NavigateToPTDashboard()
         {
             try
-            {
-                // Đóng form đăng ký
-                this.Close();
-
-                // Đóng form Dashboard nếu đang mở
-                if (_parentDashboard != null && !_parentDashboard.IsDisposed)
-                {
-                    _parentDashboard.Hide();
-                    _parentDashboard.Close();
-                }
-
-                // Mở form PT Dashboard (không có parent để tránh hiển thị Dashboard khi quay lại)
-                var frmPT = new frm_HuanLuyenVien(null);
+            {   
+                // Mở form PT Dashboard trước
+                var frmPT = new frm_HuanLuyenVien(_parentDashboard);
+                frmPT.StartPosition = FormStartPosition.CenterScreen;
                 frmPT.Show();
+
+                // Ẩn tất cả form khác (Dashboard, form đăng ký, v.v.) để chỉ còn lại PT Dashboard
+                foreach (Form form in Application.OpenForms.Cast<Form>().ToList())
+                {
+                    if (form != frmPT)
+                    {
+                        form.Hide();
+                    }
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi chuyển đến PT Dashboard: {ex.Message}", "Lỗi", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Nếu có lỗi, tạo lại Dashboard
-                Application.Restart();
+                // Nếu có lỗi, quay lại Dashboard (nếu còn tồn tại)
+                if (_parentDashboard != null && !_parentDashboard.IsDisposed)
+                {
+                    _parentDashboard.Show();
+                }
             }
         }
 

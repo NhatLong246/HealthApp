@@ -79,8 +79,8 @@
             this.btnGiaoBT = new Guna.UI2.WinForms.Guna2Button();
             this.lbThaoTac = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnThaoTacNhanh = new Guna.UI2.WinForms.Guna2Panel();
-            this.btnLichPT = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.btnLichPT = new Guna.UI2.WinForms.Guna2Button();
             this.pnlKhachHang.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrKhachHang)).BeginInit();
             this.pnlBuoiTap.SuspendLayout();
@@ -731,6 +731,19 @@
             this.pnThaoTacNhanh.Size = new System.Drawing.Size(408, 254);
             this.pnThaoTacNhanh.TabIndex = 35;
             // 
+            // guna2PictureBox2
+            // 
+            this.guna2PictureBox2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.guna2PictureBox2.ErrorImage = null;
+            this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
+            this.guna2PictureBox2.ImageRotate = 0F;
+            this.guna2PictureBox2.Location = new System.Drawing.Point(105, 160);
+            this.guna2PictureBox2.Name = "guna2PictureBox2";
+            this.guna2PictureBox2.Size = new System.Drawing.Size(38, 45);
+            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox2.TabIndex = 4;
+            this.guna2PictureBox2.TabStop = false;
+            // 
             // btnLichPT
             // 
             this.btnLichPT.BackColor = System.Drawing.Color.White;
@@ -746,19 +759,6 @@
             this.btnLichPT.Size = new System.Drawing.Size(167, 45);
             this.btnLichPT.TabIndex = 3;
             this.btnLichPT.Text = "Lịch Trình";
-            // 
-            // guna2PictureBox2
-            // 
-            this.guna2PictureBox2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.guna2PictureBox2.ErrorImage = null;
-            this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
-            this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(105, 160);
-            this.guna2PictureBox2.Name = "guna2PictureBox2";
-            this.guna2PictureBox2.Size = new System.Drawing.Size(38, 45);
-            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox2.TabIndex = 4;
-            this.guna2PictureBox2.TabStop = false;
             // 
             // frm_HuanLuyenVien
             // 
@@ -779,6 +779,7 @@
             this.Controls.Add(this.lblTieuDe2);
             this.Controls.Add(this.lblTieuDe);
             this.Name = "frm_HuanLuyenVien";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.pnlKhachHang.ResumeLayout(false);
             this.pnlKhachHang.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrKhachHang)).EndInit();
