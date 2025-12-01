@@ -22,7 +22,6 @@ namespace HealthApp.Views.PT
         private readonly string _datLichID;
         private readonly WF_HealthTracker _context;
         private DatLichPT _datLich;
-        private List<DatLichPT> _datLichList = new List<DatLichPT>();
         private HuanLuyenVien _pt;
         private Users _khachHang;
         private string _selectedPaymentMethod = ""; // "MoMo" hoặc "ZaloPay"
@@ -42,7 +41,7 @@ namespace HealthApp.Views.PT
         {
             btnThanhToan.Click += BtnThanhToan_Click;
             btnThemThanhToan.Click += BtnThemThanhToan_Click;
-            
+
             // Event handlers cho chọn phương thức thanh toán
             pnlMomo.Click += PnlMoMo_Click;
             pnlZalopay.Click += PnlZaloPay_Click;
@@ -54,7 +53,7 @@ namespace HealthApp.Views.PT
             {
                 if (string.IsNullOrEmpty(_datLichID))
                 {
-                    MessageBox.Show("Không có thông tin đặt lịch!", "Lỗi", 
+                    MessageBox.Show("Không có thông tin đặt lịch!", "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                     return;
@@ -64,7 +63,7 @@ namespace HealthApp.Views.PT
                 _datLich = await Task.Run(() => _context.DatLichPT.FirstOrDefault(d => d.DatLichID == _datLichID));
                 if (_datLich == null)
                 {
-                    MessageBox.Show("Không tìm thấy thông tin đặt lịch!", "Lỗi", 
+                    MessageBox.Show("Không tìm thấy thông tin đặt lịch!", "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                     return;
@@ -77,7 +76,7 @@ namespace HealthApp.Views.PT
                 }
                 else
                 {
-                    MessageBox.Show("Yêu cầu này chưa được PT đồng ý!", "Thông báo", 
+                    MessageBox.Show("Yêu cầu này chưa được PT đồng ý!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     this.Close();
                     return;
@@ -86,26 +85,12 @@ namespace HealthApp.Views.PT
                 // Load khách hàng
                 _khachHang = await Task.Run(() => _context.Users.FirstOrDefault(u => u.UserID == _datLich.KhachHangID));
 
-                // Load danh sách lịch cùng trạng thái để hiển thị đầy đủ các ngày cần thanh toán
-                _datLichList = await Task.Run(() => _context.DatLichPT
-                    .Where(d => d.KhachHangID == _datLich.KhachHangID &&
-                                d.PTID == _datLich.PTID &&
-                                d.TrangThai == _datLich.TrangThai)
-                    .OrderBy(d => d.ThoiGianBatDau)
-                    .ToList());
-
-                if (!_datLichList.Any(d => d.DatLichID == _datLich.DatLichID))
-                {
-                    _datLichList.Add(_datLich);
-                    _datLichList = _datLichList.OrderBy(d => d.ThoiGianBatDau).ToList();
-                }
-
                 // Hiển thị dữ liệu
                 DisplayData();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi load dữ liệu: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi load dữ liệu: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -137,7 +122,7 @@ namespace HealthApp.Views.PT
                 {
                     lblThoiGian.Text = $"{_datLich.ThoiGianBatDau:HH:mm} - {_datLich.ThoiGianKetThuc:HH:mm}";
                     lblNgayTap.Text = _datLich.ThoiGianBatDau.ToString("dd/MM/yyyy");
-                    
+
                     // Tính thứ trong tuần
                     string thu = GetDayOfWeekVietnamese(_datLich.ThoiGianBatDau.DayOfWeek);
                     lblThu.Text = thu;
@@ -153,65 +138,36 @@ namespace HealthApp.Views.PT
                 CalculateAndDisplayPrice();
 
                 // Hiển thị pnlDanhSachThanhToan trong pnlTongTinDatLich
-                DisplayPaymentItems();
+                DisplayPaymentItem();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi hiển thị dữ liệu: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi hiển thị dữ liệu: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void DisplayPaymentItems()
+        private void DisplayPaymentItem()
         {
             try
             {
-                foreach (var panel in _paymentPanels)
-                {
-                    pnlTongTinDatLich.Controls.Remove(panel);
-                    panel.Dispose();
-                }
-                _paymentPanels.Clear();
-
                 // Ẩn panel mẫu pnlDanhSachThanhToan
                 pnlDanhSachThanhToan.Visible = false;
 
-                var panelsData = (_datLichList != null && _datLichList.Any())
-                    ? _datLichList
-                    : (_datLich != null ? new List<DatLichPT> { _datLich } : new List<DatLichPT>());
-
-                if (!panelsData.Any())
-                {
-                    return;
-                }
-
-                var baseLocation = pnlDanhSachThanhToan.Location;
-                int nextTop = baseLocation.Y;
-                const int verticalSpacing = 16;
-
-                foreach (var datLichItem in panelsData)
-                {
-                    var paymentPanel = CreatePaymentItemPanel(datLichItem);
-                    paymentPanel.Location = new Point(baseLocation.X, nextTop);
-                    nextTop += paymentPanel.Height + verticalSpacing;
-                    pnlTongTinDatLich.Controls.Add(paymentPanel);
-                    _paymentPanels.Add(paymentPanel);
-                }
+                // Tạo panel thanh toán động trong pnlTongTinDatLich
+                var paymentPanel = CreatePaymentItemPanel();
+                pnlTongTinDatLich.Controls.Add(paymentPanel);
+                _paymentPanels.Add(paymentPanel);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi hiển thị mục thanh toán: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi hiển thị mục thanh toán: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private Guna2CustomGradientPanel CreatePaymentItemPanel(DatLichPT datLichItem)
+        private Guna2CustomGradientPanel CreatePaymentItemPanel()
         {
-            if (datLichItem == null)
-            {
-                throw new ArgumentNullException(nameof(datLichItem));
-            }
-
             var panel = new Guna2CustomGradientPanel
             {
                 BackColor = Color.White,
@@ -219,7 +175,7 @@ namespace HealthApp.Views.PT
                 BorderRadius = 20,
                 BorderThickness = 1,
                 Location = new Point(24, 53),
-                Name = $"pnlPaymentItem_{datLichItem.DatLichID}",
+                Name = $"pnlPaymentItem_{_datLichID}",
                 Size = new Size(958, 200)
             };
 
@@ -230,7 +186,7 @@ namespace HealthApp.Views.PT
                 BackColor = Color.Transparent,
                 FillColor = Color.Honeydew,
                 Location = new Point(49, 21),
-                Name = $"pnlNguoiDung_{datLichItem.DatLichID}",
+                Name = $"pnlNguoiDung_{_datLichID}",
                 Radius = 10,
                 ShadowColor = Color.FromArgb(0, 192, 0),
                 ShadowShift = 1,
@@ -241,7 +197,7 @@ namespace HealthApp.Views.PT
             {
                 ImageRotate = 0F,
                 Location = new Point(17, 12),
-                Name = $"ptrAvatar_{datLichItem.DatLichID}",
+                Name = $"ptrAvatar_{_datLichID}",
                 ShadowDecoration = { Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle },
                 Size = new Size(60, 53),
                 SizeMode = PictureBoxSizeMode.StretchImage
@@ -258,7 +214,7 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 13.2F, FontStyle.Bold),
                 ForeColor = Color.Black,
                 Location = new Point(82, 12),
-                Name = $"lblTen_{datLichItem.DatLichID}",
+                Name = $"lblTen_{_datLichID}",
                 Text = _khachHang?.HoTen ?? _khachHang?.Username ?? ""
             };
             pnlNguoiDungCopy.Controls.Add(lblTenCopy);
@@ -269,8 +225,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(83, 46),
-                Name = $"lblMucTieu_{datLichItem.DatLichID}",
-                Text = datLichItem?.GhiChu ?? ""
+                Name = $"lblMucTieu_{_datLichID}",
+                Text = _datLich?.GhiChu ?? ""
             };
             pnlNguoiDungCopy.Controls.Add(lblMucTieuCopy);
             panel.Controls.Add(pnlNguoiDungCopy);
@@ -281,7 +237,7 @@ namespace HealthApp.Views.PT
                 BackColor = Color.Transparent,
                 FillColor = Color.Honeydew,
                 Location = new Point(575, 21),
-                Name = $"pnlPT_{datLichItem.DatLichID}",
+                Name = $"pnlPT_{_datLichID}",
                 Radius = 10,
                 ShadowColor = Color.FromArgb(0, 192, 0),
                 ShadowShift = 1,
@@ -292,7 +248,7 @@ namespace HealthApp.Views.PT
             {
                 ImageRotate = 0F,
                 Location = new Point(17, 12),
-                Name = $"ptrPTAvatar_{datLichItem.DatLichID}",
+                Name = $"ptrPTAvatar_{_datLichID}",
                 ShadowDecoration = { Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle },
                 Size = new Size(60, 53),
                 SizeMode = PictureBoxSizeMode.StretchImage
@@ -309,7 +265,7 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 13.2F, FontStyle.Bold),
                 ForeColor = Color.Black,
                 Location = new Point(82, 12),
-                Name = $"lblPTTen_{datLichItem.DatLichID}",
+                Name = $"lblPTTen_{_datLichID}",
                 Text = ""
             };
             if (_pt != null)
@@ -330,7 +286,7 @@ namespace HealthApp.Views.PT
                 Image = ptrIcon.Image,
                 ImageRotate = 0F,
                 Location = new Point(52, 122),
-                Name = $"ptrIcon_{datLichItem.DatLichID}",
+                Name = $"ptrIcon_{_datLichID}",
                 Size = new Size(28, 26),
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
@@ -341,7 +297,7 @@ namespace HealthApp.Views.PT
                 BackColor = Color.Transparent,
                 Font = new Font("Times New Roman", 12F, FontStyle.Bold),
                 Location = new Point(86, 123),
-                Name = $"lblChonNgay_{datLichItem.DatLichID}",
+                Name = $"lblChonNgay_{_datLichID}",
                 Text = "Ngày giờ"
             };
             panel.Controls.Add(lblChonNgayCopy);
@@ -353,8 +309,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(57, 161),
-                Name = $"lblThoiGian_{datLichItem.DatLichID}",
-                Text = datLichItem != null ? $"{datLichItem.ThoiGianBatDau:HH:mm} - {datLichItem.ThoiGianKetThuc:HH:mm}" : ""
+                Name = $"lblThoiGian_{_datLichID}",
+                Text = _datLich != null ? $"{_datLich.ThoiGianBatDau:HH:mm} - {_datLich.ThoiGianKetThuc:HH:mm}" : ""
             };
             panel.Controls.Add(lblThoiGianCopy);
 
@@ -365,8 +321,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(170, 161),
-                Name = $"lblThu_{datLichItem.DatLichID}",
-                Text = datLichItem != null ? GetDayOfWeekVietnamese(datLichItem.ThoiGianBatDau.DayOfWeek) : ""
+                Name = $"lblThu_{_datLichID}",
+                Text = _datLich != null ? GetDayOfWeekVietnamese(_datLich.ThoiGianBatDau.DayOfWeek) : ""
             };
             panel.Controls.Add(lblThuCopy);
 
@@ -377,8 +333,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(227, 161),
-                Name = $"lblNgayTap_{datLichItem.DatLichID}",
-                Text = datLichItem != null ? datLichItem.ThoiGianBatDau.ToString("dd/MM/yyyy") : ""
+                Name = $"lblNgayTap_{_datLichID}",
+                Text = _datLich != null ? _datLich.ThoiGianBatDau.ToString("dd/MM/yyyy") : ""
             };
             panel.Controls.Add(lblNgayTapCopy);
 
@@ -389,7 +345,7 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(460, 53),
-                Name = $"lblDen_{datLichItem.DatLichID}",
+                Name = $"lblDen_{_datLichID}",
                 Text = "Đến"
             };
             panel.Controls.Add(lblDenCopy);
@@ -400,7 +356,7 @@ namespace HealthApp.Views.PT
                 BackColor = Color.Transparent,
                 Font = new Font("Times New Roman", 15F, FontStyle.Bold),
                 Location = new Point(492, 149),
-                Name = $"lblTien_{datLichItem.DatLichID}",
+                Name = $"lblTien_{_datLichID}",
                 Text = "Tiền:"
             };
             panel.Controls.Add(lblTienCopy);
@@ -411,8 +367,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 15F, FontStyle.Bold),
                 ForeColor = Color.Blue,
                 Location = new Point(575, 149),
-                Name = $"lblTienThanhToan_{datLichItem.DatLichID}",
-                Text = CalculatePrice(datLichItem).ToString("N0") + "đ"
+                Name = $"lblTienThanhToan_{_datLichID}",
+                Text = CalculatePrice().ToString("N0") + "đ"
             };
             panel.Controls.Add(lblTienThanhToanCopy);
 
@@ -423,33 +379,26 @@ namespace HealthApp.Views.PT
         {
             try
             {
-                double totalPrice = (_datLichList != null && _datLichList.Any())
-                    ? _datLichList.Sum(dl => CalculatePrice(dl))
-                    : CalculatePrice();
+                double totalPrice = CalculatePrice();
                 lblTienThanhToan.Text = totalPrice.ToString("N0") + "đ";
                 lblTongTienThanhToan.Text = totalPrice.ToString("N0") + "đ";
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tính toán giá: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi tính toán giá: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private double CalculatePrice()
         {
-            return CalculatePrice(_datLich);
-        }
-
-        private double CalculatePrice(DatLichPT datLich)
-        {
-            if (datLich == null || _pt == null || _pt.GiaTheoGio == null)
+            if (_datLich == null || _pt == null || _pt.GiaTheoGio == null)
             {
                 return 0;
             }
 
             // Tính số giờ
-            TimeSpan duration = datLich.ThoiGianKetThuc - datLich.ThoiGianBatDau;
+            TimeSpan duration = _datLich.ThoiGianKetThuc - _datLich.ThoiGianBatDau;
             double hours = duration.TotalHours;
 
             // Tính tiền = số giờ * giá theo giờ
@@ -562,7 +511,7 @@ namespace HealthApp.Views.PT
                 // Kiểm tra đã chọn phương thức thanh toán
                 if (string.IsNullOrEmpty(_selectedPaymentMethod))
                 {
-                    MessageBox.Show("Vui lòng chọn phương thức thanh toán!", "Thông báo", 
+                    MessageBox.Show("Vui lòng chọn phương thức thanh toán!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -570,13 +519,13 @@ namespace HealthApp.Views.PT
                 // Kiểm tra dữ liệu
                 if (_datLich == null || _pt == null)
                 {
-                    MessageBox.Show("Thông tin đặt lịch không hợp lệ!", "Lỗi", 
+                    MessageBox.Show("Thông tin đặt lịch không hợp lệ!", "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 // Xác nhận thanh toán
-                var confirm = MessageBox.Show($"Bạn có chắc chắn muốn thanh toán {CalculatePrice():N0}đ bằng {_selectedPaymentMethod}?", 
+                var confirm = MessageBox.Show($"Bạn có chắc chắn muốn thanh toán {CalculatePrice():N0}đ bằng {_selectedPaymentMethod}?",
                     "Xác nhận thanh toán", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (confirm != DialogResult.Yes)
@@ -609,7 +558,7 @@ namespace HealthApp.Views.PT
                     _context.GiaoDich.Add(giaoDich);
                     await Task.Run(() => _context.SaveChanges());
 
-                    MessageBox.Show("Thanh toán thành công!", "Thành công", 
+                    MessageBox.Show("Thanh toán thành công!", "Thành công",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Đóng form và quay lại Dashboard
@@ -617,7 +566,7 @@ namespace HealthApp.Views.PT
                 }
                 else
                 {
-                    MessageBox.Show("Thanh toán thất bại! Vui lòng thử lại.", "Thất bại", 
+                    MessageBox.Show("Thanh toán thất bại! Vui lòng thử lại.", "Thất bại",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -636,7 +585,7 @@ namespace HealthApp.Views.PT
                 var paymentService = new PaymentService();
                 var orderId = GenerateGiaoDichID();
                 var amount = (long)CalculatePrice();
-                
+
                 // Lấy tên PT từ Users
                 string ptName = "PT";
                 if (_pt != null)
@@ -647,12 +596,12 @@ namespace HealthApp.Views.PT
                         ptName = ptUser.HoTen ?? ptUser.Username ?? "PT";
                     }
                 }
-                
+
                 // Lấy ngày tập từ ThoiGianBatDau
                 string ngayTap = _datLich?.ThoiGianBatDau.ToString("dd/MM/yyyy") ?? DateTime.Now.ToString("dd/MM/yyyy");
-                
+
                 var orderInfo = $"Thanh toán PT - {ptName} - {ngayTap}";
-                
+
                 // URL callback (có thể cấu hình trong App.config)
                 var returnUrl = "https://your-domain.com/payment/return";
                 var notifyUrl = "https://your-domain.com/payment/notify";
@@ -663,10 +612,10 @@ namespace HealthApp.Views.PT
                 if (_selectedPaymentMethod == "MoMo")
                 {
                     result = await paymentService.CreateMoMoPaymentAsync(
-                        orderId, 
-                        amount, 
-                        orderInfo, 
-                        returnUrl, 
+                        orderId,
+                        amount,
+                        orderInfo,
+                        returnUrl,
                         notifyUrl
                     );
                 }
@@ -678,7 +627,7 @@ namespace HealthApp.Views.PT
                         orderInfo,
                         callbackUrl
                     );
-                    
+
                     // Log kết quả
                     System.Diagnostics.Debug.WriteLine($"=== ZaloPay Payment Result ===");
                     System.Diagnostics.Debug.WriteLine($"Success: {result.Success}");
@@ -745,7 +694,7 @@ namespace HealthApp.Views.PT
                             giaoDich.TrangThaiThanhToan = "Pending";
                             giaoDich.MaGiaoDich = result.TransactionId;
                             giaoDich.NgayGiaoDich = DateTime.Now;
-                            
+
                             // Cập nhật orderId để dùng trong form QR code
                             orderId = existingGiaoDich.GiaoDichID;
                         }
@@ -755,7 +704,7 @@ namespace HealthApp.Views.PT
                             System.Diagnostics.Debug.WriteLine($"Xóa giao dịch cũ với trạng thái: {existingGiaoDich.TrangThaiThanhToan}");
                             _context.GiaoDich.Remove(existingGiaoDich);
                             await Task.Run(() => _context.SaveChanges());
-                            
+
                             // Tạo mới
                             giaoDich = new GiaoDich
                             {
@@ -811,7 +760,7 @@ namespace HealthApp.Views.PT
                             // Reload từ database để đảm bảo có dữ liệu mới nhất
                             _context.Entry(_context.GiaoDich.FirstOrDefault(g => g.GiaoDichID == orderId)).Reload();
                             var updatedGiaoDich = _context.GiaoDich.FirstOrDefault(g => g.GiaoDichID == orderId);
-                            
+
                             // CHỈ xử lý thành công khi thực sự có trạng thái "Completed"
                             if (updatedGiaoDich != null && updatedGiaoDich.TrangThaiThanhToan == "Completed")
                             {
@@ -822,10 +771,10 @@ namespace HealthApp.Views.PT
 
                                 // Thông báo đã được hiển thị trong frm_PaymentQRCode, chỉ cần quay về trang chủ
                                 System.Diagnostics.Debug.WriteLine("Thanh toán thành công, đang quay về trang chủ...");
-                                
+
                                 // Đóng form thanh toán
                                 this.Close();
-                                
+
                                 // Quay về trang chủ
                                 NavigateBackToDashboard();
                                 return true;
@@ -919,7 +868,7 @@ namespace HealthApp.Views.PT
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi quay lại Dashboard: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi quay lại Dashboard: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -928,7 +877,7 @@ namespace HealthApp.Views.PT
         {
             _context?.Dispose();
             base.OnFormClosing(e);
-            
+
             // Nếu đóng form bằng nút X, quay lại Dashboard
             if (e.CloseReason == CloseReason.UserClosing && _parentDashboard != null && !_parentDashboard.IsDisposed)
             {

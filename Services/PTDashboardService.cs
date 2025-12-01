@@ -437,7 +437,7 @@ namespace HealthApp.Services
                         ThoiLuong = thoiLuong,
                         LoaiBuoiTap = "In-person",
                         TrangThai = "Pending",
-                        GhiChu = mucTieu, // Lưu mục tiêu vào GhiChu
+                        MucTieuLuyenTap = mucTieu, // Lưu mục tiêu vào MucTieuLuyenTap
                         NgayTao = DateTime.Now,
                         NgayCapNhat = DateTime.Now
                     };

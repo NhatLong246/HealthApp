@@ -7,6 +7,8 @@ using HealthApp.Controllers;
 using HealthApp.Views.Nutrition;
 using HealthApp.Views.MucTieu;
 using HealthApp.Views.KeHoachLuyenTap;
+using HealthApp.Views.Reports;
+using HealthApp.Views.PT;
 
 namespace HealthApp.Views.Dashboard
 {
@@ -45,6 +47,40 @@ namespace HealthApp.Views.Dashboard
             btnTinhNhanhBMITDEE.Click -= BtnTinhNhanhBMITDEE_Click;
             btnTinhNhanhBMITDEE.Click += BtnTinhNhanhBMITDEE_Click;
 
+            // Gắn event handlers cho các controls thống kê
+            AttachReportNavigation(lblThongKe);
+            AttachReportNavigation(lbThongkeTitle);
+            AttachReportNavigation(picThongke);
+            AttachReportNavigation(btnThongke);
+            AttachReportNavigation(pnlThongKeMain);
+
+            // Gắn event handlers cho điều hướng đến form đặt lịch PT
+            // Gắn cho panel chính trước (sẽ tự động gắn cho các child controls)
+            if (pnlDatLichPT != null)
+            {
+                AttachDatLichPTNavigation(pnlDatLichPT);
+            }
+            
+            // Gắn riêng cho các controls con để đảm bảo chắc chắn
+            if (lblDatLichPT != null)
+            {
+                lblDatLichPT.Cursor = Cursors.Hand;
+                lblDatLichPT.Click -= NavigateToYeuCauTapLuyen;
+                lblDatLichPT.Click += NavigateToYeuCauTapLuyen;
+            }
+            if (pnIconDatLichPT != null)
+            {
+                pnIconDatLichPT.Cursor = Cursors.Hand;
+                pnIconDatLichPT.Click -= NavigateToYeuCauTapLuyen;
+                pnIconDatLichPT.Click += NavigateToYeuCauTapLuyen;
+            }
+            if (picDatLichPT != null)
+            {
+                picDatLichPT.Cursor = Cursors.Hand;
+                picDatLichPT.Click -= NavigateToYeuCauTapLuyen;
+                picDatLichPT.Click += NavigateToYeuCauTapLuyen;
+            }
+
             LoadUserGreeting();
             LoadGoalSummary();
         }
@@ -55,6 +91,32 @@ namespace HealthApp.Views.Dashboard
             control.Cursor = Cursors.Hand;
             control.Click -= NavigateToMealPlan;
             control.Click += NavigateToMealPlan;
+        }
+
+        private void AttachDatLichPTNavigation(Control control)
+        {
+            if (control == null) return;
+            control.Cursor = Cursors.Hand;
+            control.Click -= NavigateToYeuCauTapLuyen;
+            control.Click += NavigateToYeuCauTapLuyen;
+            
+            // Đảm bảo tất cả child controls cũng có event handler
+            AttachClickToChildren(control);
+        }
+
+        private void AttachClickToChildren(Control parent)
+        {
+            if (parent == null) return;
+            
+            foreach (Control child in parent.Controls)
+            {
+                child.Click -= NavigateToYeuCauTapLuyen;
+                child.Click += NavigateToYeuCauTapLuyen;
+                child.Cursor = Cursors.Hand;
+                
+                // Đệ quy cho các child controls
+                AttachClickToChildren(child);
+            }
         }
 
         private void NavigateToMealPlan(object sender, EventArgs e)
@@ -119,6 +181,33 @@ namespace HealthApp.Views.Dashboard
             {
                 MessageBox.Show("Không thể mở trang kế hoạch luyện tập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void NavigateToYeuCauTapLuyen(object sender, EventArgs e)
+        {
+            try
+            {
+                // Kiểm tra đăng nhập
+                if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
+                {
+                    MessageBox.Show("Vui lòng đăng nhập trước khi đặt lịch PT!", "Thông báo", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Lấy parent form (frmDashBoard)
+                var parentForm = _parentForm
+                    ?? this.FindForm() as frmDashBoard
+                    ?? Application.OpenForms.OfType<frmDashBoard>().FirstOrDefault();
+
+                // Mở form tìm kiếm PT
+                var frmTimKiemPT = new frm_TimKiemHLV(parentForm);
+                frmTimKiemPT.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở form đặt lịch PT: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
         }
 
         private void BtnTinhNhanhBMITDEE_Click(object sender, EventArgs e)
@@ -275,6 +364,46 @@ namespace HealthApp.Views.Dashboard
             {
                 lblMucTieuTuanNay.Text = "Không thể tải mục tiêu.";
                 System.Diagnostics.Debug.WriteLine($"LoadGoalSummary error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Gắn event handler cho các controls thống kê để điều hướng đến ReportForm
+        /// </summary>
+        private void AttachReportNavigation(Control control)
+        {
+            if (control == null) return;
+            control.Cursor = Cursors.Hand;
+            control.Click -= NavigateToReportForm;
+            control.Click += NavigateToReportForm;
+        }
+
+        /// <summary>
+        /// Điều hướng đến trang thống kê (ReportForm)
+        /// </summary>
+        private void NavigateToReportForm(object sender, EventArgs e)
+        {
+            try
+            {
+                // Kiểm tra đã đăng nhập chưa
+                if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
+                {
+                    MessageBox.Show("Vui lòng đăng nhập trước khi xem thống kê!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Mở form thống kê
+                using (var reportForm = new ReportForm())
+                {
+                    reportForm.StartPosition = FormStartPosition.CenterParent;
+                    reportForm.ShowDialog(this.FindForm());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở trang thống kê: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
