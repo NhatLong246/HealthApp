@@ -33,6 +33,11 @@
             this.btnSettings = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.Back = new Guna.UI2.WinForms.Guna2ImageButton();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnDropDown = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnThanhToan = new Guna.UI2.WinForms.Guna2Button();
+            this.btnQuanLyLuyenTapVoiPT = new Guna.UI2.WinForms.Guna2Button();
+            this.btnCheDoPT = new Guna.UI2.WinForms.Guna2Button();
             this.contextMenuUser = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuItemDangXuat = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemThanhToanPT = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +48,7 @@
             this.picHome = new System.Windows.Forms.PictureBox();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSettings)).BeginInit();
+            this.guna2Panel3.SuspendLayout();
             this.contextMenuUser.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrDangKyLamPT)).BeginInit();
@@ -56,6 +62,7 @@
             this.guna2Panel1.Controls.Add(this.btnSettings);
             this.guna2Panel1.Controls.Add(this.Back);
             this.guna2Panel1.Controls.Add(this.label1);
+            this.guna2Panel1.Controls.Add(this.btnDropDown);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
@@ -101,6 +108,92 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "HealthApp";
             this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // btnDropDown
+            // 
+            this.btnDropDown.BackColor = System.Drawing.Color.White;
+            this.btnDropDown.BorderColor = System.Drawing.Color.Blue;
+            this.btnDropDown.BorderRadius = 5;
+            this.btnDropDown.BorderThickness = 1;
+            this.btnDropDown.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDropDown.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnDropDown.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDropDown.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDropDown.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnDropDown.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnDropDown.ForeColor = System.Drawing.Color.Black;
+            this.btnDropDown.Location = new System.Drawing.Point(1077, 19);
+            this.btnDropDown.Name = "btnDropDown";
+            this.btnDropDown.PressedColor = System.Drawing.Color.BlanchedAlmond;
+            this.btnDropDown.Size = new System.Drawing.Size(180, 45);
+            this.btnDropDown.TabIndex = 5;
+            this.btnDropDown.Text = "guna2Button1";
+            // 
+            // guna2Panel3
+            // 
+            this.guna2Panel3.BackColor = System.Drawing.Color.White;
+            this.guna2Panel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.guna2Panel3.BorderRadius = 5;
+            this.guna2Panel3.BorderThickness = 1;
+            this.guna2Panel3.Controls.Add(this.btnThanhToan);
+            this.guna2Panel3.Controls.Add(this.btnQuanLyLuyenTapVoiPT);
+            this.guna2Panel3.Controls.Add(this.btnCheDoPT);
+            this.guna2Panel3.Location = new System.Drawing.Point(1077, 65);
+            this.guna2Panel3.Name = "guna2Panel3";
+            this.guna2Panel3.Size = new System.Drawing.Size(180, 136);
+            this.guna2Panel3.TabIndex = 6;
+            this.guna2Panel3.Visible = false;
+            // 
+            // btnThanhToan
+            // 
+            this.btnThanhToan.BackColor = System.Drawing.Color.White;
+            this.btnThanhToan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnThanhToan.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnThanhToan.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnThanhToan.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnThanhToan.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnThanhToan.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnThanhToan.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnThanhToan.ForeColor = System.Drawing.Color.Black;
+            this.btnThanhToan.Location = new System.Drawing.Point(0, 91);
+            this.btnThanhToan.Name = "btnThanhToan";
+            this.btnThanhToan.Size = new System.Drawing.Size(180, 45);
+            this.btnThanhToan.TabIndex = 2;
+            this.btnThanhToan.Text = "Thanh Toán";
+            // 
+            // btnQuanLyLuyenTapVoiPT
+            // 
+            this.btnQuanLyLuyenTapVoiPT.BackColor = System.Drawing.Color.White;
+            this.btnQuanLyLuyenTapVoiPT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnQuanLyLuyenTapVoiPT.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnQuanLyLuyenTapVoiPT.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnQuanLyLuyenTapVoiPT.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnQuanLyLuyenTapVoiPT.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnQuanLyLuyenTapVoiPT.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnQuanLyLuyenTapVoiPT.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnQuanLyLuyenTapVoiPT.ForeColor = System.Drawing.Color.Black;
+            this.btnQuanLyLuyenTapVoiPT.Location = new System.Drawing.Point(0, 1);
+            this.btnQuanLyLuyenTapVoiPT.Name = "btnQuanLyLuyenTapVoiPT";
+            this.btnQuanLyLuyenTapVoiPT.Size = new System.Drawing.Size(180, 45);
+            this.btnQuanLyLuyenTapVoiPT.TabIndex = 1;
+            this.btnQuanLyLuyenTapVoiPT.Text = "Quản Lý Luyện Tập Với PT";
+            // 
+            // btnCheDoPT
+            // 
+            this.btnCheDoPT.BackColor = System.Drawing.Color.White;
+            this.btnCheDoPT.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnCheDoPT.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnCheDoPT.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnCheDoPT.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCheDoPT.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnCheDoPT.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnCheDoPT.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnCheDoPT.ForeColor = System.Drawing.Color.Black;
+            this.btnCheDoPT.Location = new System.Drawing.Point(0, 46);
+            this.btnCheDoPT.Name = "btnCheDoPT";
+            this.btnCheDoPT.Size = new System.Drawing.Size(180, 45);
+            this.btnCheDoPT.TabIndex = 0;
+            this.btnCheDoPT.Text = "Chế Độ PT";
             // 
             // contextMenuUser
             // 
@@ -186,12 +279,14 @@
             this.Controls.Add(this.pnlBody);
             this.Controls.Add(this.guna2Panel2);
             this.Controls.Add(this.guna2Panel1);
+            this.Controls.Add(this.guna2Panel3);
             this.Name = "frmDashBoard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmDashBoard";
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSettings)).EndInit();
+            this.guna2Panel3.ResumeLayout(false);
             this.contextMenuUser.ResumeLayout(false);
             this.guna2Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ptrDangKyLamPT)).EndInit();
@@ -215,5 +310,10 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuUser;
         private System.Windows.Forms.ToolStripMenuItem menuItemDangXuat;
         private System.Windows.Forms.ToolStripMenuItem menuItemThanhToanPT;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
+        private Guna.UI2.WinForms.Guna2Button btnThanhToan;
+        private Guna.UI2.WinForms.Guna2Button btnQuanLyLuyenTapVoiPT;
+        private Guna.UI2.WinForms.Guna2Button btnCheDoPT;
+        private Guna.UI2.WinForms.Guna2Button btnDropDown;
     }
 }

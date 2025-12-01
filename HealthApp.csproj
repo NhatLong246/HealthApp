@@ -1075,6 +1075,7 @@
     <None Include="Resources\LogoGoalIcon.png" />
     <None Include="Resources\LogostatisticalIcon.png" />
     <None Include="Resources\LogoReservationIcon.png" />
+    <None Include="Resources\report.png" />
     <Content Include="Resources\Video\ren-luyen-dang.mp4" />
     <None Include="Resources\Icons\icons-deadlift.gif" />
     <None Include="Resources\Icons\icons-workout.png" />

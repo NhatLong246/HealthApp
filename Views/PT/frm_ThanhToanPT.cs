@@ -22,10 +22,13 @@ namespace HealthApp.Views.PT
         private readonly string _datLichID;
         private readonly WF_HealthTracker _context;
         private DatLichPT _datLich;
+        private List<DatLichPT> _allPendingBookings = new List<DatLichPT>();
         private HuanLuyenVien _pt;
         private Users _khachHang;
         private string _selectedPaymentMethod = ""; // "MoMo" hoặc "ZaloPay"
         private List<Guna2CustomGradientPanel> _paymentPanels = new List<Guna2CustomGradientPanel>();
+        private Dictionary<string, DatLichPT> _bookingPanels = new Dictionary<string, DatLichPT>(); // Map panel name to booking
+        private Dictionary<string, CheckBox> _bookingCheckboxes = new Dictionary<string, CheckBox>(); // Map booking ID to checkbox
 
         public frm_ThanhToanPT(frmDashBoard parentDashboard = null, string datLichID = null)
         {
@@ -51,39 +54,57 @@ namespace HealthApp.Views.PT
         {
             try
             {
-                if (string.IsNullOrEmpty(_datLichID))
+                // Kiểm tra đăng nhập
+                if (!Common.Helpers.CurrentUser.IsLoggedIn || Common.Helpers.CurrentUser.User == null)
                 {
-                    MessageBox.Show("Không có thông tin đặt lịch!", "Lỗi", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Close();
-                    return;
-                }
-
-                // Load DatLichPT
-                _datLich = await Task.Run(() => _context.DatLichPT.FirstOrDefault(d => d.DatLichID == _datLichID));
-                if (_datLich == null)
-                {
-                    MessageBox.Show("Không tìm thấy thông tin đặt lịch!", "Lỗi", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Close();
-                    return;
-                }
-
-                // Load PT (từ PTID trong DatLichPT)
-                if (!string.IsNullOrEmpty(_datLich.PTID))
-                {
-                    _pt = await Task.Run(() => _context.HuanLuyenVien.FirstOrDefault(p => p.PTID == _datLich.PTID));
-                }
-                else
-                {
-                    MessageBox.Show("Yêu cầu này chưa được PT đồng ý!", "Thông báo", 
+                    MessageBox.Show("Vui lòng đăng nhập trước khi thanh toán!", "Thông báo", 
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     this.Close();
                     return;
                 }
 
+                string userId = Common.Helpers.CurrentUser.User.UserID;
+
+                // Load tất cả các pending bookings của user
+                _allPendingBookings = await Task.Run(() => _context.DatLichPT
+                    .Where(d => d.KhachHangID == userId &&
+                               d.TrangThai == "Pending" &&
+                               !string.IsNullOrEmpty(d.PTID))
+                    .OrderByDescending(d => d.NgayTao)
+                    .ToList());
+
+                if (_allPendingBookings == null || _allPendingBookings.Count == 0)
+                {
+                    MessageBox.Show("Bạn không có yêu cầu nào cần thanh toán!", "Thông báo", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                    return;
+                }
+
+                // Nếu có datLichID cụ thể, ưu tiên hiển thị booking đó
+                if (!string.IsNullOrEmpty(_datLichID))
+                {
+                    _datLich = _allPendingBookings.FirstOrDefault(d => d.DatLichID == _datLichID);
+                }
+                else
+                {
+                    // Lấy booking đầu tiên để hiển thị thông tin chung
+                    _datLich = _allPendingBookings.FirstOrDefault();
+                }
+
+                if (_datLich == null)
+                {
+                    _datLich = _allPendingBookings.FirstOrDefault();
+                }
+
+                // Load PT (từ PTID trong DatLichPT đầu tiên)
+                if (_datLich != null && !string.IsNullOrEmpty(_datLich.PTID))
+                {
+                    _pt = await Task.Run(() => _context.HuanLuyenVien.FirstOrDefault(p => p.PTID == _datLich.PTID));
+                }
+
                 // Load khách hàng
-                _khachHang = await Task.Run(() => _context.Users.FirstOrDefault(u => u.UserID == _datLich.KhachHangID));
+                _khachHang = await Task.Run(() => _context.Users.FirstOrDefault(u => u.UserID == userId));
 
                 // Hiển thị dữ liệu
                 DisplayData();
@@ -154,10 +175,31 @@ namespace HealthApp.Views.PT
                 // Ẩn panel mẫu pnlDanhSachThanhToan
                 pnlDanhSachThanhToan.Visible = false;
 
-                // Tạo panel thanh toán động trong pnlTongTinDatLich
-                var paymentPanel = CreatePaymentItemPanel();
-                pnlTongTinDatLich.Controls.Add(paymentPanel);
-                _paymentPanels.Add(paymentPanel);
+                // Xóa các panel cũ
+                foreach (var panel in _paymentPanels)
+                {
+                    if (panel != null && !panel.IsDisposed)
+                    {
+                        pnlTongTinDatLich.Controls.Remove(panel);
+                        panel.Dispose();
+                    }
+                }
+                _paymentPanels.Clear();
+                _bookingPanels.Clear();
+                _bookingCheckboxes.Clear();
+
+                // Tạo panel thanh toán cho mỗi booking
+                int yOffset = 53; // Vị trí Y ban đầu
+                foreach (var booking in _allPendingBookings)
+                {
+                    var paymentPanel = CreatePaymentItemPanel(booking, yOffset);
+                    pnlTongTinDatLich.Controls.Add(paymentPanel);
+                    _paymentPanels.Add(paymentPanel);
+                    _bookingPanels[paymentPanel.Name] = booking;
+                    
+                    // Tăng offset cho panel tiếp theo (200 height + 15 margin)
+                    yOffset += 215;
+                }
             }
             catch (Exception ex)
             {
@@ -166,18 +208,37 @@ namespace HealthApp.Views.PT
             }
         }
 
-        private Guna2CustomGradientPanel CreatePaymentItemPanel()
+        private Guna2CustomGradientPanel CreatePaymentItemPanel(DatLichPT booking, int yOffset)
         {
+            // Load PT và khách hàng cho booking này
+            var bookingPT = _context.HuanLuyenVien.FirstOrDefault(p => p.PTID == booking.PTID);
+            var bookingPTUser = bookingPT != null ? _context.Users.FirstOrDefault(u => u.UserID == bookingPT.UserID) : null;
+            var bookingKhachHang = _context.Users.FirstOrDefault(u => u.UserID == booking.KhachHangID);
+
             var panel = new Guna2CustomGradientPanel
             {
                 BackColor = Color.White,
                 BorderColor = Color.Silver,
                 BorderRadius = 20,
                 BorderThickness = 1,
-                Location = new Point(24, 53),
-                Name = $"pnlPaymentItem_{_datLichID}",
+                Location = new Point(24, yOffset),
+                Name = $"pnlPaymentItem_{booking.DatLichID}",
                 Size = new Size(958, 200)
             };
+
+            // Thêm checkbox để chọn booking này
+            var chkSelect = new CheckBox
+            {
+                AutoSize = true,
+                Location = new Point(10, 10),
+                Name = $"chkSelect_{booking.DatLichID}",
+                Text = "",
+                Checked = false, // Mặc định chưa chọn
+                Size = new Size(18, 18)
+            };
+            chkSelect.CheckedChanged += (s, e) => UpdateTotalPrice();
+            panel.Controls.Add(chkSelect);
+            _bookingCheckboxes[booking.DatLichID] = chkSelect;
 
             // Copy các controls từ pnlDanhSachThanhToan mẫu
             // Thông tin khách hàng
@@ -186,7 +247,7 @@ namespace HealthApp.Views.PT
                 BackColor = Color.Transparent,
                 FillColor = Color.Honeydew,
                 Location = new Point(49, 21),
-                Name = $"pnlNguoiDung_{_datLichID}",
+                Name = $"pnlNguoiDung_{booking.DatLichID}",
                 Radius = 10,
                 ShadowColor = Color.FromArgb(0, 192, 0),
                 ShadowShift = 1,
@@ -197,14 +258,14 @@ namespace HealthApp.Views.PT
             {
                 ImageRotate = 0F,
                 Location = new Point(17, 12),
-                Name = $"ptrAvatar_{_datLichID}",
+                Name = $"ptrAvatar_{booking.DatLichID}",
                 ShadowDecoration = { Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle },
                 Size = new Size(60, 53),
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
-            if (_khachHang != null)
+            if (bookingKhachHang != null)
             {
-                LoadAvatar(ptrAvatarCopy, _khachHang.AnhDaiDien);
+                LoadAvatar(ptrAvatarCopy, bookingKhachHang.AnhDaiDien);
             }
             pnlNguoiDungCopy.Controls.Add(ptrAvatarCopy);
 
@@ -214,8 +275,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 13.2F, FontStyle.Bold),
                 ForeColor = Color.Black,
                 Location = new Point(82, 12),
-                Name = $"lblTen_{_datLichID}",
-                Text = _khachHang?.HoTen ?? _khachHang?.Username ?? ""
+                Name = $"lblTen_{booking.DatLichID}",
+                Text = bookingKhachHang?.HoTen ?? bookingKhachHang?.Username ?? ""
             };
             pnlNguoiDungCopy.Controls.Add(lblTenCopy);
 
@@ -225,8 +286,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(83, 46),
-                Name = $"lblMucTieu_{_datLichID}",
-                Text = _datLich?.GhiChu ?? ""
+                Name = $"lblMucTieu_{booking.DatLichID}",
+                Text = booking?.GhiChu ?? ""
             };
             pnlNguoiDungCopy.Controls.Add(lblMucTieuCopy);
             panel.Controls.Add(pnlNguoiDungCopy);
@@ -248,14 +309,14 @@ namespace HealthApp.Views.PT
             {
                 ImageRotate = 0F,
                 Location = new Point(17, 12),
-                Name = $"ptrPTAvatar_{_datLichID}",
+                Name = $"ptrPTAvatar_{booking.DatLichID}",
                 ShadowDecoration = { Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle },
                 Size = new Size(60, 53),
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
-            if (_pt != null)
+            if (bookingPT != null)
             {
-                LoadAvatar(ptrPTAvatarCopy, _pt.AnhDaiDien);
+                LoadAvatar(ptrPTAvatarCopy, bookingPT.AnhDaiDien);
             }
             pnlPTCopy.Controls.Add(ptrPTAvatarCopy);
 
@@ -265,17 +326,9 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 13.2F, FontStyle.Bold),
                 ForeColor = Color.Black,
                 Location = new Point(82, 12),
-                Name = $"lblPTTen_{_datLichID}",
-                Text = ""
+                Name = $"lblPTTen_{booking.DatLichID}",
+                Text = bookingPTUser?.HoTen ?? bookingPTUser?.Username ?? ""
             };
-            if (_pt != null)
-            {
-                var ptUser = _context.Users.FirstOrDefault(u => u.UserID == _pt.UserID);
-                if (ptUser != null)
-                {
-                    lblPTTenCopy.Text = ptUser.HoTen ?? ptUser.Username;
-                }
-            }
             pnlPTCopy.Controls.Add(lblPTTenCopy);
             panel.Controls.Add(pnlPTCopy);
 
@@ -286,7 +339,7 @@ namespace HealthApp.Views.PT
                 Image = ptrIcon.Image,
                 ImageRotate = 0F,
                 Location = new Point(52, 122),
-                Name = $"ptrIcon_{_datLichID}",
+                Name = $"ptrIcon_{booking.DatLichID}",
                 Size = new Size(28, 26),
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
@@ -297,7 +350,7 @@ namespace HealthApp.Views.PT
                 BackColor = Color.Transparent,
                 Font = new Font("Times New Roman", 12F, FontStyle.Bold),
                 Location = new Point(86, 123),
-                Name = $"lblChonNgay_{_datLichID}",
+                Name = $"lblChonNgay_{booking.DatLichID}",
                 Text = "Ngày giờ"
             };
             panel.Controls.Add(lblChonNgayCopy);
@@ -309,8 +362,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(57, 161),
-                Name = $"lblThoiGian_{_datLichID}",
-                Text = _datLich != null ? $"{_datLich.ThoiGianBatDau:HH:mm} - {_datLich.ThoiGianKetThuc:HH:mm}" : ""
+                Name = $"lblThoiGian_{booking.DatLichID}",
+                Text = booking != null ? $"{booking.ThoiGianBatDau:HH:mm} - {booking.ThoiGianKetThuc:HH:mm}" : ""
             };
             panel.Controls.Add(lblThoiGianCopy);
 
@@ -321,8 +374,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(170, 161),
-                Name = $"lblThu_{_datLichID}",
-                Text = _datLich != null ? GetDayOfWeekVietnamese(_datLich.ThoiGianBatDau.DayOfWeek) : ""
+                Name = $"lblThu_{booking.DatLichID}",
+                Text = booking != null ? GetDayOfWeekVietnamese(booking.ThoiGianBatDau.DayOfWeek) : ""
             };
             panel.Controls.Add(lblThuCopy);
 
@@ -333,8 +386,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(227, 161),
-                Name = $"lblNgayTap_{_datLichID}",
-                Text = _datLich != null ? _datLich.ThoiGianBatDau.ToString("dd/MM/yyyy") : ""
+                Name = $"lblNgayTap_{booking.DatLichID}",
+                Text = booking != null ? booking.ThoiGianBatDau.ToString("dd/MM/yyyy") : ""
             };
             panel.Controls.Add(lblNgayTapCopy);
 
@@ -345,18 +398,19 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 10.2F, FontStyle.Bold),
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(460, 53),
-                Name = $"lblDen_{_datLichID}",
+                Name = $"lblDen_{booking.DatLichID}",
                 Text = "Đến"
             };
             panel.Controls.Add(lblDenCopy);
 
-            // Tiền thanh toán
+            // Tiền thanh toán cho booking này
+            var bookingPrice = CalculatePriceForBooking(booking, bookingPT);
             var lblTienCopy = new Guna2HtmlLabel
             {
                 BackColor = Color.Transparent,
                 Font = new Font("Times New Roman", 15F, FontStyle.Bold),
                 Location = new Point(492, 149),
-                Name = $"lblTien_{_datLichID}",
+                Name = $"lblTien_{booking.DatLichID}",
                 Text = "Tiền:"
             };
             panel.Controls.Add(lblTienCopy);
@@ -367,8 +421,8 @@ namespace HealthApp.Views.PT
                 Font = new Font("Times New Roman", 15F, FontStyle.Bold),
                 ForeColor = Color.Blue,
                 Location = new Point(575, 149),
-                Name = $"lblTienThanhToan_{_datLichID}",
-                Text = CalculatePrice().ToString("N0") + "đ"
+                Name = $"lblTienThanhToan_{booking.DatLichID}",
+                Text = bookingPrice.ToString("N0") + "đ"
             };
             panel.Controls.Add(lblTienThanhToanCopy);
 
@@ -377,9 +431,14 @@ namespace HealthApp.Views.PT
 
         private void CalculateAndDisplayPrice()
         {
+            UpdateTotalPrice();
+        }
+
+        private void UpdateTotalPrice()
+        {
             try
             {
-                double totalPrice = CalculatePrice();
+                double totalPrice = CalculateTotalPriceForSelected();
                 lblTienThanhToan.Text = totalPrice.ToString("N0") + "đ";
                 lblTongTienThanhToan.Text = totalPrice.ToString("N0") + "đ";
             }
@@ -392,19 +451,73 @@ namespace HealthApp.Views.PT
 
         private double CalculatePrice()
         {
-            if (_datLich == null || _pt == null || _pt.GiaTheoGio == null)
+            // Tính tổng tiền cho tất cả bookings
+            return CalculateTotalPrice();
+        }
+
+        private double CalculateTotalPrice()
+        {
+            return CalculateTotalPriceForSelected();
+        }
+
+        private double CalculateTotalPriceForSelected()
+        {
+            double total = 0;
+            foreach (var booking in _allPendingBookings)
+            {
+                // Chỉ tính tiền cho các booking được chọn
+                if (_bookingCheckboxes.ContainsKey(booking.DatLichID) && 
+                    _bookingCheckboxes[booking.DatLichID].Checked)
+                {
+                    var pt = _context.HuanLuyenVien.FirstOrDefault(p => p.PTID == booking.PTID);
+                    if (pt != null && pt.GiaTheoGio.HasValue)
+                    {
+                        total += CalculatePriceForBooking(booking, pt);
+                    }
+                }
+            }
+            return total;
+        }
+
+        private List<DatLichPT> GetSelectedBookings()
+        {
+            var selected = new List<DatLichPT>();
+            foreach (var booking in _allPendingBookings)
+            {
+                if (_bookingCheckboxes.ContainsKey(booking.DatLichID) && 
+                    _bookingCheckboxes[booking.DatLichID].Checked)
+                {
+                    selected.Add(booking);
+                }
+            }
+            return selected;
+        }
+
+        private double CalculatePriceForBooking(DatLichPT booking, HuanLuyenVien pt)
+        {
+            if (booking == null || pt == null || pt.GiaTheoGio == null)
             {
                 return 0;
             }
 
             // Tính số giờ
-            TimeSpan duration = _datLich.ThoiGianKetThuc - _datLich.ThoiGianBatDau;
+            TimeSpan duration = booking.ThoiGianKetThuc - booking.ThoiGianBatDau;
             double hours = duration.TotalHours;
 
             // Tính tiền = số giờ * giá theo giờ
-            double price = hours * _pt.GiaTheoGio.Value;
+            double price = hours * pt.GiaTheoGio.Value;
 
             return price;
+        }
+
+        /// <summary>
+        /// Tính hoa hồng: 15% cho app, 85% cho PT
+        /// </summary>
+        private void CalculateCommission(double soTien, out double hoaHongApp, out double soTienHoaHong, out double soTienPTNhan)
+        {
+            hoaHongApp = 15; // 15%
+            soTienHoaHong = soTien * hoaHongApp / 100; // 15% của tổng tiền
+            soTienPTNhan = soTien - soTienHoaHong; // 85% của tổng tiền
         }
 
         private string GetDayOfWeekVietnamese(DayOfWeek dayOfWeek)
@@ -516,16 +629,30 @@ namespace HealthApp.Views.PT
                     return;
                 }
 
-                // Kiểm tra dữ liệu
-                if (_datLich == null || _pt == null)
+                // Lấy danh sách bookings được chọn
+                var selectedBookings = GetSelectedBookings();
+                
+                if (selectedBookings == null || selectedBookings.Count == 0)
                 {
-                    MessageBox.Show("Thông tin đặt lịch không hợp lệ!", "Lỗi", 
+                    MessageBox.Show("Vui lòng chọn ít nhất một giao dịch để thanh toán!", "Thông báo", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                double totalPrice = CalculateTotalPriceForSelected();
+                if (totalPrice <= 0)
+                {
+                    MessageBox.Show("Tổng tiền thanh toán không hợp lệ!", "Lỗi", 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 // Xác nhận thanh toán
-                var confirm = MessageBox.Show($"Bạn có chắc chắn muốn thanh toán {CalculatePrice():N0}đ bằng {_selectedPaymentMethod}?", 
+                string confirmMessage = selectedBookings.Count == 1
+                    ? $"Bạn có chắc chắn muốn thanh toán {totalPrice:N0}đ bằng {_selectedPaymentMethod}?"
+                    : $"Bạn có chắc chắn muốn thanh toán {selectedBookings.Count} giao dịch với tổng tiền {totalPrice:N0}đ bằng {_selectedPaymentMethod}?";
+                
+                var confirm = MessageBox.Show(confirmMessage, 
                     "Xác nhận thanh toán", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (confirm != DialogResult.Yes)
@@ -533,36 +660,16 @@ namespace HealthApp.Views.PT
                     return;
                 }
 
-                // Giả lập thanh toán (trong thực tế sẽ gọi API thanh toán)
-                bool paymentSuccess = await ProcessPayment();
+                // Thanh toán các bookings được chọn
+                bool paymentSuccess = await ProcessPaymentForSelectedBookings(selectedBookings);
 
                 if (paymentSuccess)
                 {
-                    // Cập nhật trạng thái DatLichPT thành "Confirmed"
-                    _datLich.TrangThai = "Confirmed";
-                    _datLich.NgayCapNhat = DateTime.Now;
-
-                    // Tạo giao dịch
-                    var giaoDich = new GiaoDich
-                    {
-                        GiaoDichID = GenerateGiaoDichID(),
-                        DatLichID = _datLich.DatLichID,
-                        KhachHangID = _datLich.KhachHangID,
-                        PTID = _pt.PTID,
-                        SoTien = CalculatePrice(),
-                        PhuongThucThanhToan = _selectedPaymentMethod,
-                        TrangThaiThanhToan = "Completed",
-                        NgayGiaoDich = DateTime.Now
-                    };
-
-                    _context.GiaoDich.Add(giaoDich);
-                    await Task.Run(() => _context.SaveChanges());
-
-                    MessageBox.Show("Thanh toán thành công!", "Thành công", 
+                    MessageBox.Show($"Thanh toán thành công {selectedBookings.Count} giao dịch!", "Thành công", 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Đóng form và quay lại Dashboard
-                    NavigateBackToDashboard();
+                    // Reload lại danh sách để cập nhật
+                    LoadData();
                 }
                 else
                 {
@@ -575,6 +682,239 @@ namespace HealthApp.Views.PT
                 // Log lỗi nhưng không hiển thị dialog
                 System.Diagnostics.Debug.WriteLine($"Lỗi khi thanh toán: {ex.Message}");
                 System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+            }
+        }
+
+        private async Task<bool> ProcessPaymentForSelectedBookings(List<DatLichPT> selectedBookings)
+        {
+            try
+            {
+                // Tính tổng tiền cho các bookings được chọn
+                double totalAmount = 0;
+                foreach (var booking in selectedBookings)
+                {
+                    var pt = _context.HuanLuyenVien.FirstOrDefault(p => p.PTID == booking.PTID);
+                    if (pt != null && pt.GiaTheoGio.HasValue)
+                    {
+                        totalAmount += CalculatePriceForBooking(booking, pt);
+                    }
+                }
+
+                if (totalAmount <= 0)
+                {
+                    return false;
+                }
+
+                var paymentService = new PaymentService();
+                var orderId = GenerateGiaoDichID();
+                var amount = (long)totalAmount;
+                
+                // Tạo order info từ các bookings được chọn
+                string orderInfo = $"Thanh toán {selectedBookings.Count} buổi tập PT";
+                if (selectedBookings.Count == 1)
+                {
+                    var booking = selectedBookings[0];
+                    var pt = _context.HuanLuyenVien.FirstOrDefault(p => p.PTID == booking.PTID);
+                    var ptUser = pt != null ? _context.Users.FirstOrDefault(u => u.UserID == pt.UserID) : null;
+                    string ptName = ptUser?.HoTen ?? ptUser?.Username ?? "PT";
+                    string ngayTap = booking.ThoiGianBatDau.ToString("dd/MM/yyyy");
+                    orderInfo = $"Thanh toán PT - {ptName} - {ngayTap}";
+                }
+                
+                // URL callback (có thể cấu hình trong App.config)
+                var returnUrl = "https://your-domain.com/payment/return";
+                var notifyUrl = "https://your-domain.com/payment/notify";
+                var callbackUrl = "https://your-domain.com/payment/zalopay-callback";
+
+                PaymentResult result;
+
+                if (_selectedPaymentMethod == "MoMo")
+                {
+                    result = await paymentService.CreateMoMoPaymentAsync(
+                        orderId, 
+                        amount, 
+                        orderInfo, 
+                        returnUrl, 
+                        notifyUrl
+                    );
+                }
+                else if (_selectedPaymentMethod == "ZaloPay")
+                {
+                    result = await paymentService.CreateZaloPayPaymentAsync(
+                        orderId,
+                        amount,
+                        orderInfo,
+                        callbackUrl
+                    );
+                }
+                else
+                {
+                    MessageBox.Show("Phương thức thanh toán không hợp lệ!", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                // Kiểm tra kết quả
+                if (!result.Success)
+                {
+                    MessageBox.Show(
+                        $"Không thể tạo yêu cầu thanh toán {_selectedPaymentMethod}!\n\n" +
+                        $"Lỗi: {result.Message}",
+                        "Lỗi thanh toán",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return false;
+                }
+
+                if (result.Success && !string.IsNullOrEmpty(result.PaymentUrl))
+                {
+                    // Kiểm tra xem có booking nào đã có GiaoDich chưa
+                    var bookingsWithExistingGiaoDich = new List<string>();
+                    foreach (var booking in selectedBookings)
+                    {
+                        var existingGiaoDich = _context.GiaoDich.FirstOrDefault(g => g.DatLichID == booking.DatLichID);
+                        if (existingGiaoDich != null)
+                        {
+                            bookingsWithExistingGiaoDich.Add(booking.DatLichID);
+                        }
+                    }
+
+                    if (bookingsWithExistingGiaoDich.Count > 0)
+                    {
+                        MessageBox.Show(
+                            $"Một số booking đã được thanh toán trước đó. Vui lòng làm mới trang và thử lại.\n" +
+                            $"Các booking đã thanh toán: {string.Join(", ", bookingsWithExistingGiaoDich)}",
+                            "Lỗi",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        return false;
+                    }
+
+                    // Tính hoa hồng cho giao dịch tổng
+                    double hoaHongAppTotal, soTienHoaHongTotal, soTienPTNhanTotal;
+                    CalculateCommission(totalAmount, out hoaHongAppTotal, out soTienHoaHongTotal, out soTienPTNhanTotal);
+                    
+                    // Tìm booking đầu tiên chưa có GiaoDich để làm temporary record
+                    var firstBookingWithoutGiaoDich = selectedBookings.FirstOrDefault(b => 
+                        !_context.GiaoDich.Any(g => g.DatLichID == b.DatLichID));
+
+                    if (firstBookingWithoutGiaoDich == null)
+                    {
+                        MessageBox.Show(
+                            "Tất cả các booking đã được thanh toán. Vui lòng làm mới trang.",
+                            "Thông báo",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                        return false;
+                    }
+
+                    // Tạo giao dịch tạm thời cho booking đầu tiên (sẽ bị xóa sau khi thanh toán thành công)
+                    var giaoDich = new GiaoDich
+                    {
+                        GiaoDichID = orderId,
+                        DatLichID = firstBookingWithoutGiaoDich.DatLichID, // Sử dụng booking đầu tiên chưa có GiaoDich
+                        KhachHangID = firstBookingWithoutGiaoDich.KhachHangID,
+                        PTID = firstBookingWithoutGiaoDich.PTID,
+                        SoTien = totalAmount,
+                        HoaHongApp = hoaHongAppTotal,
+                        SoTienHoaHong = soTienHoaHongTotal,
+                        SoTienPTNhan = soTienPTNhanTotal,
+                        PhuongThucThanhToan = _selectedPaymentMethod,
+                        TrangThaiThanhToan = "Pending",
+                        MaGiaoDich = result.TransactionId,
+                        NgayGiaoDich = DateTime.Now
+                    };
+                    _context.GiaoDich.Add(giaoDich);
+                    await Task.Run(() => _context.SaveChanges());
+
+                    // Mở form hiển thị QR code
+                    using (var paymentForm = new frm_PaymentQRCode(
+                        result.PaymentUrl,
+                        result.QrCodeUrl,
+                        orderId,
+                        _selectedPaymentMethod,
+                        totalAmount,
+                        _context))
+                    {
+                        var paymentResult = paymentForm.ShowDialog(this);
+
+                        if (paymentResult == DialogResult.OK)
+                        {
+                            // Reload từ database
+                            _context.Entry(giaoDich).Reload();
+                            var updatedGiaoDich = _context.GiaoDich.FirstOrDefault(g => g.GiaoDichID == orderId);
+                            
+                            if (updatedGiaoDich != null && updatedGiaoDich.TrangThaiThanhToan == "Completed")
+                            {
+                                // Xóa giao dịch tổng tạm thời
+                                _context.GiaoDich.Remove(updatedGiaoDich);
+                                
+                                // Tạo giao dịch riêng cho mỗi booking được chọn
+                                foreach (var booking in selectedBookings)
+                                {
+                                    // Kiểm tra xem booking này đã có GiaoDich chưa (tránh duplicate)
+                                    var existingGiaoDich = _context.GiaoDich.FirstOrDefault(g => g.DatLichID == booking.DatLichID);
+                                    if (existingGiaoDich != null)
+                                    {
+                                        // Nếu đã có GiaoDich, chỉ cập nhật trạng thái booking
+                                        booking.TrangThai = "Confirmed";
+                                        booking.NgayCapNhat = DateTime.Now;
+                                        continue;
+                                    }
+
+                                    var bookingPT = _context.HuanLuyenVien.FirstOrDefault(p => p.PTID == booking.PTID);
+                                    if (bookingPT != null && bookingPT.GiaTheoGio.HasValue)
+                                    {
+                                        // Tính tiền cho booking này
+                                        TimeSpan duration = booking.ThoiGianKetThuc - booking.ThoiGianBatDau;
+                                        double bookingPrice = duration.TotalHours * bookingPT.GiaTheoGio.Value;
+                                        
+                                        // Tính hoa hồng cho booking này (khai báo biến mới trong scope của vòng lặp)
+                                        double bookingHoaHongApp, bookingSoTienHoaHong, bookingSoTienPTNhan;
+                                        CalculateCommission(bookingPrice, out bookingHoaHongApp, out bookingSoTienHoaHong, out bookingSoTienPTNhan);
+                                        
+                                        // Tạo giao dịch riêng
+                                        var bookingGiaoDich = new GiaoDich
+                                        {
+                                            GiaoDichID = GenerateGiaoDichID(),
+                                            DatLichID = booking.DatLichID,
+                                            KhachHangID = booking.KhachHangID,
+                                            PTID = booking.PTID,
+                                            SoTien = bookingPrice,
+                                            HoaHongApp = bookingHoaHongApp,
+                                            SoTienHoaHong = bookingSoTienHoaHong,
+                                            SoTienPTNhan = bookingSoTienPTNhan,
+                                            PhuongThucThanhToan = _selectedPaymentMethod,
+                                            TrangThaiThanhToan = "Completed",
+                                            MaGiaoDich = result.TransactionId,
+                                            NgayGiaoDich = DateTime.Now
+                                        };
+                                        _context.GiaoDich.Add(bookingGiaoDich);
+                                        
+                                        // Cập nhật trạng thái booking
+                                        booking.TrangThai = "Confirmed";
+                                        booking.NgayCapNhat = DateTime.Now;
+                                    }
+                                }
+                                
+                                await Task.Run(() => _context.SaveChanges());
+
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xử lý thanh toán: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
@@ -667,6 +1007,11 @@ namespace HealthApp.Views.PT
                         .FirstOrDefault(g => g.DatLichID == _datLich.DatLichID);
 
                     GiaoDich giaoDich;
+                    
+                    // Khai báo biến hoa hồng một lần để tái sử dụng
+                    double hoaHongApp, soTienHoaHong, soTienPTNhan;
+                    double soTien = CalculatePrice();
+                    CalculateCommission(soTien, out hoaHongApp, out soTienHoaHong, out soTienPTNhan);
 
                     if (existingGiaoDich != null)
                     {
@@ -689,7 +1034,10 @@ namespace HealthApp.Views.PT
                             System.Diagnostics.Debug.WriteLine($"Cập nhật giao dịch đang pending: {existingGiaoDich.GiaoDichID}");
                             giaoDich = existingGiaoDich;
                             // Giữ nguyên GiaoDichID cũ, chỉ cập nhật thông tin thanh toán
-                            giaoDich.SoTien = CalculatePrice();
+                            giaoDich.SoTien = soTien;
+                            giaoDich.HoaHongApp = hoaHongApp;
+                            giaoDich.SoTienHoaHong = soTienHoaHong;
+                            giaoDich.SoTienPTNhan = soTienPTNhan;
                             giaoDich.PhuongThucThanhToan = _selectedPaymentMethod;
                             giaoDich.TrangThaiThanhToan = "Pending";
                             giaoDich.MaGiaoDich = result.TransactionId;
@@ -712,7 +1060,10 @@ namespace HealthApp.Views.PT
                                 DatLichID = _datLich.DatLichID,
                                 KhachHangID = _datLich.KhachHangID,
                                 PTID = _pt.PTID,
-                                SoTien = CalculatePrice(),
+                                SoTien = soTien,
+                                HoaHongApp = hoaHongApp,
+                                SoTienHoaHong = soTienHoaHong,
+                                SoTienPTNhan = soTienPTNhan,
                                 PhuongThucThanhToan = _selectedPaymentMethod,
                                 TrangThaiThanhToan = "Pending",
                                 MaGiaoDich = result.TransactionId,
@@ -731,7 +1082,10 @@ namespace HealthApp.Views.PT
                             DatLichID = _datLich.DatLichID,
                             KhachHangID = _datLich.KhachHangID,
                             PTID = _pt.PTID,
-                            SoTien = CalculatePrice(),
+                            SoTien = soTien,
+                            HoaHongApp = hoaHongApp,
+                            SoTienHoaHong = soTienHoaHong,
+                            SoTienPTNhan = soTienPTNhan,
                             PhuongThucThanhToan = _selectedPaymentMethod,
                             TrangThaiThanhToan = "Pending",
                             MaGiaoDich = result.TransactionId,
