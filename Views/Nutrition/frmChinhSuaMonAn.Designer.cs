@@ -248,7 +248,7 @@
             this.lblTieuDe.ForeColor = System.Drawing.Color.White;
             this.lblTieuDe.Location = new System.Drawing.Point(160, 15);
             this.lblTieuDe.Name = "lblTieuDe";
-            this.lblTieuDe.Size = new System.Drawing.Size(180, 31);
+            this.lblTieuDe.Size = new System.Drawing.Size(206, 31);
             this.lblTieuDe.TabIndex = 0;
             this.lblTieuDe.Text = "Chỉnh Sửa Món Ăn";
             // 

@@ -606,6 +606,9 @@
     <EmbeddedResource Include="Views\Nutrition\ChonCheDoAnUong.resx">
       <DependentUpon>ChonCheDoAnUong.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Nutrition\frmChinhSuaMonAn.resx">
+      <DependentUpon>frmChinhSuaMonAn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\frmDanhSachMonAn.resx">
       <DependentUpon>frmDanhSachMonAn.cs</DependentUpon>
     </EmbeddedResource>

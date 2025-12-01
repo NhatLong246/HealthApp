@@ -616,6 +616,11 @@ namespace HealthApp.Views.Nutrition
         private void Guna2DateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             // Reload món ăn và thống kê khi thay đổi ngày (async để không block UI)
+            // Kiểm tra và cập nhật button state dựa trên ngày mới
+            DateTime selectedDate = guna2DateTimePicker1?.Value.Date ?? DateTime.Today;
+            bool hasSavedData = CheckIfDateHasSavedData(selectedDate);
+            UpdateSaveButtonState(hasSavedData);
+            
             ReloadSuggestedFoods();
             _ = UpdateWeeklyMonthlyStatsAsync();
         }
@@ -776,28 +781,62 @@ namespace HealthApp.Views.Nutrition
             {
                 System.Diagnostics.Debug.WriteLine("=== LoadSuggestedFoodsAsync START ===");
                 
-                // Clear dữ liệu cũ trước khi load mới
-                _loadedFoodsSang.Clear();
-                _loadedFoodsTrua.Clear();
-                _loadedFoodsToi.Clear();
-                _loadedFoodsPhu.Clear();
-                _monAnDaDeXuatTrongNgay.Clear(); // Clear danh sách món đã đề xuất khi load lại
-                _khoiLuongDeXuat.Clear(); // Clear số lượng đề xuất
+                // Kiểm tra xem ngày hiện tại đã có dữ liệu trong BuaAnChiTiet chưa
+                DateTime selectedDate = guna2DateTimePicker1?.Value.Date ?? DateTime.Today;
+                bool hasSavedData = CheckIfDateHasSavedData(selectedDate);
                 
-                // Load món ăn đề xuất tuần tự để tránh trùng lặp (bữa sau biết bữa trước đã đề xuất gì)
-                await LoadFoodsToPanelAsync("Sáng", _pnlScrollBuaSang, 3);
-                await LoadFoodsToPanelAsync("Trưa", _pnlScrollBuaTrua, 3);
-                await LoadFoodsToPanelAsync("Tối", _pnlScrollBuaToi, 3);
-                await LoadFoodsToPanelAsync("Bữa phụ", _pnlScrollBuaPhu, 3);
-
-                // Load món ăn đã thêm vào các panel SAU khi load món đề xuất (để không bị xóa)
-                if (this.InvokeRequired)
+                if (hasSavedData)
                 {
-                    this.Invoke(new Action(() => LoadAddedFoodsToPanels()));
+                    // Nếu đã có dữ liệu đã lưu, chỉ load từ BuaAnChiTiet, không load đề xuất ngẫu nhiên
+                    System.Diagnostics.Debug.WriteLine($"[LoadSuggestedFoodsAsync] Ngày {selectedDate:dd/MM/yyyy} đã có dữ liệu đã lưu, chỉ load từ BuaAnChiTiet");
+                    
+                    // Clear các panel trước
+                    ClearAllPanels();
+                    
+                    // Load từ BuaAnChiTiet
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new Action(() => LoadAddedFoodsToPanels()));
+                    }
+                    else
+                    {
+                        LoadAddedFoodsToPanels();
+                    }
+                    
+                    // Cập nhật button state
+                    UpdateSaveButtonState(true);
                 }
                 else
                 {
-                    LoadAddedFoodsToPanels();
+                    // Nếu chưa có dữ liệu đã lưu, load đề xuất ngẫu nhiên như bình thường
+                    System.Diagnostics.Debug.WriteLine($"[LoadSuggestedFoodsAsync] Ngày {selectedDate:dd/MM/yyyy} chưa có dữ liệu đã lưu, load đề xuất ngẫu nhiên");
+                    
+                    // Clear dữ liệu cũ trước khi load mới
+                    _loadedFoodsSang.Clear();
+                    _loadedFoodsTrua.Clear();
+                    _loadedFoodsToi.Clear();
+                    _loadedFoodsPhu.Clear();
+                    _monAnDaDeXuatTrongNgay.Clear(); // Clear danh sách món đã đề xuất khi load lại
+                    _khoiLuongDeXuat.Clear(); // Clear số lượng đề xuất
+                    
+                    // Load món ăn đề xuất tuần tự để tránh trùng lặp (bữa sau biết bữa trước đã đề xuất gì)
+                    await LoadFoodsToPanelAsync("Sáng", _pnlScrollBuaSang, 3);
+                    await LoadFoodsToPanelAsync("Trưa", _pnlScrollBuaTrua, 3);
+                    await LoadFoodsToPanelAsync("Tối", _pnlScrollBuaToi, 3);
+                    await LoadFoodsToPanelAsync("Bữa phụ", _pnlScrollBuaPhu, 3);
+
+                    // Load món ăn đã thêm vào các panel SAU khi load món đề xuất (để không bị xóa)
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new Action(() => LoadAddedFoodsToPanels()));
+                    }
+                    else
+                    {
+                        LoadAddedFoodsToPanels();
+                    }
+                    
+                    // Cập nhật button state
+                    UpdateSaveButtonState(false);
                 }
 
                 // Đã load tuần tự ở trên, không cần Task.WhenAll nữa
@@ -2714,6 +2753,147 @@ namespace HealthApp.Views.Nutrition
         }
 
         /// <summary>
+        /// Kiểm tra xem ngày hiện tại đã có dữ liệu đã lưu trong BuaAnChiTiet chưa
+        /// </summary>
+        private bool CheckIfDateHasSavedData(DateTime date)
+        {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn) return false;
+
+                using (var dbContext = new WF_HealthTracker())
+                {
+                    string keHoachAnID = GetOrCreateKeHoachAnUong(dbContext);
+                    if (string.IsNullOrEmpty(keHoachAnID)) return false;
+
+                    var ngayBatDau = date.Date;
+                    var ngayKetThuc = date.Date.AddDays(1).AddTicks(-1);
+
+                    bool hasData = dbContext.BuaAnChiTiet
+                        .Any(b => b.KeHoachAnID == keHoachAnID &&
+                               b.NgayAn >= ngayBatDau &&
+                               b.NgayAn < ngayKetThuc);
+
+                    System.Diagnostics.Debug.WriteLine($"[CheckIfDateHasSavedData] Ngày {date:dd/MM/yyyy} có dữ liệu đã lưu: {hasData}");
+                    return hasData;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[CheckIfDateHasSavedData] Lỗi: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Cập nhật trạng thái button Lưu (text và màu)
+        /// </summary>
+        private void UpdateSaveButtonState(bool isSaved)
+        {
+            try
+            {
+                if (_btnLuu == null) return;
+
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => UpdateSaveButtonState(isSaved)));
+                    return;
+                }
+
+                if (isSaved)
+                {
+                    _btnLuu.Text = "Đã lưu";
+                    _btnLuu.FillColor = Color.FromArgb(76, 175, 80); // Màu xanh lá
+                    _btnLuu.BorderColor = Color.FromArgb(76, 175, 80);
+                    _btnLuu.Enabled = true; // Vẫn cho phép click để lưu lại nếu có thay đổi
+                    System.Diagnostics.Debug.WriteLine("[UpdateSaveButtonState] Đã cập nhật button thành 'Đã lưu'");
+                }
+                else
+                {
+                    _btnLuu.Text = "Lưu";
+                    _btnLuu.FillColor = Color.FromArgb(19, 217, 195); // Màu teal ban đầu
+                    _btnLuu.BorderColor = Color.FromArgb(19, 217, 195);
+                    _btnLuu.Enabled = true;
+                    System.Diagnostics.Debug.WriteLine("[UpdateSaveButtonState] Đã cập nhật button thành 'Lưu'");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[UpdateSaveButtonState] Lỗi: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Xóa tất cả các panel (chỉ xóa món ăn, giữ lại panel)
+        /// </summary>
+        private void ClearAllPanels()
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("[ClearAllPanels] Bắt đầu xóa tất cả món ăn từ các panel");
+
+                // Xóa tất cả controls từ các panel
+                if (_pnlScrollBuaSang != null)
+                {
+                    var controlsToRemove = _pnlScrollBuaSang.Controls.Cast<Control>().ToList();
+                    foreach (var ctrl in controlsToRemove)
+                    {
+                        _pnlScrollBuaSang.Controls.Remove(ctrl);
+                        if (ctrl is IDisposable disposable)
+                        {
+                            try { disposable.Dispose(); } catch { }
+                        }
+                    }
+                }
+
+                if (_pnlScrollBuaTrua != null)
+                {
+                    var controlsToRemove = _pnlScrollBuaTrua.Controls.Cast<Control>().ToList();
+                    foreach (var ctrl in controlsToRemove)
+                    {
+                        _pnlScrollBuaTrua.Controls.Remove(ctrl);
+                        if (ctrl is IDisposable disposable)
+                        {
+                            try { disposable.Dispose(); } catch { }
+                        }
+                    }
+                }
+
+                if (_pnlScrollBuaToi != null)
+                {
+                    var controlsToRemove = _pnlScrollBuaToi.Controls.Cast<Control>().ToList();
+                    foreach (var ctrl in controlsToRemove)
+                    {
+                        _pnlScrollBuaToi.Controls.Remove(ctrl);
+                        if (ctrl is IDisposable disposable)
+                        {
+                            try { disposable.Dispose(); } catch { }
+                        }
+                    }
+                }
+
+                if (_pnlScrollBuaPhu != null)
+                {
+                    var controlsToRemove = _pnlScrollBuaPhu.Controls.Cast<Control>().ToList();
+                    foreach (var ctrl in controlsToRemove)
+                    {
+                        _pnlScrollBuaPhu.Controls.Remove(ctrl);
+                        if (ctrl is IDisposable disposable)
+                        {
+                            try { disposable.Dispose(); } catch { }
+                        }
+                    }
+                }
+
+                System.Diagnostics.Debug.WriteLine("[ClearAllPanels] Đã xóa tất cả món ăn từ các panel");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[ClearAllPanels] Lỗi: {ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// Lấy hoặc tạo KeHoachAnUong (giống logic trong ucMonAnItem)
         /// </summary>
         private string GetOrCreateKeHoachAnUong(WF_HealthTracker dbContext)
@@ -2792,68 +2972,253 @@ namespace HealthApp.Views.Nutrition
                         // Lấy ngày được chọn
                         DateTime selectedDate = guna2DateTimePicker1?.Value.Date ?? DateTime.Today;
 
-                        // Thu thập tất cả món ăn từ các panel
+                        // Kiểm tra số lượng món ăn trong mỗi panel trước khi thu thập
+                        int soMonAnSang = _pnlScrollBuaSang?.Controls.OfType<ucMonAnItem>().Count() ?? 0;
+                        int soMonAnTrua = _pnlScrollBuaTrua?.Controls.OfType<ucMonAnItem>().Count() ?? 0;
+                        int soMonAnToi = _pnlScrollBuaToi?.Controls.OfType<ucMonAnItem>().Count() ?? 0;
+                        int soMonAnPhu = _pnlScrollBuaPhu?.Controls.OfType<ucMonAnItem>().Count() ?? 0;
+                        
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Số lượng món ăn trong các panel:");
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click]   - Bữa Sáng: {soMonAnSang}");
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click]   - Bữa Trưa: {soMonAnTrua}");
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click]   - Bữa Tối: {soMonAnToi}");
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click]   - Bữa Phụ: {soMonAnPhu}");
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click]   - Tổng: {soMonAnSang + soMonAnTrua + soMonAnToi + soMonAnPhu}");
+
+                        // Thu thập tất cả món ăn từ các panel (truyền dbContext để dùng chung)
                         var monAnCanLuu = new List<BuaAnChiTiet>();
 
-                        // Lấy món ăn từ các panel
-                        CollectFoodsFromPanel(_pnlScrollBuaSang, "Sáng", selectedDate, keHoachAnID, monAnCanLuu);
-                        CollectFoodsFromPanel(_pnlScrollBuaTrua, "Trưa", selectedDate, keHoachAnID, monAnCanLuu);
-                        CollectFoodsFromPanel(_pnlScrollBuaToi, "Tối", selectedDate, keHoachAnID, monAnCanLuu);
-                        CollectFoodsFromPanel(_pnlScrollBuaPhu, "Bữa phụ", selectedDate, keHoachAnID, monAnCanLuu);
+                        // Lấy món ăn từ các panel (Lưu ý: LoaiBuaAn phải khớp với CHECK constraint trong SQL: 'Sáng', 'Trưa', 'Tối', 'Phụ')
+                        CollectFoodsFromPanel(_pnlScrollBuaSang, "Sáng", selectedDate, keHoachAnID, monAnCanLuu, dbContext);
+                        CollectFoodsFromPanel(_pnlScrollBuaTrua, "Trưa", selectedDate, keHoachAnID, monAnCanLuu, dbContext);
+                        CollectFoodsFromPanel(_pnlScrollBuaToi, "Tối", selectedDate, keHoachAnID, monAnCanLuu, dbContext);
+                        CollectFoodsFromPanel(_pnlScrollBuaPhu, "Phụ", selectedDate, keHoachAnID, monAnCanLuu, dbContext); // Sửa "Bữa phụ" thành "Phụ" để khớp với CHECK constraint
+
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Đã thu thập {monAnCanLuu.Count} món ăn từ các panel");
+                        
+                        // Log chi tiết từng món ăn
+                        foreach (var monAn in monAnCanLuu)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click]   - {monAn.TenMonAn} ({monAn.LoaiBuaAn}), MonAnID: {monAn.MonAnID}, BuaAnID: {monAn.BuaAnID}");
+                        }
 
                         if (monAnCanLuu.Count == 0)
                         {
-                            MessageBox.Show("Không có món ăn nào để lưu!", "Thông báo",
+                            string thongBao = $"Không có món ăn nào để lưu!\n\n";
+                            thongBao += $"Số lượng món ăn trong các panel:\n";
+                            thongBao += $"  - Bữa Sáng: {soMonAnSang}\n";
+                            thongBao += $"  - Bữa Trưa: {soMonAnTrua}\n";
+                            thongBao += $"  - Bữa Tối: {soMonAnToi}\n";
+                            thongBao += $"  - Bữa Phụ: {soMonAnPhu}\n\n";
+                            thongBao += $"Vui lòng thêm món ăn vào các bữa ăn trước khi lưu.";
+                            
+                            MessageBox.Show(thongBao, "Thông báo",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return;
                         }
 
                         // Lưu vào database
                         int soMonAnLuu = 0;
+                        int soMonAnLoi = 0;
+                        
+                        // Lấy số ID cuối cùng từ database để làm điểm bắt đầu (chỉ query 1 lần)
+                        int currentIDNumber = GetLastBuaAnIDNumber(dbContext);
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Số ID cuối cùng trong database: {currentIDNumber}");
+                        
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Bắt đầu lưu {monAnCanLuu.Count} món ăn vào database...");
+                        
                         foreach (var buaAnChiTiet in monAnCanLuu)
                         {
                             try
                             {
-                                // Kiểm tra xem đã có trong database chưa (tránh trùng lặp)
+                                System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Đang xử lý: {buaAnChiTiet.TenMonAn}, MonAnID: {buaAnChiTiet.MonAnID}, LoaiBuaAn: {buaAnChiTiet.LoaiBuaAn}");
+
+                                // Kiểm tra dữ liệu hợp lệ
+                                if (string.IsNullOrEmpty(buaAnChiTiet.MonAnID))
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] MonAnID null, bỏ qua: {buaAnChiTiet.TenMonAn}");
+                                    soMonAnLoi++;
+                                    continue;
+                                }
+
+                                if (string.IsNullOrEmpty(buaAnChiTiet.KeHoachAnID))
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] KeHoachAnID null, bỏ qua: {buaAnChiTiet.TenMonAn}");
+                                    soMonAnLoi++;
+                                    continue;
+                                }
+
+                                // Đảm bảo LoaiBuaAn không null và khớp với CHECK constraint
+                                if (string.IsNullOrEmpty(buaAnChiTiet.LoaiBuaAn))
+                                {
+                                    buaAnChiTiet.LoaiBuaAn = "Sáng"; // Fallback
+                                    System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] LoaiBuaAn null, set thành 'Sáng' cho: {buaAnChiTiet.TenMonAn}");
+                                }
+                                
+                                // Chuẩn hóa LoaiBuaAn để khớp với CHECK constraint (chỉ cho phép: 'Sáng', 'Trưa', 'Tối', 'Phụ')
+                                if (buaAnChiTiet.LoaiBuaAn == "Bữa phụ")
+                                {
+                                    buaAnChiTiet.LoaiBuaAn = "Phụ";
+                                    System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Đổi 'Bữa phụ' thành 'Phụ' cho: {buaAnChiTiet.TenMonAn}");
+                                }
+
+                                // Kiểm tra MonAnID có tồn tại trong ThuVienMonAn không
+                                var monAnExists = dbContext.ThuVienMonAn.Any(m => m.MonAnID == buaAnChiTiet.MonAnID);
+                                if (!monAnExists)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] ✗ MonAnID '{buaAnChiTiet.MonAnID}' không tồn tại trong ThuVienMonAn, bỏ qua: {buaAnChiTiet.TenMonAn}");
+                                    soMonAnLoi++;
+                                    continue;
+                                }
+
+                                // Kiểm tra KeHoachAnID có tồn tại trong KeHoachAnUong không
+                                var keHoachExists = dbContext.KeHoachAnUong.Any(k => k.KeHoachAnID == buaAnChiTiet.KeHoachAnID);
+                                if (!keHoachExists)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] ✗ KeHoachAnID '{buaAnChiTiet.KeHoachAnID}' không tồn tại trong KeHoachAnUong, bỏ qua: {buaAnChiTiet.TenMonAn}");
+                                    soMonAnLoi++;
+                                    continue;
+                                }
+
+                                // Kiểm tra xem đã có trong database chưa
+                                // Ưu tiên tìm theo MonAnID + NgayAn + LoaiBuaAn + KeHoachAnID (để tránh trùng lặp)
+                                // Lưu ý: Không thể dùng .Date trực tiếp trong LINQ to Entities, phải so sánh từng phần
+                                DateTime? ngayAnValue = buaAnChiTiet.NgayAn;
                                 var existing = dbContext.BuaAnChiTiet
-                                    .FirstOrDefault(b => b.BuaAnID == buaAnChiTiet.BuaAnID);
+                                    .FirstOrDefault(b => b.KeHoachAnID == buaAnChiTiet.KeHoachAnID &&
+                                                    b.MonAnID == buaAnChiTiet.MonAnID &&
+                                                    b.NgayAn.HasValue && ngayAnValue.HasValue &&
+                                                    b.NgayAn.Value.Year == ngayAnValue.Value.Year &&
+                                                    b.NgayAn.Value.Month == ngayAnValue.Value.Month &&
+                                                    b.NgayAn.Value.Day == ngayAnValue.Value.Day &&
+                                                    b.LoaiBuaAn == buaAnChiTiet.LoaiBuaAn);
+
+                                // Nếu không tìm thấy, thử tìm theo BuaAnID (trường hợp đặc biệt)
+                                if (existing == null && !string.IsNullOrEmpty(buaAnChiTiet.BuaAnID))
+                                {
+                                    existing = dbContext.BuaAnChiTiet
+                                        .FirstOrDefault(b => b.BuaAnID == buaAnChiTiet.BuaAnID);
+                                }
 
                                 if (existing == null)
                                 {
-                                    // Tạo BuaAnID mới nếu chưa có
+                                    // Tạo BuaAnID mới nếu chưa có (đảm bảo tính duy nhất bằng cách tăng số)
                                     if (string.IsNullOrEmpty(buaAnChiTiet.BuaAnID))
                                     {
-                                        buaAnChiTiet.BuaAnID = GenerateBuaAnID(dbContext);
+                                        currentIDNumber++; // Tăng số ID cho món ăn mới
+                                        buaAnChiTiet.BuaAnID = GenerateBuaAnIDFromNumber(currentIDNumber);
+                                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Đã tạo BuaAnID mới: {buaAnChiTiet.BuaAnID} (số: {currentIDNumber})");
                                     }
 
+                                    // Thêm mới vào database
                                     dbContext.BuaAnChiTiet.Add(buaAnChiTiet);
                                     soMonAnLuu++;
+                                    System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] ✓ Đã thêm mới: {buaAnChiTiet.TenMonAn}, LoaiBuaAn: {buaAnChiTiet.LoaiBuaAn}, BuaAnID: {buaAnChiTiet.BuaAnID}");
                                 }
                                 else
                                 {
-                                    // Cập nhật nếu đã có
+                                    // Cập nhật nếu đã có (existing đã được track bởi dbContext)
                                     existing.KhoiLuongChuan = buaAnChiTiet.KhoiLuongChuan;
                                     existing.Calories = buaAnChiTiet.Calories;
                                     existing.Protein = buaAnChiTiet.Protein;
                                     existing.Carbs = buaAnChiTiet.Carbs;
                                     existing.Fat = buaAnChiTiet.Fat;
+                                    existing.Fiber = buaAnChiTiet.Fiber;
+                                    existing.TenMonAn = buaAnChiTiet.TenMonAn;
+                                    existing.Donvi = buaAnChiTiet.Donvi;
+                                    existing.GhiChu = buaAnChiTiet.GhiChu;
+                                    // Đảm bảo LoaiBuaAn đúng
+                                    existing.LoaiBuaAn = buaAnChiTiet.LoaiBuaAn;
                                     existing.NgayCapNhat = DateTime.Now;
                                     soMonAnLuu++;
+                                    System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] ✓ Đã cập nhật: {existing.TenMonAn}, LoaiBuaAn: {existing.LoaiBuaAn}, BuaAnID: {existing.BuaAnID}");
                                 }
                             }
                             catch (Exception ex)
                             {
-                                System.Diagnostics.Debug.WriteLine($"Lỗi khi lưu món ăn {buaAnChiTiet.MonAnID}: {ex.Message}");
+                                soMonAnLoi++;
+                                string errorDetails = $"Lỗi khi lưu món ăn {buaAnChiTiet.TenMonAn} (MonAnID: {buaAnChiTiet.MonAnID}):\n";
+                                errorDetails += $"  - Message: {ex.Message}\n";
+                                
+                                if (ex.InnerException != null)
+                                {
+                                    errorDetails += $"  - Inner Exception: {ex.InnerException.Message}\n";
+                                    System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Inner exception: {ex.InnerException.Message}");
+                                    
+                                    // Kiểm tra lỗi foreign key constraint
+                                    if (ex.InnerException.Message.Contains("FOREIGN KEY") || 
+                                        ex.InnerException.Message.Contains("The INSERT statement conflicted"))
+                                    {
+                                        errorDetails += $"  - Nguyên nhân: Foreign key constraint violation\n";
+                                        errorDetails += $"    + MonAnID '{buaAnChiTiet.MonAnID}' có tồn tại trong ThuVienMonAn: {dbContext.ThuVienMonAn.Any(m => m.MonAnID == buaAnChiTiet.MonAnID)}\n";
+                                        errorDetails += $"    + KeHoachAnID '{buaAnChiTiet.KeHoachAnID}' có tồn tại trong KeHoachAnUong: {dbContext.KeHoachAnUong.Any(k => k.KeHoachAnID == buaAnChiTiet.KeHoachAnID)}\n";
+                                    }
+                                    
+                                    // Kiểm tra lỗi CHECK constraint
+                                    if (ex.InnerException.Message.Contains("CHECK") || 
+                                        ex.InnerException.Message.Contains("LoaiBuaAn"))
+                                    {
+                                        errorDetails += $"  - Nguyên nhân: CHECK constraint violation\n";
+                                        errorDetails += $"    + LoaiBuaAn hiện tại: '{buaAnChiTiet.LoaiBuaAn}'\n";
+                                        errorDetails += $"    + LoaiBuaAn hợp lệ: 'Sáng', 'Trưa', 'Tối', 'Phụ'\n";
+                                    }
+                                }
+                                
+                                System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] ✗ {errorDetails}");
+                                System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Stack trace: {ex.StackTrace}");
                             }
                         }
+                        
+                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Kết quả: {soMonAnLuu} món ăn đã lưu, {soMonAnLoi} món ăn lỗi");
 
                         // Lưu tất cả thay đổi
-                        dbContext.SaveChanges();
-
-                        MessageBox.Show($"Đã lưu thành công {soMonAnLuu} món ăn vào database!", "Thành công",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Đã lưu {soMonAnLuu} món ăn vào database");
+                        try
+                        {
+                            System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Đang gọi SaveChanges()...");
+                            int soBanGhiLuu = dbContext.SaveChanges();
+                            System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] SaveChanges() trả về: {soBanGhiLuu} bản ghi đã lưu");
+                            
+                            if (soMonAnLuu > 0)
+                            {
+                                // Cập nhật button thành "Đã lưu"
+                                UpdateSaveButtonState(true);
+                                
+                                // Clear các panel và load lại từ BuaAnChiTiet
+                                ClearAllPanels();
+                                LoadAddedFoodsToPanels();
+                                
+                                // Cập nhật biểu đồ dinh dưỡng
+                                UpdateNutritionChartFromPanels();
+                                
+                                MessageBox.Show($"Đã lưu thành công {soMonAnLuu} món ăn vào database!", "Thành công",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Không có món ăn nào được lưu vào database!\n\nSố món ăn lỗi: {soMonAnLoi}\n\nVui lòng kiểm tra lại dữ liệu.", "Cảnh báo",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            
+                            System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Đã lưu {soMonAnLuu} món ăn vào database");
+                        }
+                        catch (Exception saveEx)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] ✗ Lỗi khi SaveChanges(): {saveEx.Message}");
+                            System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Stack trace: {saveEx.StackTrace}");
+                            if (saveEx.InnerException != null)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"[BtnLuu_Click] Inner exception: {saveEx.InnerException.Message}");
+                            }
+                            
+                            string errorMessage = $"Lỗi khi lưu vào database:\n\n{saveEx.Message}";
+                            if (saveEx.InnerException != null)
+                            {
+                                errorMessage += $"\n\nChi tiết: {saveEx.InnerException.Message}";
+                            }
+                            
+                            MessageBox.Show(errorMessage, "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 finally
@@ -2874,71 +3239,117 @@ namespace HealthApp.Views.Nutrition
         /// Thu thập món ăn từ panel và tạo BuaAnChiTiet
         /// </summary>
         private void CollectFoodsFromPanel(FlowLayoutPanelNoScrollbar panel, string loaiBuaAn, 
-            DateTime ngayAn, string keHoachAnID, List<BuaAnChiTiet> monAnCanLuu)
+            DateTime ngayAn, string keHoachAnID, List<BuaAnChiTiet> monAnCanLuu, WF_HealthTracker dbContext)
         {
-            if (panel == null) return;
-
-            foreach (var item in panel.Controls.OfType<ucMonAnItem>())
+            if (panel == null)
             {
-                if (item.MonAn == null) continue;
+                System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] Panel null cho {loaiBuaAn}");
+                return;
+            }
+
+            // Kiểm tra tất cả controls trong panel
+            var allControls = panel.Controls.Cast<Control>().ToList();
+            System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] Panel {loaiBuaAn} có tổng cộng {allControls.Count} controls");
+            
+            // Log tên các controls để debug
+            foreach (var ctrl in allControls)
+            {
+                System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel]   - Control: {ctrl.GetType().Name}, Name: {ctrl.Name}");
+            }
+            
+            var items = panel.Controls.OfType<ucMonAnItem>().ToList();
+            System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] Panel {loaiBuaAn} có {items.Count} ucMonAnItem");
+
+            if (items.Count == 0)
+            {
+                System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] ⚠️ Không tìm thấy ucMonAnItem nào trong panel {loaiBuaAn}");
+                return;
+            }
+
+            foreach (var item in items)
+            {
+                if (item.MonAn == null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] Item có MonAn null, bỏ qua");
+                    continue;
+                }
 
                 try
                 {
-                    // Lấy thông tin từ ucMonAnItem
-                    // ucMonAnItem có thể đã có BuaAnChiTiet hoặc cần tạo mới
-                    using (var dbContext = new WF_HealthTracker())
+                    System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] Đang xử lý món ăn: {item.MonAn.TenMonAn}, MonAnID: {item.MonAn.MonAnID}");
+
+                    // Lấy số lượng từ ThuVienMonAn (khai báo một lần ở đây)
+                    double khoiLuong = item.MonAn.KhoiLuongChuan ?? 100;
+                    double tiLe = khoiLuong / 100.0;
+
+                    // Tính toán dinh dưỡng trực tiếp từ ThuVienMonAn (đảm bảo luôn có giá trị)
+                    // Vì GetCurrentNutrition có thể trả về 0 nếu chưa được khởi tạo
+                    double calories = (item.MonAn.Calories ?? 0) * tiLe;
+                    double protein = (item.MonAn.Protein ?? 0) * tiLe;
+                    double carbs = (item.MonAn.Carbs ?? 0) * tiLe;
+                    double fat = (item.MonAn.Fat ?? 0) * tiLe;
+                    
+                    System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] Tính dinh dưỡng từ ThuVienMonAn: Calories={calories:F0}, Protein={protein:F1}, Carbs={carbs:F1}, Fat={fat:F1}, KhoiLuong={khoiLuong}g");
+                    
+                    // Thử lấy từ GetCurrentNutrition nếu có giá trị (ưu tiên giá trị đã chỉnh sửa)
+                    double currentCalories, currentProtein, currentCarbs, currentFat;
+                    item.GetCurrentNutrition(out currentCalories, out currentProtein, out currentCarbs, out currentFat);
+                    
+                    if (currentCalories > 0 || currentProtein > 0 || currentCarbs > 0 || currentFat > 0)
                     {
-                        // Tìm BuaAnChiTiet hiện tại (nếu có)
-                        var existingBuaAn = dbContext.BuaAnChiTiet
-                            .FirstOrDefault(b => b.KeHoachAnID == keHoachAnID &&
-                                            b.MonAnID == item.MonAn.MonAnID &&
-                                            b.NgayAn.HasValue && b.NgayAn.Value.Date == ngayAn.Date &&
-                                            b.LoaiBuaAn == loaiBuaAn);
-
-                        BuaAnChiTiet buaAnChiTiet;
-
-                        if (existingBuaAn != null)
-                        {
-                            // Cập nhật thông tin từ ThuVienMonAn
-                            buaAnChiTiet = existingBuaAn;
-                        }
-                        else
-                        {
-                            // Tạo mới BuaAnChiTiet
-                            string buaAnID = GenerateBuaAnID(dbContext);
-                            
-                            // Tính toán dinh dưỡng dựa trên KhoiLuongChuan từ ThuVienMonAn
-                            double khoiLuong = item.MonAn.KhoiLuongChuan ?? 100;
-                            double tiLe = khoiLuong / 100.0;
-
-                            buaAnChiTiet = new BuaAnChiTiet
-                            {
-                                BuaAnID = buaAnID,
-                                KeHoachAnID = keHoachAnID,
-                                MonAnID = item.MonAn.MonAnID,
-                                LoaiBuaAn = loaiBuaAn,
-                                NgayAn = ngayAn,
-                                TenMonAn = item.MonAn.TenMonAn,
-                                Donvi = item.MonAn.Donvi ?? "g",
-                                KhoiLuongChuan = khoiLuong,
-                                Calories = (item.MonAn.Calories ?? 0) * tiLe,
-                                Protein = (item.MonAn.Protein ?? 0) * tiLe,
-                                Carbs = (item.MonAn.Carbs ?? 0) * tiLe,
-                                Fat = (item.MonAn.Fat ?? 0) * tiLe,
-                                Fiber = (item.MonAn.Fiber ?? 0) * tiLe,
-                                GhiChu = $"LoaiBuaAn: {loaiBuaAn}",
-                                NgayCapNhat = DateTime.Now
-                            };
-                        }
-
-                        monAnCanLuu.Add(buaAnChiTiet);
+                        // Dùng giá trị từ GetCurrentNutrition nếu có
+                        calories = currentCalories;
+                        protein = currentProtein;
+                        carbs = currentCarbs;
+                        fat = currentFat;
+                        System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] Dùng giá trị từ GetCurrentNutrition: Calories={calories:F0}, Protein={protein:F1}, Carbs={carbs:F1}, Fat={fat:F1}");
                     }
+
+                    // KHÔNG tạo BuaAnID ở đây - sẽ tạo trong BtnLuu_Click để đảm bảo tính duy nhất
+                    // Tính Fiber dựa trên số lượng (sử dụng lại tiLe đã khai báo)
+                    double fiber = (item.MonAn.Fiber ?? 0) * tiLe;
+
+                    // Đảm bảo các giá trị không null
+                    if (string.IsNullOrEmpty(item.MonAn.MonAnID))
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] MonAnID null, bỏ qua món ăn: {item.MonAn.TenMonAn}");
+                        continue;
+                    }
+
+                    BuaAnChiTiet buaAnChiTiet = new BuaAnChiTiet
+                    {
+                        BuaAnID = null, // Sẽ được tạo trong BtnLuu_Click để đảm bảo tính duy nhất
+                        KeHoachAnID = keHoachAnID,
+                        MonAnID = item.MonAn.MonAnID,
+                        LoaiBuaAn = loaiBuaAn, // Đảm bảo LoaiBuaAn đúng
+                        NgayAn = ngayAn,
+                        TenMonAn = item.MonAn.TenMonAn ?? "Không tên",
+                        Donvi = item.MonAn.Donvi ?? "g",
+                        KhoiLuongChuan = khoiLuong,
+                        Calories = calories,
+                        Protein = protein,
+                        Carbs = carbs,
+                        Fat = fat,
+                        Fiber = fiber,
+                        GhiChu = $"LoaiBuaAn: {loaiBuaAn}",
+                        NgayCapNhat = DateTime.Now
+                    };
+
+                    monAnCanLuu.Add(buaAnChiTiet);
+                    System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] ✓ Đã thu thập: {item.MonAn.TenMonAn}, LoaiBuaAn: {loaiBuaAn}, Calories: {calories:F0}, BuaAnID: (sẽ tạo sau)");
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Lỗi khi thu thập món ăn {item.MonAn?.TenMonAn}: {ex.Message}");
+                    System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] ✗ Lỗi khi thu thập món ăn {item.MonAn?.TenMonAn}: {ex.Message}");
+                    System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] Stack trace: {ex.StackTrace}");
+                    if (ex.InnerException != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] Inner exception: {ex.InnerException.Message}");
+                    }
                 }
             }
+            
+            System.Diagnostics.Debug.WriteLine($"[CollectFoodsFromPanel] Kết thúc thu thập cho {loaiBuaAn}: {monAnCanLuu.Count(m => m.LoaiBuaAn == loaiBuaAn)} món ăn");
         }
 
         /// <summary>
@@ -2964,6 +3375,37 @@ namespace HealthApp.Views.Nutrition
 
             int mealCount = dbContext.BuaAnChiTiet.Count();
             return $"meal_{(mealCount + 1):D4}";
+        }
+
+        /// <summary>
+        /// Tạo BuaAnID mới từ một số bắt đầu (để đảm bảo tính duy nhất trong batch)
+        /// </summary>
+        private string GenerateBuaAnIDFromNumber(int startNumber)
+        {
+            return $"meal_{startNumber:D4}";
+        }
+
+        /// <summary>
+        /// Lấy số cuối cùng từ database để làm điểm bắt đầu cho batch mới
+        /// </summary>
+        private int GetLastBuaAnIDNumber(WF_HealthTracker dbContext)
+        {
+            var lastMeal = dbContext.BuaAnChiTiet
+                .OrderByDescending(m => m.BuaAnID)
+                .FirstOrDefault();
+
+            if (lastMeal == null || !lastMeal.BuaAnID.StartsWith("meal_"))
+            {
+                return 0;
+            }
+
+            string numberPart = lastMeal.BuaAnID.Substring(5);
+            if (int.TryParse(numberPart, out int lastNumber))
+            {
+                return lastNumber;
+            }
+
+            return dbContext.BuaAnChiTiet.Count();
         }
 
         /// <summary>
