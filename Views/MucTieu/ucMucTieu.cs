@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -2153,23 +2153,23 @@ namespace HealthApp.Views.MucTieu
         {
             try
             {
-                // Tìm frmDashBoard
-                frmDashBoard parentForm = null;
+                // Tìm frmDashBoard1
+                frmDashBoard1 parentForm = null;
 
                 // Cách 1: Tìm qua FindForm()
                 Form form = this.FindForm();
-                if (form is frmDashBoard)
+                if (form is frmDashBoard1)
                 {
-                    parentForm = form as frmDashBoard;
+                    parentForm = form as frmDashBoard1;
                 }
                 // Cách 2: Tìm qua Application.OpenForms
                 else
                 {
                     foreach (Form openForm in Application.OpenForms)
                     {
-                        if (openForm is frmDashBoard)
+                        if (openForm is frmDashBoard1)
                         {
-                            parentForm = openForm as frmDashBoard;
+                            parentForm = openForm as frmDashBoard1;
                             break;
                         }
                     }
@@ -2177,9 +2177,10 @@ namespace HealthApp.Views.MucTieu
 
                 if (parentForm != null)
                 {
-                    // Tạo và load ucDashBoard (trang chủ)
-                    ucDashBoard ucDashBoard = new ucDashBoard(parentForm);
-                    parentForm.LoadUserControl(ucDashBoard);
+                    // Reload dashboard (frmDashBoard1 có giao diện cố định, không cần load UserControl)
+                    parentForm.ReloadDashboard();
+                    parentForm.Show();
+                    parentForm.BringToFront();
                 }
                 else
                 {

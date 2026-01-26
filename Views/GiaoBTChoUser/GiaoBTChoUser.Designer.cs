@@ -31,22 +31,24 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GiaoBTChoUser));
             this.grbMain = new Guna.UI2.WinForms.Guna2GroupBox();
             this.flpBookings = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnHomNay = new Guna.UI2.WinForms.Guna2Button();
+            this.dtpTime = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.btnNext = new Guna.UI2.WinForms.Guna2Button();
             this.btnPrev = new Guna.UI2.WinForms.Guna2Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.dtpTime = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.pnLichDat = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.btnGiaoBT = new Guna.UI2.WinForms.Guna2Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblThoiGian = new System.Windows.Forms.Label();
             this.lblMucTieuNguoiYeuCauThue = new System.Windows.Forms.Label();
             this.lblTenNguoiYeuCauThue = new System.Windows.Forms.Label();
-            this.btnHomNay = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.ptrAvatarNguoiYeuCauach1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.btnTroVe = new Guna.UI2.WinForms.Guna2Button();
             this.grbMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
+            this.pnLichDat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarNguoiYeuCauach1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // grbMain
@@ -75,6 +77,37 @@
             this.flpBookings.Size = new System.Drawing.Size(935, 365);
             this.flpBookings.TabIndex = 12;
             this.flpBookings.WrapContents = false;
+            // 
+            // btnHomNay
+            // 
+            this.btnHomNay.BorderRadius = 15;
+            this.btnHomNay.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnHomNay.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnHomNay.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnHomNay.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnHomNay.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(176)))), ((int)(((byte)(80)))));
+            this.btnHomNay.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnHomNay.ForeColor = System.Drawing.Color.White;
+            this.btnHomNay.Location = new System.Drawing.Point(780, 54);
+            this.btnHomNay.Name = "btnHomNay";
+            this.btnHomNay.Size = new System.Drawing.Size(125, 45);
+            this.btnHomNay.TabIndex = 11;
+            this.btnHomNay.Text = "Hôm Nay";
+            // 
+            // dtpTime
+            // 
+            this.dtpTime.Checked = true;
+            this.dtpTime.FillColor = System.Drawing.Color.White;
+            this.dtpTime.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtpTime.ForeColor = System.Drawing.Color.Black;
+            this.dtpTime.Format = System.Windows.Forms.DateTimePickerFormat.Long;
+            this.dtpTime.Location = new System.Drawing.Point(263, 58);
+            this.dtpTime.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtpTime.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtpTime.Name = "dtpTime";
+            this.dtpTime.Size = new System.Drawing.Size(360, 36);
+            this.dtpTime.TabIndex = 10;
+            this.dtpTime.Value = new System.DateTime(2025, 11, 26, 18, 48, 37, 63);
             // 
             // btnNext
             // 
@@ -117,26 +150,11 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.White;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(105, 22);
+            this.label4.Location = new System.Drawing.Point(205, 27);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(336, 28);
             this.label4.TabIndex = 5;
             this.label4.Text = "Quản Lý Bài Tập Cho Người Dùng ";
-            // 
-            // dtpTime
-            // 
-            this.dtpTime.Checked = true;
-            this.dtpTime.FillColor = System.Drawing.Color.White;
-            this.dtpTime.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dtpTime.ForeColor = System.Drawing.Color.Black;
-            this.dtpTime.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtpTime.Location = new System.Drawing.Point(263, 58);
-            this.dtpTime.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.dtpTime.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.dtpTime.Name = "dtpTime";
-            this.dtpTime.Size = new System.Drawing.Size(360, 36);
-            this.dtpTime.TabIndex = 10;
-            this.dtpTime.Value = new System.DateTime(2025, 11, 26, 18, 48, 37, 63);
             // 
             // pnLichDat
             // 
@@ -216,34 +234,6 @@
             this.lblTenNguoiYeuCauThue.TabIndex = 3;
             this.lblTenNguoiYeuCauThue.Text = "Nguyễn Anh B";
             // 
-            // btnHomNay
-            // 
-            this.btnHomNay.BorderRadius = 15;
-            this.btnHomNay.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnHomNay.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnHomNay.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnHomNay.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnHomNay.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(176)))), ((int)(((byte)(80)))));
-            this.btnHomNay.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnHomNay.ForeColor = System.Drawing.Color.White;
-            this.btnHomNay.Location = new System.Drawing.Point(780, 54);
-            this.btnHomNay.Name = "btnHomNay";
-            this.btnHomNay.Size = new System.Drawing.Size(125, 45);
-            this.btnHomNay.TabIndex = 11;
-            this.btnHomNay.Text = "Hôm Nay";
-            // 
-            // guna2PictureBox2
-            // 
-            this.guna2PictureBox2.BackColor = System.Drawing.Color.White;
-            this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
-            this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(44, 12);
-            this.guna2PictureBox2.Name = "guna2PictureBox2";
-            this.guna2PictureBox2.Size = new System.Drawing.Size(50, 50);
-            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox2.TabIndex = 6;
-            this.guna2PictureBox2.TabStop = false;
-            // 
             // ptrAvatarNguoiYeuCauach1
             // 
             this.ptrAvatarNguoiYeuCauach1.FillColor = System.Drawing.Color.Gray;
@@ -256,19 +246,51 @@
             this.ptrAvatarNguoiYeuCauach1.TabIndex = 3;
             this.ptrAvatarNguoiYeuCauach1.TabStop = false;
             // 
+            // guna2PictureBox2
+            // 
+            this.guna2PictureBox2.BackColor = System.Drawing.Color.White;
+            this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
+            this.guna2PictureBox2.ImageRotate = 0F;
+            this.guna2PictureBox2.Location = new System.Drawing.Point(149, 10);
+            this.guna2PictureBox2.Name = "guna2PictureBox2";
+            this.guna2PictureBox2.Size = new System.Drawing.Size(50, 50);
+            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox2.TabIndex = 6;
+            this.guna2PictureBox2.TabStop = false;
+            // 
+            // btnTroVe
+            // 
+            this.btnTroVe.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTroVe.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTroVe.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTroVe.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTroVe.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTroVe.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
+            this.btnTroVe.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnTroVe.ForeColor = System.Drawing.Color.White;
+            this.btnTroVe.Image = ((System.Drawing.Image)(resources.GetObject("btnTroVe.Image")));
+            this.btnTroVe.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnTroVe.Location = new System.Drawing.Point(12, 10);
+            this.btnTroVe.Name = "btnTroVe";
+            this.btnTroVe.Size = new System.Drawing.Size(45, 45);
+            this.btnTroVe.TabIndex = 9;
+            // 
             // GiaoBTChoUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 640);
+            this.Controls.Add(this.btnTroVe);
             this.Controls.Add(this.guna2PictureBox2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.grbMain);
             this.Name = "GiaoBTChoUser";
             this.Text = "GiaoBTChoUser";
             this.grbMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
+            this.pnLichDat.ResumeLayout(false);
+            this.pnLichDat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarNguoiYeuCauach1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -291,5 +313,6 @@
         private Guna.UI2.WinForms.Guna2CirclePictureBox ptrAvatarNguoiYeuCauach1;
         private Guna.UI2.WinForms.Guna2Button btnHomNay;
         private System.Windows.Forms.FlowLayoutPanel flpBookings;
+        private Guna.UI2.WinForms.Guna2Button btnTroVe;
     }
 }

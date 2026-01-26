@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HealthApp.Models;
+using HealthApp.Views.Dashboard;
 
 namespace HealthApp.Views.Food
 {
@@ -68,6 +69,12 @@ namespace HealthApp.Views.Food
             
             // Kết nối events cho các controls có sẵn
             ConnectEvents();
+            
+            // Kết nối event cho nút quay lại
+            if (btnTroVe != null)
+            {
+                btnTroVe.Click += BtnTroVe_Click;
+            }
             
             // Đảm bảo panel có background màu trắng
             if (pnlDanhSachMonAn != null)
@@ -1503,6 +1510,42 @@ namespace HealthApp.Views.Food
         private void pictureBox31_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Event handler cho nút quay lại - quay về Dashboard
+        /// </summary>
+        private void BtnTroVe_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Tìm frmDashBoard1 trong Application.OpenForms
+                frmDashBoard1 dashboard = null;
+                foreach (Form openForm in Application.OpenForms)
+                {
+                    if (openForm is frmDashBoard1)
+                    {
+                        dashboard = openForm as frmDashBoard1;
+                        break;
+                    }
+                }
+
+                if (dashboard != null)
+                {
+                    // Ẩn form hiện tại và hiển thị lại dashboard
+                    this.Hide();
+                    dashboard.ShowDashboard();
+                }
+                else
+                {
+                    // Nếu không tìm thấy dashboard, chỉ đóng form hiện tại
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi quay lại: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

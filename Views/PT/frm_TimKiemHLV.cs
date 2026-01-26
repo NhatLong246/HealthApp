@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,11 +21,11 @@ namespace HealthApp.Views.PT
     {
         private readonly IPTSearchService _ptSearchService;
         private readonly WF_HealthTracker _context;
-        private readonly HealthApp.Views.Dashboard.frmDashBoard _parentDashboard;
+        private readonly HealthApp.Views.Dashboard.frmDashBoard1 _parentDashboard;
         private string _selectedPTID;
         private List<PTSearchViewModel> _currentPTList;
 
-        public frm_TimKiemHLV(HealthApp.Views.Dashboard.frmDashBoard parentDashboard = null)
+        public frm_TimKiemHLV(HealthApp.Views.Dashboard.frmDashBoard1 parentDashboard = null)
         {
             InitializeComponent();
             _context = new WF_HealthTracker();

@@ -70,8 +70,8 @@ namespace HealthApp
                                 infoForm.ShowDialog();
                             }
                         }
-                        System.Diagnostics.Debug.WriteLine("[Program] Opening frmDashBoard for Client/PT user");
-                        Application.Run(new frmDashBoard());
+                        System.Diagnostics.Debug.WriteLine("[Program] Opening frmDashBoard1 for Client/PT user");
+                        Application.Run(new frmDashBoard1());
                     }
                 }
             }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -787,9 +787,9 @@ namespace HealthApp.Views.KeHoachLuyenTap
                         _restoreDateAfterWorkout = _selectedBuoiTap.ThoiGianBatDau.Value.Date;
                     }
                     
-                    // Tìm frmDashBoard để load ucTrienKhaiBaiTap
+                    // Tìm frmDashBoard1 để load ucTrienKhaiBaiTap
                     Form form = this.FindForm();
-                    if (form is frmDashBoard dashboard)
+                    if (form is frmDashBoard1 dashboard)
                     {
                         var ucTrienKhai = new ucTrienKhaiBaiTap();
                         ucTrienKhai.SetBuoiTap(_selectedBuoiTap);
@@ -931,12 +931,51 @@ namespace HealthApp.Views.KeHoachLuyenTap
         /// </summary>
         private void BtnTroVe_Click(object sender, EventArgs e)
         {
-            // Tìm frmDashBoard và load lại dashboard
-            Form form = this.FindForm();
-            if (form is frmDashBoard dashboard)
+            try
             {
-                var ucDashBoard = new Dashboard.ucDashBoard(dashboard);
-                dashboard.LoadUserControl(ucDashBoard);
+                // Tìm frmDashBoard1 qua Application.OpenForms hoặc Tag của form container
+                frmDashBoard1 dashboard = null;
+                
+                // Cách 1: Kiểm tra Tag của form container
+                Form containerForm = this.FindForm();
+                if (containerForm != null && containerForm.Tag is frmDashBoard1)
+                {
+                    dashboard = containerForm.Tag as frmDashBoard1;
+                }
+                // Cách 2: Tìm trong Application.OpenForms
+                else
+                {
+                    foreach (Form openForm in Application.OpenForms)
+                    {
+                        if (openForm is frmDashBoard1)
+                        {
+                            dashboard = openForm as frmDashBoard1;
+                            break;
+                        }
+                    }
+                }
+                
+                if (dashboard != null)
+                {
+                    // Đóng form container và hiển thị lại dashboard
+                    if (containerForm != null)
+                    {
+                        containerForm.Close();
+                    }
+                    dashboard.ShowDashboard();
+                }
+                else
+                {
+                    // Nếu không tìm thấy dashboard, chỉ đóng form container
+                    if (containerForm != null)
+                    {
+                        containerForm.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi quay lại: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

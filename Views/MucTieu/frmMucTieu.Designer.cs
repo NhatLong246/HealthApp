@@ -35,9 +35,9 @@
             // 
             this.pnlMucTieu.AutoScroll = true;
             this.pnlMucTieu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
-            this.pnlMucTieu.Location = new System.Drawing.Point(1, 69);
+            this.pnlMucTieu.Location = new System.Drawing.Point(1, -1);
             this.pnlMucTieu.Name = "pnlMucTieu";
-            this.pnlMucTieu.Size = new System.Drawing.Size(1345, 598);
+            this.pnlMucTieu.Size = new System.Drawing.Size(1345, 737);
             this.pnlMucTieu.TabIndex = 0;
             this.pnlMucTieu.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMucTieu_Paint);
             // 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,7 +18,7 @@ namespace HealthApp.Views.PT
 {
     public partial class frm_ThanhToanPT : Form
     {
-        private readonly frmDashBoard _parentDashboard;
+        private readonly frmDashBoard1 _parentDashboard;
         private readonly string _datLichID;
         private readonly WF_HealthTracker _context;
         private DatLichPT _datLich;
@@ -27,7 +27,7 @@ namespace HealthApp.Views.PT
         private string _selectedPaymentMethod = ""; // "MoMo" hoặc "ZaloPay"
         private List<Guna2CustomGradientPanel> _paymentPanels = new List<Guna2CustomGradientPanel>();
 
-        public frm_ThanhToanPT(frmDashBoard parentDashboard = null, string datLichID = null)
+        public frm_ThanhToanPT(frmDashBoard1 parentDashboard = null, string datLichID = null)
         {
             InitializeComponent();
             _parentDashboard = parentDashboard;
@@ -45,6 +45,12 @@ namespace HealthApp.Views.PT
             // Event handlers cho chọn phương thức thanh toán
             pnlMomo.Click += PnlMoMo_Click;
             pnlZalopay.Click += PnlZaloPay_Click;
+            
+            // Kết nối event cho nút quay lại
+            if (btnTroVe != null)
+            {
+                btnTroVe.Click += (s, e) => NavigateBackToDashboard();
+            }
         }
 
         private async void LoadData()

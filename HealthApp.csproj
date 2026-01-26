@@ -216,6 +216,13 @@
     <Compile Include="Views\Activity\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dashboard\IDashboardForm.cs" />
+    <Compile Include="Views\Dashboard\frmDashBoard1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Dashboard\frmDashBoard1.Designer.cs">
+      <DependentUpon>frmDashBoard1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\KeHoachLuyenTap\frmDoiLichTap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -471,18 +478,6 @@
     <Compile Include="Views\PT\frm_PaymentQRCode.Designer.cs">
       <DependentUpon>frm_PaymentQRCode.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dashboard\frmDashBoard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Dashboard\frmDashBoard.Designer.cs">
-      <DependentUpon>frmDashBoard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\ucDashBoard.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Dashboard\ucDashBoard.Designer.cs">
-      <DependentUpon>ucDashBoard.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Settings\frmChangeInformationforNewuser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -533,6 +528,9 @@
     </Compile>
     <EmbeddedResource Include="Views\Activity\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Dashboard\frmDashBoard1.resx">
+      <DependentUpon>frmDashBoard1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\KeHoachLuyenTap\frmDoiLichTap.resx">
       <DependentUpon>frmDoiLichTap.cs</DependentUpon>
@@ -662,12 +660,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PT\frm_PaymentQRCode.resx">
       <DependentUpon>frm_PaymentQRCode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Dashboard\frmDashBoard.resx">
-      <DependentUpon>frmDashBoard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Dashboard\ucDashBoard.resx">
-      <DependentUpon>ucDashBoard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\frmThemMonAn.resx">
       <DependentUpon>frmThemMonAn.cs</DependentUpon>

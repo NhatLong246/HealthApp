@@ -77,6 +77,7 @@
             this.lblTenMonAnDuocChon1 = new System.Windows.Forms.Label();
             this.lblDanhSachMonAnDaChon = new System.Windows.Forms.Label();
             this.guna2Panl1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnTroVe = new Guna.UI2.WinForms.Guna2Button();
             this.pnlChucNang.SuspendLayout();
             this.pnlDanhSachMonAn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrDanhSachMonAn)).BeginInit();
@@ -778,6 +779,7 @@
             // guna2Panl1
             // 
             this.guna2Panl1.AutoScroll = true;
+            this.guna2Panl1.Controls.Add(this.btnTroVe);
             this.guna2Panl1.Controls.Add(this.pnlTongMonAn);
             this.guna2Panl1.Controls.Add(this.pnlTieuDe);
             this.guna2Panl1.Controls.Add(this.pnlDanhSachMonAn);
@@ -786,6 +788,23 @@
             this.guna2Panl1.Name = "guna2Panl1";
             this.guna2Panl1.Size = new System.Drawing.Size(1306, 1866);
             this.guna2Panl1.TabIndex = 38;
+            // 
+            // btnTroVe
+            // 
+            this.btnTroVe.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTroVe.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTroVe.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTroVe.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTroVe.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTroVe.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
+            this.btnTroVe.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnTroVe.ForeColor = System.Drawing.Color.White;
+            this.btnTroVe.Image = ((System.Drawing.Image)(resources.GetObject("btnTroVe.Image")));
+            this.btnTroVe.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnTroVe.Location = new System.Drawing.Point(3, 12);
+            this.btnTroVe.Name = "btnTroVe";
+            this.btnTroVe.Size = new System.Drawing.Size(45, 45);
+            this.btnTroVe.TabIndex = 39;
             // 
             // frm_FoodLibrary
             // 
@@ -874,5 +893,6 @@
         private System.Windows.Forms.Label lblTongSoProtein;
         private System.Windows.Forms.Label lblTongSoCalories;
         private Guna.UI2.WinForms.Guna2Button btnDatLai;
+        private Guna.UI2.WinForms.Guna2Button btnTroVe;
     }
 }

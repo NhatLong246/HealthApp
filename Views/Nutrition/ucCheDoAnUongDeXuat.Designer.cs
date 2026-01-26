@@ -511,6 +511,7 @@ namespace HealthApp.Views.Nutrition
             this.Controls.Add(this.guna2Panel7);
             this.Controls.Add(this.pnlTieuDe);
             this.Name = "ucCheDoAnUongDeXuat";
+            this.Load += new System.EventHandler(this.ucCheDoAnUongDeXuat_Load);
             this.pnlTieuDe.ResumeLayout(false);
             this.pnlTieuDe.PerformLayout();
             this.guna2Panel1.ResumeLayout(false);
