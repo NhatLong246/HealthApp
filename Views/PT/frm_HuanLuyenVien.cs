@@ -686,6 +686,43 @@ namespace HealthApp.Views.PT
                     return;
                 }
 
+                // Kiểm tra trùng lịch với các lịch đã được xác nhận của PT
+                var conflictingBooking = await Task.Run(() =>
+                {
+                    return _context.DatLichPT
+                        .Where(d => d.PTID == _ptId &&
+                                   d.DatLichID != datLichID && // Loại trừ chính yêu cầu này
+                                   (d.TrangThai == "Confirmed" || d.TrangThai == "Completed" || d.TrangThai == "Pending") && // Kiểm tra cả Pending vì có thể đã được PT chấp nhận
+                                   // Kiểm tra trùng thời gian: (start1 < end2) && (start2 < end1)
+                                   datLich.ThoiGianBatDau < d.ThoiGianKetThuc &&
+                                   d.ThoiGianBatDau < datLich.ThoiGianKetThuc)
+                        .FirstOrDefault();
+                });
+
+                if (conflictingBooking != null)
+                {
+                    // Lấy thông tin khách hàng của lịch trùng
+                    var conflictingCustomer = await Task.Run(() => 
+                        _context.Users.FirstOrDefault(u => u.UserID == conflictingBooking.KhachHangID));
+                    string customerName = conflictingCustomer?.HoTen ?? conflictingCustomer?.Username ?? "Khách hàng";
+                    string conflictTime = $"{conflictingBooking.ThoiGianBatDau:HH:mm} - {conflictingBooking.ThoiGianKetThuc:HH:mm}";
+                    string conflictDate = conflictingBooking.ThoiGianBatDau.ToString("dd/MM/yyyy");
+
+                    MessageBox.Show(
+                        $"Bạn đã có lịch trùng với thời gian này!\n\n" +
+                        $"Lịch hiện có:\n" +
+                        $"• Khách hàng: {customerName}\n" +
+                        $"• Ngày: {conflictDate}\n" +
+                        $"• Thời gian: {conflictTime}\n" +
+                        $"• Trạng thái: {conflictingBooking.TrangThai}\n\n" +
+                        $"Vui lòng từ chối yêu cầu này hoặc yêu cầu khách hàng chọn thời gian khác.",
+                        "Lịch trùng",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+
                 // Cập nhật PTID và giữ nguyên trạng thái "Pending" (chờ thanh toán)
                 // Lưu ý: Trạng thái sẽ chuyển thành "Confirmed" sau khi thanh toán thành công
                 datLich.PTID = _ptId;
