@@ -163,7 +163,11 @@ namespace HealthApp.Views.PT
                     pnlYeuCauThuePT.Controls.Add(panel);
 
                     // Tạo nút đồng ý (vị trí Y = yOffset + 5 để căn giữa với panel)
-                    var btnAccept = CreateAcceptButton(request.DatLichID, yOffset + 5);
+                    // Lưu cả DatLichID và LichTrinhID vào Tag (format: "DatLichID|LichTrinhID")
+                    string tagValue = !string.IsNullOrEmpty(request.LichTrinhID) 
+                        ? $"{request.DatLichID}|{request.LichTrinhID}" 
+                        : request.DatLichID;
+                    var btnAccept = CreateAcceptButton(tagValue, yOffset + 5);
                     pnlYeuCauThuePT.Controls.Add(btnAccept);
 
                     // Tạo nút xóa (vị trí Y = yOffset + 46 để căn giữa với panel)
@@ -233,7 +237,7 @@ namespace HealthApp.Views.PT
             };
             panel.Controls.Add(lblMucTieu);
 
-            // Thời gian
+            // Thời gian - hiển thị số tuần nếu là lịch trình, hoặc giờ bắt đầu - kết thúc nếu là yêu cầu đơn lẻ
             var lblThoiGian = new Label
             {
                 AutoSize = true,
@@ -242,11 +246,13 @@ namespace HealthApp.Views.PT
                 Location = new Point(241, 20),
                 Name = $"lblThoiGian_{request.DatLichID}",
                 Size = new Size(81, 15),
-                Text = request.ThoiGian
+                Text = !string.IsNullOrEmpty(request.LichTrinhID) 
+                    ? request.ThoiGian // Đã là "X tuần" từ service
+                    : request.ThoiGian // Đã là "HH:mm - HH:mm" từ service
             };
             panel.Controls.Add(lblThoiGian);
 
-            // Ngày tập
+            // Ngày tập - hiển thị khoảng ngày nếu có LichTrinhID (đã được format trong ThoiGian)
             var lblNgay = new Label
             {
                 AutoSize = true,
@@ -255,7 +261,9 @@ namespace HealthApp.Views.PT
                 Location = new Point(231, 46),
                 Name = $"lblNgay_{request.DatLichID}",
                 Size = new Size(91, 19),
-                Text = request.NgayGioDat.ToString("dd/MM/yyyy")
+                Text = !string.IsNullOrEmpty(request.LichTrinhID) && request.ThoiGian.Contains(" - ")
+                    ? request.ThoiGian.Split('-')[0].Trim().Split(' ')[0] // Lấy ngày đầu tiên từ ThoiGian
+                    : request.NgayGioDat.ToString("dd/MM/yyyy")
             };
             panel.Controls.Add(lblNgay);
 
@@ -674,28 +682,32 @@ namespace HealthApp.Views.PT
                 var button = sender as Guna2CircleButton;
                 if (button?.Tag == null) return;
 
-                string datLichID = button.Tag.ToString();
+                string tagValue = button.Tag.ToString();
+                string datLichID;
                 
-                // Kiểm tra yêu cầu còn tồn tại và chưa được chấp nhận
-                var datLich = await Task.Run(() => _context.DatLichPT.FirstOrDefault(d => d.DatLichID == datLichID));
-                if (datLich == null || datLich.TrangThai != "Pending")
+                // Parse Tag: có thể là "DatLichID" hoặc "DatLichID|LichTrinhID"
+                if (tagValue.Contains("|"))
                 {
-                    MessageBox.Show("Yêu cầu này đã được xử lý!", "Thông báo", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    await LoadPTRequests();
-                    return;
+                    datLichID = tagValue.Split('|')[0];
                 }
-
-                // Cập nhật PTID và giữ nguyên trạng thái "Pending" (chờ thanh toán)
-                // Lưu ý: Trạng thái sẽ chuyển thành "Confirmed" sau khi thanh toán thành công
-                datLich.PTID = _ptId;
-                datLich.TrangThai = "Pending"; // Giữ nguyên "Pending" vì CHECK constraint không cho phép "PendingPayment"
-                datLich.NgayCapNhat = DateTime.Now;
+                else
+                {
+                    datLichID = tagValue;
+                }
                 
-                await Task.Run(() => _context.SaveChanges());
-
-                MessageBox.Show("Đã đồng ý yêu cầu! Khách hàng cần thanh toán để xác nhận.", "Thành công", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Sử dụng service để chấp nhận yêu cầu (sẽ tự động xử lý LichTrinhID nếu có)
+                var success = await _ptDashboardService.AcceptRequestAsync(datLichID, _ptId);
+                
+                if (success)
+                {
+                    MessageBox.Show("Đã đồng ý yêu cầu! Khách hàng cần thanh toán để xác nhận.", "Thành công", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Không thể chấp nhận yêu cầu này!", "Lỗi", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 // Reload data
                 await LoadPTRequests();

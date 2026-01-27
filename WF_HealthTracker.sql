@@ -354,7 +354,7 @@ CREATE TABLE DatLichPT (
     MucTieuLuyenTap NVARCHAR(200), -- Mục tiêu khách hàng đặt cho buổi tập
     GhiChu NVARCHAR(500), -- Ghi chú đặc biệt (e.g., 'Tập tại phòng gym A')
     NgayTao DATETIME DEFAULT GETDATE(), -- Ngày tạo booking
-    MucTieuLuyenTap NVARCHAR(200),
+    LichTrinhID VARCHAR(20) NULL, -- ID của lịch trình (package) để nhóm các buổi tập lại với nhau. NULL nếu là buổi tập đơn lẻ.
     NgayCapNhat DATETIME DEFAULT GETDATE(), -- Ngày cập nhật cuối
 	ThoiGianBatDau DATETIME NOT NULL,
 	ThoiGianKetThuc DATETIME NOT NULL,
@@ -378,6 +378,12 @@ CREATE TABLE DatLichPT (
     CONSTRAINT CK_DatLichPT_ThoiGianBatDau
         CHECK (ThoiGianBatDau >= GETDATE())
 );
+GO
+
+-- Tạo index cho LichTrinhID để tăng hiệu suất truy vấn
+CREATE NONCLUSTERED INDEX IX_DatLichPT_LichTrinhID
+ON DatLichPT(LichTrinhID)
+WHERE LichTrinhID IS NOT NULL;
 GO
 
 -- Bảng DanhGiaPT: Đánh giá PT sau buổi tập

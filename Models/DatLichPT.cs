@@ -60,6 +60,9 @@ namespace HealthApp.Models
 
         public DateTime? NgayCapNhat { get; set; }
 
+        [StringLength(20)]
+        public string LichTrinhID { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DanhGiaPT> DanhGiaPT { get; set; }
 

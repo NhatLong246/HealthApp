@@ -406,5 +406,26 @@ namespace HealthApp.Views.PT
 
             return (ngay, gioBatDau, gioKetThuc);
         }
+
+        /// <summary>
+        /// Set ngày cho UserControl (dùng khi thêm từ lịch trình)
+        /// </summary>
+        public void SetDate(DateTime date)
+        {
+            try
+            {
+                if (date.Date > DateTime.Today)
+                {
+                    _isUpdating = true;
+                    dtpChonNgay.MinDate = date.Date;
+                    dtpChonNgay.Value = date.Date;
+                    _isUpdating = false;
+                }
+            }
+            catch
+            {
+                _isUpdating = false;
+            }
+        }
     }
 }

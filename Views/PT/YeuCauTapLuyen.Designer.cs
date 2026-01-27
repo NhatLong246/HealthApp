@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(YeuCauTapLuyen));
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.btnBack = new Guna.UI2.WinForms.Guna2CircleButton();
             this.btnGuiYeuCau = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnHuy = new Guna.UI2.WinForms.Guna2Button();
             this.lblThongBao = new System.Windows.Forms.Label();
@@ -43,7 +44,7 @@
             this.pnlTieuDe = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.lblTieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnBack = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.btnThemLichTrinh = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).BeginInit();
@@ -54,6 +55,7 @@
             // guna2GradientPanel1
             // 
             this.guna2GradientPanel1.BackColor = System.Drawing.Color.White;
+            this.guna2GradientPanel1.Controls.Add(this.btnThemLichTrinh);
             this.guna2GradientPanel1.Controls.Add(this.btnBack);
             this.guna2GradientPanel1.Controls.Add(this.btnGuiYeuCau);
             this.guna2GradientPanel1.Controls.Add(this.btnHuy);
@@ -70,6 +72,23 @@
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(733, 744);
             this.guna2GradientPanel1.TabIndex = 1;
+            // 
+            // btnBack
+            // 
+            this.btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBack.FillColor = System.Drawing.Color.White;
+            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
+            this.btnBack.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnBack.Location = new System.Drawing.Point(3, 3);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.btnBack.Size = new System.Drawing.Size(42, 43);
+            this.btnBack.TabIndex = 10;
             // 
             // btnGuiYeuCau
             // 
@@ -129,7 +148,7 @@
             this.btnThem.ForeColor = System.Drawing.Color.White;
             this.btnThem.Location = new System.Drawing.Point(18, 586);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(658, 45);
+            this.btnThem.Size = new System.Drawing.Size(313, 45);
             this.btnThem.TabIndex = 12;
             this.btnThem.Text = "Thêm Ngày";
             // 
@@ -236,22 +255,23 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // btnBack
+            // btnThemLichTrinh
             // 
-            this.btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnBack.FillColor = System.Drawing.Color.White;
-            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnBack.ForeColor = System.Drawing.Color.White;
-            this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
-            this.btnBack.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnBack.Location = new System.Drawing.Point(3, 3);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.btnBack.Size = new System.Drawing.Size(42, 43);
-            this.btnBack.TabIndex = 10;
+            this.btnThemLichTrinh.BorderRadius = 15;
+            this.btnThemLichTrinh.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnThemLichTrinh.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnThemLichTrinh.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnThemLichTrinh.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnThemLichTrinh.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnThemLichTrinh.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnThemLichTrinh.FillColor2 = System.Drawing.Color.Lime;
+            this.btnThemLichTrinh.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThemLichTrinh.ForeColor = System.Drawing.Color.White;
+            this.btnThemLichTrinh.Location = new System.Drawing.Point(363, 586);
+            this.btnThemLichTrinh.Name = "btnThemLichTrinh";
+            this.btnThemLichTrinh.Size = new System.Drawing.Size(313, 45);
+            this.btnThemLichTrinh.TabIndex = 34;
+            this.btnThemLichTrinh.Text = "Thêm Lịch Trình";
             // 
             // YeuCauTapLuyen
             // 
@@ -291,5 +311,6 @@
         private System.Windows.Forms.Label lblThongBao;
         private Guna.UI2.WinForms.Guna2GradientButton btnGuiYeuCau;
         private Guna.UI2.WinForms.Guna2CircleButton btnBack;
+        private Guna.UI2.WinForms.Guna2GradientButton btnThemLichTrinh;
     }
 }
