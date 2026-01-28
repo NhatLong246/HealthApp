@@ -32,6 +32,8 @@ namespace HealthApp.Views.Dashboard
             UpdatePTButtonState();
         }
 
+        private ContextMenuStrip _accountMenu;
+
         private void InitializeEventHandlers()
         {
             // Header buttons
@@ -47,6 +49,79 @@ namespace HealthApp.Views.Dashboard
             btnThuePT.Click += BtnThuePT_Click;
             btnLichPT.Click += BtnLichPT_Click;
             btnDangKyLamPT.Click += BtnDangKyLamPT_Click;
+
+            // Account panel dropdown menu
+            InitializeAccountMenu();
+            pnlTaiKhoang.Click += PnlTaiKhoang_Click;
+        }
+
+        /// <summary>
+        /// Khởi tạo dropdown menu cho pnlTaiKhoang
+        /// </summary>
+        private void InitializeAccountMenu()
+        {
+            _accountMenu = new ContextMenuStrip();
+            _accountMenu.Font = new Font("Segoe UI", 10F);
+
+            // Menu item "Thông tin cơ bản"
+            var menuItemThongTin = new ToolStripMenuItem("Thông tin cơ bản");
+            menuItemThongTin.Click += MenuItemThongTin_Click;
+            _accountMenu.Items.Add(menuItemThongTin);
+
+            // Menu item "Đăng xuất"
+            var menuItemDangXuat = new ToolStripMenuItem("Đăng xuất");
+            menuItemDangXuat.Click += MenuItemDangXuat_Click;
+            _accountMenu.Items.Add(menuItemDangXuat);
+        }
+
+        /// <summary>
+        /// Event handler khi click vào pnlTaiKhoang - hiển thị dropdown menu
+        /// </summary>
+        private void PnlTaiKhoang_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Hiển thị menu tại vị trí dưới pnlTaiKhoang
+                var location = pnlTaiKhoang.PointToScreen(new Point(0, pnlTaiKhoang.Height));
+                _accountMenu.Show(location);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi hiển thị menu: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Event handler cho menu item "Thông tin cơ bản"
+        /// </summary>
+        private void MenuItemThongTin_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Kiểm tra đã đăng nhập chưa
+                if (!CurrentUser.IsLoggedIn)
+                {
+                    MessageBox.Show("Vui lòng đăng nhập để xem thông tin cơ bản!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Mở form thông tin thể trạng (không bắt buộc)
+                var frmThongTin = new frmThongTinhTheTrang(isMandatory: false);
+                var result = frmThongTin.ShowDialog(this);
+
+                // Nếu lưu thành công, reload lại thông tin user
+                if (result == DialogResult.OK)
+                {
+                    ReloadUserInfo();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở form thông tin cơ bản: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
@@ -453,7 +528,7 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Event handler cho button Lịch PT - điều hướng tới GiaoBTChoUser
+        /// Event handler cho button Lịch PT - điều hướng tới LichLuyenTapUser
         /// </summary>
         private void BtnLichPT_Click(object sender, EventArgs e)
         {
@@ -468,12 +543,12 @@ namespace HealthApp.Views.Dashboard
                 }
 
                 // Kiểm tra xem form đã mở chưa
-                HealthApp.Views.PT.GiaoBTChoUser existingForm = null;
+                HealthApp.Views.GiaoBTChoUser.LichLuyenTapUser existingForm = null;
                 foreach (Form openForm in Application.OpenForms)
                 {
-                    if (openForm is HealthApp.Views.PT.GiaoBTChoUser)
+                    if (openForm is HealthApp.Views.GiaoBTChoUser.LichLuyenTapUser)
                     {
-                        existingForm = openForm as HealthApp.Views.PT.GiaoBTChoUser;
+                        existingForm = openForm as HealthApp.Views.GiaoBTChoUser.LichLuyenTapUser;
                         break;
                     }
                 }
@@ -487,9 +562,9 @@ namespace HealthApp.Views.Dashboard
                 else
                 {
                     this.Hide();
-                    var giaoBTChoUser = new HealthApp.Views.PT.GiaoBTChoUser();
-                    giaoBTChoUser.FormClosed += (s, args) => this.ShowDashboard();
-                    giaoBTChoUser.Show();
+                    var lichLuyenTapUser = new HealthApp.Views.GiaoBTChoUser.LichLuyenTapUser(this);
+                    lichLuyenTapUser.FormClosed += (s, args) => this.ShowDashboard();
+                    lichLuyenTapUser.Show();
                 }
             }
             catch (Exception ex)

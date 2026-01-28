@@ -44,7 +44,7 @@ namespace HealthApp.Views.Settings
 
         private void OpenProfileEditor(object sender, EventArgs e)
         {
-            using (var form = new frmChangeInformationforNewuser())
+            using (var form = new frmThongTinhTheTrang())
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {

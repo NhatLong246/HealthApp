@@ -53,7 +53,7 @@
             // 
             // grbMain
             // 
-            this.grbMain.BackColor = System.Drawing.Color.White;
+            this.grbMain.BackColor = System.Drawing.Color.Transparent;
             this.grbMain.BorderColor = System.Drawing.Color.Gray;
             this.grbMain.BorderRadius = 20;
             this.grbMain.Controls.Add(this.flpBookings);
@@ -72,9 +72,9 @@
             // 
             this.flpBookings.AutoScroll = true;
             this.flpBookings.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpBookings.Location = new System.Drawing.Point(20, 135);
+            this.flpBookings.Location = new System.Drawing.Point(20, 130);
             this.flpBookings.Name = "flpBookings";
-            this.flpBookings.Size = new System.Drawing.Size(935, 365);
+            this.flpBookings.Size = new System.Drawing.Size(935, 370);
             this.flpBookings.TabIndex = 12;
             this.flpBookings.WrapContents = false;
             // 
@@ -88,7 +88,7 @@
             this.btnHomNay.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(176)))), ((int)(((byte)(80)))));
             this.btnHomNay.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnHomNay.ForeColor = System.Drawing.Color.White;
-            this.btnHomNay.Location = new System.Drawing.Point(780, 54);
+            this.btnHomNay.Location = new System.Drawing.Point(830, 58);
             this.btnHomNay.Name = "btnHomNay";
             this.btnHomNay.Size = new System.Drawing.Size(125, 45);
             this.btnHomNay.TabIndex = 11;
@@ -101,7 +101,7 @@
             this.dtpTime.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpTime.ForeColor = System.Drawing.Color.Black;
             this.dtpTime.Format = System.Windows.Forms.DateTimePickerFormat.Long;
-            this.dtpTime.Location = new System.Drawing.Point(263, 58);
+            this.dtpTime.Location = new System.Drawing.Point(295, 67);
             this.dtpTime.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtpTime.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtpTime.Name = "dtpTime";
@@ -121,7 +121,7 @@
             this.btnNext.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.ForeColor = System.Drawing.Color.Black;
             this.btnNext.HoverState.FillColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(690, 48);
+            this.btnNext.Location = new System.Drawing.Point(760, 58);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(45, 45);
             this.btnNext.TabIndex = 9;
@@ -139,7 +139,7 @@
             this.btnPrev.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrev.ForeColor = System.Drawing.Color.Black;
             this.btnPrev.HoverState.FillColor = System.Drawing.Color.White;
-            this.btnPrev.Location = new System.Drawing.Point(150, 48);
+            this.btnPrev.Location = new System.Drawing.Point(116, 58);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(45, 45);
             this.btnPrev.TabIndex = 8;

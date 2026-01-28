@@ -193,6 +193,7 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\ChatGPTService.cs" />
     <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\WorkoutNotificationService.cs" />
     <Compile Include="Services\ForgotPasswordService.cs" />
     <Compile Include="Services\PaymentService.cs" />
     <Compile Include="Services\ReportService.cs" />
@@ -222,6 +223,12 @@
     </Compile>
     <Compile Include="Views\Dashboard\frmDashBoard1.Designer.cs">
       <DependentUpon>frmDashBoard1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GiaoBTChoUser\LichLuyenTapUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\GiaoBTChoUser\LichLuyenTapUser.Designer.cs">
+      <DependentUpon>LichLuyenTapUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\KeHoachLuyenTap\frmDoiLichTap.cs">
       <SubType>Form</SubType>
@@ -478,6 +485,12 @@
     <Compile Include="Views\PT\frm_PaymentQRCode.Designer.cs">
       <DependentUpon>frm_PaymentQRCode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\frmThongTinhTheTrang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Settings\frmThongTinhTheTrang.Designer.cs">
+      <DependentUpon>frmThongTinhTheTrang.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings\frmChangeInformationforNewuser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -531,6 +544,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Dashboard\frmDashBoard1.resx">
       <DependentUpon>frmDashBoard1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\GiaoBTChoUser\LichLuyenTapUser.resx">
+      <DependentUpon>LichLuyenTapUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\KeHoachLuyenTap\frmDoiLichTap.resx">
       <DependentUpon>frmDoiLichTap.cs</DependentUpon>
@@ -675,6 +691,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Settings\frmChangeInformationforNewuser.resx">
       <DependentUpon>frmChangeInformationforNewuser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Settings\frmThongTinhTheTrang.resx">
+      <DependentUpon>frmThongTinhTheTrang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Settings\ucSetting.resx">
       <DependentUpon>ucSetting.cs</DependentUpon>

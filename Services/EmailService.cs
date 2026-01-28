@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using HealthApp.Services.Interfaces;
+using HealthApp.Models;
 
 namespace HealthApp.Services
 {
@@ -178,6 +181,227 @@ namespace HealthApp.Services
                 <strong>⚠️ Lưu ý:</strong> Mã OTP này có hiệu lực trong <strong>15 phút</strong>.
                 Nếu bạn không yêu cầu khôi phục mật khẩu, vui lòng bỏ qua email này.
             </p>
+            
+            <p>Trân trọng,<br><strong>Đội ngũ HealthApp</strong></p>
+        </div>
+        <div class='footer'>
+            <p>Email này được gửi tự động, vui lòng không trả lời.</p>
+            <p>&copy; 2024 HealthApp. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>";
+        }
+
+        /// <summary>
+        /// Gửi email thông báo lịch tập luyện
+        /// </summary>
+        public async Task<(bool Success, string ErrorMessage)> SendWorkoutNotificationEmailAsync(
+            string toEmail, 
+            string userName, 
+            BuoiTap buoiTap, 
+            int notificationType)
+        {
+            string errorMessage = string.Empty;
+            
+            try
+            {
+                // Kiểm tra email và password đã được cấu hình chưa
+                if (_senderEmail == "your-email@gmail.com" || _senderPassword == "your-app-password")
+                {
+                    errorMessage = "Email và App Password chưa được cấu hình!";
+                    System.Diagnostics.Debug.WriteLine("⚠️ LỖI: Email và App Password chưa được cấu hình!");
+                    return (false, errorMessage);
+                }
+
+                if (buoiTap == null || string.IsNullOrWhiteSpace(toEmail))
+                {
+                    errorMessage = "Thông tin buổi tập hoặc email không hợp lệ!";
+                    return (false, errorMessage);
+                }
+
+                // Load BaiTapChiTiet và ThuVienBaiTap nếu chưa có
+                using (var dbContext = new WF_HealthTracker())
+                {
+                    var buoiTapFromDb = dbContext.BuoiTap
+                        .FirstOrDefault(b => b.BuoiTapID == buoiTap.BuoiTapID);
+                    
+                    if (buoiTapFromDb != null)
+                    {
+                        dbContext.Entry(buoiTapFromDb)
+                            .Collection(bt => bt.BaiTapChiTiet)
+                            .Load();
+                        
+                        foreach (var baiTapChiTiet in buoiTapFromDb.BaiTapChiTiet)
+                        {
+                            if (baiTapChiTiet.ThuVienBaiTap == null && !string.IsNullOrEmpty(baiTapChiTiet.BaiTapID))
+                            {
+                                dbContext.Entry(baiTapChiTiet)
+                                    .Reference(bt => bt.ThuVienBaiTap)
+                                    .Load();
+                            }
+                        }
+                        
+                        buoiTap = buoiTapFromDb;
+                    }
+                }
+
+                // Tạo nội dung email dựa trên loại thông báo
+                string subject = "";
+                string body = "";
+                
+                switch (notificationType)
+                {
+                    case 1: // Trước 1 ngày
+                        subject = "Nhắc nhở: Lịch tập luyện ngày mai";
+                        body = GenerateWorkoutReminderEmailBody(userName, buoiTap, notificationType);
+                        break;
+                    case 2: // Ngày tập
+                        subject = "Thông báo: Lịch tập luyện hôm nay";
+                        body = GenerateWorkoutReminderEmailBody(userName, buoiTap, notificationType);
+                        break;
+                    case 3: // Quá ngày tập
+                        subject = "Nhắc nhở: Bạn đã bỏ lỡ lịch tập luyện";
+                        body = GenerateWorkoutReminderEmailBody(userName, buoiTap, notificationType);
+                        break;
+                    default:
+                        errorMessage = "Loại thông báo không hợp lệ!";
+                        return (false, errorMessage);
+                }
+
+                using (var client = new SmtpClient(_smtpServer, _smtpPort))
+                {
+                    client.EnableSsl = _enableSsl;
+                    client.UseDefaultCredentials = false;
+                    string cleanPassword = _senderPassword?.Replace(" ", "").Trim();
+                    client.Credentials = new NetworkCredential(_senderEmail, cleanPassword);
+                    client.Timeout = 30000;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                    var mailMessage = new MailMessage
+                    {
+                        From = new MailAddress(_senderEmail, "HealthApp"),
+                        Subject = subject,
+                        Body = body,
+                        IsBodyHtml = true
+                    };
+
+                    mailMessage.To.Add(toEmail);
+
+                    await Task.Run(() => client.Send(mailMessage));
+                    System.Diagnostics.Debug.WriteLine($"✅ Email thông báo lịch tập đã được gửi thành công đến {toEmail}!");
+                    return (true, string.Empty);
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Lỗi khi gửi email thông báo lịch tập: {ex.Message}";
+                System.Diagnostics.Debug.WriteLine($"Lỗi gửi email thông báo lịch tập: {ex.Message}");
+                return (false, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Tạo nội dung email thông báo lịch tập luyện
+        /// </summary>
+        private string GenerateWorkoutReminderEmailBody(string userName, BuoiTap buoiTap, int notificationType)
+        {
+            var displayName = string.IsNullOrWhiteSpace(userName) ? "Người dùng" : userName;
+            
+            // Lấy thông tin thời gian
+            string timeInfo = "";
+            if (buoiTap.ThoiGianBatDau.HasValue && buoiTap.ThoiGianKetThuc.HasValue)
+            {
+                timeInfo = $"từ {buoiTap.ThoiGianBatDau.Value:HH:mm} đến {buoiTap.ThoiGianKetThuc.Value:HH:mm}";
+            }
+            else if (buoiTap.ThoiGianBatDau.HasValue)
+            {
+                timeInfo = $"vào lúc {buoiTap.ThoiGianBatDau.Value:HH:mm}";
+            }
+            else
+            {
+                timeInfo = "theo lịch đã đặt";
+            }
+
+            // Lấy danh sách bài tập
+            string baiTapList = "";
+            if (buoiTap.BaiTapChiTiet != null && buoiTap.BaiTapChiTiet.Count > 0)
+            {
+                var baiTapNames = buoiTap.BaiTapChiTiet
+                    .Where(bt => bt.ThuVienBaiTap != null)
+                    .Select(bt => bt.ThuVienBaiTap.TenBaiTap)
+                    .ToList();
+                
+                if (baiTapNames.Count > 0)
+                {
+                    baiTapList = "<ul style='list-style-type: none; padding-left: 0;'>";
+                    foreach (var tenBaiTap in baiTapNames)
+                    {
+                        baiTapList += $"<li style='padding: 8px 0; border-bottom: 1px solid #eee;'>✓ {tenBaiTap}</li>";
+                    }
+                    baiTapList += "</ul>";
+                }
+            }
+
+            string mainMessage = "";
+            string reminderMessage = "";
+            
+            switch (notificationType)
+            {
+                case 1: // Trước 1 ngày
+                    mainMessage = $"Ngày mai bạn sẽ có bài tập luyện {timeInfo}.";
+                    reminderMessage = "Đừng quên luyện tập nhé! Hãy chuẩn bị tinh thần và dụng cụ cần thiết để có một buổi tập hiệu quả.";
+                    break;
+                case 2: // Ngày tập
+                    mainMessage = $"Hôm nay bạn có bài tập luyện {timeInfo}.";
+                    reminderMessage = "Hôm nay bạn có lịch tập, đừng bỏ lỡ nhé! Hãy sắp xếp thời gian và thực hiện đầy đủ các bài tập để đạt được mục tiêu của bạn.";
+                    break;
+                case 3: // Quá ngày tập
+                    mainMessage = $"Bạn đã bỏ lỡ lịch luyện tập {timeInfo}.";
+                    reminderMessage = "Hãy luyện tập một cách chăm chỉ hơn để đạt được mục tiêu của bạn. Đừng để bỏ lỡ các buổi tập tiếp theo nhé!";
+                    break;
+            }
+
+            return $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <style>
+        body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+        .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+        .header {{ background: linear-gradient(135deg, #4CCBA0 0%, #01958D 100%); color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }}
+        .content {{ background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }}
+        .workout-box {{ background: white; border-left: 4px solid #4CCBA0; padding: 20px; margin: 20px 0; border-radius: 5px; }}
+        .time-info {{ font-size: 18px; font-weight: bold; color: #01958D; margin: 15px 0; }}
+        .exercise-list {{ background: white; padding: 15px; margin: 15px 0; border-radius: 5px; }}
+        .reminder {{ background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px; }}
+        .footer {{ text-align: center; margin-top: 20px; color: #666; font-size: 12px; }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>HealthApp</h1>
+            <p>Thông Báo Lịch Tập Luyện</p>
+        </div>
+        <div class='content'>
+            <p>Xin chào <strong>{displayName}</strong>,</p>
+            
+            <div class='workout-box'>
+                <p style='font-size: 16px; margin: 0 0 10px 0;'>{mainMessage}</p>
+                <div class='time-info'>⏰ {timeInfo}</div>
+            </div>
+            
+            {(string.IsNullOrWhiteSpace(baiTapList) ? "" : $@"
+            <div class='exercise-list'>
+                <h3 style='margin-top: 0; color: #01958D;'>Danh sách bài tập:</h3>
+                {baiTapList}
+            </div>")}
+            
+            <div class='reminder'>
+                <p style='margin: 0;'><strong>💪 Lời nhắc:</strong> {reminderMessage}</p>
+            </div>
             
             <p>Trân trọng,<br><strong>Đội ngũ HealthApp</strong></p>
         </div>
