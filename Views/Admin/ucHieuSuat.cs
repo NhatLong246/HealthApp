@@ -191,30 +191,33 @@ namespace HealthApp.Views.Admin
                 // Tạo Series cho biểu đồ tròn — hiển thị phần trăm trong biểu đồ tròn
                 Series series = new Series("Tỉ lệ");
                 series.ChartType = SeriesChartType.Pie;
-                series.IsValueShownAsLabel = true;
-                series.LabelFormat = "{P2}"; // Chỉ hiển thị % (P2 = percent 2 decimal) trong biểu đồ tròn
-                series.Font = new Font("Times New Roman", 10F, FontStyle.Bold);
+                // Mình set label thủ công để tránh lỗi format token (#VALY...)
+                series.IsValueShownAsLabel = false;
+                series.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
                 series.LabelForeColor = Color.Black;
                 series["PieLabelStyle"] = "Inside"; // Phần trăm hiển thị bên trong miếng tròn
 
-                // Đếm số lượng PT và Client (không tính Admin)
+                // Đếm theo yêu cầu: PT / (Tổng user). "Người dùng" = Tổng user - PT (bao gồm cả Admin nếu có).
+                int totalUsers = _dbContext.Users.Count();
                 int totalPTs = _dbContext.Users.Count(u => u.Role == "PT");
-                int totalClients = _dbContext.Users.Count(u => u.Role == "Client");
-                int total = totalPTs + totalClients;
+                int totalNonPT = Math.Max(0, totalUsers - totalPTs);
+                int total = totalUsers;
 
                 // Thêm dữ liệu vào biểu đồ (chỉ PT và Người dùng)
-                if (totalPTs > 0)
+                if (total > 0)
                 {
-                    int idx = series.Points.AddXY("PT", totalPTs);
-                    series.Points[idx].Color = Color.FromArgb(59, 130, 246);
-                    series.Points[idx].LegendText = "Personal Trainer";
-                }
+                    double ptPct = Math.Round((double)totalPTs * 100.0 / total, 1);
+                    double userPct = Math.Round(100.0 - ptPct, 1);
 
-                if (totalClients > 0)
-                {
-                    int idx = series.Points.AddXY("Người dùng", totalClients);
-                    series.Points[idx].Color = Color.FromArgb(34, 198, 94);
-                    series.Points[idx].LegendText = "Người dùng";
+                    int idxPt = series.Points.AddXY("PT", ptPct);
+                    series.Points[idxPt].Color = Color.FromArgb(59, 130, 246);
+                    series.Points[idxPt].LegendText = "Personal Trainer";
+                    series.Points[idxPt].Label = $"{ptPct:F1}%";
+
+                    int idxUser = series.Points.AddXY("Người dùng", userPct);
+                    series.Points[idxUser].Color = Color.FromArgb(34, 198, 94);
+                    series.Points[idxUser].LegendText = $"Người dùng ({totalNonPT})";
+                    series.Points[idxUser].Label = $"{userPct:F1}%";
                 }
 
                 // Nếu không có dữ liệu, hiển thị thông báo

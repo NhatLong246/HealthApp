@@ -1022,6 +1022,21 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
+        /// Quay về màn hình nội dung mặc định (pnlBody).
+        /// Dùng cho trường hợp đang hiển thị UserControl trong container và cần "trở về"
+        /// mà KHÔNG đóng form Dashboard (tránh tắt chương trình).
+        /// </summary>
+        public void ReturnToHome()
+        {
+            ShowDefaultContent();
+            this.Show();
+            this.BringToFront();
+            this.Activate();
+            LoadUserInfo();
+            UpdatePTButtonState();
+        }
+
+        /// <summary>
         /// Load một UserControl vào pnlBackground
         /// </summary>
         /// <typeparam name="T">Loại UserControl cần load</typeparam>

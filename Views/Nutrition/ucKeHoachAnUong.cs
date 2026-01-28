@@ -15,12 +15,6 @@ namespace HealthApp.Views.Nutrition
 {
     public partial class ucKeHoachAnUong : UserControl
     {
-        private sealed class SuggestedFoodTag
-        {
-            public ThuVienMonAn MonAn { get; }
-            public string LoaiBuaAn { get; }
-            public SuggestedFoodTag(ThuVienMonAn monAn, string loaiBuaAn) { MonAn = monAn; LoaiBuaAn = loaiBuaAn; }
-        }
         private NutritionController _nutritionController;
         private GoalController _goalController;
         private ChatGPTService _chatGPTService;
@@ -39,7 +33,6 @@ namespace HealthApp.Views.Nutrition
         private double? _targetFat;
 
         private string _keHoachAnID;
-        private readonly List<string> _monAnDaDeXuatTrongNgay = new List<string>();
 
         private Panel _chartPanel;
         private double _chartCalories;
@@ -51,8 +44,6 @@ namespace HealthApp.Views.Nutrition
         private double _lastTotalPro;
         private double _lastTotalCarb;
         private double _lastTotalFat;
-        private readonly List<(ThuVienMonAn mon, string loai)> _suggestedToSave = new List<(ThuVienMonAn, string)>();
-        private readonly HashSet<DateTime> _savedDatesLoadFromDbOnly = new HashSet<DateTime>();
 
         public ucKeHoachAnUong()
         {
@@ -178,7 +169,7 @@ namespace HealthApp.Views.Nutrition
                 guna2DateTimePicker1.ValueChanged += (s, e) =>
                 {
                     _selectedDate = guna2DateTimePicker1.Value.Date;
-                    _ = LoadDataAsync();
+                    _ = LoadDataAsync(reloadFromDb: true); // Khi đổi ngày, reload từ DB để hiển thị món của ngày đó
                 };
             }
 
@@ -200,7 +191,7 @@ namespace HealthApp.Views.Nutrition
                 {
                     var frm = new frmThemMonAn(monAn, db, _keHoachAnID, loaiBuaAn, _selectedDate);
                     if (frm.ShowDialog() == DialogResult.OK)
-                        _ = LoadDataAsync();
+                        _ = LoadDataAsync(reloadFromDb: true); // Reload từ DB để hiển thị card mới
                 }
             }
         }
@@ -259,107 +250,47 @@ namespace HealthApp.Views.Nutrition
                 return;
             }
 
-            try
-            {
-                var (saved, savedKeys) = await GetSavedMealsAndKeysForDateAsync();
-                string keHoachAnId = _keHoachAnID;
-                if (string.IsNullOrWhiteSpace(keHoachAnId))
-                {
-                    using (var db = new WF_HealthTracker())
-                    {
-                        keHoachAnId = GetOrCreateKeHoachAnUong(db);
-                    }
-                }
-                if (string.IsNullOrWhiteSpace(keHoachAnId))
-                {
-                    MessageBox.Show("Không thể xác định kế hoạch ăn uống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                var addedKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                using (var db = new WF_HealthTracker())
-                {
-                    var ngay = _selectedDate.Date;
-                    int nextIndex = GetNextBuaAnIndex(db);
-                    int idx = 0;
-                    foreach (var (mon, loai) in _suggestedToSave)
-                    {
-                        var loaiDb = loai.Equals("Bữa phụ", StringComparison.OrdinalIgnoreCase) ? "Phụ" : loai;
-                        var key = $"{mon.MonAnID}|{(loaiDb == "Phụ" ? "Bữa phụ" : loaiDb)}";
-                        if (savedKeys.Contains(key) || addedKeys.Contains(key)) continue;
-
-                        double khoiLuong = mon.KhoiLuongChuan ?? 100;
-                        double tiLe = khoiLuong / 100.0;
-                        var entity = new BuaAnChiTiet
-                        {
-                            BuaAnID = $"meal_{nextIndex + idx:D4}",
-                            KeHoachAnID = keHoachAnId,
-                            MonAnID = mon.MonAnID,
-                            LoaiBuaAn = loaiDb,
-                            NgayAn = ngay,
-                            TenMonAn = mon.TenMonAn ?? "N/A",
-                            Donvi = mon.Donvi ?? "g",
-                            KhoiLuongChuan = khoiLuong,
-                            Calories = (mon.Calories ?? 0) * tiLe,
-                            Protein = (mon.Protein ?? 0) * tiLe,
-                            Carbs = (mon.Carbs ?? 0) * tiLe,
-                            Fat = (mon.Fat ?? 0) * tiLe,
-                            Fiber = (mon.Fiber ?? 0) * tiLe,
-                            GhiChu = "LoaiBuaAn: " + loai,
-                            NgayCapNhat = DateTime.Now
-                        };
-                        db.BuaAnChiTiet.Add(entity);
-                        addedKeys.Add(key);
-                        idx++;
-                    }
-                    db.SaveChanges();
-                }
-
-                _savedDatesLoadFromDbOnly.Add(_selectedDate.Date);
-                _ = LoadDataAsync();
-                MessageBox.Show("Đã lưu món ăn vào kế hoạch. Dữ liệu hiển thị từ database.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi lưu món ăn: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // BỎ phần AI tự thêm món ăn:
+            // Món ăn được lưu ngay khi người dùng tự thêm/chỉnh sửa trong các form.
+            // Nút "Lưu" ở đây chỉ đóng vai trò kiểm tra mục tiêu và refresh dữ liệu.
+            _ = LoadDataAsync(reloadFromDb: true); // Reload từ DB để refresh sau khi kiểm tra
+            MessageBox.Show("Đã đạt mục tiêu. Món ăn đã được lưu theo thao tác thêm/chỉnh sửa của bạn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private async Task LoadDataAsync()
+        private async Task LoadDataAsync(bool reloadFromDb = false)
         {
             try
             {
                 ClearAllMealPanels();
-                _monAnDaDeXuatTrongNgay.Clear();
-                _suggestedToSave.Clear();
 
                 LoadUserGoalToLabel();
 
-                if (lblMucTieu != null && lblMucTieu.Text == "Chưa có mục tiêu")
+                // Nếu reloadFromDb = true (khi người dùng vừa thêm món), load từ DB để hiển thị card mới
+                // Nếu reloadFromDb = false (khi vào trang lần đầu), không load từ DB
+                if (reloadFromDb)
                 {
-                    var (saved, _) = await GetSavedMealsAndKeysForDateAsync();
-                    AddSavedMealsToPanels(saved);
-                    var (sc, sp, sb, sf) = SumSavedNutrition(saved);
-                    UpdateNutritionSummary(sc, sp, sb, sf, hasTarget: false);
-                    return;
-                }
+                    if (lblMucTieu != null && lblMucTieu.Text == "Chưa có mục tiêu")
+                    {
+                        var (saved, _) = await GetSavedMealsAndKeysForDateAsync();
+                        AddSavedMealsToPanels(saved);
+                        var (sc, sp, sb, sf) = SumSavedNutrition(saved);
+                        UpdateNutritionSummary(sc, sp, sb, sf, hasTarget: false);
+                        return;
+                    }
 
-                await LoadKeHoachAnUongTargetsAsync();
-                var (savedList, savedKeys) = await GetSavedMealsAndKeysForDateAsync();
-
-                bool loadOnlyFromDb = _savedDatesLoadFromDbOnly.Contains(_selectedDate.Date);
-                if (loadOnlyFromDb)
-                {
+                    await LoadKeHoachAnUongTargetsAsync();
+                    var (savedList, savedKeys) = await GetSavedMealsAndKeysForDateAsync();
                     AddSavedMealsToPanels(savedList);
-                    var (sC, sP, sB, sF) = SumSavedNutrition(savedList);
-                    UpdateNutritionSummary(sC, sP, sB, sF, hasTarget: true);
-                    return;
+                    var (savedCal, savedPro, savedCarb, savedFat) = SumSavedNutrition(savedList);
+                    UpdateNutritionSummary(savedCal, savedPro, savedCarb, savedFat, hasTarget: true);
                 }
-
-                var (sugCal, sugPro, sugCarb, sugFat) = await LoadSuggestedMealsAsync(savedKeys);
-                AddSavedMealsToPanels(savedList);
-                var (savedCal, savedPro, savedCarb, savedFat) = SumSavedNutrition(savedList);
-                UpdateNutritionSummary(sugCal + savedCal, sugPro + savedPro, sugCarb + savedCarb, sugFat + savedFat, hasTarget: true);
+                else
+                {
+                    // Khi vào trang lần đầu: KHÔNG load món từ DB - chỉ hiển thị khi người dùng tự thêm
+                    // Reset tổng dinh dưỡng về 0
+                    await LoadKeHoachAnUongTargetsAsync(); // Vẫn load mục tiêu để hiển thị
+                    UpdateNutritionSummary(0, 0, 0, 0, hasTarget: lblMucTieu != null && lblMucTieu.Text != "Chưa có mục tiêu");
+                }
             }
             catch (Exception ex)
             {
@@ -459,283 +390,12 @@ namespace HealthApp.Views.Nutrition
             }
         }
 
-        private async Task<(double cal, double pro, double carb, double fat)> LoadSuggestedMealsAsync(HashSet<string> savedKeys)
-        {
-            if (!CurrentUser.IsLoggedIn || _chatGPTService == null)
-                return (0, 0, 0, 0);
-
-            // Nếu không có target thì bỏ qua
-            if (!_targetCalories.HasValue && !_targetProtein.HasValue && !_targetCarbs.HasValue && !_targetFat.HasValue)
-                return (0, 0, 0, 0);
-
-            var mealRatios = new Dictionary<string, double>
-            {
-                { "Sáng", 0.25 },
-                { "Trưa", 0.35 },
-                { "Tối", 0.30 },
-                { "Bữa phụ", 0.10 }
-            };
-
-            double sumCal = 0, sumPro = 0, sumCarb = 0, sumFat = 0;
-            var t1 = await LoadSuggestedToPanelAsync("Sáng", _pnlScrollBuaSang, mealRatios["Sáng"], savedKeys);
-            var t2 = await LoadSuggestedToPanelAsync("Trưa", _pnlScrollBuaTrua, mealRatios["Trưa"], savedKeys);
-            var t3 = await LoadSuggestedToPanelAsync("Tối", _pnlScrollBuaToi, mealRatios["Tối"], savedKeys);
-            var t4 = await LoadSuggestedToPanelAsync("Bữa phụ", _pnlScrollBuaPhu, mealRatios["Bữa phụ"], savedKeys);
-            sumCal = t1.cal + t2.cal + t3.cal + t4.cal;
-            sumPro = t1.pro + t2.pro + t3.pro + t4.pro;
-            sumCarb = t1.carb + t2.carb + t3.carb + t4.carb;
-            sumFat = t1.fat + t2.fat + t3.fat + t4.fat;
-            return (sumCal, sumPro, sumCarb, sumFat);
-        }
-
-        private async Task<(double cal, double pro, double carb, double fat)> LoadSuggestedToPanelAsync(string loaiBuaAn, FlowLayoutPanel panel, double ratio, HashSet<string> savedKeys)
-        {
-            double sumCal = 0, sumPro = 0, sumCarb = 0, sumFat = 0;
-            if (panel == null) return (0, 0, 0, 0);
-
-            double targetCalories = (_targetCalories ?? 0) * ratio;
-            double targetProtein = (_targetProtein ?? 0) * ratio;
-            double targetCarbs = (_targetCarbs ?? 0) * ratio;
-            double targetFat = (_targetFat ?? 0) * ratio;
-
-            var foods = await GetSuggestedFoodsWithNutritionTarget(loaiBuaAn, targetCalories, targetProtein, targetCarbs, targetFat);
-
-            panel.SuspendLayout();
-            try
-            {
-                foreach (var f in foods)
-                {
-                    var key = $"{f.MonAnID}|{loaiBuaAn}";
-                    if (savedKeys != null && savedKeys.Contains(key))
-                        continue;
-                    double khoiLuong = f.KhoiLuongChuan ?? 100;
-                    double r = khoiLuong / 100.0;
-                    double cal = (f.Calories ?? 0) * r;
-                    double pro = (f.Protein ?? 0) * r;
-                    double carb = (f.Carbs ?? 0) * r;
-                    double fat = (f.Fat ?? 0) * r;
-                    sumCal += cal; sumPro += pro; sumCarb += carb; sumFat += fat;
-                    panel.Controls.Add(CreateFoodCard(f, loaiBuaAn));
-                    _suggestedToSave.Add((f, loaiBuaAn));
-                    if (!string.IsNullOrWhiteSpace(f.TenMonAn) && !_monAnDaDeXuatTrongNgay.Contains(f.TenMonAn))
-                        _monAnDaDeXuatTrongNgay.Add(f.TenMonAn);
-                }
-            }
-            finally
-            {
-                panel.ResumeLayout();
-            }
-            return (sumCal, sumPro, sumCarb, sumFat);
-        }
-
-        private async Task<List<ThuVienMonAn>> GetSuggestedFoodsWithNutritionTarget(string loaiBuaAn, double targetCalories, double targetProtein, double targetCarbs, double targetFat)
-        {
-            try
-            {
-                using (var dbContext = new WF_HealthTracker())
-                {
-                    var allFoods = dbContext.ThuVienMonAn.ToList();
-                    if (allFoods == null || allFoods.Count == 0)
-                        return new List<ThuVienMonAn>();
-
-                    var danhSachTenMonAn = allFoods.Select(f => f.TenMonAn).Where(t => !string.IsNullOrWhiteSpace(t)).ToList();
-
-                    string mucTieu = (lblMucTieu != null && lblMucTieu.Text != "Chưa có mục tiêu") ? lblMucTieu.Text : null;
-                    var suggestedNames = await _chatGPTService.SuggestFoodsAsync(loaiBuaAn, mucTieu, danhSachTenMonAn, _selectedDate, _monAnDaDeXuatTrongNgay);
-
-                    if (suggestedNames == null || suggestedNames.Count == 0)
-                        suggestedNames = danhSachTenMonAn.Take(8).ToList();
-
-                    var result = new List<ThuVienMonAn>();
-                    double sumCal = 0, sumPro = 0, sumCarb = 0, sumFat = 0;
-
-                    foreach (var name in suggestedNames)
-                    {
-                        var monAn = allFoods.FirstOrDefault(f => f.TenMonAn != null && f.TenMonAn.Equals(name, StringComparison.OrdinalIgnoreCase))
-                                 ?? allFoods.FirstOrDefault(f => f.TenMonAn != null && f.TenMonAn.IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0);
-
-                        if (monAn == null) continue;
-
-                        double khoiLuong = monAn.KhoiLuongChuan ?? 100;
-                        double r = khoiLuong / 100.0;
-                        double cal = (monAn.Calories ?? 0) * r;
-                        double pro = (monAn.Protein ?? 0) * r;
-                        double carb = (monAn.Carbs ?? 0) * r;
-                        double fat = (monAn.Fat ?? 0) * r;
-
-                        double newCal = sumCal + cal;
-                        double newPro = sumPro + pro;
-                        double newCarb = sumCarb + carb;
-                        double newFat = sumFat + fat;
-
-                        bool ok = true;
-                        if (targetCalories > 0 && newCal > targetCalories * 1.1) ok = false;
-                        if (targetProtein > 0 && newPro > targetProtein * 1.1) ok = false;
-                        if (targetCarbs > 0 && newCarb > targetCarbs * 1.1) ok = false;
-                        if (targetFat > 0 && newFat > targetFat * 1.1) ok = false;
-
-                        if (!ok) break;
-
-                        result.Add(monAn);
-                        sumCal = newCal; sumPro = newPro; sumCarb = newCarb; sumFat = newFat;
-
-                        if (result.Count >= 7) break;
-                    }
-
-                    return result;
-                }
-            }
-            catch
-            {
-                return new List<ThuVienMonAn>();
-            }
-        }
-
         private void ClearAllMealPanels()
         {
             _pnlScrollBuaSang?.Controls.Clear();
             _pnlScrollBuaTrua?.Controls.Clear();
             _pnlScrollBuaToi?.Controls.Clear();
             _pnlScrollBuaPhu?.Controls.Clear();
-        }
-
-        private Control CreateFoodCard(ThuVienMonAn monAn, string loaiBuaAn)
-        {
-            double khoiLuong = monAn.KhoiLuongChuan ?? 100;
-            double r = khoiLuong / 100.0;
-            double cal = (monAn.Calories ?? 0) * r;
-            double pro = (monAn.Protein ?? 0) * r;
-            double carb = (monAn.Carbs ?? 0) * r;
-            double fat = (monAn.Fat ?? 0) * r;
-
-            var card = new Guna2Panel
-            {
-                Width = 460,
-                Height = 90,
-                Margin = new Padding(0, 0, 0, 10),
-                BorderRadius = 12,
-                BorderThickness = 1,
-                BorderColor = Color.FromArgb(19, 217, 195),
-                FillColor = Color.White,
-                Padding = new Padding(12),
-                Cursor = Cursors.Hand
-            };
-            card.Tag = new SuggestedFoodTag(monAn, loaiBuaAn);
-            card.Click += OnSuggestedFoodCardClick;
-
-            var lblName = new Label
-            {
-                AutoSize = false,
-                Dock = DockStyle.Top,
-                Height = 24,
-                Font = new Font("Times New Roman", 11, FontStyle.Bold),
-                Text = $"{monAn.TenMonAn} - {khoiLuong:0}{monAn.Donvi ?? "g"}",
-                Cursor = Cursors.Hand
-            };
-            lblName.Click += OnSuggestedFoodCardClick;
-
-            var lblLine2 = new Label
-            {
-                AutoSize = false,
-                Dock = DockStyle.Top,
-                Height = 20,
-                ForeColor = Color.Gray,
-                Font = new Font("Times New Roman", 10),
-                Text = $"P: {pro:0.0}g   C: {carb:0.0}g   F: {fat:0.0}g",
-                Cursor = Cursors.Hand
-            };
-            lblLine2.Click += OnSuggestedFoodCardClick;
-
-            var lblCalo = new Label
-            {
-                AutoSize = false,
-                Dock = DockStyle.Top,
-                Height = 20,
-                ForeColor = Color.FromArgb(255, 128, 0),
-                Font = new Font("Times New Roman", 10, FontStyle.Bold),
-                Text = $"{cal:0} kcal",
-                Cursor = Cursors.Hand
-            };
-            lblCalo.Click += OnSuggestedFoodCardClick;
-
-            card.Controls.Add(lblCalo);
-            card.Controls.Add(lblLine2);
-            card.Controls.Add(lblName);
-
-            return card;
-        }
-
-        private void OnSuggestedFoodCardClick(object sender, EventArgs e)
-        {
-            var c = sender as Control;
-            var card = c as Guna2Panel ?? c?.Parent as Guna2Panel;
-            var tag = card?.Tag as SuggestedFoodTag;
-            if (tag == null) return;
-
-            if (!CurrentUser.IsLoggedIn)
-            {
-                MessageBox.Show("Vui lòng đăng nhập để sử dụng tính năng này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                using (var db = new WF_HealthTracker())
-                {
-                    string keHoachAnId = _keHoachAnID;
-                    if (string.IsNullOrWhiteSpace(keHoachAnId))
-                        keHoachAnId = GetOrCreateKeHoachAnUong(db);
-                    if (string.IsNullOrWhiteSpace(keHoachAnId)) return;
-
-                    var ngayBatDau = _selectedDate.Date;
-                    var ngayKetThuc = _selectedDate.Date.AddDays(1).AddTicks(-1);
-                    var monAn = tag.MonAn;
-                    var loaiBuaAn = tag.LoaiBuaAn ?? "Sáng";
-                    var loaiDb = loaiBuaAn.Equals("Bữa phụ", StringComparison.OrdinalIgnoreCase) ? "Phụ" : loaiBuaAn;
-
-                    var buaAnChiTiet = db.BuaAnChiTiet
-                        .FirstOrDefault(b => b.KeHoachAnID == keHoachAnId &&
-                            b.MonAnID == monAn.MonAnID &&
-                            b.NgayAn >= ngayBatDau && b.NgayAn <= ngayKetThuc &&
-                            b.LoaiBuaAn == loaiDb);
-
-                    if (buaAnChiTiet == null)
-                    {
-                        double khoiLuong = monAn.KhoiLuongChuan ?? 100;
-                        double tiLe = khoiLuong / 100.0;
-                        buaAnChiTiet = new BuaAnChiTiet
-                        {
-                            BuaAnID = GenerateBuaAnID(db),
-                            KeHoachAnID = keHoachAnId,
-                            MonAnID = monAn.MonAnID,
-                            LoaiBuaAn = loaiDb,
-                            NgayAn = _selectedDate.Date,
-                            TenMonAn = monAn.TenMonAn ?? "N/A",
-                            Donvi = monAn.Donvi ?? "g",
-                            KhoiLuongChuan = khoiLuong,
-                            Calories = (monAn.Calories ?? 0) * tiLe,
-                            Protein = (monAn.Protein ?? 0) * tiLe,
-                            Carbs = (monAn.Carbs ?? 0) * tiLe,
-                            Fat = (monAn.Fat ?? 0) * tiLe,
-                            Fiber = (monAn.Fiber ?? 0) * tiLe,
-                            GhiChu = "LoaiBuaAn: " + loaiBuaAn,
-                            NgayCapNhat = DateTime.Now
-                        };
-                        db.BuaAnChiTiet.Add(buaAnChiTiet);
-                        db.SaveChanges();
-                    }
-
-                    using (var frm = new frmChinhSuaMonAn(buaAnChiTiet, db))
-                    {
-                        if (frm.ShowDialog() == DialogResult.OK)
-                            _ = LoadDataAsync();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi mở form chỉnh sửa món ăn: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private static string GenerateBuaAnID(WF_HealthTracker db)
@@ -1156,7 +816,7 @@ namespace HealthApp.Views.Nutrition
                 using (var frm = new frmChinhSuaMonAn(meal, db))
                 {
                     if (frm.ShowDialog() == DialogResult.OK)
-                        _ = LoadDataAsync();
+                        _ = LoadDataAsync(reloadFromDb: true); // Reload từ DB sau khi chỉnh sửa thành công
                 }
             }
         }
