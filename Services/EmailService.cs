@@ -413,6 +413,110 @@ namespace HealthApp.Services
 </body>
 </html>";
         }
+
+        /// <summary>
+        /// Gửi email thông báo cho PT khi có người gửi yêu cầu thuê PT
+        /// </summary>
+        public async Task<(bool Success, string ErrorMessage)> SendHireRequestToPTEmailAsync(
+            string ptEmail,
+            string ptName,
+            string customerName,
+            string scheduleSummary)
+        {
+            string errorMessage = string.Empty;
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(ptEmail))
+                    return (false, "Email PT không hợp lệ!");
+
+                // SMTP config check
+                if (_senderEmail == "your-email@gmail.com" || _senderPassword == "your-app-password")
+                {
+                    errorMessage = "Email và App Password chưa được cấu hình!";
+                    return (false, errorMessage);
+                }
+
+                string subject = "HealthApp - Bạn có yêu cầu thuê PT mới";
+                string body = GenerateHireRequestEmailBody(ptName, customerName, scheduleSummary);
+
+                using (var client = new SmtpClient(_smtpServer, _smtpPort))
+                {
+                    client.EnableSsl = _enableSsl;
+                    client.UseDefaultCredentials = false;
+                    string cleanPassword = _senderPassword?.Replace(" ", "").Trim();
+                    client.Credentials = new NetworkCredential(_senderEmail, cleanPassword);
+                    client.Timeout = 30000;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                    var mailMessage = new MailMessage
+                    {
+                        From = new MailAddress(_senderEmail, "HealthApp"),
+                        Subject = subject,
+                        Body = body,
+                        IsBodyHtml = true
+                    };
+                    mailMessage.To.Add(ptEmail);
+
+                    await Task.Run(() => client.Send(mailMessage));
+                    System.Diagnostics.Debug.WriteLine($"✅ Email yêu cầu thuê PT đã được gửi đến {ptEmail}");
+                    return (true, string.Empty);
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Lỗi khi gửi email yêu cầu thuê PT: {ex.Message}";
+                System.Diagnostics.Debug.WriteLine(errorMessage);
+                return (false, errorMessage);
+            }
+        }
+
+        private string GenerateHireRequestEmailBody(string ptName, string customerName, string scheduleSummary)
+        {
+            var displayPT = string.IsNullOrWhiteSpace(ptName) ? "PT" : ptName;
+            var displayCustomer = string.IsNullOrWhiteSpace(customerName) ? "User" : customerName;
+            var summary = string.IsNullOrWhiteSpace(scheduleSummary) ? "Có lịch tập mới" : scheduleSummary;
+
+            return $@"
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <style>
+    body {{ font-family: Arial, sans-serif; background: #f6f8fb; color: #111827; }}
+    .wrap {{ max-width: 640px; margin: 0 auto; padding: 20px; }}
+    .card {{ background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,.06); }}
+    .header {{ background: linear-gradient(135deg,#60a5fa,#2563eb); color: white; padding: 20px; }}
+    .content {{ padding: 22px; }}
+    .pill {{ display: inline-block; padding: 8px 12px; border-radius: 999px; background: #eff6ff; color: #1d4ed8; font-weight: 700; }}
+    .box {{ margin-top: 14px; padding: 14px; border-radius: 12px; background: #f9fafb; border: 1px solid #e5e7eb; }}
+    .footer {{ padding: 16px 22px; color: #6b7280; font-size: 12px; }}
+  </style>
+</head>
+<body>
+  <div class='wrap'>
+    <div class='card'>
+      <div class='header'>
+        <h2 style='margin:0'>HealthApp</h2>
+        <div style='margin-top:6px'>Bạn có yêu cầu thuê PT mới</div>
+      </div>
+      <div class='content'>
+        <div style='margin-bottom:10px'>Xin chào <b>{displayPT}</b>,</div>
+        <div class='box'>
+          <div><span class='pill'>Yêu cầu mới</span></div>
+          <div style='margin-top:12px'><b>{displayCustomer}</b> vừa gửi yêu cầu thuê PT.</div>
+          <div style='margin-top:10px'><b>Lịch:</b> {summary}</div>
+        </div>
+        <div style='margin-top:16px'>Vui lòng mở ứng dụng HealthApp để xem chi tiết và xử lý yêu cầu.</div>
+      </div>
+      <div class='footer'>
+        Email này được gửi tự động từ HealthApp, vui lòng không trả lời.
+      </div>
+    </div>
+  </div>
+</body>
+</html>";
+        }
     }
 }
 

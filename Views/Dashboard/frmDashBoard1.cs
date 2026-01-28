@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ using HealthApp.Views.Nutrition;
 using HealthApp.Views.Settings;
 using HealthApp.Views.Auth;
 using HealthApp.Models;
+using Guna.UI2.WinForms;
+using HealthApp.Services;
 
 namespace HealthApp.Views.Dashboard
 {
@@ -25,6 +28,8 @@ namespace HealthApp.Views.Dashboard
         private HealthApp.Views.PT.frm_DangKy _frmDangKy;
         private Panel _userControlContainer; // Panel để chứa UserControl
         private UserControl _currentUserControl; // UserControl hiện tại đang hiển thị
+        private Timer _notificationRefreshTimer;
+        private Timer _notificationRuleTimer;
 
         public frmDashBoard1()
         {
@@ -89,6 +94,134 @@ namespace HealthApp.Views.Dashboard
                 ptrAnhNguoiDung.Click += PnlTaiKhoang_Click;
                 ptrAnhNguoiDung.Cursor = Cursors.Hand; // Đổi cursor thành hand để người dùng biết có thể click
             }
+
+            // Notification bell + badge
+            InitializeNotificationHandlers();
+
+            // Social media circle picture boxes (Facebook, YouTube, TikTok)
+            InitializeSocialLinks();
+        }
+
+        /// <summary>
+        /// Gán sự kiện click cho các icon mạng xã hội để mở link tương ứng.
+        /// </summary>
+        private void InitializeSocialLinks()
+        {
+            try
+            {
+                if (guna2CirclePictureBox4 != null)
+                {
+                    guna2CirclePictureBox4.Click += guna2CirclePictureBox4_Click;
+                    guna2CirclePictureBox4.Cursor = Cursors.Hand;
+                }
+
+                if (guna2CirclePictureBox3 != null)
+                {
+                    guna2CirclePictureBox3.Click += guna2CirclePictureBox3_Click;
+                    guna2CirclePictureBox3.Cursor = Cursors.Hand;
+                }
+
+                if (guna2CirclePictureBox2 != null)
+                {
+                    guna2CirclePictureBox2.Click += guna2CirclePictureBox2_Click;
+                    guna2CirclePictureBox2.Cursor = Cursors.Hand;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi khởi tạo link mạng xã hội: {ex.Message}");
+            }
+        }
+
+        private void OpenUrlInBrowser(string url)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(url))
+                    return;
+
+                // .NET Core / modern Windows: UseProcessStartInfo
+                var psi = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                };
+                System.Diagnostics.Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Không thể mở đường dẫn: {url}\nChi tiết: {ex.Message}",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Facebook group: https://www.facebook.com/groups/1775647979239578
+        private void guna2CirclePictureBox4_Click(object sender, EventArgs e)
+        {
+            OpenUrlInBrowser("https://www.facebook.com/groups/1775647979239578");
+        }
+
+        // YouTube: https://www.youtube.com/@tapgymcungthantuong6827
+        private void guna2CirclePictureBox3_Click(object sender, EventArgs e)
+        {
+            OpenUrlInBrowser("https://www.youtube.com/@tapgymcungthantuong6827");
+        }
+
+        // TikTok: https://www.tiktok.com/@sv.gym.247
+        private void guna2CirclePictureBox2_Click(object sender, EventArgs e)
+        {
+            OpenUrlInBrowser("https://www.tiktok.com/@sv.gym.247");
+        }
+
+        private void InitializeNotificationHandlers()
+        {
+            if (ptrThongBao != null)
+            {
+                ptrThongBao.Cursor = Cursors.Hand;
+                ptrThongBao.Click += PtrThongBao_Click;
+            }
+
+            if (lblnumberThongBao != null)
+            {
+                lblnumberThongBao.Cursor = Cursors.Hand;
+                lblnumberThongBao.Click += PtrThongBao_Click;
+            }
+
+            // refresh badge định kỳ
+            _notificationRefreshTimer = new Timer();
+            _notificationRefreshTimer.Interval = 30_000; // 30s
+            _notificationRefreshTimer.Tick += (s, e) => RefreshUnreadNotificationCount();
+            _notificationRefreshTimer.Start();
+
+            RefreshUnreadNotificationCount();
+
+            // chạy rule engine mỗi 5 phút để tạo các thông báo theo thời gian
+            _notificationRuleTimer = new Timer();
+            _notificationRuleTimer.Interval = 5 * 60 * 1000;
+            _notificationRuleTimer.Tick += (s, e) =>
+            {
+                try
+                {
+                    if (CurrentUser.IsLoggedIn && !string.IsNullOrWhiteSpace(CurrentUser.UserID))
+                    {
+                        NotificationRuleEngine.RunForUser(CurrentUser.UserID);
+                        RefreshUnreadNotificationCount();
+                    }
+                }
+                catch { }
+            };
+            _notificationRuleTimer.Start();
+
+            // chạy 1 lần ngay khi mở form
+            try
+            {
+                if (CurrentUser.IsLoggedIn && !string.IsNullOrWhiteSpace(CurrentUser.UserID))
+                {
+                    NotificationRuleEngine.RunForUser(CurrentUser.UserID);
+                    RefreshUnreadNotificationCount();
+                }
+            }
+            catch { }
         }
 
         /// <summary>
@@ -98,6 +231,11 @@ namespace HealthApp.Views.Dashboard
         {
             _accountMenu = new ContextMenuStrip();
             _accountMenu.Font = new Font("Segoe UI", 10F);
+
+            // Menu item "Thông tin tài khoản"
+            var menuItemThongTinTK = new ToolStripMenuItem("Thông tin tài khoản");
+            menuItemThongTinTK.Click += MenuItemThongTinTK_Click;
+            _accountMenu.Items.Add(menuItemThongTinTK);
 
             // Menu item "Thông tin cơ bản"
             var menuItemThongTin = new ToolStripMenuItem("Thông tin cơ bản");
@@ -124,6 +262,32 @@ namespace HealthApp.Views.Dashboard
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi hiển thị menu: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Event handler cho menu item "Thông tin tài khoản"
+        /// </summary>
+        private void MenuItemThongTinTK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Kiểm tra đã đăng nhập chưa
+                if (!CurrentUser.IsLoggedIn)
+                {
+                    MessageBox.Show("Vui lòng đăng nhập để xem thông tin tài khoản!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Mở form thông tin tài khoản
+                var frmThongTinTK = new HealthApp.Views.Settings.frmThongTinTK(this);
+                frmThongTinTK.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở form thông tin tài khoản: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -161,7 +325,7 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Load thông tin user vào label
+        /// Load thông tin user vào label và ảnh đại diện
         /// </summary>
         private void LoadUserInfo()
         {
@@ -174,16 +338,614 @@ namespace HealthApp.Views.Dashboard
                         ? user.Username
                         : user.HoTen;
                     lblTenNguoiDung.Text = displayName;
+
+                    // Load ảnh đại diện
+                    LoadUserAvatar(user.AnhDaiDien);
+
+                    // refresh badge thông báo
+                    RefreshUnreadNotificationCount();
                 }
                 else
                 {
                     lblTenNguoiDung.Text = "Khách";
+                    // Reset về ảnh mặc định
+                    LoadUserAvatar(null);
+                    SetNotificationBadge(0);
                 }
             }
             catch (Exception ex)
             {
                 lblTenNguoiDung.Text = "Khách";
                 System.Diagnostics.Debug.WriteLine($"Lỗi khi load thông tin user: {ex.Message}");
+                LoadUserAvatar(null);
+                SetNotificationBadge(0);
+            }
+        }
+
+        private void PtrThongBao_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn || string.IsNullOrWhiteSpace(CurrentUser.UserID))
+                {
+                    MessageBox.Show("Vui lòng đăng nhập để xem thông báo!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                using (var dlg = BuildNotificationListDialog(CurrentUser.UserID))
+                {
+                    dlg.ShowDialog(this);
+                }
+
+                // Sau khi đóng dialog, refresh badge
+                RefreshUnreadNotificationCount();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở thông báo: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void RefreshUnreadNotificationCount()
+        {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn || string.IsNullOrWhiteSpace(CurrentUser.UserID))
+                {
+                    SetNotificationBadge(0);
+                    return;
+                }
+
+                using (var context = new WF_HealthTracker())
+                {
+                    var userId = CurrentUser.UserID;
+                    int unread = context.ThongBao.Count(t => t.UserID == userId && (t.DaDoc != true));
+                    SetNotificationBadge(unread);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"RefreshUnreadNotificationCount error: {ex.Message}");
+            }
+        }
+
+        private void SetNotificationBadge(int count)
+        {
+            try
+            {
+                if (lblnumberThongBao == null) return;
+
+                if (count <= 0)
+                {
+                    lblnumberThongBao.Visible = false;
+                    lblnumberThongBao.Text = "";
+                    return;
+                }
+
+                lblnumberThongBao.Visible = true;
+                lblnumberThongBao.Text = count > 99 ? "99+" : count.ToString();
+            }
+            catch { }
+        }
+
+        private sealed class NotificationListItem
+        {
+            public string ThongBaoID { get; set; }
+            public string TieuDe { get; set; }
+            public string NoiDung { get; set; }
+            public string Loai { get; set; }
+            public string MaLienQuan { get; set; }
+            public bool DaDoc { get; set; }
+            public DateTime? NgayTao { get; set; }
+        }
+
+        private Form BuildNotificationListDialog(string userId)
+        {
+            var form = new Form
+            {
+                Text = "Thông báo",
+                StartPosition = FormStartPosition.CenterParent,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                BackColor = Color.FromArgb(245, 247, 250),
+                Size = new Size(920, 620)
+            };
+
+            var pnlMain = new Guna2ShadowPanel
+            {
+                Dock = DockStyle.Fill,
+                FillColor = Color.White,
+                Radius = 15,
+                ShadowColor = Color.Black,
+                ShadowDepth = 10,
+                Padding = new Padding(22)
+            };
+            form.Controls.Add(pnlMain);
+
+            var lblTitle = new Label
+            {
+                Text = "Thông báo",
+                Font = new Font("Times New Roman", 18F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(20, 20, 20),
+                AutoSize = false,
+                Location = new Point(22, 18),
+                Size = new Size(600, 40)
+            };
+            pnlMain.Controls.Add(lblTitle);
+
+            var lblSub = new Label
+            {
+                Text = "Click vào 1 thông báo để xem chi tiết (tự đánh dấu đã đọc)",
+                Font = new Font("Times New Roman", 11.5F),
+                ForeColor = Color.FromArgb(110, 110, 110),
+                AutoSize = false,
+                Location = new Point(24, 58),
+                Size = new Size(820, 24)
+            };
+            pnlMain.Controls.Add(lblSub);
+
+            var btnClose = new Guna2Button
+            {
+                Text = "Đóng",
+                Size = new Size(140, 42),
+                BorderRadius = 10,
+                FillColor = Color.FromArgb(243, 244, 246),
+                ForeColor = Color.FromArgb(55, 65, 81),
+                Location = new Point(740, 520),
+                Cursor = Cursors.Hand
+            };
+            btnClose.Click += (s, e) => form.Close();
+            pnlMain.Controls.Add(btnClose);
+
+            var btnRefresh = new Guna2Button
+            {
+                Text = "Làm mới",
+                Size = new Size(140, 42),
+                BorderRadius = 10,
+                FillColor = Color.FromArgb(59, 130, 246),
+                ForeColor = Color.White,
+                Location = new Point(590, 520),
+                Cursor = Cursors.Hand
+            };
+            pnlMain.Controls.Add(btnRefresh);
+
+            var lblEmpty = new Label
+            {
+                Text = "",
+                Font = new Font("Times New Roman", 12F, FontStyle.Italic),
+                ForeColor = Color.Gray,
+                AutoSize = true,
+                Location = new Point(24, 520),
+                Visible = false
+            };
+            pnlMain.Controls.Add(lblEmpty);
+
+            var flp = new FlowLayoutPanel
+            {
+                Location = new Point(22, 95),
+                Size = new Size(858, 410),
+                AutoScroll = true,
+                WrapContents = false,
+                FlowDirection = FlowDirection.TopDown,
+                BackColor = Color.White
+            };
+            pnlMain.Controls.Add(flp);
+
+            Action loadList = null;
+            loadList = () =>
+            {
+                flp.Controls.Clear();
+                lblEmpty.Visible = false;
+
+                List<NotificationListItem> items;
+                using (var context = new WF_HealthTracker())
+                {
+                    items = context.ThongBao
+                        .Where(t => t.UserID == userId)
+                        .OrderByDescending(t => t.NgayTao)
+                        .Take(200)
+                        .Select(t => new NotificationListItem
+                        {
+                            ThongBaoID = t.ThongBaoID,
+                            TieuDe = t.TieuDe,
+                            NoiDung = t.NoiDung,
+                            Loai = t.Loai,
+                            MaLienQuan = t.MaLienQuan,
+                            DaDoc = (t.DaDoc == true),
+                            NgayTao = t.NgayTao
+                        })
+                        .ToList();
+                }
+
+                if (items.Count == 0)
+                {
+                    lblEmpty.Text = "Bạn chưa có thông báo nào.";
+                    lblEmpty.Visible = true;
+                    return;
+                }
+
+                foreach (var it in items)
+                {
+                    flp.Controls.Add(BuildNotificationCard(it, () =>
+                    {
+                        // open detail
+                        using (var detail = BuildNotificationDetailDialog(it.ThongBaoID))
+                        {
+                            detail.ShowDialog(form);
+                        }
+
+                        // reload list + badge
+                        loadList();
+                        RefreshUnreadNotificationCount();
+                    }));
+                }
+            };
+
+            btnRefresh.Click += (s, e) => loadList();
+
+            loadList();
+
+            form.AcceptButton = btnClose;
+            form.CancelButton = btnClose;
+            return form;
+        }
+
+        private Control BuildNotificationCard(NotificationListItem it, Action onOpen)
+        {
+            var card = new Guna2ShadowPanel
+            {
+                Width = 830,
+                Height = 86,
+                FillColor = it.DaDoc ? Color.White : Color.FromArgb(239, 246, 255),
+                Radius = 12,
+                ShadowColor = Color.Black,
+                ShadowDepth = 6,
+                Padding = new Padding(12),
+                Margin = new Padding(0, 0, 0, 10),
+                Cursor = Cursors.Hand
+            };
+
+            var title = new Label
+            {
+                Text = string.IsNullOrWhiteSpace(it.TieuDe) ? "Thông báo" : it.TieuDe,
+                Font = new Font("Times New Roman", 12.5F, it.DaDoc ? FontStyle.Bold : FontStyle.Bold),
+                ForeColor = Color.FromArgb(20, 20, 20),
+                AutoSize = false,
+                Location = new Point(12, 10),
+                Size = new Size(660, 24)
+            };
+            card.Controls.Add(title);
+
+            var preview = new Label
+            {
+                Text = (it.NoiDung ?? "").Length > 90 ? (it.NoiDung.Substring(0, 90) + "...") : (it.NoiDung ?? ""),
+                Font = new Font("Times New Roman", 10.5F, FontStyle.Regular),
+                ForeColor = Color.FromArgb(90, 90, 90),
+                AutoSize = false,
+                Location = new Point(12, 36),
+                Size = new Size(760, 20)
+            };
+            card.Controls.Add(preview);
+
+            var meta = new Label
+            {
+                Text = $"{(string.IsNullOrWhiteSpace(it.Loai) ? "Chung" : it.Loai)} • {(it.NgayTao.HasValue ? it.NgayTao.Value.ToString("dd/MM/yyyy HH:mm") : "N/A")}",
+                Font = new Font("Times New Roman", 10F, FontStyle.Italic),
+                ForeColor = Color.FromArgb(120, 120, 120),
+                AutoSize = false,
+                Location = new Point(12, 58),
+                Size = new Size(760, 20)
+            };
+            card.Controls.Add(meta);
+
+            var dot = new Guna2CirclePictureBox
+            {
+                Size = new Size(10, 10),
+                Location = new Point(800, 14),
+                BackColor = Color.Transparent,
+                FillColor = it.DaDoc ? Color.Transparent : Color.FromArgb(239, 68, 68)
+            };
+            card.Controls.Add(dot);
+
+            void handler(object s, EventArgs e) => onOpen?.Invoke();
+            card.Click += handler;
+            title.Click += handler;
+            preview.Click += handler;
+            meta.Click += handler;
+
+            return card;
+        }
+
+        private Form BuildNotificationDetailDialog(string thongBaoId)
+        {
+            var form = new Form
+            {
+                Text = "Chi tiết thông báo",
+                StartPosition = FormStartPosition.CenterParent,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                BackColor = Color.FromArgb(245, 247, 250),
+                Size = new Size(780, 520)
+            };
+
+            var pnlMain = new Guna2ShadowPanel
+            {
+                Dock = DockStyle.Fill,
+                FillColor = Color.White,
+                Radius = 15,
+                ShadowColor = Color.Black,
+                ShadowDepth = 10,
+                Padding = new Padding(22)
+            };
+            form.Controls.Add(pnlMain);
+
+            ThongBao tb;
+            using (var context = new WF_HealthTracker())
+            {
+                tb = context.ThongBao.FirstOrDefault(t => t.ThongBaoID == thongBaoId);
+            }
+
+            if (tb == null)
+            {
+                var lbl = new Label
+                {
+                    Text = "Không tìm thấy thông báo!",
+                    Font = new Font("Times New Roman", 12F, FontStyle.Italic),
+                    ForeColor = Color.Gray,
+                    AutoSize = true,
+                    Location = new Point(22, 22)
+                };
+                pnlMain.Controls.Add(lbl);
+                return form;
+            }
+
+            // Mark as read on open
+            try
+            {
+                using (var context = new WF_HealthTracker())
+                {
+                    var db = context.ThongBao.FirstOrDefault(t => t.ThongBaoID == thongBaoId);
+                    if (db != null && db.DaDoc != true)
+                    {
+                        db.DaDoc = true;
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch { }
+
+            // Layout constants
+            const int pad = 22;
+            const int topTitle = 18;
+            const int titleHeight = 42;
+            const int gapSmall = 8;
+            const int gap = 16;
+            const int buttonRowHeight = 46;
+
+            var lblTitle = new Label
+            {
+                Text = string.IsNullOrWhiteSpace(tb.TieuDe) ? "Thông báo" : tb.TieuDe,
+                Font = new Font("Times New Roman", 18F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(20, 20, 20),
+                AutoSize = false,
+                Location = new Point(pad, topTitle),
+                Size = new Size(pnlMain.Width - (pad * 2), titleHeight),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+            };
+            pnlMain.Controls.Add(lblTitle);
+
+            var lblMeta = new Label
+            {
+                Text = $"{(string.IsNullOrWhiteSpace(tb.Loai) ? "Chung" : tb.Loai)} • {(tb.NgayTao.HasValue ? tb.NgayTao.Value.ToString("dd/MM/yyyy HH:mm") : "N/A")}",
+                Font = new Font("Times New Roman", 11F, FontStyle.Italic),
+                ForeColor = Color.FromArgb(110, 110, 110),
+                AutoSize = false,
+                Location = new Point(pad, topTitle + titleHeight + gapSmall),
+                Size = new Size(pnlMain.Width - (pad * 2), 22),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+            };
+            pnlMain.Controls.Add(lblMeta);
+
+            // Buttons row panel (bottom)
+            var pnlButtons = new Panel
+            {
+                Height = buttonRowHeight,
+                Dock = DockStyle.Bottom,
+                BackColor = Color.Transparent,
+                Padding = new Padding(0, 0, 0, 0)
+            };
+            pnlMain.Controls.Add(pnlButtons);
+
+            var txt = new Guna2TextBox
+            {
+                Location = new Point(pad, topTitle + titleHeight + 22 + gap),
+                Size = new Size(pnlMain.Width - (pad * 2), pnlMain.Height - (topTitle + titleHeight + 22 + gap) - (buttonRowHeight + 35)),
+                Multiline = true,
+                ReadOnly = true,
+                Text = tb.NoiDung ?? "",
+                BorderRadius = 12,
+                BorderColor = Color.FromArgb(229, 231, 235),
+                FillColor = Color.White,
+                Font = new Font("Times New Roman", 12F),
+                ScrollBars = ScrollBars.Vertical,
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
+            };
+            pnlMain.Controls.Add(txt);
+
+            var btnDelete = new Guna2Button
+            {
+                Text = "Xóa",
+                Size = new Size(140, 42),
+                BorderRadius = 10,
+                FillColor = Color.FromArgb(239, 68, 68),
+                ForeColor = Color.White,
+                Location = new Point(0, 2),
+                Cursor = Cursors.Hand
+            };
+            pnlButtons.Controls.Add(btnDelete);
+
+            var btnClose = new Guna2Button
+            {
+                Text = "Đóng",
+                Size = new Size(140, 42),
+                BorderRadius = 10,
+                FillColor = Color.FromArgb(243, 244, 246),
+                ForeColor = Color.FromArgb(55, 65, 81),
+                Location = new Point(pnlButtons.Width - 140, 2),
+                Cursor = Cursors.Hand
+            };
+            btnClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pnlButtons.Controls.Add(btnClose);
+
+            // Keep spacing between buttons and edges
+            pnlButtons.Padding = new Padding(pad, 0, pad, 10);
+            btnDelete.Location = new Point(pad, 2);
+            btnClose.Location = new Point(pnlButtons.Width - pad - btnClose.Width, 2);
+
+            btnClose.Click += (s, e) => form.Close();
+            btnDelete.Click += (s, e) =>
+            {
+                var confirm = MessageBox.Show("Bạn có chắc chắn muốn xóa thông báo này?", "Xác nhận",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirm != DialogResult.Yes) return;
+
+                try
+                {
+                    using (var context = new WF_HealthTracker())
+                    {
+                        var db = context.ThongBao.FirstOrDefault(t => t.ThongBaoID == thongBaoId);
+                        if (db != null)
+                        {
+                            context.ThongBao.Remove(db);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xóa: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                form.Close();
+            };
+
+            form.AcceptButton = btnClose;
+            form.CancelButton = btnClose;
+
+            // Re-layout on resize (DPI/Font changes)
+            form.Shown += (s, e) =>
+            {
+                // ensure bottom panel right aligned
+                btnClose.Location = new Point(pnlButtons.Width - pad - btnClose.Width, 2);
+                txt.Size = new Size(pnlMain.Width - (pad * 2), pnlMain.Height - txt.Location.Y - (buttonRowHeight + 20));
+            };
+            form.SizeChanged += (s, e) =>
+            {
+                btnClose.Location = new Point(pnlButtons.Width - pad - btnClose.Width, 2);
+                txt.Size = new Size(pnlMain.Width - (pad * 2), pnlMain.Height - txt.Location.Y - (buttonRowHeight + 20));
+                lblTitle.Size = new Size(pnlMain.Width - (pad * 2), titleHeight);
+                lblMeta.Size = new Size(pnlMain.Width - (pad * 2), 22);
+            };
+
+            return form;
+        }
+
+        /// <summary>
+        /// Load ảnh đại diện của user vào ptrAnhNguoiDung
+        /// </summary>
+        private void LoadUserAvatar(string imagePath)
+        {
+            try
+            {
+                if (ptrAnhNguoiDung == null)
+                    return;
+
+                if (string.IsNullOrEmpty(imagePath))
+                {
+                    // Reset về ảnh mặc định từ Resources/Icons/icons8-bench-press.gif
+                    LoadDefaultAvatar();
+                    return;
+                }
+
+                string fullPath = imagePath;
+
+                // Nếu là đường dẫn relative, thử tìm trong thư mục Resources
+                if (!Path.IsPathRooted(imagePath))
+                {
+                    var appDirectory = Application.StartupPath;
+                    fullPath = Path.Combine(appDirectory, "Resources", imagePath);
+                }
+
+                if (File.Exists(fullPath))
+                {
+                    ptrAnhNguoiDung.Image = Image.FromFile(fullPath);
+                }
+                else if (File.Exists(imagePath))
+                {
+                    // Thử đường dẫn trực tiếp nếu không tìm thấy
+                    ptrAnhNguoiDung.Image = Image.FromFile(imagePath);
+                }
+                else
+                {
+                    // Không tìm thấy file, load ảnh mặc định
+                    System.Diagnostics.Debug.WriteLine($"Không tìm thấy ảnh đại diện: {imagePath}");
+                    LoadDefaultAvatar();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi load ảnh đại diện: {ex.Message}");
+                // Load ảnh mặc định nếu có lỗi
+                LoadDefaultAvatar();
+            }
+        }
+
+        /// <summary>
+        /// Load ảnh mặc định từ Resources/Icons/icons8-bench-press.gif
+        /// </summary>
+        private void LoadDefaultAvatar()
+        {
+            try
+            {
+                if (ptrAnhNguoiDung == null)
+                    return;
+
+                var appDirectory = Application.StartupPath;
+                var defaultImagePath = Path.Combine(appDirectory, "Resources", "Icons", "icons8-bench-press.gif");
+
+                if (File.Exists(defaultImagePath))
+                {
+                    ptrAnhNguoiDung.Image = Image.FromFile(defaultImagePath);
+                }
+                else
+                {
+                    // Nếu không tìm thấy, thử các đường dẫn khác
+                    var alternativePaths = new[]
+                    {
+                        Path.Combine(appDirectory, "Resources", "icons8-bench-press.gif"),
+                        Path.Combine(appDirectory, "Icons", "icons8-bench-press.gif")
+                    };
+
+                    foreach (var path in alternativePaths)
+                    {
+                        if (File.Exists(path))
+                        {
+                            ptrAnhNguoiDung.Image = Image.FromFile(path);
+                            return;
+                        }
+                    }
+
+                    System.Diagnostics.Debug.WriteLine($"Không tìm thấy ảnh mặc định: {defaultImagePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi load ảnh mặc định: {ex.Message}");
             }
         }
 
@@ -192,6 +954,30 @@ namespace HealthApp.Views.Dashboard
         /// </summary>
         public void ReloadUserInfo()
         {
+            try
+            {
+                // Reload user từ database để có dữ liệu mới nhất
+                if (CurrentUser.IsLoggedIn && !string.IsNullOrWhiteSpace(CurrentUser.UserID))
+                {
+                    using (var context = new WF_HealthTracker())
+                    {
+                        var updatedUser = context.Users.FirstOrDefault(u => u.UserID == CurrentUser.UserID);
+                        if (updatedUser != null)
+                        {
+                            // Cập nhật CurrentUser với dữ liệu mới nhất
+                            CurrentUser.User.HoTen = updatedUser.HoTen;
+                            CurrentUser.User.Email = updatedUser.Email;
+                            CurrentUser.User.SDT = updatedUser.SDT;
+                            CurrentUser.User.AnhDaiDien = updatedUser.AnhDaiDien; // Có thể là null nếu đã xóa
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi reload user info: {ex.Message}");
+            }
+
             LoadUserInfo();
             UpdatePTButtonState();
         }
@@ -464,7 +1250,7 @@ namespace HealthApp.Views.Dashboard
                 else
                 {
                     this.Hide();
-                    var reportForm = new ReportForm();
+                    var reportForm = new ReportForm(this);
                     reportForm.FormClosed += (s, args) => this.ShowDashboard();
                     reportForm.Show();
                 }
@@ -501,19 +1287,13 @@ namespace HealthApp.Views.Dashboard
                         .OrderByDescending(d => d.NgayTao)
                         .ToList();
 
-                    if (pendingPayments.Count == 0)
-                    {
-                        MessageBox.Show("Bạn không có hóa đơn nào cần thanh toán!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-
-                    // Nếu có nhiều yêu cầu, chọn yêu cầu đầu tiên
-                    var firstPayment = pendingPayments.First();
+                    // Nếu không có pending payments, vẫn cho phép mở form để xem lịch sử thanh toán
+                    var firstPayment = pendingPayments.FirstOrDefault();
+                    string datLichId = firstPayment?.DatLichID; // có thể null
 
                     // Ẩn Dashboard và hiển thị form thanh toán PT
                     this.Hide();
-                    var frmThanhToan = new frm_ThanhToanPT(this, firstPayment.DatLichID);
+                    var frmThanhToan = new frm_ThanhToanPT(this, datLichId);
                     frmThanhToan.Show();
                 }
             }

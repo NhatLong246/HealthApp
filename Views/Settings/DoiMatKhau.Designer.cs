@@ -87,9 +87,9 @@
             this.lbTitleMain.ForeColor = System.Drawing.SystemColors.Control;
             this.lbTitleMain.Location = new System.Drawing.Point(29, 24);
             this.lbTitleMain.Name = "lbTitleMain";
-            this.lbTitleMain.Size = new System.Drawing.Size(223, 38);
+            this.lbTitleMain.Size = new System.Drawing.Size(195, 38);
             this.lbTitleMain.TabIndex = 1;
-            this.lbTitleMain.Text = "Quên Mật Khẩu";
+            this.lbTitleMain.Text = "Đổi Mật Khẩu";
             // 
             // guna2HtmlLabel1
             // 
@@ -234,6 +234,7 @@
             this.Controls.Add(this.txtConfirmPassword);
             this.Controls.Add(this.txtNewPassWord);
             this.Name = "DoiMatKhau";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DoiMatKhau";
             this.pnlTitle.ResumeLayout(false);
             this.pnlTitle.PerformLayout();

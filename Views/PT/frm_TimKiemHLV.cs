@@ -67,6 +67,7 @@ namespace HealthApp.Views.PT
             {
                 Cursor = Cursors.WaitCursor;
                 var pts = await _ptSearchService.GetAllPTsAsync();
+                pts = FilterOutCurrentPT(pts);
                 _currentPTList = pts;
                 DisplayPTList(pts);
             }
@@ -635,6 +636,7 @@ namespace HealthApp.Views.PT
                 }
 
                 var pts = await _ptSearchService.SearchPTsByNameAsync(searchText);
+                pts = FilterOutCurrentPT(pts);
                 _currentPTList = pts;
                 DisplayPTList(pts);
                 ClearPTDetail(); // Clear chi tiết khi tìm kiếm
@@ -659,162 +661,363 @@ namespace HealthApp.Views.PT
             }
         }
 
-        private async void BtnTinhvaTP_Click(object sender, EventArgs e)
+        private async void BtnTinhvaTP_Click(object sender, EventArgs eventArgs)
         {
             try
             {
-                // Hiển thị dialog để nhập tỉnh/thành phố
+                // Hiển thị dialog để nhập tỉnh/thành phố với Guna2 controls
                 using (var form = new Form())
                 {
                     form.Text = "Nhập Tỉnh/Thành phố";
-                    form.Size = new Size(400, 150);
-                    form.StartPosition = FormStartPosition.CenterParent;
-                    form.FormBorderStyle = FormBorderStyle.FixedDialog;
-                    form.MaximizeBox = false;
-                    form.MinimizeBox = false;
-
-                    var lblPrompt = new Label
-                    {
-                        Text = "Nhập tên tỉnh/thành phố:",
-                        Location = new Point(20, 20),
-                        Size = new Size(350, 20),
-                        Font = new Font("Segoe UI", 10F)
-                    };
-                    form.Controls.Add(lblPrompt);
-
-                    var txtCity = new TextBox
-                    {
-                        Location = new Point(20, 50),
-                        Size = new Size(340, 25),
-                        Font = new Font("Segoe UI", 10F)
-                    };
-                    form.Controls.Add(txtCity);
-
-                    var btnOK = new Button
-                    {
-                        Text = "Tìm kiếm",
-                        Location = new Point(200, 85),
-                        Size = new Size(80, 30),
-                        DialogResult = DialogResult.OK
-                    };
-                    form.Controls.Add(btnOK);
-
-                    var btnCancel = new Button
-                    {
-                        Text = "Hủy",
-                        Location = new Point(285, 85),
-                        Size = new Size(80, 30),
-                        DialogResult = DialogResult.Cancel
-                    };
-                    form.Controls.Add(btnCancel);
-
-                    form.AcceptButton = btnOK;
-                    form.CancelButton = btnCancel;
-
-                    if (form.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(txtCity.Text))
-                    {
-                        var selectedCity = txtCity.Text.Trim();
-                        var pts = await _ptSearchService.FilterPTsByCityAsync(selectedCity);
-                        _currentPTList = pts;
-                        DisplayPTList(pts);
-                        ClearPTDetail(); // Clear chi tiết khi filter
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi lọc theo tỉnh/thành phố: {ex.Message}", "Lỗi", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private async void BtnChuyenMon_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Hiển thị dialog với 2 lựa chọn: "Cân nặng" và "Tăng cơ"
-                using (var form = new Form())
-                {
-                    form.Text = "Chọn Chuyên môn";
-                    form.Size = new Size(350, 250); // Tăng chiều cao từ 200 lên 250
+                    form.Size = new Size(600, 280); // Giảm width xuống 600px
                     form.StartPosition = FormStartPosition.CenterParent;
                     form.FormBorderStyle = FormBorderStyle.FixedDialog;
                     form.MaximizeBox = false;
                     form.MinimizeBox = false;
                     form.BackColor = Color.White;
+                    form.Padding = new Padding(0);
+
+                    // Panel chính với border radius và shadow
+                    var pnlMain = new Guna2ShadowPanel
+                    {
+                        Dock = DockStyle.Fill,
+                        FillColor = Color.White,
+                        Radius = 15, // Guna2ShadowPanel dùng Radius, không phải BorderRadius
+                        ShadowColor = Color.Black,
+                        ShadowShift = 2,
+                        ShadowDepth = 10,
+                        Padding = new Padding(30) // Padding đều 2 bên
+                    };
+                    form.Controls.Add(pnlMain);
 
                     // Label tiêu đề
                     var lblTitle = new Label
                     {
-                        Text = "Vui lòng chọn chuyên môn:",
-                        Location = new Point(20, 20),
-                        Size = new Size(300, 25),
-                        Font = new Font("Segoe UI", 10F, FontStyle.Bold)
+                        Text = "Nhập Tỉnh/Thành phố",
+                        Location = new Point(30, 30),
+                        Size = new Size(540, 35),
+                        Font = new Font("Times New Roman", 15F, FontStyle.Bold),
+                        ForeColor = Color.FromArgb(64, 64, 64),
+                        AutoSize = false
                     };
-                    form.Controls.Add(lblTitle);
+                    pnlMain.Controls.Add(lblTitle);
 
-                    // ListBox với đầy đủ kích thước
-                    var listBox = new ListBox
+                    // Label prompt
+                    var lblPrompt = new Label
                     {
-                        Location = new Point(20, 50),
-                        Size = new Size(300, 100), // Tăng chiều cao từ 80 lên 100
-                        Font = new Font("Segoe UI", 10F),
-                        BorderStyle = BorderStyle.FixedSingle
+                        Text = "Nhập tên tỉnh/thành phố:",
+                        Location = new Point(30, 75),
+                        Size = new Size(540, 30),
+                        Font = new Font("Times New Roman", 12F, FontStyle.Regular),
+                        ForeColor = Color.FromArgb(100, 100, 100),
+                        AutoSize = false
                     };
-                    listBox.Items.Add("Cân nặng");
-                    listBox.Items.Add("Tăng cơ");
-                    form.Controls.Add(listBox);
+                    pnlMain.Controls.Add(lblPrompt);
 
-                    // Button Tìm kiếm
-                    var btnOK = new Button
+                    // TextBox với Guna2 - width 300px, giữ nguyên vị trí bên trái
+                    var txtCity = new Guna2TextBox
+                    {
+                        Location = new Point(30, 115), // Giữ nguyên vị trí bên trái (30px từ padding)
+                        Size = new Size(300, 45), // Width = 300px như yêu cầu
+                        Font = new Font("Times New Roman", 12F),
+                        BorderColor = Color.Silver,
+                        BorderRadius = 10,
+                        BorderThickness = 1,
+                        PlaceholderText = "Ví dụ: Hồ Chí Minh, Hà Nội, Đà Nẵng...",
+                        PlaceholderForeColor = Color.Gray,
+                        Cursor = Cursors.IBeam
+                    };
+                    pnlMain.Controls.Add(txtCity);
+
+                    // Panel chứa buttons - căn giữa
+                    var pnlButtons = new Panel
+                    {
+                        Location = new Point(30, 180),
+                        Size = new Size(540, 50),
+                        BackColor = Color.Transparent
+                    };
+                    pnlMain.Controls.Add(pnlButtons);
+
+                    // Biến để lưu kết quả tìm kiếm
+                    string searchCity = null;
+                    bool shouldSearch = false;
+
+                    // Button Tìm kiếm - căn giữa
+                    var btnOK = new Guna2Button
                     {
                         Text = "Tìm kiếm",
-                        Location = new Point(150, 170), // Tăng vị trí Y từ 140 lên 170
-                        Size = new Size(80, 35), // Tăng chiều cao từ 30 lên 35
-                        DialogResult = DialogResult.OK,
-                        Font = new Font("Segoe UI", 9F),
-                        BackColor = Color.FromArgb(128, 255, 128),
-                        FlatStyle = FlatStyle.Flat
+                        Location = new Point(155, 5), // Căn giữa: (540 - 130 - 130 - 20) / 2 = 155
+                        Size = new Size(130, 40),
+                        Font = new Font("Times New Roman", 11F, FontStyle.Bold),
+                        ForeColor = Color.White,
+                        FillColor = Color.FromArgb(100, 200, 100),
+                        BorderRadius = 10,
+                        Cursor = Cursors.Hand
                     };
-                    btnOK.FlatAppearance.BorderSize = 0;
-                    form.Controls.Add(btnOK);
+                    // Event handler cho nút Tìm kiếm
+                    btnOK.Click += async (btnSender, clickArgs) =>
+                    {
+                        var cityText = txtCity.Text?.Trim();
+                        if (!string.IsNullOrWhiteSpace(cityText))
+                        {
+                            searchCity = cityText;
+                            shouldSearch = true;
+                            form.DialogResult = DialogResult.OK;
+                            form.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Vui lòng nhập tên tỉnh/thành phố!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    };
+                    pnlButtons.Controls.Add(btnOK);
 
-                    // Button Hủy
-                    var btnCancel = new Button
+                    // Button Hủy - căn giữa, cách button Tìm kiếm 20px
+                    var btnCancel = new Guna2Button
                     {
                         Text = "Hủy",
-                        Location = new Point(240, 170), // Tăng vị trí Y từ 140 lên 170
-                        Size = new Size(80, 35), // Tăng chiều cao từ 30 lên 35
-                        DialogResult = DialogResult.Cancel,
-                        Font = new Font("Segoe UI", 9F),
-                        BackColor = Color.LightGray,
-                        FlatStyle = FlatStyle.Flat
+                        Location = new Point(305, 5), // Cách button Tìm kiếm 20px (155 + 130 + 20 = 305)
+                        Size = new Size(130, 40),
+                        Font = new Font("Times New Roman", 11F, FontStyle.Bold),
+                        ForeColor = Color.FromArgb(100, 100, 100),
+                        FillColor = Color.FromArgb(240, 240, 240),
+                        BorderRadius = 10,
+                        Cursor = Cursors.Hand
                     };
-                    btnCancel.FlatAppearance.BorderSize = 0;
-                    form.Controls.Add(btnCancel);
+                    // Event handler cho nút Hủy
+                    btnCancel.Click += (btnSender, clickArgs) =>
+                    {
+                        shouldSearch = false;
+                        form.DialogResult = DialogResult.Cancel;
+                        form.Close();
+                    };
+                    pnlButtons.Controls.Add(btnCancel);
 
                     form.AcceptButton = btnOK;
                     form.CancelButton = btnCancel;
 
-                    // Chọn item đầu tiên mặc định
-                    if (listBox.Items.Count > 0)
+                    // Focus vào textbox khi mở
+                    form.Shown += (formSender, shownArgs) => 
                     {
-                        listBox.SelectedIndex = 0;
-                    }
+                        txtCity.Focus();
+                        txtCity.Select();
+                    };
 
-                    if (form.ShowDialog() == DialogResult.OK && listBox.SelectedItem != null)
+                    // Xử lý khi Enter trong textbox
+                    txtCity.KeyDown += (txtSender, keyArgs) =>
                     {
-                        var selectedSpecialty = listBox.SelectedItem.ToString();
-                        var pts = await _ptSearchService.FilterPTsBySpecialtyAsync(selectedSpecialty);
-                        _currentPTList = pts;
-                        DisplayPTList(pts);
-                        ClearPTDetail(); // Clear chi tiết khi filter
+                        if (keyArgs.KeyCode == Keys.Enter)
+                        {
+                            keyArgs.SuppressKeyPress = true;
+                            btnOK.PerformClick();
+                        }
+                    };
+
+                    // Hiển thị dialog
+                    if (form.ShowDialog() == DialogResult.OK && shouldSearch && !string.IsNullOrWhiteSpace(searchCity))
+                    {
+                        // Thực hiện tìm kiếm và hiển thị kết quả trong pnlHienThiDanhSach
+                        try
+                        {
+                            Cursor = Cursors.WaitCursor;
+                            var pts = await _ptSearchService.FilterPTsByCityAsync(searchCity);
+                            pts = FilterOutCurrentPT(pts);
+                            _currentPTList = pts;
+                            DisplayPTList(pts); // Hiển thị kết quả trong pnlHienThiDanhSach
+                            ClearPTDetail(); // Clear chi tiết khi filter
+                        }
+                        catch (Exception searchEx)
+                        {
+                            MessageBox.Show($"Lỗi khi tìm kiếm: {searchEx.Message}", "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        finally
+                        {
+                            Cursor = Cursors.Default;
+                        }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception filterEx)
             {
-                MessageBox.Show($"Lỗi khi lọc theo chuyên môn: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi lọc theo tỉnh/thành phố: {filterEx.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void BtnChuyenMon_Click(object sender, EventArgs eventArgs)
+        {
+            try
+            {
+                // Hiển thị dialog với Guna2 controls
+                using (var form = new Form())
+                {
+                    form.Text = "Chọn Chuyên môn";
+                    form.Size = new Size(500, 320);
+                    form.StartPosition = FormStartPosition.CenterParent;
+                    form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                    form.MaximizeBox = false;
+                    form.MinimizeBox = false;
+                    form.BackColor = Color.White;
+                    form.Padding = new Padding(0);
+
+                    // Panel chính với border radius và shadow
+                    var pnlMain = new Guna2ShadowPanel
+                    {
+                        Dock = DockStyle.Fill,
+                        FillColor = Color.White,
+                        Radius = 15,
+                        ShadowColor = Color.Black,
+                        ShadowShift = 2,
+                        ShadowDepth = 10,
+                        Padding = new Padding(30)
+                    };
+                    form.Controls.Add(pnlMain);
+
+                    // Label tiêu đề chính
+                    var lblTitle = new Label
+                    {
+                        Text = "Chọn Chuyên môn",
+                        Location = new Point(30, 30),
+                        Size = new Size(440, 35),
+                        Font = new Font("Times New Roman", 15F, FontStyle.Bold),
+                        ForeColor = Color.FromArgb(64, 64, 64),
+                        AutoSize = false
+                    };
+                    pnlMain.Controls.Add(lblTitle);
+
+                    // Label prompt
+                    var lblPrompt = new Label
+                    {
+                        Text = "Vui lòng chọn chuyên môn:",
+                        Location = new Point(30, 75),
+                        Size = new Size(440, 30),
+                        Font = new Font("Times New Roman", 12F, FontStyle.Regular),
+                        ForeColor = Color.FromArgb(100, 100, 100),
+                        AutoSize = false
+                    };
+                    pnlMain.Controls.Add(lblPrompt);
+
+                    // Sử dụng Guna2ComboBox thay vì ListBox để đẹp hơn
+                    var comboBox = new Guna2ComboBox
+                    {
+                        Location = new Point(30, 115),
+                        Size = new Size(440, 45),
+                        Font = new Font("Times New Roman", 12F),
+                        BorderColor = Color.Silver,
+                        BorderRadius = 10,
+                        BorderThickness = 1,
+                        BackColor = Color.White,
+                        ForeColor = Color.Black,
+                        DropDownStyle = ComboBoxStyle.DropDownList // Chỉ cho phép chọn, không nhập
+                    };
+                    comboBox.Items.Add("Cân nặng");
+                    comboBox.Items.Add("Tăng cơ");
+                    comboBox.SelectedIndex = 0; // Chọn item đầu tiên mặc định
+                    pnlMain.Controls.Add(comboBox);
+
+                    // Panel chứa buttons - căn giữa
+                    var pnlButtons = new Panel
+                    {
+                        Location = new Point(30, 190),
+                        Size = new Size(440, 50),
+                        BackColor = Color.Transparent
+                    };
+                    pnlMain.Controls.Add(pnlButtons);
+
+                    // Biến để lưu kết quả
+                    string selectedSpecialty = null;
+                    bool shouldSearch = false;
+
+                    // Button Tìm kiếm
+                    var btnOK = new Guna2Button
+                    {
+                        Text = "Tìm kiếm",
+                        Location = new Point(155, 5), // Căn giữa: (440 - 130 - 130 - 20) / 2 = 155
+                        Size = new Size(130, 40),
+                        Font = new Font("Times New Roman", 11F, FontStyle.Bold),
+                        ForeColor = Color.White,
+                        FillColor = Color.FromArgb(100, 200, 100),
+                        BorderRadius = 10,
+                        Cursor = Cursors.Hand
+                    };
+                    // Event handler cho nút Tìm kiếm
+                    btnOK.Click += (btnSender, clickArgs) =>
+                    {
+                        if (comboBox.SelectedItem != null)
+                        {
+                            selectedSpecialty = comboBox.SelectedItem.ToString();
+                            shouldSearch = true;
+                            form.DialogResult = DialogResult.OK;
+                            form.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Vui lòng chọn một chuyên môn!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    };
+                    pnlButtons.Controls.Add(btnOK);
+
+                    // Button Hủy
+                    var btnCancel = new Guna2Button
+                    {
+                        Text = "Hủy",
+                        Location = new Point(305, 5), // Cách button Tìm kiếm 20px (155 + 130 + 20 = 305)
+                        Size = new Size(130, 40),
+                        Font = new Font("Times New Roman", 11F, FontStyle.Bold),
+                        ForeColor = Color.FromArgb(100, 100, 100),
+                        FillColor = Color.FromArgb(240, 240, 240),
+                        BorderRadius = 10,
+                        Cursor = Cursors.Hand
+                    };
+                    // Event handler cho nút Hủy
+                    btnCancel.Click += (btnSender, clickArgs) =>
+                    {
+                        shouldSearch = false;
+                        form.DialogResult = DialogResult.Cancel;
+                        form.Close();
+                    };
+                    pnlButtons.Controls.Add(btnCancel);
+
+                    form.AcceptButton = btnOK;
+                    form.CancelButton = btnCancel;
+
+                    // Focus vào combobox khi mở
+                    form.Shown += (formSender, shownArgs) =>
+                    {
+                        comboBox.Focus();
+                    };
+
+                    // Hiển thị dialog
+                    if (form.ShowDialog() == DialogResult.OK && shouldSearch && !string.IsNullOrWhiteSpace(selectedSpecialty))
+                    {
+                        // Thực hiện tìm kiếm và hiển thị kết quả trong pnlHienThiDanhSach
+                        try
+                        {
+                            Cursor = Cursors.WaitCursor;
+                            var pts = await _ptSearchService.FilterPTsBySpecialtyAsync(selectedSpecialty);
+                            pts = FilterOutCurrentPT(pts);
+                            _currentPTList = pts;
+                            DisplayPTList(pts); // Hiển thị kết quả trong pnlHienThiDanhSach
+                            ClearPTDetail(); // Clear chi tiết khi filter
+                        }
+                        catch (Exception searchEx)
+                        {
+                            MessageBox.Show($"Lỗi khi tìm kiếm: {searchEx.Message}", "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        finally
+                        {
+                            Cursor = Cursors.Default;
+                        }
+                    }
+                }
+            }
+            catch (Exception filterEx)
+            {
+                MessageBox.Show($"Lỗi khi lọc theo chuyên môn: {filterEx.Message}", "Lỗi", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -883,6 +1086,37 @@ namespace HealthApp.Views.PT
         {
             _context?.Dispose();
             base.OnFormClosing(e);
+        }
+
+        /// <summary>
+        /// Ẩn chính bản thân PT khỏi danh sách (để PT không thể thuê chính mình)
+        /// </summary>
+        private List<PTSearchViewModel> FilterOutCurrentPT(List<PTSearchViewModel> pts)
+        {
+            try
+            {
+                if (pts == null || pts.Count == 0)
+                    return pts;
+
+                if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
+                    return pts;
+
+                // Chỉ áp dụng với tài khoản có role PT
+                if (!string.Equals(CurrentUser.User.Role, "PT", StringComparison.OrdinalIgnoreCase))
+                    return pts;
+
+                var currentUserId = CurrentUser.User.UserID;
+                if (string.IsNullOrWhiteSpace(currentUserId))
+                    return pts;
+
+                return pts
+                    .Where(p => !string.Equals(p.UserID, currentUserId, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+            catch
+            {
+                return pts;
+            }
         }
 
         // Các event handlers cũ giữ lại để không lỗi

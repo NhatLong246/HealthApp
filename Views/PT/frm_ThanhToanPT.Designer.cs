@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_ThanhToanPT));
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnLichSuThanhToan = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnTroVe = new Guna.UI2.WinForms.Guna2Button();
             this.pnlTongTinDatLich = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlDanhSachThanhToan = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
@@ -83,6 +84,7 @@
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.LightCyan;
+            this.guna2Panel1.Controls.Add(this.btnLichSuThanhToan);
             this.guna2Panel1.Controls.Add(this.btnTroVe);
             this.guna2Panel1.Controls.Add(this.pnlTongTinDatLich);
             this.guna2Panel1.Controls.Add(this.btnThanhToan);
@@ -95,6 +97,25 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1317, 1114);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // btnLichSuThanhToan
+            // 
+            this.btnLichSuThanhToan.BorderRadius = 10;
+            this.btnLichSuThanhToan.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLichSuThanhToan.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLichSuThanhToan.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLichSuThanhToan.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLichSuThanhToan.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLichSuThanhToan.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLichSuThanhToan.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(130)))), ((int)(((byte)(246)))));
+            this.btnLichSuThanhToan.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.btnLichSuThanhToan.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Bold);
+            this.btnLichSuThanhToan.ForeColor = System.Drawing.Color.White;
+            this.btnLichSuThanhToan.Location = new System.Drawing.Point(1080, 10);
+            this.btnLichSuThanhToan.Name = "btnLichSuThanhToan";
+            this.btnLichSuThanhToan.Size = new System.Drawing.Size(200, 45);
+            this.btnLichSuThanhToan.TabIndex = 52;
+            this.btnLichSuThanhToan.Text = "Lịch sử thanh toán";
             // 
             // btnTroVe
             // 
@@ -595,5 +616,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTienThanhToan;
         private Guna.UI2.WinForms.Guna2GradientButton btnThemThanhToan;
         private Guna.UI2.WinForms.Guna2Button btnTroVe;
+        private Guna.UI2.WinForms.Guna2GradientButton btnLichSuThanhToan;
     }
 }

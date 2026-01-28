@@ -79,7 +79,7 @@ namespace HealthApp.Views.Settings
             this.pnlBackground.FillColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.pnlBackground.Location = new System.Drawing.Point(-5, 1);
             this.pnlBackground.Name = "pnlBackground";
-            this.pnlBackground.Size = new System.Drawing.Size(816, 875);
+            this.pnlBackground.Size = new System.Drawing.Size(837, 875);
             this.pnlBackground.TabIndex = 0;
             // 
             // lblLichSu
@@ -372,6 +372,7 @@ namespace HealthApp.Views.Settings
             this.lblDanhGiaTongThe.Padding = new System.Windows.Forms.Padding(5);
             this.lblDanhGiaTongThe.Size = new System.Drawing.Size(558, 91);
             this.lblDanhGiaTongThe.TabIndex = 0;
+            this.lblDanhGiaTongThe.Text = null;
             // 
             // txtSoDoBapChan
             // 

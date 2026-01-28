@@ -58,6 +58,8 @@ namespace HealthApp.Views.Dashboard
             this.ptrAnh2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.ptrAnh1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pnlTieuDe = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.lblnumberThongBao = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.ptrThongBao = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.btnThongke = new Guna.UI2.WinForms.Guna2Button();
             this.btnHoaDon = new Guna.UI2.WinForms.Guna2Button();
             this.btnLichLuyenTap = new Guna.UI2.WinForms.Guna2Button();
@@ -88,6 +90,7 @@ namespace HealthApp.Views.Dashboard
             ((System.ComponentModel.ISupportInitialize)(this.ptrAnh2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptrAnh1)).BeginInit();
             this.pnlTieuDe.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrThongBao)).BeginInit();
             this.pnlTaiKhoang.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrAnhNguoiDung)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptrAnhDaiDien)).BeginInit();
@@ -385,8 +388,9 @@ namespace HealthApp.Views.Dashboard
             this.lblChuyenMuc.Text = "CHUYÊN MỤC";
             // 
             // guna2CirclePictureBox4
-            // 
+            //
             this.guna2CirclePictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.guna2CirclePictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.guna2CirclePictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("guna2CirclePictureBox4.Image")));
             this.guna2CirclePictureBox4.ImageRotate = 0F;
             this.guna2CirclePictureBox4.Location = new System.Drawing.Point(1110, 302);
@@ -398,8 +402,9 @@ namespace HealthApp.Views.Dashboard
             this.guna2CirclePictureBox4.TabStop = false;
             // 
             // guna2CirclePictureBox3
-            // 
+            //
             this.guna2CirclePictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2CirclePictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.guna2CirclePictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("guna2CirclePictureBox3.Image")));
             this.guna2CirclePictureBox3.ImageRotate = 0F;
             this.guna2CirclePictureBox3.Location = new System.Drawing.Point(1034, 302);
@@ -411,8 +416,9 @@ namespace HealthApp.Views.Dashboard
             this.guna2CirclePictureBox3.TabStop = false;
             // 
             // guna2CirclePictureBox2
-            // 
+            //
             this.guna2CirclePictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2CirclePictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.guna2CirclePictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2CirclePictureBox2.Image")));
             this.guna2CirclePictureBox2.ImageRotate = 0F;
             this.guna2CirclePictureBox2.Location = new System.Drawing.Point(956, 302);
@@ -469,6 +475,8 @@ namespace HealthApp.Views.Dashboard
             // 
             // pnlTieuDe
             // 
+            this.pnlTieuDe.Controls.Add(this.lblnumberThongBao);
+            this.pnlTieuDe.Controls.Add(this.ptrThongBao);
             this.pnlTieuDe.Controls.Add(this.btnThongke);
             this.pnlTieuDe.Controls.Add(this.btnHoaDon);
             this.pnlTieuDe.Controls.Add(this.btnLichLuyenTap);
@@ -487,6 +495,30 @@ namespace HealthApp.Views.Dashboard
             this.pnlTieuDe.Size = new System.Drawing.Size(1319, 86);
             this.pnlTieuDe.TabIndex = 0;
             // 
+            // lblnumberThongBao
+            // 
+            this.lblnumberThongBao.BackColor = System.Drawing.Color.Transparent;
+            this.lblnumberThongBao.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblnumberThongBao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblnumberThongBao.Location = new System.Drawing.Point(1053, 54);
+            this.lblnumberThongBao.Name = "lblnumberThongBao";
+            this.lblnumberThongBao.Size = new System.Drawing.Size(10, 17);
+            this.lblnumberThongBao.TabIndex = 10;
+            this.lblnumberThongBao.Text = "1";
+            // 
+            // ptrThongBao
+            // 
+            this.ptrThongBao.BackColor = System.Drawing.Color.Transparent;
+            this.ptrThongBao.Image = ((System.Drawing.Image)(resources.GetObject("ptrThongBao.Image")));
+            this.ptrThongBao.ImageRotate = 0F;
+            this.ptrThongBao.Location = new System.Drawing.Point(1030, 26);
+            this.ptrThongBao.Name = "ptrThongBao";
+            this.ptrThongBao.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.ptrThongBao.Size = new System.Drawing.Size(38, 35);
+            this.ptrThongBao.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptrThongBao.TabIndex = 9;
+            this.ptrThongBao.TabStop = false;
+            // 
             // btnThongke
             // 
             this.btnThongke.BackColor = System.Drawing.Color.Transparent;
@@ -500,7 +532,7 @@ namespace HealthApp.Views.Dashboard
             this.btnThongke.FillColor = System.Drawing.Color.Transparent;
             this.btnThongke.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThongke.ForeColor = System.Drawing.Color.White;
-            this.btnThongke.Location = new System.Drawing.Point(760, 23);
+            this.btnThongke.Location = new System.Drawing.Point(721, 23);
             this.btnThongke.Name = "btnThongke";
             this.btnThongke.Size = new System.Drawing.Size(151, 45);
             this.btnThongke.TabIndex = 8;
@@ -518,7 +550,7 @@ namespace HealthApp.Views.Dashboard
             this.btnHoaDon.FillColor = System.Drawing.Color.Transparent;
             this.btnHoaDon.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHoaDon.ForeColor = System.Drawing.Color.White;
-            this.btnHoaDon.Location = new System.Drawing.Point(917, 22);
+            this.btnHoaDon.Location = new System.Drawing.Point(878, 22);
             this.btnHoaDon.Name = "btnHoaDon";
             this.btnHoaDon.Size = new System.Drawing.Size(151, 45);
             this.btnHoaDon.TabIndex = 7;
@@ -537,7 +569,7 @@ namespace HealthApp.Views.Dashboard
             this.btnLichLuyenTap.FillColor = System.Drawing.Color.Transparent;
             this.btnLichLuyenTap.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichLuyenTap.ForeColor = System.Drawing.Color.White;
-            this.btnLichLuyenTap.Location = new System.Drawing.Point(603, 22);
+            this.btnLichLuyenTap.Location = new System.Drawing.Point(564, 22);
             this.btnLichLuyenTap.Name = "btnLichLuyenTap";
             this.btnLichLuyenTap.Size = new System.Drawing.Size(151, 45);
             this.btnLichLuyenTap.TabIndex = 6;
@@ -556,7 +588,7 @@ namespace HealthApp.Views.Dashboard
             this.btnFood.FillColor = System.Drawing.Color.Transparent;
             this.btnFood.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFood.ForeColor = System.Drawing.Color.White;
-            this.btnFood.Location = new System.Drawing.Point(452, 23);
+            this.btnFood.Location = new System.Drawing.Point(413, 23);
             this.btnFood.Name = "btnFood";
             this.btnFood.Size = new System.Drawing.Size(151, 45);
             this.btnFood.TabIndex = 5;
@@ -576,7 +608,7 @@ namespace HealthApp.Views.Dashboard
             this.btnHome.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHome.ForeColor = System.Drawing.Color.White;
             this.btnHome.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnHome.Location = new System.Drawing.Point(295, 22);
+            this.btnHome.Location = new System.Drawing.Point(256, 22);
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(151, 45);
             this.btnHome.TabIndex = 4;
@@ -595,7 +627,7 @@ namespace HealthApp.Views.Dashboard
             this.pnlTaiKhoang.FillColor2 = System.Drawing.Color.LightSkyBlue;
             this.pnlTaiKhoang.FillColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.pnlTaiKhoang.FillColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.pnlTaiKhoang.Location = new System.Drawing.Point(1074, 11);
+            this.pnlTaiKhoang.Location = new System.Drawing.Point(1079, 11);
             this.pnlTaiKhoang.Name = "pnlTaiKhoang";
             this.pnlTaiKhoang.Size = new System.Drawing.Size(225, 62);
             this.pnlTaiKhoang.TabIndex = 3;
@@ -630,7 +662,7 @@ namespace HealthApp.Views.Dashboard
             this.lblTenLogo2.BackColor = System.Drawing.Color.Transparent;
             this.lblTenLogo2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTenLogo2.ForeColor = System.Drawing.Color.White;
-            this.lblTenLogo2.Location = new System.Drawing.Point(100, 43);
+            this.lblTenLogo2.Location = new System.Drawing.Point(92, 43);
             this.lblTenLogo2.Name = "lblTenLogo2";
             this.lblTenLogo2.Size = new System.Drawing.Size(117, 49);
             this.lblTenLogo2.TabIndex = 2;
@@ -640,11 +672,11 @@ namespace HealthApp.Views.Dashboard
             // 
             this.lblTenLogo.AutoSize = true;
             this.lblTenLogo.BackColor = System.Drawing.Color.Transparent;
-            this.lblTenLogo.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTenLogo.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTenLogo.ForeColor = System.Drawing.Color.White;
-            this.lblTenLogo.Location = new System.Drawing.Point(98, 10);
+            this.lblTenLogo.Location = new System.Drawing.Point(90, 10);
             this.lblTenLogo.Name = "lblTenLogo";
-            this.lblTenLogo.Size = new System.Drawing.Size(180, 29);
+            this.lblTenLogo.Size = new System.Drawing.Size(161, 25);
             this.lblTenLogo.TabIndex = 1;
             this.lblTenLogo.Text = "Healthy and life";
             // 
@@ -693,6 +725,7 @@ namespace HealthApp.Views.Dashboard
             ((System.ComponentModel.ISupportInitialize)(this.ptrAnh1)).EndInit();
             this.pnlTieuDe.ResumeLayout(false);
             this.pnlTieuDe.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrThongBao)).EndInit();
             this.pnlTaiKhoang.ResumeLayout(false);
             this.pnlTaiKhoang.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrAnhNguoiDung)).EndInit();
@@ -743,5 +776,7 @@ namespace HealthApp.Views.Dashboard
         private Guna.UI2.WinForms.Guna2GradientButton btnThuePT;
         private Guna.UI2.WinForms.Guna2GradientButton btnLenKeHoachAnUong;
         private Guna.UI2.WinForms.Guna2GradientButton btnLichPT;
+        private Guna.UI2.WinForms.Guna2CirclePictureBox ptrThongBao;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblnumberThongBao;
     }
 }

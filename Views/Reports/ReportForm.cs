@@ -17,19 +17,21 @@ namespace HealthApp.Views.Reports
     {
         private readonly ReportController _reportController;
         private readonly Services.Interfaces.IExportService _exportService;
+        private readonly HealthApp.Views.Dashboard.frmDashBoard1 _parentDashboard;
         private ReportStatistics _currentStats;
 
-        public ReportForm()
+        public ReportForm(HealthApp.Views.Dashboard.frmDashBoard1 parentDashboard = null)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             _reportController = new ReportController();
             _exportService = new Services.ExportService();
+            _parentDashboard = parentDashboard;
             
             // Kết nối event handlers
             this.Load += ReportForm_Load;
             btnExportEX.Click += BtnExportEX_Click;
-           
+            btnBack.Click += BtnBack_Click;
         }
 
         private async void ReportForm_Load(object sender, EventArgs e)
@@ -444,6 +446,49 @@ namespace HealthApp.Views.Reports
             }
         }
 
+
+        /// <summary>
+        /// Event handler cho nút Back - quay lại Dashboard
+        /// </summary>
+        private void BtnBack_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Hide();
+                if (_parentDashboard != null && !_parentDashboard.IsDisposed)
+                {
+                    _parentDashboard.ShowDashboard();
+                }
+                else
+                {
+                    // Nếu không có parent dashboard, tìm trong Application.OpenForms
+                    HealthApp.Views.Dashboard.frmDashBoard1 dashboard = null;
+                    foreach (Form openForm in Application.OpenForms)
+                    {
+                        if (openForm is HealthApp.Views.Dashboard.frmDashBoard1)
+                        {
+                            dashboard = openForm as HealthApp.Views.Dashboard.frmDashBoard1;
+                            break;
+                        }
+                    }
+
+                    if (dashboard != null)
+                    {
+                        dashboard.ShowDashboard();
+                    }
+                    else
+                    {
+                        // Nếu không tìm thấy dashboard, đóng form hiện tại
+                        this.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi quay lại: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {

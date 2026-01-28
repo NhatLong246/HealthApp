@@ -11,6 +11,7 @@ using HealthApp.Services.Interfaces;
 using PTRequestViewModel = HealthApp.Services.Interfaces.PTRequestViewModel;
 using PTCustomerViewModel = HealthApp.Services.Interfaces.PTCustomerViewModel;
 using PTScheduleViewModel = HealthApp.Services.Interfaces.PTScheduleViewModel;
+using HealthApp.Services;
 
 namespace HealthApp.Services
 {
@@ -444,6 +445,19 @@ namespace HealthApp.Services
                     }
 
                     _context.SaveChanges();
+
+                    // Thông báo cho User: PT đã đồng ý yêu cầu (chờ thanh toán)
+                    try
+                    {
+                        var pt = _context.HuanLuyenVien.FirstOrDefault(p => p.PTID == ptId);
+                        var ptUser = pt != null ? _context.Users.FirstOrDefault(u => u.UserID == pt.UserID) : null;
+                        var ptName = ptUser?.HoTen ?? ptUser?.Username ?? ptId ?? "PT";
+
+                        var title = "PT đã đồng ý yêu cầu";
+                        var content = $"PT {ptName} đã đồng ý lời yêu cầu của bạn. Vui lòng thanh toán để xác nhận buổi tập.";
+                        NotificationService.Create(_context, datLich.KhachHangID, title, content, "USER_PT_ACCEPT", datLich.DatLichID);
+                    }
+                    catch { }
                     return true;
                 }
                 catch (SqlException sqlEx)
@@ -478,6 +492,15 @@ namespace HealthApp.Services
                     datLich.NgayCapNhat = DateTime.Now;
 
                     _context.SaveChanges();
+
+                    // Thông báo cho User: yêu cầu bị từ chối/hủy
+                    try
+                    {
+                        var title = "Yêu cầu thuê PT bị từ chối";
+                        var content = "Yêu cầu thuê PT của bạn đã bị từ chối. Bạn có thể gửi yêu cầu khác hoặc chọn PT khác.";
+                        NotificationService.Create(_context, datLich.KhachHangID, title, content, "USER_PT_REJECT", datLich.DatLichID);
+                    }
+                    catch { }
                     return true;
                 }
                 catch (SqlException sqlEx)
@@ -531,6 +554,54 @@ namespace HealthApp.Services
 
                     _context.DatLichPT.Add(datLich);
                     _context.SaveChanges();
+
+                    // Thông báo cho PT: có người thuê PT
+                    try
+                    {
+                        if (!string.IsNullOrWhiteSpace(ptId))
+                        {
+                            var pt = _context.HuanLuyenVien.FirstOrDefault(p => p.PTID == ptId);
+                            var ptUserId = pt?.UserID;
+                            var kh = _context.Users.FirstOrDefault(u => u.UserID == khachHangID);
+                            var khName = kh?.HoTen ?? kh?.Username ?? khachHangID;
+
+                            var title = "Có người thuê PT";
+                            var content = $"User {khName} đã gửi yêu cầu thuê PT vào {thoiGianBatDau:dd/MM/yyyy HH:mm}.";
+                            if (!string.IsNullOrWhiteSpace(ptUserId))
+                                NotificationService.Create(_context, ptUserId, title, content, "PT_NEW_HIRE_REQUEST", datLichID);
+
+                            // Gửi email cho PT
+                            try
+                            {
+                                var ptUser = !string.IsNullOrWhiteSpace(ptUserId)
+                                    ? _context.Users.FirstOrDefault(u => u.UserID == ptUserId)
+                                    : null;
+                                var ptEmail = ptUser?.Email;
+                                var ptName = ptUser?.HoTen ?? ptUser?.Username ?? ptId;
+
+                                if (!string.IsNullOrWhiteSpace(ptEmail))
+                                {
+                                    var emailService = new EmailService();
+                                    var summary = $"{thoiGianBatDau:dd/MM/yyyy HH:mm}";
+                                    emailService
+                                        .SendHireRequestToPTEmailAsync(ptEmail, ptName, khName, summary)
+                                        .GetAwaiter()
+                                        .GetResult();
+                                }
+                            }
+                            catch { }
+                        }
+                    }
+                    catch { }
+
+                    // Thông báo cho User: đã gửi yêu cầu
+                    try
+                    {
+                        var title = "Đã gửi yêu cầu thuê PT";
+                        var content = $"Bạn đã gửi yêu cầu thuê PT cho lịch {thoiGianBatDau:dd/MM/yyyy HH:mm}.";
+                        NotificationService.Create(_context, khachHangID, title, content, "USER_REQUEST_CREATED", datLichID);
+                    }
+                    catch { }
 
                     return datLichID;
                 }
@@ -639,6 +710,45 @@ namespace HealthApp.Services
                     }
 
                     _context.SaveChanges();
+
+                    // Thông báo + Email cho PT khi có lịch trình mới
+                    try
+                    {
+                        if (!string.IsNullOrWhiteSpace(ptId))
+                        {
+                            var pt = _context.HuanLuyenVien.FirstOrDefault(p => p.PTID == ptId);
+                            var ptUserId = pt?.UserID;
+                            var kh = _context.Users.FirstOrDefault(u => u.UserID == khachHangID);
+                            var khName = kh?.HoTen ?? kh?.Username ?? khachHangID;
+
+                            // Thông báo cho PT (UserID của PT)
+                            if (!string.IsNullOrWhiteSpace(ptUserId))
+                            {
+                                var title = "Có người thuê PT";
+                                var content = $"User {khName} đã gửi lịch trình thuê PT ({danhSachNgayGio.Count} buổi).";
+                                NotificationService.Create(_context, ptUserId, title, content, "PT_NEW_HIRE_REQUEST", lichTrinhID);
+                            }
+
+                            // Email cho PT
+                            var ptUser = !string.IsNullOrWhiteSpace(ptUserId)
+                                ? _context.Users.FirstOrDefault(u => u.UserID == ptUserId)
+                                : null;
+                            var ptEmail = ptUser?.Email;
+                            var ptName = ptUser?.HoTen ?? ptUser?.Username ?? ptId;
+                            if (!string.IsNullOrWhiteSpace(ptEmail))
+                            {
+                                var first = danhSachNgayGio.OrderBy(x => x.ngay).First();
+                                var summary = $"{danhSachNgayGio.Count} buổi (từ {first.ngay:dd/MM/yyyy} {first.gioBatDau:hh\\:mm})";
+                                var emailService = new EmailService();
+                                emailService
+                                    .SendHireRequestToPTEmailAsync(ptEmail, ptName, khName, summary)
+                                    .GetAwaiter()
+                                    .GetResult();
+                            }
+                        }
+                    }
+                    catch { }
+
                     return (datLichIDs, lichTrinhID);
                 }
                 catch (SqlException sqlEx)
