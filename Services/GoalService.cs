@@ -230,7 +230,7 @@ namespace HealthApp.Services
                         {
                             BuoiTapID = buoiTapId,
                             KeHoachTapID = keHoachTapId,
-                            ThuNgay = schedule.ThuNgay,
+                            ThuNgay = NormalizeThuNgay(schedule.ThuNgay), // Chuẩn hóa ThuNgay để tránh lỗi font
                             TrangThai = "Chưa thực hiện",
                             GhiChu = schedule.GhiChu,
                             ThoiGianBatDau = thoiGianBatDau,
@@ -271,6 +271,39 @@ namespace HealthApp.Services
                     System.Diagnostics.Debug.WriteLine($"Inner: {ex.InnerException.Message}");
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Chuẩn hóa giá trị ThuNgay để đảm bảo Unicode đúng và tránh lỗi font
+        /// </summary>
+        private string NormalizeThuNgay(string thuNgay)
+        {
+            if (string.IsNullOrWhiteSpace(thuNgay))
+                return null;
+
+            // Loại bỏ khoảng trắng thừa và chuyển về chữ thường để so sánh
+            string normalized = thuNgay.Trim();
+            string lower = normalized.ToLower();
+
+            // Chuẩn hóa về format Unicode đúng
+            if (lower.Contains("thứ 2") || lower == "thứ hai" || lower == "monday" || lower.Contains("monday"))
+                return "Thứ 2";
+            if (lower.Contains("thứ 3") || lower == "thứ ba" || lower == "tuesday" || lower.Contains("tuesday"))
+                return "Thứ 3";
+            if (lower.Contains("thứ 4") || lower == "thứ tư" || lower == "wednesday" || lower.Contains("wednesday"))
+                return "Thứ 4";
+            if (lower.Contains("thứ 5") || lower == "thứ năm" || lower == "thursday" || lower.Contains("thursday"))
+                return "Thứ 5";
+            if (lower.Contains("thứ 6") || lower == "thứ sáu" || lower == "friday" || lower.Contains("friday"))
+                return "Thứ 6";
+            if (lower.Contains("thứ 7") || lower == "thứ bảy" || lower == "saturday" || lower.Contains("saturday"))
+                return "Thứ 7";
+            if (lower.Contains("chủ nhật") || lower == "chủ nhật" || lower == "sunday" || lower.Contains("sunday"))
+                return "Chủ nhật";
+
+            // Nếu không khớp với bất kỳ format nào, trả về giá trị gốc (có thể đã đúng)
+            // Nhưng đảm bảo là Unicode string
+            return normalized;
         }
 
         /// <summary>

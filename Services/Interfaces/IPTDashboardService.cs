@@ -61,9 +61,43 @@ namespace HealthApp.Services.Interfaces
         Task<bool> RejectRequestAsync(string datLichID);
 
         /// <summary>
-        /// Tạo yêu cầu tập luyện mới
+        /// Tạo yêu cầu tập luyện mới (buổi tập đơn lẻ)
         /// </summary>
         Task<string> CreateTrainingRequestAsync(string khachHangID, string ptId, DateTime ngay, TimeSpan gioBatDau, TimeSpan gioKetThuc, string mucTieu);
+
+        /// <summary>
+        /// Tạo nhiều yêu cầu tập luyện cùng một lịch trình (package)
+        /// </summary>
+        /// <param name="khachHangID">ID khách hàng</param>
+        /// <param name="ptId">ID PT</param>
+        /// <param name="danhSachNgayGio">Danh sách (ngày, giờ bắt đầu, giờ kết thúc)</param>
+        /// <param name="mucTieu">Mục tiêu luyện tập</param>
+        /// <returns>Danh sách DatLichID đã tạo và LichTrinhID chung</returns>
+        Task<(List<string> datLichIDs, string lichTrinhID)> CreateTrainingScheduleAsync(
+            string khachHangID, 
+            string ptId, 
+            List<(DateTime ngay, TimeSpan gioBatDau, TimeSpan gioKetThuc)> danhSachNgayGio, 
+            string mucTieu);
+
+        /// <summary>
+        /// Kiểm tra trùng lịch với các lịch đã có của PT
+        /// </summary>
+        /// <param name="ptId">ID PT</param>
+        /// <param name="danhSachNgayGio">Danh sách (ngày, giờ bắt đầu, giờ kết thúc) cần kiểm tra</param>
+        /// <returns>Danh sách các lịch bị trùng (ngày, giờ bắt đầu, giờ kết thúc) hoặc null nếu không trùng</returns>
+        Task<List<(DateTime ngay, TimeSpan gioBatDau, TimeSpan gioKetThuc)>> CheckOverlappingSchedulesAsync(
+            string ptId,
+            List<(DateTime ngay, TimeSpan gioBatDau, TimeSpan gioKetThuc)> danhSachNgayGio);
+
+        /// <summary>
+        /// Kiểm tra trùng lịch với lịch tập của khách hàng (BuoiTap trong KeHoachLuyenTap)
+        /// </summary>
+        /// <param name="khachHangID">ID khách hàng</param>
+        /// <param name="danhSachNgayGio">Danh sách (ngày, giờ bắt đầu, giờ kết thúc) cần kiểm tra</param>
+        /// <returns>Danh sách các lịch bị trùng với thông tin chi tiết (ngày, giờ bắt đầu, giờ kết thúc, tên kế hoạch)</returns>
+        Task<List<(DateTime ngay, TimeSpan gioBatDau, TimeSpan gioKetThuc, string tenKeHoach)>> CheckOverlappingWithCustomerWorkoutAsync(
+            string khachHangID,
+            List<(DateTime ngay, TimeSpan gioBatDau, TimeSpan gioKetThuc)> danhSachNgayGio);
     }
 
     /// <summary>
@@ -79,6 +113,7 @@ namespace HealthApp.Services.Interfaces
         public DateTime NgayGioDat { get; set; }
         public string ThoiGian { get; set; }
         public int? ThoiLuong { get; set; }
+        public string LichTrinhID { get; set; } // ID của lịch trình (nếu có)
     }
 
     /// <summary>

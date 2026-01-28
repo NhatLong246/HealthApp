@@ -63,6 +63,7 @@ namespace HealthApp.Views.PT
             btnThem.Click += BtnThem_Click;
             btnGuiYeuCau.Click += BtnGuiYeuCau_Click;
             btnHuy.Click += BtnHuy_Click;
+            btnThemLichTrinh.Click += BtnThemLichTrinh_Click;
         }
 
         /// <summary>
@@ -275,10 +276,10 @@ namespace HealthApp.Views.PT
                     }
                 }
 
-                // Kiểm tra trùng lịch
+                // Kiểm tra trùng lịch trong form (giữa các UserControl)
                 if (CheckOverlappingSchedules())
                 {
-                    MessageBox.Show("Có lịch trùng nhau! Vui lòng kiểm tra lại các ngày và giờ đã chọn.", 
+                    MessageBox.Show("Có lịch trùng nhau trong danh sách! Vui lòng kiểm tra lại các ngày và giờ đã chọn.", 
                         "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -287,59 +288,152 @@ namespace HealthApp.Views.PT
                 string mucTieu = cboMucTieuLuyenTap.SelectedItem.ToString();
                 string khachHangID = CurrentUser.User.UserID;
 
-                // Lưu từng yêu cầu vào database
-                int successCount = 0;
-                int failCount = 0;
-
+                // Chuẩn bị danh sách ngày giờ để kiểm tra trùng với database
+                var danhSachNgayGio = new List<(DateTime ngay, TimeSpan gioBatDau, TimeSpan gioKetThuc)>();
                 foreach (var uc in _listUserControls)
                 {
+                    var (ngay, gioBatDau, gioKetThuc) = uc.GetData();
+                    danhSachNgayGio.Add((ngay, gioBatDau, gioKetThuc));
+                }
+
+                // Kiểm tra trùng lịch với các lịch đã có của PT trong database
+                var overlappingSchedules = await _ptDashboardService.CheckOverlappingSchedulesAsync(_ptId, danhSachNgayGio);
+                if (overlappingSchedules != null && overlappingSchedules.Count > 0)
+                {
+                    // Tạo thông báo chi tiết về các lịch bị trùng
+                    var message = new System.Text.StringBuilder();
+                    message.AppendLine("Có lịch bị trùng với lịch đã có của PT:");
+                    message.AppendLine();
+                    
+                    foreach (var (ngay, gioBatDau, gioKetThuc) in overlappingSchedules)
+                    {
+                        message.AppendLine($"• {ngay:dd/MM/yyyy} từ {gioBatDau:hh\\:mm} đến {gioKetThuc:hh\\:mm}");
+                    }
+                    message.AppendLine();
+                    message.AppendLine("Vui lòng chọn thời gian khác!");
+
+                    MessageBox.Show(message.ToString(), "Lịch bị trùng", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra trùng lịch với lịch tập của khách hàng (BuoiTap trong KeHoachLuyenTap)
+                var overlappingWorkouts = await _ptDashboardService.CheckOverlappingWithCustomerWorkoutAsync(khachHangID, danhSachNgayGio);
+                if (overlappingWorkouts != null && overlappingWorkouts.Count > 0)
+                {
+                    // Tạo thông báo chi tiết về các lịch bị trùng với lịch tập của khách hàng
+                    var message = new System.Text.StringBuilder();
+                    message.AppendLine("Có lịch bị trùng với lịch tập của bạn:");
+                    message.AppendLine();
+                    
+                    foreach (var (ngay, gioBatDau, gioKetThuc, tenKeHoach) in overlappingWorkouts)
+                    {
+                        message.AppendLine($"• {ngay:dd/MM/yyyy} từ {gioBatDau:hh\\:mm} đến {gioKetThuc:hh\\:mm}");
+                        message.AppendLine($"  (Kế hoạch: {tenKeHoach})");
+                    }
+                    message.AppendLine();
+                    message.AppendLine("Bạn có muốn tiếp tục gửi yêu cầu không?");
+
+                    var result = MessageBox.Show(message.ToString(), "Cảnh báo trùng lịch", 
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    
+                    if (result == DialogResult.No)
+                    {
+                        return; // Không tiếp tục gửi yêu cầu
+                    }
+                    // Nếu chọn Yes, tiếp tục gửi yêu cầu
+                }
+
+                // Kiểm tra xem có phải lịch trình (nhiều ngày) không
+                // Nếu có nhiều hơn 1 ngày, sử dụng CreateTrainingScheduleAsync để tạo cùng LichTrinhID
+                if (_listUserControls.Count > 1)
+                {
+                    // Tạo lịch trình (nhiều ngày)
+                    // Sử dụng lại danhSachNgayGio đã tạo ở trên
                     try
                     {
-                        var (ngay, gioBatDau, gioKetThuc) = uc.GetData();
-                        
-                        // Lưu vào database
-                        string datLichID = await _ptDashboardService.CreateTrainingRequestAsync(
-                            khachHangID, 
-                            _ptId, 
-                            ngay, 
-                            gioBatDau, 
-                            gioKetThuc, 
+                        var (datLichIDs, lichTrinhID) = await _ptDashboardService.CreateTrainingScheduleAsync(
+                            khachHangID,
+                            _ptId,
+                            danhSachNgayGio,
                             mucTieu
                         );
 
-                        if (!string.IsNullOrEmpty(datLichID))
+                        if (datLichIDs != null && datLichIDs.Count > 0)
                         {
-                            successCount++;
+                            MessageBox.Show($"Đã gửi thành công {datLichIDs.Count} yêu cầu tập luyện!\nLịch trình ID: {lichTrinhID}", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            failCount++;
+                            MessageBox.Show("Không thể gửi yêu cầu! Vui lòng thử lại sau.", "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        failCount++;
-                        // Log lỗi nhưng tiếp tục với các yêu cầu khác
-                        // Lỗi đã được log trong Debug, không cần hiển thị cho user
+                        MessageBox.Show($"Lỗi khi gửi lịch trình: {ex.Message}", "Lỗi",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
-                }
-
-                // Hiển thị kết quả
-                if (successCount > 0)
-                {
-                    string message = $"Đã gửi thành công {successCount} yêu cầu tập luyện!";
-                    if (failCount > 0)
-                    {
-                        message += $"\nCó {failCount} yêu cầu không thể gửi.";
-                    }
-                    MessageBox.Show(message, "Thông báo", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Không thể gửi yêu cầu! Vui lòng thử lại sau.", "Lỗi", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    // Buổi tập đơn lẻ
+                    int successCount = 0;
+                    int failCount = 0;
+
+                    foreach (var uc in _listUserControls)
+                    {
+                        try
+                        {
+                            var (ngay, gioBatDau, gioKetThuc) = uc.GetData();
+                            
+                            // Lưu vào database
+                            string datLichID = await _ptDashboardService.CreateTrainingRequestAsync(
+                                khachHangID, 
+                                _ptId, 
+                                ngay, 
+                                gioBatDau, 
+                                gioKetThuc, 
+                                mucTieu
+                            );
+
+                            if (!string.IsNullOrEmpty(datLichID))
+                            {
+                                successCount++;
+                            }
+                            else
+                            {
+                                failCount++;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            failCount++;
+                            // Log lỗi nhưng tiếp tục với các yêu cầu khác
+                            // Lỗi đã được log trong Debug, không cần hiển thị cho user
+                        }
+                    }
+
+                    // Hiển thị kết quả
+                    if (successCount > 0)
+                    {
+                        string message = $"Đã gửi thành công {successCount} yêu cầu tập luyện!";
+                        if (failCount > 0)
+                        {
+                            message += $"\nCó {failCount} yêu cầu không thể gửi.";
+                        }
+                        MessageBox.Show(message, "Thông báo", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không thể gửi yêu cầu! Vui lòng thử lại sau.", "Lỗi", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
 
                 // Quay lại form tìm kiếm
@@ -358,6 +452,110 @@ namespace HealthApp.Views.PT
         private void BtnHuy_Click(object sender, EventArgs e)
         {
             BtnBack_Click(sender, e);
+        }
+
+        /// <summary>
+        /// Xử lý khi click nút Thêm Lịch Trình
+        /// </summary>
+        private void BtnThemLichTrinh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formLichTrinh = new frm_ThueTheoLichTrinh();
+                if (formLichTrinh.ShowDialog() == DialogResult.OK)
+                {
+                    // Lấy danh sách ngày đã chọn
+                    var selectedDates = formLichTrinh.SelectedDates;
+                    
+                    if (selectedDates != null && selectedDates.Count > 0)
+                    {
+                        int countBefore = _listUserControls.Count;
+                        
+                        // Thêm từng ngày vào danh sách UserControl
+                        // Mỗi ngày sẽ có giờ mặc định (6:00-7:00), user có thể chỉnh sửa sau
+                        foreach (var date in selectedDates)
+                        {
+                            // Chỉ thêm ngày trong tương lai
+                            if (date.Date > DateTime.Today)
+                            {
+                                AddUserControlForDate(date);
+                            }
+                        }
+                        
+                        int countAdded = _listUserControls.Count - countBefore;
+                        
+                        if (countAdded > 0)
+                        {
+                            MessageBox.Show($"Đã thêm {countAdded} ngày vào lịch trình!\nBạn có thể chỉnh sửa giờ cho từng ngày nếu cần.", "Thông báo", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không có ngày nào được thêm. Có thể các ngày đã tồn tại trong danh sách.", "Thông báo", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở form lịch trình: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Thêm UserControl cho một ngày cụ thể
+        /// </summary>
+        private void AddUserControlForDate(DateTime date)
+        {
+            try
+            {
+                // Kiểm tra xem có trùng ngày với các UserControl hiện có không
+                bool hasConflict = false;
+                foreach (var existingUC in _listUserControls)
+                {
+                    if (existingUC.GetData().ngay.Date == date.Date)
+                    {
+                        hasConflict = true;
+                        break;
+                    }
+                }
+
+                if (hasConflict)
+                {
+                    // Ngày đã tồn tại, bỏ qua
+                    return;
+                }
+
+                // Chỉ thêm ngày trong tương lai
+                if (date.Date <= DateTime.Today)
+                {
+                    return;
+                }
+
+                var userControl = new UserControlChonNgay();
+                userControl.SetParentPanel(pnlChonNgay);
+                userControl.OnDeleteRequested += UserControl_OnDeleteRequested;
+
+                // Set ngày cho UserControl sử dụng method mới
+                userControl.SetDate(date);
+
+                // Kiểm tra trùng giờ với các UserControl hiện có (nếu cùng ngày)
+                // Lưu ý: Các UserControl mới sẽ có giờ mặc định (6:00-7:00), 
+                // nếu trùng có thể để user tự chỉnh sửa sau
+
+                _listUserControls.Add(userControl);
+                pnlChonNgay.Controls.Add(userControl);
+
+                // Sắp xếp lại các control theo chiều dọc
+                ArrangeUserControls();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi thêm ngày {date:dd/MM/yyyy}: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
