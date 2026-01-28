@@ -183,7 +183,9 @@ namespace HealthApp.Services
             {
                 try
                 {
+                    // Include Users để tránh NullReference khi truy cập pt.Users
                     var pt = _context.HuanLuyenVien
+                        .Include("Users")
                         .FirstOrDefault(h => h.PTID == ptId && h.DaXacMinh == true);
 
                     if (pt == null)
@@ -246,8 +248,12 @@ namespace HealthApp.Services
                     {
                         PTID = pt.PTID,
                         UserID = pt.UserID,
-                        Ten = pt.Users.HoTen ?? pt.Users.Username,
-                        AnhDaiDien = pt.AnhDaiDien ?? pt.Users.AnhDaiDien,
+                        // Phòng trường hợp navigation Users bị null (dữ liệu không đủ)
+                        Ten = pt.Users != null 
+                            ? (pt.Users.HoTen ?? pt.Users.Username) 
+                            : "Không xác định",
+                        AnhDaiDien = pt.AnhDaiDien 
+                                     ?? (pt.Users != null ? pt.Users.AnhDaiDien : null),
                         AnhChanDung = pt.AnhChanDung,
                         ChuyenMon = pt.ChuyenMon,
                         ChungChi = pt.ChungChi,
