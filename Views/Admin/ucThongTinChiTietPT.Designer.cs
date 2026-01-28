@@ -1,4 +1,4 @@
-﻿namespace HealthApp.Views.Admin
+namespace HealthApp.Views.Admin
 {
     partial class ucThongTinChiTietPT
     {

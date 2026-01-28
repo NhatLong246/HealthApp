@@ -1,4 +1,4 @@
-﻿extern alias ef6;
+extern alias ef6;
 
 using System;
 using System.Collections.Generic;
@@ -74,10 +74,17 @@ namespace HealthApp.Views.Admin
             // Event handlers cho buttons
             btnApDung.Click += BtnApDung_Click;
             btnDatLai.Click += BtnDatLai_Click;
+            btnXacMinhDangKy.Click += BtnXacMinhDangKy_Click;
         }
 
         private void ucQuanLiPT_Load(object sender, EventArgs e)
         {
+            // Đảm bảo panel container có AutoScroll
+            if (pnlDanhSachHuanLuyenVien != null)
+            {
+                pnlDanhSachHuanLuyenVien.AutoScroll = true;
+            }
+            
             LoadStatistics();
             LoadPTList();
         }
@@ -125,10 +132,32 @@ namespace HealthApp.Views.Admin
                 }
                 lblSoDoanhThuTrungBinh.Text = FormatCurrency(averageMonthlyRevenuePerPT);
 
-                // 3. Đánh giá trung bình của tất cả PT
-                double averageRating = _dbContext.DanhGiaPT
-                    .Where(dg => dg.Diem >= 1 && dg.Diem <= 5)
-                    .Average(dg => (double?)dg.Diem) ?? 0.0;
+                // 3. Đánh giá trung bình của tất cả PT (tính từ bảng DanhGiaPT)
+                // Tính đánh giá trung bình cho từng PT, sau đó lấy trung bình của tất cả PT
+                var verifiedPTs = _dbContext.HuanLuyenVien
+                    .Where(pt => pt.DaXacMinh == true) // Chỉ tính PT đã được duyệt
+                    .Select(pt => pt.PTID)
+                    .ToList();
+                
+                var ptAverageRatings = new List<double>();
+                
+                foreach (var ptId in verifiedPTs)
+                {
+                    var ratings = _dbContext.DanhGiaPT
+                        .Where(dg => dg.PTID == ptId && dg.Diem >= 1 && dg.Diem <= 5)
+                        .Select(dg => (double?)dg.Diem)
+                        .ToList();
+                    
+                    double ptAvg = ratings.Any() 
+                        ? ratings.Average() ?? 0.0 
+                        : 0.0;
+                    
+                    ptAverageRatings.Add(ptAvg);
+                }
+                
+                double averageRating = ptAverageRatings.Any() 
+                    ? Math.Round(ptAverageRatings.Average(), 1) 
+                    : 0.0;
                 lblSoDanhGiaTrungBinh.Text = averageRating.ToString("F1");
 
                 // 4. Trung bình khách hàng đang thuê PT/tháng (trong 1 năm gần nhất)
@@ -255,10 +284,14 @@ namespace HealthApp.Views.Admin
         {
             try
             {
-                // Xóa tất cả panel PT hiện có (trừ panel thiết kế ban đầu)
+                // Xóa tất cả panel PT hiện có (trừ panel thiết kế ban đầu và các control khác)
                 var panelsToRemove = pnlDanhSachHuanLuyenVien.Controls
                     .OfType<Guna.UI2.WinForms.Guna2CustomGradientPanel>()
-                    .Where(p => p.Name.StartsWith("pnlThongTinPT") && p.Name != "pnlThongTinPT")
+                    .Where(p => p.Name != null && 
+                                p.Name.StartsWith("pnlThongTinPT_") && 
+                                p.Name != "pnlThongTinPT" &&
+                                p.Name != "pnlThongTinPT2" &&
+                                p.Name != "pnlThongTinPT3")
                     .ToList();
 
                 foreach (var panel in panelsToRemove)
@@ -267,12 +300,26 @@ namespace HealthApp.Views.Admin
                     panel.Dispose();
                 }
 
-                // Ẩn panel thiết kế ban đầu
+                // Ẩn tất cả panel thiết kế ban đầu (mẫu)
                 pnlThongTinPT.Visible = false;
+                
+                // Ẩn các panel mẫu khác nếu có
+                var samplePanels = pnlDanhSachHuanLuyenVien.Controls
+                    .OfType<Guna.UI2.WinForms.Guna2CustomGradientPanel>()
+                    .Where(p => p.Name == "pnlThongTinPT" || 
+                                p.Name == "pnlThongTinPT2" || 
+                                p.Name == "pnlThongTinPT3")
+                    .ToList();
+                
+                foreach (var panel in samplePanels)
+                {
+                    panel.Visible = false;
+                }
 
-                // Load danh sách PT từ database với filter
+                // Load danh sách PT từ database với filter (chỉ lấy PT đã được xác minh)
                 var query = _dbContext.HuanLuyenVien
                     .Include("Users")
+                    .Where(pt => pt.DaXacMinh == true) // Chỉ lấy PT đã được duyệt
                     .AsQueryable();
 
                 // Áp dụng filter nếu có
@@ -323,13 +370,24 @@ namespace HealthApp.Views.Admin
                         }
                     }
 
-                    // Filter theo điểm đánh giá
-                    if (filter.DiemDanhGiaMin.HasValue)
+                    // Filter theo điểm đánh giá (tính từ DanhGiaPT)
+                    if (filter.DiemDanhGiaMin.HasValue && filter.DiemDanhGiaMin.Value > 0)
                     {
-                        query = query.Where(pt => 
-                            (pt.DiemTrungBinh.HasValue && pt.DiemTrungBinh >= filter.DiemDanhGiaMin.Value) ||
-                            (!pt.DiemTrungBinh.HasValue && filter.DiemDanhGiaMin.Value == 0));
+                        // Lấy danh sách PT có điểm trung bình >= giá trị filter
+                        var ptIdsWithRating = _dbContext.DanhGiaPT
+                            .GroupBy(dg => dg.PTID)
+                            .Select(g => new { 
+                                PTID = g.Key, 
+                                AvgRating = g.Average(dg => (double?)dg.Diem) 
+                            })
+                            .Where(x => x.AvgRating.HasValue && x.AvgRating.Value >= filter.DiemDanhGiaMin.Value)
+                            .Select(x => x.PTID)
+                            .ToList();
+                        
+                        // Chỉ lấy PT có điểm >= giá trị filter
+                        query = query.Where(pt => ptIdsWithRating.Contains(pt.PTID));
                     }
+                    // Nếu filter = 0, lấy tất cả PT (có hoặc không có đánh giá) - không filter gì cả
                 }
 
                 var pts = query.ToList();
@@ -342,10 +400,16 @@ namespace HealthApp.Views.Admin
                 // Kích thước và khoảng cách
                 const int panelWidth = 328;
                 const int panelHeight = 461;
-                const int marginX = 23; // Khoảng cách giữa các cột
-                const int marginY = 20; // Khoảng cách giữa các hàng
+                const int marginX = 40; // Khoảng cách giữa các cột (tăng từ 23 lên 40)
+                const int marginY = 25; // Khoảng cách giữa các hàng (tăng từ 20 lên 25)
                 const int startY = 71; // Vị trí Y bắt đầu
-                const int columnsPerRow = 3; // Số cột mỗi hàng
+                
+                // Tính số cột mỗi hàng dựa trên chiều rộng container
+                int containerWidth = pnlDanhSachHuanLuyenVien.Width;
+                int columnsPerRow = Math.Max(1, (containerWidth - marginX) / (panelWidth + marginX));
+                
+                // Đảm bảo tối thiểu 2 cột và tối đa 3 cột để hiển thị đẹp
+                columnsPerRow = Math.Max(2, Math.Min(3, columnsPerRow));
 
                 // Tạo panel cho mỗi PT
                 for (int i = 0; i < pts.Count; i++)
@@ -354,8 +418,13 @@ namespace HealthApp.Views.Admin
                     int row = i / columnsPerRow;
                     int col = i % columnsPerRow;
 
-                    // Tính vị trí
+                    // Tính vị trí - đảm bảo không bị chồng
+                    // Card đầu tiên (col = 0) dịch sang trái thêm một chút để tránh chồng
                     int x = marginX + col * (panelWidth + marginX);
+                    if (col == 0)
+                    {
+                        x = Math.Max(10, marginX - 15); // Dịch sang trái 15 pixels cho card đầu tiên
+                    }
                     int y = startY + row * (panelHeight + marginY);
 
                     // Tạo panel mới
@@ -363,8 +432,15 @@ namespace HealthApp.Views.Admin
                     ptPanel.Location = new Point(x, y);
                     ptPanel.Name = $"pnlThongTinPT_{pt.PTID}";
                     ptPanel.Visible = true;
+                    ptPanel.BringToFront(); // Đảm bảo panel ở trên cùng
 
                     pnlDanhSachHuanLuyenVien.Controls.Add(ptPanel);
+                }
+                
+                // Đảm bảo panel container có AutoScroll
+                if (!pnlDanhSachHuanLuyenVien.AutoScroll)
+                {
+                    pnlDanhSachHuanLuyenVien.AutoScroll = true;
                 }
             }
             catch (Exception ex)
@@ -403,12 +479,18 @@ namespace HealthApp.Views.Admin
                 .Where(gd => gd.PTID == pt.PTID && 
                             gd.TrangThaiThanhToan == "Completed" &&
                             gd.SoTienPTNhan.HasValue)
-                .Sum(gd => gd.SoTienPTNhan ?? 0);
+                .Select(gd => gd.SoTienPTNhan ?? 0)
+                .DefaultIfEmpty(0)
+                .Sum();
 
-            double? diemTrungBinh = pt.DiemTrungBinh ?? 
-                _dbContext.DanhGiaPT
-                    .Where(dg => dg.PTID == pt.PTID)
-                    .Average(dg => (double?)dg.Diem);
+            // Tính điểm trung bình từ bảng DanhGiaPT
+            var danhGiaList = _dbContext.DanhGiaPT
+                .Where(dg => dg.PTID == pt.PTID)
+                .ToList();
+            
+            double? diemTrungBinh = danhGiaList.Any() 
+                ? (double?)Math.Round(danhGiaList.Average(dg => (double)dg.Diem), 1) 
+                : (double?)0.0;
 
             // Populate dữ liệu vào các control
             SetControlText(panel, "lblHovaTen", user?.HoTen ?? user?.Username ?? "N/A");
@@ -519,7 +601,36 @@ namespace HealthApp.Views.Admin
                     Location = sourcePic.Location,
                     Size = sourcePic.Size,
                     SizeMode = sourcePic.SizeMode,
-                    Image = sourcePic.Image
+                    Image = sourcePic.Image != null ? (Image)sourcePic.Image.Clone() : null
+                };
+            }
+            else if (source is PictureBox)
+            {
+                var sourcePic = source as PictureBox;
+                cloned = new PictureBox
+                {
+                    Name = sourcePic.Name,
+                    Location = sourcePic.Location,
+                    Size = sourcePic.Size,
+                    SizeMode = sourcePic.SizeMode,
+                    Image = sourcePic.Image != null ? (Image)sourcePic.Image.Clone() : null,
+                    BackColor = sourcePic.BackColor,
+                    BorderStyle = sourcePic.BorderStyle
+                };
+            }
+            else if (source is Guna.UI2.WinForms.Guna2PictureBox)
+            {
+                var sourcePic = source as Guna.UI2.WinForms.Guna2PictureBox;
+                cloned = new Guna.UI2.WinForms.Guna2PictureBox
+                {
+                    Name = sourcePic.Name,
+                    Location = sourcePic.Location,
+                    Size = sourcePic.Size,
+                    SizeMode = sourcePic.SizeMode,
+                    Image = sourcePic.Image != null ? (Image)sourcePic.Image.Clone() : null,
+                    BackColor = sourcePic.BackColor,
+                    BorderRadius = sourcePic.BorderRadius,
+                    ImageRotate = sourcePic.ImageRotate
                 };
             }
             else if (source is Guna.UI2.WinForms.Guna2GradientButton)
@@ -575,8 +686,55 @@ namespace HealthApp.Views.Admin
                     cloned.Controls.Add(CloneControl(child));
                 }
             }
+            else if (source is Label)
+            {
+                var sourceLabel = source as Label;
+                cloned = new Label
+                {
+                    Name = sourceLabel.Name,
+                    Text = sourceLabel.Text,
+                    Location = sourceLabel.Location,
+                    Size = sourceLabel.Size,
+                    Font = sourceLabel.Font,
+                    ForeColor = sourceLabel.ForeColor,
+                    BackColor = sourceLabel.BackColor,
+                    AutoSize = sourceLabel.AutoSize,
+                    TextAlign = sourceLabel.TextAlign
+                };
+            }
+            else if (source is Panel)
+            {
+                var sourcePanel = source as Panel;
+                cloned = new Panel
+                {
+                    Name = sourcePanel.Name,
+                    Location = sourcePanel.Location,
+                    Size = sourcePanel.Size,
+                    BackColor = sourcePanel.BackColor,
+                    BorderStyle = sourcePanel.BorderStyle
+                };
 
-            return cloned ?? new Control { Name = source.Name, Location = source.Location, Size = source.Size };
+                // Clone controls bên trong panel
+                foreach (Control child in sourcePanel.Controls)
+                {
+                    cloned.Controls.Add(CloneControl(child));
+                }
+            }
+
+            // Nếu không match với bất kỳ loại nào ở trên, tạo control cơ bản
+            if (cloned == null)
+            {
+                cloned = new Control 
+                { 
+                    Name = source.Name, 
+                    Location = source.Location, 
+                    Size = source.Size,
+                    BackColor = source.BackColor,
+                    ForeColor = source.ForeColor
+                };
+            }
+
+            return cloned;
         }
 
         /// <summary>
@@ -622,8 +780,42 @@ namespace HealthApp.Views.Admin
             if (button?.Tag != null)
             {
                 string ptId = button.Tag.ToString();
-                // TODO: Mở form chi tiết PT
-                MessageBox.Show($"Xem chi tiết PT: {ptId}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    // Lấy thông tin PT
+                    var pt = _dbContext.HuanLuyenVien
+                        .Include("Users")
+                        .FirstOrDefault(p => p.PTID == ptId);
+                    
+                    if (pt == null)
+                    {
+                        MessageBox.Show("Không tìm thấy thông tin PT!", "Thông báo", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Mở form chi tiết PT
+                    var form = new Form
+                    {
+                        Text = $"Chi tiết PT: {ptId}",
+                        Size = new Size(900, 700),
+                        StartPosition = FormStartPosition.CenterParent
+                    };
+
+                    var ucChiTiet = new ucThongTinChiTietPT();
+                    ucChiTiet.Dock = DockStyle.Fill;
+                    form.Controls.Add(ucChiTiet);
+                    
+                    // Load dữ liệu PT vào ucChiTiet
+                    ucChiTiet.LoadPTData(pt);
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi mở chi tiết PT: {ex.Message}", "Lỗi", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -636,14 +828,41 @@ namespace HealthApp.Views.Admin
             if (button?.Tag != null)
             {
                 string ptId = button.Tag.ToString();
-                var result = MessageBox.Show($"Bạn có chắc chắn muốn xóa PT {ptId}?", "Xác nhận", 
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show(
+                    $"Bạn có chắc chắn muốn xóa PT {ptId}?\n\nLưu ý: Hành động này sẽ xóa tất cả dữ liệu liên quan đến PT này.", 
+                    "Xác nhận xóa", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Warning);
                 
                 if (result == DialogResult.Yes)
                 {
-                    // TODO: Xóa PT
-                    MessageBox.Show($"Xóa PT: {ptId}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadPTList(); // Reload danh sách
+                    try
+                    {
+                        var pt = _dbContext.HuanLuyenVien.FirstOrDefault(p => p.PTID == ptId);
+                        if (pt != null)
+                        {
+                            // Xóa PT (cascade delete sẽ xóa các bản ghi liên quan)
+                            _dbContext.HuanLuyenVien.Remove(pt);
+                            _dbContext.SaveChanges();
+                            
+                            MessageBox.Show($"Đã xóa PT {ptId} thành công!", "Thông báo", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            
+                            // Reload danh sách và thống kê
+                            LoadPTList();
+                            LoadStatistics();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy PT để xóa!", "Thông báo", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi xóa PT: {ex.Message}", "Lỗi", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -715,6 +934,29 @@ namespace HealthApp.Views.Admin
 
             // Reload danh sách không filter
             LoadPTList();
+        }
+
+        /// <summary>
+        /// Event handler cho nút Xác minh đăng ký
+        /// </summary>
+        private void BtnXacMinhDangKy_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Mở form duyệt PT
+                var frmDuyet = new frmDuyetPT();
+                frmDuyet.StartPosition = FormStartPosition.CenterParent;
+                frmDuyet.ShowDialog();
+                
+                // Reload danh sách và thống kê sau khi đóng form duyệt
+                LoadPTList();
+                LoadStatistics();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở form duyệt PT: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>

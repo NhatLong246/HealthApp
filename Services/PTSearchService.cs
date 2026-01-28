@@ -29,21 +29,37 @@ namespace HealthApp.Services
             {
                 try
                 {
-                    // Lấy tất cả PT đã xác minh (DaXacMinh = true)
+                    // Lấy tất cả PT đã xác minh (DaXacMinh = true) và Include Users để tránh NullReference
                     var pts = _context.HuanLuyenVien
+                        .Include("Users")
                         .Where(h => h.DaXacMinh == true)
-                        .Select(h => new PTSearchViewModel
+                        .ToList()
+                        .Select(h =>
                         {
-                            PTID = h.PTID,
-                            UserID = h.UserID,
-                            Ten = h.Users.HoTen ?? h.Users.Username,
-                            AnhDaiDien = h.AnhDaiDien ?? h.Users.AnhDaiDien,
-                            ChuyenMon = h.ChuyenMon,
-                            SoNamKinhNghiem = h.SoNamKinhNghiem,
-                            ThanhPho = h.ThanhPho,
-                            GiaTheoGio = h.GiaTheoGio,
-                            DiemTrungBinh = h.DiemTrungBinh ?? 0,
-                            TongDanhGia = h.TongDanhGia ?? 0
+                            // Tính điểm trung bình từ bảng DanhGiaPT
+                            var danhGiaList = _context.DanhGiaPT
+                                .Where(d => d.PTID == h.PTID)
+                                .ToList();
+                            
+                            var diemTrungBinh = danhGiaList.Any() 
+                                ? (double?)Math.Round(danhGiaList.Average(d => (double)d.Diem), 1) 
+                                : (double?)0.0;
+                            
+                            var tongDanhGia = danhGiaList.Count;
+
+                            return new PTSearchViewModel
+                            {
+                                PTID = h.PTID,
+                                UserID = h.UserID,
+                                Ten = h.Users != null ? (h.Users.HoTen ?? h.Users.Username) : "Không xác định",
+                                AnhDaiDien = h.AnhDaiDien ?? (h.Users != null ? h.Users.AnhDaiDien : null),
+                                ChuyenMon = h.ChuyenMon,
+                                SoNamKinhNghiem = h.SoNamKinhNghiem,
+                                ThanhPho = h.ThanhPho,
+                                GiaTheoGio = h.GiaTheoGio,
+                                DiemTrungBinh = diemTrungBinh,
+                                TongDanhGia = tongDanhGia
+                            };
                         })
                         .ToList();
 
@@ -51,11 +67,11 @@ namespace HealthApp.Services
                 }
                 catch (SqlException sqlEx)
                 {
-                    throw new Exception($"Lỗi kết nối database. Vui lòng kiểm tra các bảng HuanLuyenVien, Users đã được tạo chưa.\n\nChi tiết: {sqlEx.Message}", sqlEx);
+                    throw new Exception($"Lỗi kết nối database. Vui lòng kiểm tra các bảng HuanLuyenVien, Users, DanhGiaPT đã được tạo chưa.\n\nChi tiết: {sqlEx.Message}", sqlEx);
                 }
                 catch (Exception ex) when (ex.Message.Contains("Invalid object name") || ex.Message.Contains("does not exist"))
                 {
-                    throw new Exception($"Lỗi database: Các bảng HuanLuyenVien hoặc Users chưa được tạo trong database.\nVui lòng chạy script SQL trong file WF_HealthTracker.sql.\n\nChi tiết: {ex.InnerException?.Message ?? ex.Message}", ex);
+                    throw new Exception($"Lỗi database: Các bảng HuanLuyenVien, Users hoặc DanhGiaPT chưa được tạo trong database.\nVui lòng chạy script SQL trong file WF_HealthTracker.sql.\n\nChi tiết: {ex.InnerException?.Message ?? ex.Message}", ex);
                 }
                 catch (Exception ex)
                 {
@@ -73,24 +89,41 @@ namespace HealthApp.Services
             {
                 try
                 {
-
+                    // Include Users để tránh NullReference và có thể tìm kiếm trong Users
                     var pts = _context.HuanLuyenVien
+                        .Include("Users")
                         .Where(h => h.DaXacMinh == true &&
-                                   (h.Users.HoTen.Contains(searchText) || 
-                                    h.Users.Username.Contains(searchText) ||
-                                    h.ChuyenMon.Contains(searchText)))
-                        .Select(h => new PTSearchViewModel
+                                   ((h.Users != null && 
+                                     ((h.Users.HoTen != null && h.Users.HoTen.Contains(searchText)) || 
+                                      (h.Users.Username != null && h.Users.Username.Contains(searchText)))) ||
+                                    (h.ChuyenMon != null && h.ChuyenMon.Contains(searchText))))
+                        .ToList()
+                        .Select(h =>
                         {
-                            PTID = h.PTID,
-                            UserID = h.UserID,
-                            Ten = h.Users.HoTen ?? h.Users.Username,
-                            AnhDaiDien = h.AnhDaiDien ?? h.Users.AnhDaiDien,
-                            ChuyenMon = h.ChuyenMon,
-                            SoNamKinhNghiem = h.SoNamKinhNghiem,
-                            ThanhPho = h.ThanhPho,
-                            GiaTheoGio = h.GiaTheoGio,
-                            DiemTrungBinh = h.DiemTrungBinh ?? 0,
-                            TongDanhGia = h.TongDanhGia ?? 0
+                            // Tính điểm trung bình từ bảng DanhGiaPT
+                            var danhGiaList = _context.DanhGiaPT
+                                .Where(d => d.PTID == h.PTID)
+                                .ToList();
+                            
+                            var diemTrungBinh = danhGiaList.Any() 
+                                ? (double?)Math.Round(danhGiaList.Average(d => (double)d.Diem), 1) 
+                                : (double?)0.0;
+                            
+                            var tongDanhGia = danhGiaList.Count;
+
+                            return new PTSearchViewModel
+                            {
+                                PTID = h.PTID,
+                                UserID = h.UserID,
+                                Ten = h.Users != null ? (h.Users.HoTen ?? h.Users.Username) : "Không xác định",
+                                AnhDaiDien = h.AnhDaiDien ?? (h.Users != null ? h.Users.AnhDaiDien : null),
+                                ChuyenMon = h.ChuyenMon,
+                                SoNamKinhNghiem = h.SoNamKinhNghiem,
+                                ThanhPho = h.ThanhPho,
+                                GiaTheoGio = h.GiaTheoGio,
+                                DiemTrungBinh = diemTrungBinh,
+                                TongDanhGia = tongDanhGia
+                            };
                         })
                         .ToList();
 
@@ -112,22 +145,38 @@ namespace HealthApp.Services
             {
                 try
                 {
-
+                    // Include Users để tránh NullReference
                     var pts = _context.HuanLuyenVien
+                        .Include("Users")
                         .Where(h => h.DaXacMinh == true &&
-                                   h.ThanhPho.Contains(city))
-                        .Select(h => new PTSearchViewModel
+                                   h.ThanhPho != null && h.ThanhPho.Contains(city))
+                        .ToList()
+                        .Select(h =>
                         {
-                            PTID = h.PTID,
-                            UserID = h.UserID,
-                            Ten = h.Users.HoTen ?? h.Users.Username,
-                            AnhDaiDien = h.AnhDaiDien ?? h.Users.AnhDaiDien,
-                            ChuyenMon = h.ChuyenMon,
-                            SoNamKinhNghiem = h.SoNamKinhNghiem,
-                            ThanhPho = h.ThanhPho,
-                            GiaTheoGio = h.GiaTheoGio,
-                            DiemTrungBinh = h.DiemTrungBinh ?? 0,
-                            TongDanhGia = h.TongDanhGia ?? 0
+                            // Tính điểm trung bình từ bảng DanhGiaPT
+                            var danhGiaList = _context.DanhGiaPT
+                                .Where(d => d.PTID == h.PTID)
+                                .ToList();
+                            
+                            var diemTrungBinh = danhGiaList.Any() 
+                                ? (double?)Math.Round(danhGiaList.Average(d => (double)d.Diem), 1) 
+                                : (double?)0.0;
+                            
+                            var tongDanhGia = danhGiaList.Count;
+
+                            return new PTSearchViewModel
+                            {
+                                PTID = h.PTID,
+                                UserID = h.UserID,
+                                Ten = h.Users != null ? (h.Users.HoTen ?? h.Users.Username) : "Không xác định",
+                                AnhDaiDien = h.AnhDaiDien ?? (h.Users != null ? h.Users.AnhDaiDien : null),
+                                ChuyenMon = h.ChuyenMon,
+                                SoNamKinhNghiem = h.SoNamKinhNghiem,
+                                ThanhPho = h.ThanhPho,
+                                GiaTheoGio = h.GiaTheoGio,
+                                DiemTrungBinh = diemTrungBinh,
+                                TongDanhGia = tongDanhGia
+                            };
                         })
                         .ToList();
 
@@ -149,22 +198,38 @@ namespace HealthApp.Services
             {
                 try
                 {
-
+                    // Include Users để tránh NullReference
                     var pts = _context.HuanLuyenVien
+                        .Include("Users")
                         .Where(h => h.DaXacMinh == true &&
-                                   h.ChuyenMon.Contains(specialty))
-                        .Select(h => new PTSearchViewModel
+                                   h.ChuyenMon != null && h.ChuyenMon.Contains(specialty))
+                        .ToList()
+                        .Select(h =>
                         {
-                            PTID = h.PTID,
-                            UserID = h.UserID,
-                            Ten = h.Users.HoTen ?? h.Users.Username,
-                            AnhDaiDien = h.AnhDaiDien ?? h.Users.AnhDaiDien,
-                            ChuyenMon = h.ChuyenMon,
-                            SoNamKinhNghiem = h.SoNamKinhNghiem,
-                            ThanhPho = h.ThanhPho,
-                            GiaTheoGio = h.GiaTheoGio,
-                            DiemTrungBinh = h.DiemTrungBinh ?? 0,
-                            TongDanhGia = h.TongDanhGia ?? 0
+                            // Tính điểm trung bình từ bảng DanhGiaPT
+                            var danhGiaList = _context.DanhGiaPT
+                                .Where(d => d.PTID == h.PTID)
+                                .ToList();
+                            
+                            var diemTrungBinh = danhGiaList.Any() 
+                                ? (double?)Math.Round(danhGiaList.Average(d => (double)d.Diem), 1) 
+                                : (double?)0.0;
+                            
+                            var tongDanhGia = danhGiaList.Count;
+
+                            return new PTSearchViewModel
+                            {
+                                PTID = h.PTID,
+                                UserID = h.UserID,
+                                Ten = h.Users != null ? (h.Users.HoTen ?? h.Users.Username) : "Không xác định",
+                                AnhDaiDien = h.AnhDaiDien ?? (h.Users != null ? h.Users.AnhDaiDien : null),
+                                ChuyenMon = h.ChuyenMon,
+                                SoNamKinhNghiem = h.SoNamKinhNghiem,
+                                ThanhPho = h.ThanhPho,
+                                GiaTheoGio = h.GiaTheoGio,
+                                DiemTrungBinh = diemTrungBinh,
+                                TongDanhGia = tongDanhGia
+                            };
                         })
                         .ToList();
 
@@ -244,6 +309,17 @@ namespace HealthApp.Services
                         .Distinct()
                         .Count();
 
+                    // Tính điểm trung bình từ bảng DanhGiaPT
+                    var danhGiaList = _context.DanhGiaPT
+                        .Where(d => d.PTID == ptId)
+                        .ToList();
+                    
+                    var diemTrungBinh = danhGiaList.Any() 
+                        ? (double?)Math.Round(danhGiaList.Average(d => (double)d.Diem), 1) 
+                        : (double?)0.0;
+                    
+                    var tongDanhGia = danhGiaList.Count;
+
                     var detail = new PTDetailViewModel
                     {
                         PTID = pt.PTID,
@@ -261,8 +337,8 @@ namespace HealthApp.Services
                         ThanhPho = pt.ThanhPho,
                         GiaTheoGio = pt.GiaTheoGio,
                         TieuSu = pt.TieuSu,
-                        DiemTrungBinh = pt.DiemTrungBinh ?? 0,
-                        TongDanhGia = pt.TongDanhGia ?? 0,
+                        DiemTrungBinh = diemTrungBinh,
+                        TongDanhGia = tongDanhGia,
                         TiLeThanhCong = pt.TiLeThanhCong ?? 0,
                         SoKhachHienTai = soHocVien,
                         DanhSachChuyenMon = danhSachChuyenMon,

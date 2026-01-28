@@ -410,8 +410,9 @@ namespace HealthApp.Views.PT
                     MessageBox.Show(result.Message, "Thành công", 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     
-                    // Chuyển đến form PT Dashboard
-                    NavigateToPTDashboard();
+                    // Quay lại Dashboard thay vì chuyển đến PT Dashboard
+                    // Vì chưa được duyệt nên chưa thể vào PT Dashboard
+                    NavigateBackToDashboard();
                 }
                 else
                 {

@@ -1,4 +1,4 @@
-﻿extern alias ef6;
+extern alias ef6;
 
 using System;
 using System.Collections.Generic;
@@ -46,6 +46,8 @@ namespace HealthApp.Views.Admin
             LoadStatistics();
             LoadUserList();
             InitializeDataGridView();
+            // Clear panel chi tiết khi mới mở (chưa chọn ai trong dvg)
+            ClearUserDetails();
         }
 
         /// <summary>
@@ -216,6 +218,10 @@ namespace HealthApp.Views.Admin
 
                 // Auto resize columns
                 dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                // Không chọn dòng nào sau khi load → panel chi tiết trống cho đến khi user bấm vào dvg
+                dataGridView1.ClearSelection();
+                ClearUserDetails();
             }
             catch (Exception ex)
             {
@@ -241,6 +247,15 @@ namespace HealthApp.Views.Admin
                     {
                         LoadUserDetails(userID);
                     }
+                    else
+                    {
+                        ClearUserDetails();
+                    }
+                }
+                else
+                {
+                    // Chưa bấm vào người dùng nào → clear hết dữ liệu panel chi tiết
+                    ClearUserDetails();
                 }
             }
             catch (Exception ex)
@@ -314,13 +329,12 @@ namespace HealthApp.Views.Admin
         /// </summary>
         private void ClearUserDetails()
         {
-            lblHovaTen.Text = "N/A";
-            lblMaUser.Text = "N/A";
-            lblGmail.Text = "N/A";
-            lblSoDienThoai.Text = "N/A";
-            //lblDiaChi.Text = "N/A";
-            lbNgaySinh.Text = "N/A";
-            lbGioiTinh.Text = "N/A";
+            lblHovaTen.Text = "";
+            lblMaUser.Text = "";
+            lblGmail.Text = "";
+            lblSoDienThoai.Text = "";
+            lbNgaySinh.Text = "";
+            lbGioiTinh.Text = "";
             if (pictureBox3 != null)
             {
                 pictureBox3.Image = null;

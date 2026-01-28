@@ -230,13 +230,18 @@ namespace HealthApp.Views.PT
             lblDanhGia.Cursor = Cursors.Hand;
             panel.Controls.Add(lblDanhGia);
 
+            // Tính toán vị trí của lblSoDanhGia dựa trên kích thước thực tế của lblDanhGia
+            // Đảm bảo có khoảng cách hợp lý (ít nhất 5 pixels)
+            var danhGiaTextWidth = TextRenderer.MeasureText(lblDanhGia.Text, lblDanhGia.Font).Width;
+            var soDanhGiaX = lblDanhGia.Location.X + danhGiaTextWidth + 5; // Khoảng cách 5 pixels
+
             // Số đánh giá
             var lblSoDanhGia = new Label
             {
                 AutoSize = true,
                 Font = new Font("Times New Roman", 7.2F, FontStyle.Regular),
                 ForeColor = Color.Silver,
-                Location = new Point(172, 60),
+                Location = new Point(soDanhGiaX, 60),
                 Name = $"lblSoDanhGia_{pt.PTID}",
                 Size = new Size(27, 15),
                 Text = $"({pt.TongDanhGia})",

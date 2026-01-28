@@ -22,6 +22,18 @@ namespace HealthApp.Views.Admin
             this.QuanLiDinhDuong.Click += QuanLiDinhDuong_Click;
             this.btnQuanLiGiaoDich.Click += BtnQuanLiGiaoDich_Click;
             this.btnThongKeTongQuan.Click += BtnThongKeTongQuan_Click;
+            
+            // Tự động hiển thị ucHieuSuat khi form được load
+            this.Load += FrmAdmin_Load;
+        }
+
+        /// <summary>
+        /// Event handler khi form được load - hiển thị ucHieuSuat mặc định
+        /// </summary>
+        private void FrmAdmin_Load(object sender, EventArgs e)
+        {
+            // Tự động load ucHieuSuat khi mở form admin
+            LoadUserControlToPanel(new ucHieuSuat());
         }
 
         /// <summary>

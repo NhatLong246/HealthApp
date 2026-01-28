@@ -236,9 +236,9 @@
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(327, 86);
+            this.pictureBox3.Location = new System.Drawing.Point(245, 18);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(52, 48);
+            this.pictureBox3.Size = new System.Drawing.Size(209, 157);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 33;
             this.pictureBox3.TabStop = false;
@@ -409,7 +409,7 @@
             this.AutoScroll = true;
             this.Controls.Add(this.pnlNen);
             this.Name = "ucKhachHang";
-            this.Size = new System.Drawing.Size(1101, 579);
+            this.Size = new System.Drawing.Size(1080, 558);
             this.pnlNen.ResumeLayout(false);
             this.guna2CustomGradientPanel1.ResumeLayout(false);
             this.guna2CustomGradientPanel1.PerformLayout();

@@ -38,7 +38,6 @@ namespace HealthApp.Views.Admin
             this.txtThietBi = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel13 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtLinkVideo = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2HtmlLabel10 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel11 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.cboDoKho = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -221,17 +220,6 @@ namespace HealthApp.Views.Admin
             this.txtLinkVideo.SelectedText = "";
             this.txtLinkVideo.Size = new System.Drawing.Size(226, 45);
             this.txtLinkVideo.TabIndex = 118;
-            // 
-            // guna2HtmlLabel10
-            // 
-            this.guna2HtmlLabel10.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel10.ForeColor = System.Drawing.Color.Red;
-            this.guna2HtmlLabel10.Location = new System.Drawing.Point(86, 203);
-            this.guna2HtmlLabel10.Name = "guna2HtmlLabel10";
-            this.guna2HtmlLabel10.Size = new System.Drawing.Size(9, 22);
-            this.guna2HtmlLabel10.TabIndex = 115;
-            this.guna2HtmlLabel10.Text = "*";
             // 
             // guna2HtmlLabel11
             // 
@@ -620,7 +608,7 @@ namespace HealthApp.Views.Admin
             this.guna2HtmlLabel9.TabIndex = 137;
             this.guna2HtmlLabel9.Text = "Calo ước tính cal/rep";
             // 
-            // SuaBT
+            // ucSuaBT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -646,7 +634,6 @@ namespace HealthApp.Views.Admin
             this.Controls.Add(this.txtThietBi);
             this.Controls.Add(this.guna2HtmlLabel13);
             this.Controls.Add(this.txtLinkVideo);
-            this.Controls.Add(this.guna2HtmlLabel10);
             this.Controls.Add(this.guna2HtmlLabel11);
             this.Controls.Add(this.cboDoKho);
             this.Controls.Add(this.guna2HtmlLabel2);
@@ -660,7 +647,7 @@ namespace HealthApp.Views.Admin
             this.Controls.Add(this.txtTenBT);
             this.Controls.Add(this.lbTenBT);
             this.Controls.Add(this.guna2CustomGradientPanel2);
-            this.Name = "SuaBT";
+            this.Name = "ucSuaBT";
             this.Size = new System.Drawing.Size(1027, 701);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.guna2CustomGradientPanel2.ResumeLayout(false);
@@ -681,7 +668,6 @@ namespace HealthApp.Views.Admin
         private Guna.UI2.WinForms.Guna2TextBox txtThietBi;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel13;
         private Guna.UI2.WinForms.Guna2TextBox txtLinkVideo;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel10;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel11;
         private Guna.UI2.WinForms.Guna2ComboBox cboDoKho;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;

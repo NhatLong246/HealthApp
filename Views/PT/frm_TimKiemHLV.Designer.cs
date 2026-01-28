@@ -42,8 +42,6 @@
             this.lblNamKinhNghiem = new System.Windows.Forms.Label();
             this.lblDiaDiem = new System.Windows.Forms.Label();
             this.lblSoNamKinhNghiem = new System.Windows.Forms.Label();
-            this.lblNoi = new System.Windows.Forms.Label();
-            this.lblSoDanhGia = new System.Windows.Forms.Label();
             this.lblDanhGia = new System.Windows.Forms.Label();
             this.lblChuyenMon = new System.Windows.Forms.Label();
             this.lblTen = new System.Windows.Forms.Label();
@@ -89,6 +87,8 @@
             this.guna2PictureBox5 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblNoiDungGioiThieu = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnBack = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.lblNoi = new System.Windows.Forms.Label();
+            this.lblSoDanhGia = new System.Windows.Forms.Label();
             this.pnlChucNang.SuspendLayout();
             this.pnlHienThiDanhSach.SuspendLayout();
             this.pnlDanhSach1.SuspendLayout();
@@ -273,7 +273,7 @@
             this.lblNamKinhNghiem.AutoSize = true;
             this.lblNamKinhNghiem.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNamKinhNghiem.ForeColor = System.Drawing.Color.Silver;
-            this.lblNamKinhNghiem.Location = new System.Drawing.Point(257, 60);
+            this.lblNamKinhNghiem.Location = new System.Drawing.Point(266, 60);
             this.lblNamKinhNghiem.Name = "lblNamKinhNghiem";
             this.lblNamKinhNghiem.Size = new System.Drawing.Size(103, 15);
             this.lblNamKinhNghiem.TabIndex = 8;
@@ -296,34 +296,11 @@
             this.lblSoNamKinhNghiem.AutoSize = true;
             this.lblSoNamKinhNghiem.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoNamKinhNghiem.ForeColor = System.Drawing.Color.Silver;
-            this.lblSoNamKinhNghiem.Location = new System.Drawing.Point(231, 60);
+            this.lblSoNamKinhNghiem.Location = new System.Drawing.Point(252, 60);
             this.lblSoNamKinhNghiem.Name = "lblSoNamKinhNghiem";
             this.lblSoNamKinhNghiem.Size = new System.Drawing.Size(14, 15);
             this.lblSoNamKinhNghiem.TabIndex = 7;
             this.lblSoNamKinhNghiem.Text = "6";
-            // 
-            // lblNoi
-            // 
-            this.lblNoi.AutoSize = true;
-            this.lblNoi.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNoi.ForeColor = System.Drawing.Color.Silver;
-            this.lblNoi.Location = new System.Drawing.Point(208, 54);
-            this.lblNoi.Name = "lblNoi";
-            this.lblNoi.Size = new System.Drawing.Size(17, 23);
-            this.lblNoi.TabIndex = 6;
-            this.lblNoi.Text = "-";
-            // 
-            // lblSoDanhGia
-            // 
-            this.lblSoDanhGia.AutoSize = true;
-            this.lblSoDanhGia.Font = new System.Drawing.Font("Times New Roman", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSoDanhGia.ForeColor = System.Drawing.Color.Silver;
-            this.lblSoDanhGia.Location = new System.Drawing.Point(176, 60);
-            this.lblSoDanhGia.Name = "lblSoDanhGia";
-            this.lblSoDanhGia.Size = new System.Drawing.Size(27, 15);
-            this.lblSoDanhGia.TabIndex = 5;
-            this.lblSoDanhGia.Text = "(59)";
-            this.lblSoDanhGia.Click += new System.EventHandler(this.lblSoDanhGia_Click);
             // 
             // lblDanhGia
             // 
@@ -643,7 +620,7 @@
             this.lblDanhGia1.BackColor = System.Drawing.Color.White;
             this.lblDanhGia1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDanhGia1.ForeColor = System.Drawing.Color.Black;
-            this.lblDanhGia1.Location = new System.Drawing.Point(414, 107);
+            this.lblDanhGia1.Location = new System.Drawing.Point(419, 107);
             this.lblDanhGia1.Name = "lblDanhGia1";
             this.lblDanhGia1.Size = new System.Drawing.Size(20, 23);
             this.lblDanhGia1.TabIndex = 12;
@@ -655,7 +632,7 @@
             this.ptrstar1.BackColor = System.Drawing.Color.White;
             this.ptrstar1.Image = ((System.Drawing.Image)(resources.GetObject("ptrstar1.Image")));
             this.ptrstar1.ImageRotate = 0F;
-            this.ptrstar1.Location = new System.Drawing.Point(395, 111);
+            this.ptrstar1.Location = new System.Drawing.Point(395, 108);
             this.ptrstar1.Name = "ptrstar1";
             this.ptrstar1.Size = new System.Drawing.Size(22, 19);
             this.ptrstar1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -681,7 +658,7 @@
             this.lblNamKinhNghiem1.BackColor = System.Drawing.Color.White;
             this.lblNamKinhNghiem1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNamKinhNghiem1.ForeColor = System.Drawing.Color.Silver;
-            this.lblNamKinhNghiem1.Location = new System.Drawing.Point(488, 111);
+            this.lblNamKinhNghiem1.Location = new System.Drawing.Point(509, 111);
             this.lblNamKinhNghiem1.Name = "lblNamKinhNghiem1";
             this.lblNamKinhNghiem1.Size = new System.Drawing.Size(124, 19);
             this.lblNamKinhNghiem1.TabIndex = 17;
@@ -704,7 +681,7 @@
             this.lblSoNamKinhNghiem1.BackColor = System.Drawing.Color.White;
             this.lblSoNamKinhNghiem1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoNamKinhNghiem1.ForeColor = System.Drawing.Color.Silver;
-            this.lblSoNamKinhNghiem1.Location = new System.Drawing.Point(474, 111);
+            this.lblSoNamKinhNghiem1.Location = new System.Drawing.Point(495, 111);
             this.lblSoNamKinhNghiem1.Name = "lblSoNamKinhNghiem1";
             this.lblSoNamKinhNghiem1.Size = new System.Drawing.Size(18, 19);
             this.lblSoNamKinhNghiem1.TabIndex = 16;
@@ -728,7 +705,7 @@
             this.lblNoi1.BackColor = System.Drawing.Color.White;
             this.lblNoi1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNoi1.ForeColor = System.Drawing.Color.Silver;
-            this.lblNoi1.Location = new System.Drawing.Point(462, 111);
+            this.lblNoi1.Location = new System.Drawing.Point(483, 111);
             this.lblNoi1.Name = "lblNoi1";
             this.lblNoi1.Size = new System.Drawing.Size(15, 19);
             this.lblNoi1.TabIndex = 15;
@@ -740,7 +717,7 @@
             this.lblSoDanhGia1.BackColor = System.Drawing.Color.White;
             this.lblSoDanhGia1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoDanhGia1.ForeColor = System.Drawing.Color.Silver;
-            this.lblSoDanhGia1.Location = new System.Drawing.Point(429, 111);
+            this.lblSoDanhGia1.Location = new System.Drawing.Point(450, 111);
             this.lblSoDanhGia1.Name = "lblSoDanhGia1";
             this.lblSoDanhGia1.Size = new System.Drawing.Size(39, 19);
             this.lblSoDanhGia1.TabIndex = 14;
@@ -887,6 +864,29 @@
             this.btnBack.Size = new System.Drawing.Size(42, 43);
             this.btnBack.TabIndex = 9;
             // 
+            // lblNoi
+            // 
+            this.lblNoi.AutoSize = true;
+            this.lblNoi.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoi.ForeColor = System.Drawing.Color.Silver;
+            this.lblNoi.Location = new System.Drawing.Point(234, 54);
+            this.lblNoi.Name = "lblNoi";
+            this.lblNoi.Size = new System.Drawing.Size(17, 23);
+            this.lblNoi.TabIndex = 6;
+            this.lblNoi.Text = "-";
+            // 
+            // lblSoDanhGia
+            // 
+            this.lblSoDanhGia.AutoSize = true;
+            this.lblSoDanhGia.Font = new System.Drawing.Font("Times New Roman", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSoDanhGia.ForeColor = System.Drawing.Color.Silver;
+            this.lblSoDanhGia.Location = new System.Drawing.Point(206, 60);
+            this.lblSoDanhGia.Name = "lblSoDanhGia";
+            this.lblSoDanhGia.Size = new System.Drawing.Size(27, 15);
+            this.lblSoDanhGia.TabIndex = 5;
+            this.lblSoDanhGia.Text = "(59)";
+            this.lblSoDanhGia.Click += new System.EventHandler(this.lblSoDanhGia_Click);
+            // 
             // frm_TimKiemHLV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -952,8 +952,6 @@
         private Guna.UI2.WinForms.Guna2PictureBox ptrAnhDaiDien;
         private System.Windows.Forms.Label lblDiaDiem;
         private System.Windows.Forms.Label lblSoNamKinhNghiem;
-        private System.Windows.Forms.Label lblNoi;
-        private System.Windows.Forms.Label lblSoDanhGia;
         private System.Windows.Forms.Label lblDanhGia;
         private System.Windows.Forms.Label lblNamKinhNghiem;
         private Guna.UI2.WinForms.Guna2PictureBox ptrstar;
@@ -999,5 +997,7 @@
         private System.Windows.Forms.Label lblGiaTheoGio;
         private Guna.UI2.WinForms.Guna2GradientButton btnGuiYeuCau;
         private Guna.UI2.WinForms.Guna2CircleButton btnBack;
+        private System.Windows.Forms.Label lblNoi;
+        private System.Windows.Forms.Label lblSoDanhGia;
     }
 }
