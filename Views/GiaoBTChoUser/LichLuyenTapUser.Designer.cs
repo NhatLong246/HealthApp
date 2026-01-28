@@ -71,6 +71,8 @@
             this.btnThu3 = new Guna.UI2.WinForms.Guna2Button();
             this.btnThu2 = new Guna.UI2.WinForms.Guna2Button();
             this.btnBuoiThu = new Guna.UI2.WinForms.Guna2Button();
+            this.cbcLichTapSapToi = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.lblLichTapSapToi = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel1.SuspendLayout();
             this.pnlTieuDe.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -81,6 +83,8 @@
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.LightCyan;
+            this.guna2Panel1.Controls.Add(this.lblLichTapSapToi);
+            this.guna2Panel1.Controls.Add(this.cbcLichTapSapToi);
             this.guna2Panel1.Controls.Add(this.lblNgayTrongTuan);
             this.guna2Panel1.Controls.Add(this.btnPrevious);
             this.guna2Panel1.Controls.Add(this.btnNext);
@@ -741,6 +745,32 @@
             this.btnBuoiThu.TabIndex = 0;
             this.btnBuoiThu.Text = "Buổi/Thứ";
             // 
+            // cbcLichTapSapToi
+            // 
+            this.cbcLichTapSapToi.BackColor = System.Drawing.Color.Transparent;
+            this.cbcLichTapSapToi.BorderRadius = 10;
+            this.cbcLichTapSapToi.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbcLichTapSapToi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbcLichTapSapToi.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbcLichTapSapToi.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbcLichTapSapToi.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cbcLichTapSapToi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cbcLichTapSapToi.ItemHeight = 30;
+            this.cbcLichTapSapToi.Location = new System.Drawing.Point(1031, 89);
+            this.cbcLichTapSapToi.Name = "cbcLichTapSapToi";
+            this.cbcLichTapSapToi.Size = new System.Drawing.Size(259, 36);
+            this.cbcLichTapSapToi.TabIndex = 38;
+            // 
+            // lblLichTapSapToi
+            // 
+            this.lblLichTapSapToi.BackColor = System.Drawing.Color.Transparent;
+            this.lblLichTapSapToi.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLichTapSapToi.Location = new System.Drawing.Point(955, 97);
+            this.lblLichTapSapToi.Name = "lblLichTapSapToi";
+            this.lblLichTapSapToi.Size = new System.Drawing.Size(70, 21);
+            this.lblLichTapSapToi.TabIndex = 39;
+            this.lblLichTapSapToi.Text = "Lịch tập:";
+            // 
             // LichLuyenTapUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -806,5 +836,7 @@
         private Guna.UI2.WinForms.Guna2Button btnPrevious;
         private Guna.UI2.WinForms.Guna2Button btnNext;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblNgayTrongTuan;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblLichTapSapToi;
+        private Guna.UI2.WinForms.Guna2ComboBox cbcLichTapSapToi;
     }
 }

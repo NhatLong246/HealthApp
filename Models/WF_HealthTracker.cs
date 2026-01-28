@@ -15,7 +15,12 @@ namespace HealthApp.Models
         {
             // Tắt database initializer để tránh tự động tạo database
             Database.SetInitializer<WF_HealthTracker>(null);
-            
+
+            // Tắt lazy-loading và proxy để tránh lỗi "ObjectContext has been disposed"
+            // khi truy cập navigation properties sau khi DbContext đã bị dispose.
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
+
             // Enable logging để debug SQL queries
             this.Database.Log = sql => System.Diagnostics.Debug.WriteLine($"[SQL] {sql}");
         }

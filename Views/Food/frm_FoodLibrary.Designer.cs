@@ -815,6 +815,7 @@
             this.ClientSize = new System.Drawing.Size(1369, 739);
             this.Controls.Add(this.guna2Panl1);
             this.Name = "frm_FoodLibrary";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FoodLibrary";
             this.Load += new System.EventHandler(this.FoodLibrary_Load);
             this.pnlChucNang.ResumeLayout(false);
