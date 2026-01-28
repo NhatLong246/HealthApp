@@ -20,6 +20,7 @@ using HealthApp.Views.Auth;
 using HealthApp.Models;
 using Guna.UI2.WinForms;
 using HealthApp.Services;
+using HealthApp.Views.Admin;
 
 namespace HealthApp.Views.Dashboard
 {
@@ -1487,7 +1488,19 @@ namespace HealthApp.Views.Dashboard
                     var loginForm = new LoginForm();
                     if (loginForm.ShowDialog() == DialogResult.OK)
                     {
-                        // Nếu đăng nhập thành công, reload lại Dashboard
+                        // Nếu đăng nhập thành công, điều hướng đúng theo Role
+                        var role = CurrentUser.Role ?? CurrentUser.User?.Role;
+
+                        if (string.Equals(role, "Admin", StringComparison.OrdinalIgnoreCase))
+                        {
+                            // Admin phải vào frmAdmin, không quay lại Dashboard
+                            this.Close();
+                            var frm = new frmAdmin();
+                            frm.Show();
+                            return;
+                        }
+
+                        // Client/PT: quay lại Dashboard
                         LoadUserInfo();
                         UpdatePTButtonState();
                         this.Show();

@@ -420,6 +420,20 @@ namespace HealthApp.Services
                     if (datLich == null)
                         return false;
 
+                    // --- CHỐNG TRÙNG LỊCH ---
+                    // PT không thể chấp nhận yêu cầu nếu trùng với lịch PT đã có (Pending/Confirmed/Completed)
+                    // Chỉ kiểm tra các booking của PT hiện tại (ptId), loại trừ Cancelled
+                    var ptExisting = _context.DatLichPT
+                        .Where(d => d.PTID == ptId
+                                    && d.ThoiGianBatDau != null
+                                    && d.ThoiGianKetThuc != null
+                                    && (d.TrangThai == "Pending" || d.TrangThai == "Confirmed" || d.TrangThai == "Completed")
+                                    && d.TrangThai != "Cancelled")
+                        .ToList();
+
+                    bool IsOverlap(DateTime start1, DateTime end1, DateTime start2, DateTime end2)
+                        => start1 < end2 && start2 < end1;
+
                     // Nếu có LichTrinhID, chấp nhận tất cả các yêu cầu có cùng LichTrinhID
                     if (!string.IsNullOrEmpty(datLich.LichTrinhID))
                     {
@@ -428,6 +442,26 @@ namespace HealthApp.Services
                                      && d.TrangThai == "Pending" 
                                      && string.IsNullOrEmpty(d.PTID))
                             .ToList();
+
+                        // Kiểm tra trùng lịch cho toàn bộ lịch trình trước khi đồng ý
+                        foreach (var req in allRequests)
+                        {
+                            if (req.ThoiGianBatDau == null || req.ThoiGianKetThuc == null)
+                                continue;
+
+                            foreach (var exist in ptExisting)
+                            {
+                                if (exist.ThoiGianBatDau == null || exist.ThoiGianKetThuc == null)
+                                    continue;
+
+                                if (IsOverlap(req.ThoiGianBatDau, req.ThoiGianKetThuc, exist.ThoiGianBatDau, exist.ThoiGianKetThuc))
+                                {
+                                    throw new Exception(
+                                        $"Trùng lịch! PT đã có lịch vào {exist.ThoiGianBatDau:dd/MM/yyyy HH:mm} - {exist.ThoiGianKetThuc:HH:mm}. " +
+                                        $"Không thể đồng ý lịch trình này.");
+                                }
+                            }
+                        }
 
                         foreach (var request in allRequests)
                         {
@@ -438,6 +472,23 @@ namespace HealthApp.Services
                     }
                     else
                     {
+                        // Kiểm tra trùng lịch cho buổi tập đơn lẻ
+                        if (datLich.ThoiGianBatDau != null && datLich.ThoiGianKetThuc != null)
+                        {
+                            foreach (var exist in ptExisting)
+                            {
+                                if (exist.ThoiGianBatDau == null || exist.ThoiGianKetThuc == null)
+                                    continue;
+
+                                if (IsOverlap(datLich.ThoiGianBatDau, datLich.ThoiGianKetThuc, exist.ThoiGianBatDau, exist.ThoiGianKetThuc))
+                                {
+                                    throw new Exception(
+                                        $"Trùng lịch! PT đã có lịch vào {exist.ThoiGianBatDau:dd/MM/yyyy HH:mm} - {exist.ThoiGianKetThuc:HH:mm}. " +
+                                        $"Không thể đồng ý yêu cầu này.");
+                                }
+                            }
+                        }
+
                         // Buổi tập đơn lẻ
                         datLich.PTID = ptId;
                         datLich.TrangThai = "Pending"; // Giữ nguyên "Pending" vì CHECK constraint không cho phép "PendingPayment"
@@ -568,7 +619,10 @@ namespace HealthApp.Services
                             var title = "Có người thuê PT";
                             var content = $"User {khName} đã gửi yêu cầu thuê PT vào {thoiGianBatDau:dd/MM/yyyy HH:mm}.";
                             if (!string.IsNullOrWhiteSpace(ptUserId))
-                                NotificationService.Create(_context, ptUserId, title, content, "PT_NEW_HIRE_REQUEST", datLichID);
+                            {
+                                // Dùng EnsureCreate để tránh spam + đảm bảo có MaLienQuan = DatLichID (để UI tô màu Cyan theo từng yêu cầu)
+                                NotificationService.EnsureCreate(_context, ptUserId, title, content, "PT_NEW_HIRE_REQUEST", datLichID);
+                            }
 
                             // Gửi email cho PT
                             try
@@ -599,7 +653,7 @@ namespace HealthApp.Services
                     {
                         var title = "Đã gửi yêu cầu thuê PT";
                         var content = $"Bạn đã gửi yêu cầu thuê PT cho lịch {thoiGianBatDau:dd/MM/yyyy HH:mm}.";
-                        NotificationService.Create(_context, khachHangID, title, content, "USER_REQUEST_CREATED", datLichID);
+                        NotificationService.EnsureCreate(_context, khachHangID, title, content, "USER_REQUEST_CREATED", datLichID);
                     }
                     catch { }
 
@@ -726,7 +780,15 @@ namespace HealthApp.Services
                             {
                                 var title = "Có người thuê PT";
                                 var content = $"User {khName} đã gửi lịch trình thuê PT ({danhSachNgayGio.Count} buổi).";
-                                NotificationService.Create(_context, ptUserId, title, content, "PT_NEW_HIRE_REQUEST", lichTrinhID);
+
+                                // Tạo notification theo LichTrinhID (tổng quan)
+                                NotificationService.EnsureCreate(_context, ptUserId, title, content, "PT_NEW_HIRE_REQUEST", lichTrinhID);
+
+                                // Đồng thời tạo notification theo từng DatLichID (để UI tô màu Cyan theo từng panel yêu cầu)
+                                foreach (var id in datLichIDs)
+                                {
+                                    NotificationService.EnsureCreate(_context, ptUserId, title, content, "PT_NEW_HIRE_REQUEST", id);
+                                }
                             }
 
                             // Email cho PT
@@ -841,10 +903,13 @@ namespace HealthApp.Services
                         return new List<(DateTime ngay, TimeSpan gioBatDau, TimeSpan gioKetThuc)>();
                     }
 
-                    // Lấy tất cả các lịch đã có của PT (Confirmed hoặc Pending)
+                    // Lấy tất cả các lịch đã có của PT (Pending/Confirmed/Completed) - bỏ Cancelled
                     var existingBookings = _context.DatLichPT
                         .Where(d => d.PTID == ptId && 
-                                   (d.TrangThai == "Confirmed" || d.TrangThai == "Pending"))
+                                   d.ThoiGianBatDau != null &&
+                                   d.ThoiGianKetThuc != null &&
+                                   (d.TrangThai == "Pending" || d.TrangThai == "Confirmed" || d.TrangThai == "Completed") &&
+                                   d.TrangThai != "Cancelled")
                         .ToList();
 
                     var overlappingSchedules = new List<(DateTime ngay, TimeSpan gioBatDau, TimeSpan gioKetThuc)>();
@@ -860,7 +925,8 @@ namespace HealthApp.Services
                         {
                             // Kiểm tra trùng thời gian: hai khoảng thời gian trùng nhau nếu:
                             // (start1 < end2) && (start2 < end1)
-                            if (thoiGianBatDau < booking.ThoiGianKetThuc && 
+                            if (booking.ThoiGianBatDau != null && booking.ThoiGianKetThuc != null &&
+                                thoiGianBatDau < booking.ThoiGianKetThuc && 
                                 booking.ThoiGianBatDau < thoiGianKetThuc)
                             {
                                 // Trùng lịch, thêm vào danh sách

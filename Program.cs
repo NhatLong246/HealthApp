@@ -63,35 +63,49 @@ namespace HealthApp
 
             try
             {
-            // Hiển thị form đăng nhập
-            using (var loginForm = new LoginForm())
-            {
-                var result = loginForm.ShowDialog();
-                if (result == DialogResult.OK && CurrentUser.IsLoggedIn)
+                // Hiển thị form đăng nhập
+                using (var loginForm = new LoginForm())
                 {
-                    // Kiểm tra role để hiển thị form phù hợp
-                    string userRole = CurrentUser.Role;
-
-                    System.Diagnostics.Debug.WriteLine($"[Program] User logged in - Role: '{userRole}'");
-
-                    if (userRole == "Admin")
+                    var result = loginForm.ShowDialog();
+                    if (result == DialogResult.OK && CurrentUser.IsLoggedIn)
                     {
-                        // Mở form Admin cho user có role Admin
-                        System.Diagnostics.Debug.WriteLine("[Program] Opening frmAdmin for Admin user");
-                        Application.Run(new frmAdmin());
-                    }
-                    else
-                    {
-                        // Mở form Dashboard cho Client và PT
-                        if (UserProfileHelper.NeedsBasicInfo())
+                        // Kiểm tra role để hiển thị form phù hợp
+                        string userRole = CurrentUser.Role;
+
+                        System.Diagnostics.Debug.WriteLine($"[Program] User logged in - Role: '{userRole}'");
+
+                        if (userRole == "Admin")
                         {
-                            using (var infoForm = new frmThongTinhTheTrang(isMandatory: true))
-                            {
-                                infoForm.ShowDialog();
-                            }
+                            // Mở form Admin cho user có role Admin
+                            System.Diagnostics.Debug.WriteLine("[Program] Opening frmAdmin for Admin user");
+                            Application.Run(new frmAdmin());
                         }
-                        System.Diagnostics.Debug.WriteLine("[Program] Opening frmDashBoard1 for Client/PT user");
-                        Application.Run(new frmDashBoard1());
+                        else
+                        {
+                            // Mở form Dashboard cho Client và PT
+                            // 1) Thiếu thông tin cơ bản (Ngày sinh/Giới tính) => ép nhập form thông tin cơ bản
+                            // 2) Có thông tin cơ bản nhưng CHƯA có bản ghi thể trạng nào => ép nhập Thông tin thể trạng
+                            try
+                            {
+                                if (UserProfileHelper.NeedsMissingBasicInfo())
+                                {
+                                    using (var basicInfoForm = new frmChangeInformationforNewuser(isMandatory: true))
+                                    {
+                                        basicInfoForm.ShowDialog();
+                                    }
+                                }
+                                else if (UserProfileHelper.NeedsBodyStatusMandatory())
+                                {
+                                    using (var bodyForm = new frmThongTinhTheTrang(isMandatory: true))
+                                    {
+                                        bodyForm.ShowDialog();
+                                    }
+                                }
+                            }
+                            catch { }
+
+                            System.Diagnostics.Debug.WriteLine("[Program] Opening frmDashBoard1 for Client/PT user");
+                            Application.Run(new frmDashBoard1());
                         }
                     }
                 }

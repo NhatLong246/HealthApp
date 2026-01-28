@@ -24,7 +24,7 @@ namespace HealthApp.Views.PT
         private DatLichPT _datLich;
         private HuanLuyenVien _pt;
         private Users _khachHang;
-        private string _selectedPaymentMethod = ""; // "MoMo" hoặc "ZaloPay"
+        private string _selectedPaymentMethod = ""; // Chỉ dùng "ZaloPay"
         private List<Guna2CustomGradientPanel> _paymentPanels = new List<Guna2CustomGradientPanel>();
         private List<DatLichPT> _allDatLichInSchedule; // Danh sách tất cả các buổi tập trong lịch trình (nếu có)
 
@@ -44,7 +44,6 @@ namespace HealthApp.Views.PT
             btnThemThanhToan.Click += BtnThemThanhToan_Click;
 
             // Event handlers cho chọn phương thức thanh toán
-            pnlMomo.Click += PnlMoMo_Click;
             pnlZalopay.Click += PnlZaloPay_Click;
             
             // Kết nối event cho nút quay lại
@@ -158,12 +157,9 @@ namespace HealthApp.Views.PT
                 btnThanhToan.Enabled = false;
                 btnThanhToan.Text = "Không có đơn để thanh toán";
                 btnThemThanhToan.Enabled = false;
-                pnlMomo.Enabled = false;
                 pnlZalopay.Enabled = false;
 
                 _selectedPaymentMethod = "";
-                pnlMomo.BorderColor = Color.Silver;
-                pnlMomo.BorderThickness = 1;
                 pnlZalopay.BorderColor = Color.Silver;
                 pnlZalopay.BorderThickness = 1;
 
@@ -433,7 +429,8 @@ namespace HealthApp.Views.PT
                     if (ptUser != null)
                     {
                         lblTenPTThanhToan.Text = ptUser.HoTen ?? ptUser.Username;
-                        LoadAvatar(ptrAvatarPT, _pt.AnhDaiDien);
+                        // Ưu tiên ảnh chân dung (AnhChanDung), fallback sang AnhDaiDien
+                        LoadAvatar(ptrAvatarPT, GetPTAvatarPath(_pt, ptUser));
                     }
                 }
 
@@ -598,7 +595,8 @@ namespace HealthApp.Views.PT
             };
             if (_pt != null)
             {
-                LoadAvatar(ptrPTAvatarCopy, _pt.AnhDaiDien);
+                var ptUserForAvatar = _context.Users.FirstOrDefault(u => u.UserID == _pt.UserID);
+                LoadAvatar(ptrPTAvatarCopy, GetPTAvatarPath(_pt, ptUserForAvatar));
             }
             pnlPTCopy.Controls.Add(ptrPTAvatarCopy);
 
@@ -746,6 +744,30 @@ namespace HealthApp.Views.PT
             return panel;
         }
 
+        /// <summary>
+        /// Lấy đường dẫn ảnh PT để hiển thị: ưu tiên AnhChanDung, fallback AnhDaiDien.
+        /// Nếu PT chưa có, fallback tiếp qua Users.AnhDaiDien.
+        /// </summary>
+        private string GetPTAvatarPath(HuanLuyenVien pt, Users ptUser)
+        {
+            try
+            {
+                if (pt != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(pt.AnhChanDung))
+                        return pt.AnhChanDung;
+                    if (!string.IsNullOrWhiteSpace(pt.AnhDaiDien))
+                        return pt.AnhDaiDien;
+                }
+
+                return ptUser?.AnhDaiDien;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         private void CalculateAndDisplayPrice()
         {
             try
@@ -869,12 +891,6 @@ namespace HealthApp.Views.PT
             }
         }
 
-        private void PnlMoMo_Click(object sender, EventArgs e)
-        {
-            _selectedPaymentMethod = "MoMo";
-            UpdatePaymentMethodSelection();
-        }
-
         private void PnlZaloPay_Click(object sender, EventArgs e)
         {
             _selectedPaymentMethod = "ZaloPay";
@@ -884,19 +900,15 @@ namespace HealthApp.Views.PT
         private void UpdatePaymentMethodSelection()
         {
             // Highlight phương thức đã chọn
-            if (_selectedPaymentMethod == "MoMo")
-            {
-                pnlMomo.BorderColor = Color.Blue;
-                pnlMomo.BorderThickness = 2;
-                pnlZalopay.BorderColor = Color.Silver;
-                pnlZalopay.BorderThickness = 1;
-            }
-            else if (_selectedPaymentMethod == "ZaloPay")
+            if (_selectedPaymentMethod == "ZaloPay")
             {
                 pnlZalopay.BorderColor = Color.Blue;
                 pnlZalopay.BorderThickness = 2;
-                pnlMomo.BorderColor = Color.Silver;
-                pnlMomo.BorderThickness = 1;
+            }
+            else
+            {
+                pnlZalopay.BorderColor = Color.Silver;
+                pnlZalopay.BorderThickness = 1;
             }
         }
 
@@ -1009,17 +1021,7 @@ namespace HealthApp.Views.PT
 
                 PaymentResult result;
 
-                if (_selectedPaymentMethod == "MoMo")
-                {
-                    result = await paymentService.CreateMoMoPaymentAsync(
-                        orderId,
-                        amount,
-                        orderInfo,
-                        returnUrl,
-                        notifyUrl
-                    );
-                }
-                else if (_selectedPaymentMethod == "ZaloPay")
+                if (_selectedPaymentMethod == "ZaloPay")
                 {
                     result = await paymentService.CreateZaloPayPaymentAsync(
                         orderId,

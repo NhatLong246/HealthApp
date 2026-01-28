@@ -108,6 +108,7 @@ namespace HealthApp.Views.GiaoBTChoUser
                 if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
                 {
                     flpBookings.Controls.Clear();
+                    btnDanhGia.Enabled = false;
                     return;
                 }
 
@@ -122,17 +123,103 @@ namespace HealthApp.Views.GiaoBTChoUser
                     flpBookings.Controls.Clear();
                     _currentSessionBooking = null;
                     _currentSessionAssignments = null;
+                    btnDanhGia.Enabled = false;
                     return;
                 }
 
                 // Group assignments theo buổi (DatLichID)
                 RenderAssignmentsBySession(assignments);
+
+                // Cập nhật trạng thái nút đánh giá theo rule: lịch trình chỉ đánh giá 1 lần / buổi lẻ chỉ đánh giá 1 lần
+                UpdateDanhGiaButtonState();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi tải bài tập đã giao: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flpBookings.Controls.Clear();
+                btnDanhGia.Enabled = false;
+            }
+        }
+
+        private void UpdateDanhGiaButtonState()
+        {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
+                {
+                    btnDanhGia.Enabled = false;
+                    return;
+                }
+
+                // Ưu tiên session đầu tiên
+                var booking = _currentSessionBooking;
+                var assignments = _currentSessionAssignments ?? _allAssignments;
+
+                if (booking == null && (assignments == null || assignments.Count == 0))
+                {
+                    btnDanhGia.Enabled = false;
+                    return;
+                }
+
+                // Resolve PTID
+                string ptId = booking?.PTID;
+                if (string.IsNullOrWhiteSpace(ptId))
+                {
+                    ptId = assignments?.FirstOrDefault(a => !string.IsNullOrWhiteSpace(a.PTID))?.PTID;
+                }
+
+                // Resolve DatLichID
+                string datLichId = booking?.DatLichID;
+                if (string.IsNullOrWhiteSpace(datLichId))
+                {
+                    datLichId = assignments?.FirstOrDefault(a => !string.IsNullOrWhiteSpace(a.DatLichID))?.DatLichID;
+                }
+
+                // Resolve LichTrinhID (nếu có)
+                string lichTrinhId = booking?.LichTrinhID;
+                if (string.IsNullOrWhiteSpace(lichTrinhId) && assignments != null)
+                {
+                    lichTrinhId = assignments.Select(a => a.DatLichPT?.LichTrinhID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+                }
+
+                if (string.IsNullOrWhiteSpace(ptId) || string.IsNullOrWhiteSpace(datLichId))
+                {
+                    // Không đủ dữ liệu để khóa, nhưng vẫn cho phép mở form (frmDanhGiaPT sẽ tự chặn nếu cần)
+                    btnDanhGia.Enabled = true;
+                    btnDanhGia.Text = "Đánh giá";
+                    return;
+                }
+
+                bool alreadyRated;
+                using (var context = new WF_HealthTracker())
+                {
+                    if (string.IsNullOrWhiteSpace(lichTrinhId))
+                    {
+                        alreadyRated = context.DanhGiaPT.Any(d =>
+                            d.KhachHangID == CurrentUser.UserID &&
+                            d.PTID == ptId &&
+                            d.DatLichID == datLichId);
+                    }
+                    else
+                    {
+                        alreadyRated = (from dg in context.DanhGiaPT
+                                        join dl in context.DatLichPT on dg.DatLichID equals dl.DatLichID
+                                        where dg.KhachHangID == CurrentUser.UserID
+                                              && dg.PTID == ptId
+                                              && dl.LichTrinhID == lichTrinhId
+                                        select dg).Any();
+                    }
+                }
+
+                btnDanhGia.Enabled = !alreadyRated;
+                btnDanhGia.Text = alreadyRated ? "Đã đánh giá" : "Đánh giá";
+            }
+            catch
+            {
+                // fallback: vẫn cho phép click, frmDanhGiaPT sẽ chặn nếu đã đánh giá
+                btnDanhGia.Enabled = true;
+                btnDanhGia.Text = "Đánh giá";
             }
         }
 
@@ -546,11 +633,59 @@ namespace HealthApp.Views.GiaoBTChoUser
                 // Đảm bảo assignments có đầy đủ thông tin PT (nếu chưa có)
                 EnsureAssignmentsHavePTInfo(assignments);
 
+                // Chặn mở form nếu đã đánh giá (lịch trình/buổi lẻ chỉ 1 lần)
+                try
+                {
+                    string ptId = booking?.PTID ?? assignments.FirstOrDefault(a => !string.IsNullOrWhiteSpace(a.PTID))?.PTID;
+                    string datLichId = booking?.DatLichID ?? assignments.FirstOrDefault(a => !string.IsNullOrWhiteSpace(a.DatLichID))?.DatLichID;
+                    string lichTrinhId = booking?.LichTrinhID ?? assignments.Select(a => a.DatLichPT?.LichTrinhID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+
+                    if (!string.IsNullOrWhiteSpace(ptId))
+                    {
+                        using (var context = new WF_HealthTracker())
+                        {
+                            bool alreadyRated;
+                            if (!string.IsNullOrWhiteSpace(lichTrinhId))
+                            {
+                                alreadyRated = (from dg in context.DanhGiaPT
+                                                join dl in context.DatLichPT on dg.DatLichID equals dl.DatLichID
+                                                where dg.KhachHangID == CurrentUser.UserID
+                                                      && dg.PTID == ptId
+                                                      && dl.LichTrinhID == lichTrinhId
+                                                select dg).Any();
+                            }
+                            else if (!string.IsNullOrWhiteSpace(datLichId))
+                            {
+                                alreadyRated = context.DanhGiaPT.Any(d =>
+                                    d.KhachHangID == CurrentUser.UserID &&
+                                    d.PTID == ptId &&
+                                    d.DatLichID == datLichId);
+                            }
+                            else
+                            {
+                                alreadyRated = false;
+                            }
+
+                            if (alreadyRated)
+                            {
+                                MessageBox.Show("Bạn đã đánh giá buổi/lịch trình này rồi. Không thể đánh giá thêm lần nữa!",
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                UpdateDanhGiaButtonState();
+                                return;
+                            }
+                        }
+                    }
+                }
+                catch { }
+
                 System.Diagnostics.Debug.WriteLine($"[BtnDanhGia] Mở form với: Booking.PTID={booking.PTID}, Booking.HuanLuyenVien={booking.HuanLuyenVien != null}, Assignments count={assignments.Count}");
                 
                 // Mở form đánh giá PT
                 var frmDanhGia = new HealthApp.Views.PT.frmDanhGiaPT(booking, assignments);
                 frmDanhGia.ShowDialog();
+
+                // Sau khi đóng form đánh giá, refresh trạng thái nút
+                UpdateDanhGiaButtonState();
             }
             catch (Exception ex)
             {

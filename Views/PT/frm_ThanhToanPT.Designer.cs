@@ -57,10 +57,6 @@
             this.lblZalopay1 = new System.Windows.Forms.Label();
             this.lblZalopay = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pnlMomo = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.lblMoMo1 = new System.Windows.Forms.Label();
-            this.lblMomo = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblChonPhuongThucThanhToan = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTongTienThanhToan = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTieuDe2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -77,8 +73,6 @@
             this.pnlPhuongThucThanhToan.SuspendLayout();
             this.pnlZalopay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.pnlMomo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2Panel1
@@ -141,7 +135,7 @@
             this.pnlTongTinDatLich.BorderThickness = 1;
             this.pnlTongTinDatLich.Controls.Add(this.pnlDanhSachThanhToan);
             this.pnlTongTinDatLich.Controls.Add(this.lblThongTinDatLich);
-            this.pnlTongTinDatLich.Location = new System.Drawing.Point(162, 479);
+            this.pnlTongTinDatLich.Location = new System.Drawing.Point(162, 407);
             this.pnlTongTinDatLich.Name = "pnlTongTinDatLich";
             this.pnlTongTinDatLich.Size = new System.Drawing.Size(1015, 402);
             this.pnlTongTinDatLich.TabIndex = 8;
@@ -380,7 +374,7 @@
             this.btnThanhToan.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btnThanhToan.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThanhToan.ForeColor = System.Drawing.Color.White;
-            this.btnThanhToan.Location = new System.Drawing.Point(175, 945);
+            this.btnThanhToan.Location = new System.Drawing.Point(179, 911);
             this.btnThanhToan.Name = "btnThanhToan";
             this.btnThanhToan.Size = new System.Drawing.Size(965, 58);
             this.btnThanhToan.TabIndex = 20;
@@ -390,11 +384,10 @@
             // 
             this.pnlPhuongThucThanhToan.BorderRadius = 20;
             this.pnlPhuongThucThanhToan.Controls.Add(this.pnlZalopay);
-            this.pnlPhuongThucThanhToan.Controls.Add(this.pnlMomo);
             this.pnlPhuongThucThanhToan.Controls.Add(this.lblChonPhuongThucThanhToan);
             this.pnlPhuongThucThanhToan.Location = new System.Drawing.Point(162, 141);
             this.pnlPhuongThucThanhToan.Name = "pnlPhuongThucThanhToan";
-            this.pnlPhuongThucThanhToan.Size = new System.Drawing.Size(1015, 307);
+            this.pnlPhuongThucThanhToan.Size = new System.Drawing.Size(1015, 221);
             this.pnlPhuongThucThanhToan.TabIndex = 7;
             // 
             // pnlZalopay
@@ -406,7 +399,7 @@
             this.pnlZalopay.Controls.Add(this.lblZalopay1);
             this.pnlZalopay.Controls.Add(this.lblZalopay);
             this.pnlZalopay.Controls.Add(this.pictureBox2);
-            this.pnlZalopay.Location = new System.Drawing.Point(20, 183);
+            this.pnlZalopay.Location = new System.Drawing.Point(20, 69);
             this.pnlZalopay.Name = "pnlZalopay";
             this.pnlZalopay.Size = new System.Drawing.Size(974, 111);
             this.pnlZalopay.TabIndex = 10;
@@ -443,52 +436,6 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
-            // pnlMomo
-            // 
-            this.pnlMomo.BackColor = System.Drawing.Color.White;
-            this.pnlMomo.BorderColor = System.Drawing.Color.Silver;
-            this.pnlMomo.BorderRadius = 20;
-            this.pnlMomo.BorderThickness = 1;
-            this.pnlMomo.Controls.Add(this.lblMoMo1);
-            this.pnlMomo.Controls.Add(this.lblMomo);
-            this.pnlMomo.Controls.Add(this.pictureBox1);
-            this.pnlMomo.Location = new System.Drawing.Point(20, 58);
-            this.pnlMomo.Name = "pnlMomo";
-            this.pnlMomo.Size = new System.Drawing.Size(974, 111);
-            this.pnlMomo.TabIndex = 9;
-            // 
-            // lblMoMo1
-            // 
-            this.lblMoMo1.AutoSize = true;
-            this.lblMoMo1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMoMo1.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lblMoMo1.Location = new System.Drawing.Point(100, 63);
-            this.lblMoMo1.Name = "lblMoMo1";
-            this.lblMoMo1.Size = new System.Drawing.Size(246, 19);
-            this.lblMoMo1.TabIndex = 4;
-            this.lblMoMo1.Text = "Thanh toán qua ví điện tử Momo";
-            // 
-            // lblMomo
-            // 
-            this.lblMomo.AutoSize = true;
-            this.lblMomo.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMomo.ForeColor = System.Drawing.Color.Black;
-            this.lblMomo.Location = new System.Drawing.Point(99, 29);
-            this.lblMomo.Name = "lblMomo";
-            this.lblMomo.Size = new System.Drawing.Size(101, 25);
-            this.lblMomo.TabIndex = 3;
-            this.lblMomo.Text = "Ví MoMo";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(24, 29);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(58, 58);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // lblChonPhuongThucThanhToan
             // 
             this.lblChonPhuongThucThanhToan.BackColor = System.Drawing.Color.Transparent;
@@ -505,7 +452,7 @@
             this.lblTongTienThanhToan.BackColor = System.Drawing.Color.Transparent;
             this.lblTongTienThanhToan.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTongTienThanhToan.ForeColor = System.Drawing.Color.Blue;
-            this.lblTongTienThanhToan.Location = new System.Drawing.Point(1016, 896);
+            this.lblTongTienThanhToan.Location = new System.Drawing.Point(1008, 836);
             this.lblTongTienThanhToan.Name = "lblTongTienThanhToan";
             this.lblTongTienThanhToan.Size = new System.Drawing.Size(101, 31);
             this.lblTongTienThanhToan.TabIndex = 19;
@@ -526,7 +473,7 @@
             // 
             this.lblTongTien.BackColor = System.Drawing.Color.Transparent;
             this.lblTongTien.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTongTien.Location = new System.Drawing.Point(893, 896);
+            this.lblTongTien.Location = new System.Drawing.Point(885, 836);
             this.lblTongTien.Name = "lblTongTien";
             this.lblTongTien.Size = new System.Drawing.Size(112, 31);
             this.lblTongTien.TabIndex = 18;
@@ -571,9 +518,6 @@
             this.pnlZalopay.ResumeLayout(false);
             this.pnlZalopay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.pnlMomo.ResumeLayout(false);
-            this.pnlMomo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -584,11 +528,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTieuDe;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTieuDe2;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlPhuongThucThanhToan;
-        private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlMomo;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblChonPhuongThucThanhToan;
-        private System.Windows.Forms.Label lblMoMo1;
-        private System.Windows.Forms.Label lblMomo;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlTongTinDatLich;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlZalopay;
         private System.Windows.Forms.Label lblZalopay1;

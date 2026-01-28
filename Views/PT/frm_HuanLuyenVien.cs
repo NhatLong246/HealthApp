@@ -168,6 +168,13 @@ namespace HealthApp.Views.PT
                         ? $"{request.DatLichID}|{request.LichTrinhID}" 
                         : request.DatLichID;
                     var btnAccept = CreateAcceptButton(tagValue, yOffset + 5);
+                    // Nếu trùng lịch với lịch PT hiện tại => không cho đồng ý
+                    if (IsRequestOverlappingWithPTSchedule(request.DatLichID, request.LichTrinhID))
+                    {
+                        btnAccept.Enabled = false;
+                        btnAccept.FillColor = Color.DarkGray;
+                        btnAccept.Cursor = Cursors.No;
+                    }
                     pnlYeuCauThuePT.Controls.Add(btnAccept);
 
                     // Tạo nút xóa (vị trí Y = yOffset + 46 để căn giữa với panel)
@@ -181,6 +188,62 @@ namespace HealthApp.Views.PT
             {
                 MessageBox.Show($"Lỗi khi load yêu cầu: {ex.Message}", "Lỗi", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Kiểm tra yêu cầu (đơn lẻ hoặc lịch trình) có trùng với lịch PT hiện tại hay không.
+        /// Nếu trùng => PT không thể đồng ý.
+        /// </summary>
+        private bool IsRequestOverlappingWithPTSchedule(string datLichId, string lichTrinhId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(_ptId))
+                    return false;
+
+                // Lấy lịch đã có của PT (Pending/Confirmed/Completed), bỏ Cancelled
+                var existing = _context.DatLichPT
+                    .Where(d => d.PTID == _ptId
+                                && (d.TrangThai == "Pending" || d.TrangThai == "Confirmed" || d.TrangThai == "Completed")
+                                && d.TrangThai != "Cancelled")
+                    .ToList();
+
+                if (existing.Count == 0)
+                    return false;
+
+                // Lấy các buổi thuộc yêu cầu
+                List<DatLichPT> requestSessions;
+                if (!string.IsNullOrWhiteSpace(lichTrinhId))
+                {
+                    requestSessions = _context.DatLichPT
+                        .Where(d => d.LichTrinhID == lichTrinhId
+                                    && d.TrangThai == "Pending"
+                                    && string.IsNullOrEmpty(d.PTID))
+                        .ToList();
+                }
+                else
+                {
+                    var one = _context.DatLichPT.FirstOrDefault(d => d.DatLichID == datLichId);
+                    requestSessions = one != null ? new List<DatLichPT> { one } : new List<DatLichPT>();
+                }
+
+                bool IsOverlap(DateTime s1, DateTime e1, DateTime s2, DateTime e2) => s1 < e2 && s2 < e1;
+
+                foreach (var req in requestSessions)
+                {
+                    foreach (var ex in existing)
+                    {
+                        if (IsOverlap(req.ThoiGianBatDau, req.ThoiGianKetThuc, ex.ThoiGianBatDau, ex.ThoiGianKetThuc))
+                            return true;
+                    }
+                }
+
+                return false;
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -281,6 +344,7 @@ namespace HealthApp.Views.PT
                     : request.NgayGioDat.ToString("dd/MM/yyyy")
             };
             panel.Controls.Add(lblNgay);
+            AttachReadHandler(lblNgay);
 
             // Click trực tiếp lên panel cũng được tính là "đã xem"
             panel.Click += (s, e) => MarkRequestPanelAsRead(panel);

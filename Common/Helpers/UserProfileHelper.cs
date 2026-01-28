@@ -7,9 +7,9 @@ namespace HealthApp.Common.Helpers
     public static class UserProfileHelper
     {
         /// <summary>
-        /// Kiểm tra người dùng đã có đủ thông tin cơ bản chưa.
+        /// Kiểm tra người dùng có thiếu thông tin cơ bản (Ngày sinh/Giới tính) hay không.
         /// </summary>
-        public static bool NeedsBasicInfo()
+        public static bool NeedsMissingBasicInfo()
         {
             if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
             {
@@ -17,21 +17,25 @@ namespace HealthApp.Common.Helpers
             }
 
             var user = CurrentUser.User;
-            if (!user.NgaySinh.HasValue || string.IsNullOrWhiteSpace(user.GioiTinh))
+            return !user.NgaySinh.HasValue || string.IsNullOrWhiteSpace(user.GioiTinh);
+        }
+
+        /// <summary>
+        /// Chỉ ép nhập Thông tin thể trạng khi người dùng CHƯA CÓ bất kỳ bản ghi nào trong TinhTrangTongQuan.
+        /// Tránh trường hợp tài khoản cũ/thiếu dữ liệu lặt vặt nhưng vẫn bị "bắt nhập" lại.
+        /// </summary>
+        public static bool NeedsBodyStatusMandatory()
+        {
+            if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
             {
-                return true;
+                return false;
             }
+
+            var user = CurrentUser.User;
 
             using (var db = new WF_HealthTracker())
             {
-                var latestRecord = db.TinhTrangTongQuan
-                    .Where(t => t.UserID == user.UserID)
-                    .OrderByDescending(t => t.NgayGhiNhan)
-                    .FirstOrDefault();
-
-                return latestRecord == null
-                    || !latestRecord.CanNang.HasValue || latestRecord.CanNang <= 0
-                    || !latestRecord.ChieuCao.HasValue || latestRecord.ChieuCao <= 0;
+                return !db.TinhTrangTongQuan.Any(t => t.UserID == user.UserID);
             }
         }
     }

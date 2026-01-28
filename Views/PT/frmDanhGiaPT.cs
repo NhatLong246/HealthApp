@@ -542,20 +542,59 @@ namespace HealthApp.Views.PT
                     datLichId = _booking?.DatLichID ?? "NO_SESSION_" + Guid.NewGuid().ToString().Substring(0, 8);
                 }
 
-                // Kiểm tra đã đánh giá chưa (theo DatLichID và PTID)
-                var existingRating = context.DanhGiaPT
-                    .FirstOrDefault(d => d.DatLichID == datLichId && 
-                                         d.KhachHangID == CurrentUser.UserID &&
-                                         d.PTID == ptId);
+                // --- QUY TẮC MỚI ---
+                // - Nếu thuê theo LỊCH TRÌNH (có LichTrinhID) => chỉ được đánh giá 1 lần cho cả lịch trình
+                // - Nếu thuê theo BUỔI/NGÀY (không có LichTrinhID) => chỉ được đánh giá 1 lần cho DatLichID đó
+
+                string lichTrinhId = null;
+                try
+                {
+                    // Ưu tiên lấy LichTrinhID từ booking/assignments nếu có sẵn
+                    lichTrinhId = _booking?.LichTrinhID;
+                    if (string.IsNullOrWhiteSpace(lichTrinhId) && _assignments != null && _assignments.Count > 0)
+                    {
+                        lichTrinhId = _assignments.Select(a => a.DatLichPT?.LichTrinhID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+                    }
+                    // Nếu vẫn chưa có, load từ DB theo DatLichID (tránh null do chưa eager load)
+                    if (string.IsNullOrWhiteSpace(lichTrinhId) && !string.IsNullOrWhiteSpace(datLichId))
+                    {
+                        lichTrinhId = context.DatLichPT
+                            .Where(d => d.DatLichID == datLichId)
+                            .Select(d => d.LichTrinhID)
+                            .FirstOrDefault();
+                    }
+                }
+                catch { }
+
+                DanhGiaPT existingRating;
+                if (!string.IsNullOrWhiteSpace(lichTrinhId))
+                {
+                    // Đã là lịch trình: tìm bất kỳ rating nào thuộc lịch trình này (theo join DatLichPT.LichTrinhID)
+                    existingRating = (from dg in context.DanhGiaPT
+                                      join dl in context.DatLichPT on dg.DatLichID equals dl.DatLichID
+                                      where dg.KhachHangID == CurrentUser.UserID
+                                            && dg.PTID == ptId
+                                            && dl.LichTrinhID == lichTrinhId
+                                      select dg).FirstOrDefault();
+                }
+                else
+                {
+                    // Thuê theo ngày/buổi: chỉ khóa theo DatLichID
+                    existingRating = context.DanhGiaPT
+                        .FirstOrDefault(d => d.DatLichID == datLichId &&
+                                             d.KhachHangID == CurrentUser.UserID &&
+                                             d.PTID == ptId);
+                }
 
                 string binhLuan = _selectedQuickReview ?? txtDanhGia.Text?.Trim();
 
                 if (existingRating != null)
                 {
-                    // Cập nhật đánh giá cũ
-                    existingRating.Diem = _selectedRating;
-                    existingRating.BinhLuan = binhLuan;
-                    existingRating.NgayDanhGia = DateTime.Now;
+                    // ĐÃ ĐÁNH GIÁ RỒI => KHÔNG CHO ĐÁNH GIÁ LẠI
+                    // (Nếu bạn muốn cho phép "Cập nhật" thì đổi logic ở đây.)
+                    MessageBox.Show("Bạn đã đánh giá buổi/lịch trình này rồi. Không thể đánh giá thêm lần nữa!",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
                 else
                 {
