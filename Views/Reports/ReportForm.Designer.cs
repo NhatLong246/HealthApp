@@ -37,6 +37,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportForm));
             this.lbTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnGropress = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -66,6 +67,7 @@
             this.shadowpnSession = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.lbSession = new System.Windows.Forms.Label();
             this.lbGenSession = new System.Windows.Forms.Label();
+            this.btnBack = new Guna.UI2.WinForms.Guna2CircleButton();
             this.pnGropress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.guna2ShadowPanel4.SuspendLayout();
@@ -86,7 +88,7 @@
             // 
             this.lbTitle.BackColor = System.Drawing.Color.Transparent;
             this.lbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTitle.Location = new System.Drawing.Point(51, 41);
+            this.lbTitle.Location = new System.Drawing.Point(101, 41);
             this.lbTitle.Name = "lbTitle";
             this.lbTitle.Size = new System.Drawing.Size(329, 40);
             this.lbTitle.TabIndex = 0;
@@ -416,12 +418,30 @@
             this.lbGenSession.TabIndex = 0;
             this.lbGenSession.Text = "#";
             // 
+            // btnBack
+            // 
+            this.btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBack.FillColor = System.Drawing.Color.White;
+            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
+            this.btnBack.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnBack.Location = new System.Drawing.Point(12, 12);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.btnBack.Size = new System.Drawing.Size(57, 45);
+            this.btnBack.TabIndex = 51;
+            // 
             // ReportForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(254)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1286, 751);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.shadowpnAchivement);
             this.Controls.Add(this.guna2ShadowPanel5);
@@ -488,5 +508,6 @@
         private Guna.UI2.WinForms.Guna2ShadowPanel shadowpnSession;
         private System.Windows.Forms.Label lbSession;
         private System.Windows.Forms.Label lbGenSession;
+        private Guna.UI2.WinForms.Guna2CircleButton btnBack;
     }
 }

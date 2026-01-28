@@ -52,6 +52,12 @@ namespace HealthApp.Views.PT
             {
                 btnTroVe.Click += (s, e) => NavigateBackToDashboard();
             }
+
+            // Lịch sử thanh toán
+            if (btnLichSuThanhToan != null)
+            {
+                btnLichSuThanhToan.Click += BtnLichSuThanhToan_Click;
+            }
         }
 
         private async void LoadData()
@@ -60,9 +66,8 @@ namespace HealthApp.Views.PT
             {
                 if (string.IsNullOrEmpty(_datLichID))
                 {
-                    MessageBox.Show("Không có thông tin đặt lịch!", "Lỗi",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Close();
+                    // Không có đơn để thanh toán: vẫn hiển thị full UI, chỉ reset thông tin và disable thanh toán.
+                    InitializeEmptyPaymentView();
                     return;
                 }
 
@@ -124,6 +129,290 @@ namespace HealthApp.Views.PT
                 MessageBox.Show($"Lỗi khi load dữ liệu: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Trạng thái khi user không có đơn Pending để thanh toán: vẫn show full UI nhưng không cho thao tác thanh toán.
+        /// </summary>
+        private void InitializeEmptyPaymentView()
+        {
+            try
+            {
+                // Thông tin tổng tiền
+                lblTongTienThanhToan.Text = "0đ";
+                lblTienThanhToan.Text = "0đ";
+
+                // Reset card hiển thị đặt lịch mẫu
+                lblTenNguoiYeuCauThue.Text = CurrentUser.User?.HoTen ?? CurrentUser.User?.Username ?? "User";
+                lblMucTieuNguoiYeuCauThue.Text = "Chưa có đơn cần thanh toán";
+                lblTenPTThanhToan.Text = "PT";
+                lblThoiGian.Text = "";
+                lblThu.Text = "";
+                lblNgayTap.Text = "";
+
+                // Ảnh có thể để trống
+                try { ptrAvatarPT.Image = null; } catch { }
+                try { ptrAvatarNguoiYeuCauach1.Image = null; } catch { }
+
+                // Disable thao tác thanh toán
+                btnThanhToan.Enabled = false;
+                btnThanhToan.Text = "Không có đơn để thanh toán";
+                btnThemThanhToan.Enabled = false;
+                pnlMomo.Enabled = false;
+                pnlZalopay.Enabled = false;
+
+                _selectedPaymentMethod = "";
+                pnlMomo.BorderColor = Color.Silver;
+                pnlMomo.BorderThickness = 1;
+                pnlZalopay.BorderColor = Color.Silver;
+                pnlZalopay.BorderThickness = 1;
+
+                // Giữ lại layout: panel đặt lịch vẫn hiện, nhưng chỉ có 1 card mẫu
+                pnlTongTinDatLich.AutoScroll = true;
+                pnlDanhSachThanhToan.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"InitializeEmptyPaymentView error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Hiển thị lịch sử thanh toán: số tiền, thời gian thanh toán, tên PT thụ hưởng.
+        /// </summary>
+        private void BtnLichSuThanhToan_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn || CurrentUser.User == null || string.IsNullOrWhiteSpace(CurrentUser.UserID))
+                {
+                    MessageBox.Show("Vui lòng đăng nhập để xem lịch sử thanh toán!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                using (var form = BuildPaymentHistoryDialog())
+                {
+                    form.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở lịch sử thanh toán: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private Form BuildPaymentHistoryDialog()
+        {
+            var form = new Form();
+            form.Text = "Lịch sử thanh toán";
+            form.StartPosition = FormStartPosition.CenterParent;
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.MaximizeBox = false;
+            form.MinimizeBox = false;
+            form.BackColor = Color.FromArgb(245, 247, 250);
+            form.Size = new Size(980, 600);
+
+            var pnlMain = new Guna2ShadowPanel
+            {
+                Dock = DockStyle.Fill,
+                FillColor = Color.White,
+                Radius = 15,
+                ShadowColor = Color.Black,
+                ShadowDepth = 10,
+                Padding = new Padding(22)
+            };
+            form.Controls.Add(pnlMain);
+
+            // Header
+            var lblTitle = new Label
+            {
+                Text = "Lịch sử thanh toán",
+                Font = new Font("Times New Roman", 18F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(20, 20, 20),
+                AutoSize = false,
+                Location = new Point(22, 18),
+                Size = new Size(820, 40)
+            };
+            pnlMain.Controls.Add(lblTitle);
+
+            var lblSubTitle = new Label
+            {
+                Text = "Danh sách các giao dịch đã thanh toán thành công",
+                Font = new Font("Times New Roman", 11.5F, FontStyle.Regular),
+                ForeColor = Color.FromArgb(110, 110, 110),
+                AutoSize = false,
+                Location = new Point(24, 58),
+                Size = new Size(880, 24)
+            };
+            pnlMain.Controls.Add(lblSubTitle);
+
+            // Quick stats "chips" (custom) - dùng Panel + Label để tránh nút "x"
+            var chipCountPanel = new Guna2Panel
+            {
+                Location = new Point(24, 90),
+                Size = new Size(150, 32),
+                FillColor = Color.FromArgb(239, 246, 255),
+                BorderRadius = 10,
+                BorderColor = Color.FromArgb(191, 219, 254),
+                BorderThickness = 1
+            };
+            var chipCountLabel = new Label
+            {
+                Text = "0 giao dịch",
+                AutoSize = false,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Times New Roman", 10.5F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(37, 99, 235)
+            };
+            chipCountPanel.Controls.Add(chipCountLabel);
+            pnlMain.Controls.Add(chipCountPanel);
+
+            var chipTotalPanel = new Guna2Panel
+            {
+                Location = new Point(180, 90),
+                Size = new Size(220, 32),
+                FillColor = Color.FromArgb(240, 253, 244),
+                BorderRadius = 10,
+                BorderColor = Color.FromArgb(187, 247, 208),
+                BorderThickness = 1
+            };
+            var chipTotalLabel = new Label
+            {
+                Text = "Tổng: 0đ",
+                AutoSize = false,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Times New Roman", 10.5F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(22, 163, 74)
+            };
+            chipTotalPanel.Controls.Add(chipTotalLabel);
+            pnlMain.Controls.Add(chipTotalPanel);
+
+            var container = new Guna2Panel
+            {
+                Location = new Point(22, 135),
+                Size = new Size(916, 360),
+                FillColor = Color.White,
+                BorderRadius = 12,
+                BorderColor = Color.FromArgb(229, 231, 235),
+                BorderThickness = 1
+            };
+            pnlMain.Controls.Add(container);
+
+            var dgv = new DataGridView
+            {
+                Location = new Point(10, 10),
+                Size = new Size(896, 340),
+                ReadOnly = true,
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                RowHeadersVisible = false,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                BackgroundColor = Color.White,
+                BorderStyle = BorderStyle.None,
+                CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
+                GridColor = Color.FromArgb(243, 244, 246),
+                EnableHeadersVisualStyles = false
+            };
+            container.Controls.Add(dgv);
+
+            // DGV styling
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(59, 130, 246);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 11F, FontStyle.Bold);
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgv.ColumnHeadersHeight = 40;
+            dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
+            dgv.DefaultCellStyle.Font = new Font("Times New Roman", 10.5F, FontStyle.Regular);
+            dgv.DefaultCellStyle.ForeColor = Color.FromArgb(31, 41, 55);
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(219, 234, 254);
+            dgv.DefaultCellStyle.SelectionForeColor = Color.FromArgb(30, 64, 175);
+            dgv.DefaultCellStyle.Padding = new Padding(6);
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(249, 250, 251);
+            dgv.RowTemplate.Height = 38;
+
+            var lblEmpty = new Label
+            {
+                Text = "",
+                Font = new Font("Times New Roman", 12F, FontStyle.Italic),
+                ForeColor = Color.Gray,
+                AutoSize = true,
+                Location = new Point(24, 515),
+                Visible = false
+            };
+            pnlMain.Controls.Add(lblEmpty);
+
+            var btnClose = new Guna2Button
+            {
+                Text = "Đóng",
+                Size = new Size(140, 42),
+                BorderRadius = 10,
+                FillColor = Color.FromArgb(243, 244, 246),
+                ForeColor = Color.FromArgb(55, 65, 81),
+                Location = new Point(798, 510),
+                Cursor = Cursors.Hand
+            };
+            btnClose.Click += (s, e) => form.Close();
+            pnlMain.Controls.Add(btnClose);
+
+            // Load data
+            try
+            {
+                var userId = CurrentUser.UserID;
+                var rows = (from gd in _context.GiaoDich
+                            join pt in _context.HuanLuyenVien on gd.PTID equals pt.PTID
+                            join ptUser in _context.Users on pt.UserID equals ptUser.UserID
+                            where gd.KhachHangID == userId && gd.TrangThaiThanhToan == "Completed"
+                            orderby gd.NgayGiaoDich descending
+                            select new
+                            {
+                                TenPT = ptUser.HoTen ?? ptUser.Username ?? pt.PTID,
+                                SoTien = gd.SoTien,
+                                NgayGiaoDich = gd.NgayGiaoDich
+                            }).ToList();
+
+                var dt = new DataTable();
+                dt.Columns.Add("Tên PT", typeof(string));
+                dt.Columns.Add("Số tiền", typeof(string));
+                dt.Columns.Add("Thời gian thanh toán", typeof(string));
+
+                double total = 0;
+                foreach (var r in rows)
+                {
+                    var dr = dt.NewRow();
+                    dr["Tên PT"] = r.TenPT;
+                    dr["Số tiền"] = r.SoTien.ToString("N0") + "đ";
+                    dr["Thời gian thanh toán"] = r.NgayGiaoDich?.ToString("dd/MM/yyyy HH:mm") ?? "N/A";
+                    dt.Rows.Add(dr);
+                    total += r.SoTien;
+                }
+
+                dgv.DataSource = dt;
+
+                // update chips
+                chipCountLabel.Text = $"{rows.Count} giao dịch";
+                chipTotalLabel.Text = $"Tổng: {total:N0}đ";
+
+                if (rows.Count == 0)
+                {
+                    lblEmpty.Text = "Bạn chưa có lịch sử thanh toán nào.";
+                    lblEmpty.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblEmpty.Text = $"Không thể tải lịch sử thanh toán: {ex.Message}";
+                lblEmpty.Visible = true;
+            }
+
+            form.AcceptButton = btnClose;
+            form.CancelButton = btnClose;
+            return form;
         }
 
         private void DisplayData()

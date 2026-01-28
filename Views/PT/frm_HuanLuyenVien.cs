@@ -186,17 +186,28 @@ namespace HealthApp.Views.PT
 
         private Guna2ShadowPanel CreateRequestPanel(PTRequestViewModel request, int yPos)
         {
+            // Xác định xem yêu cầu này còn "chưa đọc" (notification mới) hay không
+            bool isUnread = IsRequestNotificationUnread(request.DatLichID);
+
             var panel = new Guna2ShadowPanel
             {
                 BackColor = Color.Transparent,
-                FillColor = Color.Honeydew,
+                // Nếu còn notification chưa đọc => Cyan, ngược lại Honeydew
+                FillColor = isUnread ? Color.Cyan : Color.Honeydew,
                 Location = new Point(21, yPos),
                 Name = $"pnlRequest_{request.DatLichID}",
                 Radius = 10,
                 ShadowColor = Color.FromArgb(0, 192, 0),
                 ShadowShift = 1,
-                Size = new Size(329, 76)
+                Size = new Size(329, 76),
+                Tag = request.DatLichID // Lưu DatLichID để dùng khi đánh dấu đã xem
             };
+
+            // Hàm local: khi click vào bất kỳ control nào trong panel => đánh dấu là đã xem (đổi sang Honeydew)
+            void AttachReadHandler(Control c)
+            {
+                c.Click += (s, e) => MarkRequestPanelAsRead(panel);
+            }
 
             // Avatar
             var avatar = new Guna2CirclePictureBox
@@ -210,6 +221,7 @@ namespace HealthApp.Views.PT
             };
             LoadAvatar(avatar, request.AnhDaiDien);
             panel.Controls.Add(avatar);
+            AttachReadHandler(avatar);
 
             // Tên khách hàng
             var lblTen = new Label
@@ -223,6 +235,7 @@ namespace HealthApp.Views.PT
                 Text = request.TenKhachHang
             };
             panel.Controls.Add(lblTen);
+            AttachReadHandler(lblTen);
 
             // Mục tiêu
             var lblMucTieu = new Label
@@ -236,6 +249,7 @@ namespace HealthApp.Views.PT
                 Text = request.MucTieu
             };
             panel.Controls.Add(lblMucTieu);
+            AttachReadHandler(lblMucTieu);
 
             // Thời gian - hiển thị số tuần nếu là lịch trình, hoặc giờ bắt đầu - kết thúc nếu là yêu cầu đơn lẻ
             var lblThoiGian = new Label
@@ -251,6 +265,7 @@ namespace HealthApp.Views.PT
                     : request.ThoiGian // Đã là "HH:mm - HH:mm" từ service
             };
             panel.Controls.Add(lblThoiGian);
+            AttachReadHandler(lblThoiGian);
 
             // Ngày tập - hiển thị khoảng ngày nếu có LichTrinhID (đã được format trong ThoiGian)
             var lblNgay = new Label
@@ -267,7 +282,91 @@ namespace HealthApp.Views.PT
             };
             panel.Controls.Add(lblNgay);
 
+            // Click trực tiếp lên panel cũng được tính là "đã xem"
+            panel.Click += (s, e) => MarkRequestPanelAsRead(panel);
+
             return panel;
+        }
+
+        /// <summary>
+        /// Đánh dấu panel yêu cầu là đã xem: đổi màu từ Cyan sang Honeydew
+        /// và cập nhật notification tương ứng trong DB thành đã đọc.
+        /// </summary>
+        /// <param name="panel">Panel yêu cầu</param>
+        private void MarkRequestPanelAsRead(Guna2ShadowPanel panel)
+        {
+            if (panel == null) return;
+
+            // Nếu đã Honeydew rồi thì bỏ qua
+            if (panel.FillColor == Color.Honeydew)
+                return;
+
+            panel.FillColor = Color.Honeydew;
+
+            try
+            {
+                if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
+                    return;
+
+                var datLichId = panel.Tag as string;
+                if (string.IsNullOrWhiteSpace(datLichId))
+                    return;
+
+                using (var context = new WF_HealthTracker())
+                {
+                    var userId = CurrentUser.User.UserID;
+                    var notifs = context.ThongBao
+                        .Where(t =>
+                            t.UserID == userId &&
+                            t.Loai == "PT_NEW_HIRE_REQUEST" &&
+                            t.MaLienQuan == datLichId &&
+                            (t.DaDoc == false || t.DaDoc == null))
+                        .ToList();
+
+                    if (notifs.Count > 0)
+                    {
+                        foreach (var n in notifs)
+                        {
+                            n.DaDoc = true;
+                        }
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch
+            {
+                // Bỏ qua lỗi để không làm crash UI; màu panel vẫn đã đổi
+            }
+        }
+
+        /// <summary>
+        /// Kiểm tra xem yêu cầu thuê PT (DatLichID) còn notification "PT_NEW_HIRE_REQUEST"
+        /// nào chưa đọc cho PT hiện tại hay không.
+        /// </summary>
+        private bool IsRequestNotificationUnread(string datLichId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(datLichId))
+                    return false;
+
+                if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
+                    return false;
+
+                using (var context = new WF_HealthTracker())
+                {
+                    var userId = CurrentUser.User.UserID;
+                    return context.ThongBao.Any(t =>
+                        t.UserID == userId &&
+                        t.Loai == "PT_NEW_HIRE_REQUEST" &&
+                        t.MaLienQuan == datLichId &&
+                        (t.DaDoc == false || t.DaDoc == null));
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private Guna2CircleButton CreateAcceptButton(string datLichID, int yPos)

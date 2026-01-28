@@ -6,6 +6,7 @@ using Microsoft.Web.WebView2.WinForms;
 using Microsoft.Web.WebView2.Core;
 using HealthApp.Models;
 using System.Linq;
+using HealthApp.Services;
 
 namespace HealthApp.Views.PT
 {
@@ -310,6 +311,39 @@ namespace HealthApp.Views.PT
                         context.SaveChanges();
                         
                         System.Diagnostics.Debug.WriteLine($"Successfully updated payment status to Completed for {_orderId}");
+
+                        // Thông báo: user đã thanh toán + PT nhận tiền
+                        try
+                        {
+                            var kh = context.Users.FirstOrDefault(u => u.UserID == giaoDich.KhachHangID);
+                            var khName = kh?.HoTen ?? kh?.Username ?? giaoDich.KhachHangID;
+
+                            var pt = context.HuanLuyenVien.FirstOrDefault(p => p.PTID == giaoDich.PTID);
+                            var ptUser = pt != null ? context.Users.FirstOrDefault(u => u.UserID == pt.UserID) : null;
+                            var ptName = ptUser?.HoTen ?? ptUser?.Username ?? giaoDich.PTID ?? "PT";
+
+                            // Notify user
+                            NotificationService.Create(
+                                context,
+                                giaoDich.KhachHangID,
+                                "Thanh toán thành công",
+                                $"Bạn đã thanh toán {giaoDich.SoTien:N0}đ cho PT {ptName}.",
+                                "USER_PAYMENT_COMPLETED",
+                                giaoDich.DatLichID);
+
+                            // Notify PT (the PT's user account)
+                            if (!string.IsNullOrWhiteSpace(pt?.UserID))
+                            {
+                                NotificationService.Create(
+                                    context,
+                                    pt.UserID,
+                                    "User đã thanh toán",
+                                    $"User {khName} đã thanh toán {giaoDich.SoTien:N0}đ cho bạn.",
+                                    "PT_USER_PAID",
+                                    giaoDich.DatLichID);
+                            }
+                        }
+                        catch { }
                     }
                     else
                     {

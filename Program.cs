@@ -63,35 +63,35 @@ namespace HealthApp
 
             try
             {
-                // Hiển thị form đăng nhập
-                using (var loginForm = new LoginForm())
+            // Hiển thị form đăng nhập
+            using (var loginForm = new LoginForm())
+            {
+                var result = loginForm.ShowDialog();
+                if (result == DialogResult.OK && CurrentUser.IsLoggedIn)
                 {
-                    var result = loginForm.ShowDialog();
-                    if (result == DialogResult.OK && CurrentUser.IsLoggedIn)
+                    // Kiểm tra role để hiển thị form phù hợp
+                    string userRole = CurrentUser.Role;
+
+                    System.Diagnostics.Debug.WriteLine($"[Program] User logged in - Role: '{userRole}'");
+
+                    if (userRole == "Admin")
                     {
-                        // Kiểm tra role để hiển thị form phù hợp
-                        string userRole = CurrentUser.Role;
-
-                        System.Diagnostics.Debug.WriteLine($"[Program] User logged in - Role: '{userRole}'");
-
-                        if (userRole == "Admin")
+                        // Mở form Admin cho user có role Admin
+                        System.Diagnostics.Debug.WriteLine("[Program] Opening frmAdmin for Admin user");
+                        Application.Run(new frmAdmin());
+                    }
+                    else
+                    {
+                        // Mở form Dashboard cho Client và PT
+                        if (UserProfileHelper.NeedsBasicInfo())
                         {
-                            // Mở form Admin cho user có role Admin
-                            System.Diagnostics.Debug.WriteLine("[Program] Opening frmAdmin for Admin user");
-                            Application.Run(new frmAdmin());
-                        }
-                        else
-                        {
-                            // Mở form Dashboard cho Client và PT
-                            if (UserProfileHelper.NeedsBasicInfo())
+                            using (var infoForm = new frmThongTinhTheTrang(isMandatory: true))
                             {
-                                using (var infoForm = new frmThongTinhTheTrang(isMandatory: true))
-                                {
-                                    infoForm.ShowDialog();
-                                }
+                                infoForm.ShowDialog();
                             }
-                            System.Diagnostics.Debug.WriteLine("[Program] Opening frmDashBoard1 for Client/PT user");
-                            Application.Run(new frmDashBoard1());
+                        }
+                        System.Diagnostics.Debug.WriteLine("[Program] Opening frmDashBoard1 for Client/PT user");
+                        Application.Run(new frmDashBoard1());
                         }
                     }
                 }
