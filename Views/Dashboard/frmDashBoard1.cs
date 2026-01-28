@@ -33,6 +33,8 @@ namespace HealthApp.Views.Dashboard
             InitializeEventHandlers();
             LoadUserInfo();
             UpdatePTButtonState();
+            // Đảm bảo panel tiêu đề luôn hiển thị phía trên
+            pnlTieuDe?.BringToFront();
         }
 
         /// <summary>
@@ -250,8 +252,15 @@ namespace HealthApp.Views.Dashboard
 
                 // Tạo UserControl mới
                 _currentUserControl = new T();
-                _currentUserControl.Dock = DockStyle.Fill;
-                _currentUserControl.AutoSize = false;
+                // Không set Dock = Fill để UserControl giữ kích thước tự nhiên và kích hoạt scroll
+                // Không set AutoSize = false để UserControl tự điều chỉnh kích thước
+                _currentUserControl.Location = new Point(0, 0);
+                _currentUserControl.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                // Đảm bảo UserControl có thể hiển thị đầy đủ chiều rộng (nếu container đã có kích thước)
+                if (_userControlContainer.ClientSize.Width > 0)
+                {
+                    _currentUserControl.Width = Math.Max(_currentUserControl.Width, _userControlContainer.ClientSize.Width);
+                }
 
                 // Thêm vào container
                 _userControlContainer.Controls.Clear();
@@ -261,11 +270,16 @@ namespace HealthApp.Views.Dashboard
                 pnlBody.Visible = false;
                 _userControlContainer.Visible = true;
                 _userControlContainer.BringToFront();
+                // Đảm bảo thanh tiêu đề vẫn hiển thị
+                pnlTieuDe?.BringToFront();
 
                 // KHÓA SCROLL NGANG HOÀN TOÀN
                 _userControlContainer.HorizontalScroll.Maximum = 0;
                 _userControlContainer.HorizontalScroll.Visible = false;
                 _userControlContainer.HorizontalScroll.Enabled = false;
+                
+                // Đảm bảo scroll dọc hoạt động
+                _userControlContainer.AutoScroll = true;
             }
             catch (Exception ex)
             {
@@ -286,6 +300,8 @@ namespace HealthApp.Views.Dashboard
                 // Hiển thị lại pnlBody
                 pnlBody.Visible = true;
                 pnlBody.BringToFront();
+                // Đảm bảo thanh tiêu đề vẫn hiển thị
+                pnlTieuDe?.BringToFront();
 
                 // Dispose UserControl cũ nếu có
                 if (_currentUserControl != null)
@@ -524,13 +540,13 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Event handler cho button Lên Kế Hoạch Ăn Uống - load ucCheDoAnUongDeXuat vào pnlBackground
+        /// Event handler cho button Lên Kế Hoạch Ăn Uống - load ucKeHoachAnUong vào pnlBackground
         /// </summary>
         private void BtnLenKeHoachAnUong_Click(object sender, EventArgs e)
         {
             try
             {
-                LoadUserControlIntoBackground<ucCheDoAnUongDeXuat>();
+                LoadUserControlIntoBackground<ucKeHoachAnUong>();
             }
             catch (Exception ex)
             {

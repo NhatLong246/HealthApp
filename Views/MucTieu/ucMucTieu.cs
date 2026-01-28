@@ -44,6 +44,14 @@ namespace HealthApp.Views.MucTieu
         private bool _suppressFoodSelectionChanged = false;
         private readonly List<SelectedExercise> _selectedExercises = new List<SelectedExercise>(); // Danh sách bài tập kèm buổi tập
         private readonly Dictionary<string, List<string>> _slotExerciseAssignments = new Dictionary<string, List<string>>(); // Slot (Thứ) -> danh sách BaiTapID
+        
+        // Lưu giá trị gốc từ database để validate phạm vi ±10%
+        private double? _originalCalo = null;
+        private double? _originalProtein = null;
+        private double? _originalCarbs = null;
+        private double? _originalFat = null;
+        private double? _originalFiber = null;
+        private bool _isValidating = false; // Flag để tránh vòng lặp khi validate
 
         private class SelectedExercise
         {
@@ -203,6 +211,28 @@ namespace HealthApp.Views.MucTieu
             btnSang.Click += (s, e) => ToggleSession("Sáng", btnSang);
             btnChieu.Click += (s, e) => ToggleSession("Chiều", btnChieu);
             btnToi.Click += (s, e) => ToggleSession("Tối", btnToi);
+
+            // Event handlers cho các textbox dinh dưỡng - validate phạm vi ±10%
+            if (txtCalo != null)
+            {
+                txtCalo.Leave += (s, e) => ValidateNutritionValue(txtCalo, _originalCalo, "Calo");
+            }
+            if (txtProtein != null)
+            {
+                txtProtein.Leave += (s, e) => ValidateNutritionValue(txtProtein, _originalProtein, "Protein");
+            }
+            if (txtCarbs != null)
+            {
+                txtCarbs.Leave += (s, e) => ValidateNutritionValue(txtCarbs, _originalCarbs, "Carbs");
+            }
+            if (txtChatBeo != null)
+            {
+                txtChatBeo.Leave += (s, e) => ValidateNutritionValue(txtChatBeo, _originalFat, "Chất béo");
+            }
+            if (txtChatXo != null)
+            {
+                txtChatXo.Leave += (s, e) => ValidateNutritionValue(txtChatXo, _originalFiber, "Chất xơ");
+            }
 
         }
 
@@ -2008,17 +2038,26 @@ namespace HealthApp.Views.MucTieu
 
         private void ResetNutritionDisplay()
         {
+            // Reset giá trị gốc
+            _originalCalo = null;
+            _originalProtein = null;
+            _originalCarbs = null;
+            _originalFat = null;
+            _originalFiber = null;
+
             label32.Text = "0";
             label30.Text = "0";
             label22.Text = "0";
             label28.Text = "0";
             label11.Text = "0";
 
+            _isValidating = true;
             txtCalo.Text = string.Empty;
             txtProtein.Text = string.Empty;
             txtCarbs.Text = string.Empty;
             txtChatBeo.Text = string.Empty;
             txtChatXo.Text = string.Empty;
+            _isValidating = false;
         }
 
         private void ApplyNutritionPreset(CheDoDinhDuongMau preset)
@@ -2034,17 +2073,27 @@ namespace HealthApp.Views.MucTieu
 
         private void ApplyNutritionValues(int calo, int protein, int carbs, int fat, int fiber)
         {
+            // Lưu giá trị gốc từ database để validate phạm vi ±10%
+            _originalCalo = calo;
+            _originalProtein = protein;
+            _originalCarbs = carbs;
+            _originalFat = fat;
+            _originalFiber = fiber;
+
             label32.Text = calo.ToString();
             label30.Text = protein.ToString();
             label22.Text = carbs.ToString();
             label28.Text = fat.ToString();
             label11.Text = fiber.ToString();
 
+            // Set giá trị vào textbox (tạm thời tắt validation để tránh vòng lặp)
+            _isValidating = true;
             txtCalo.Text = calo.ToString();
             txtProtein.Text = protein.ToString();
             txtCarbs.Text = carbs.ToString();
             txtChatBeo.Text = fat.ToString();
             txtChatXo.Text = fiber.ToString();
+            _isValidating = false;
         }
 
         private int Average(int value1, int value2)
@@ -2204,6 +2253,42 @@ namespace HealthApp.Views.MucTieu
                 double? chatBeo = ParseDouble(txtChatBeo.Text);
                 double? chatXo = ParseDouble(txtChatXo.Text);
 
+                // Validate tất cả các giá trị trong phạm vi ±10%
+                bool isValid = true;
+                string errorMessage = "Các giá trị sau vượt quá phạm vi cho phép (±10%):\n";
+
+                if (!ValidateNutritionValue(calo, _originalCalo, "Calo", false))
+                {
+                    isValid = false;
+                    errorMessage += $"- Calo: {_originalCalo?.ToString("0") ?? "0"} ±10%\n";
+                }
+                if (!ValidateNutritionValue(protein, _originalProtein, "Protein", false))
+                {
+                    isValid = false;
+                    errorMessage += $"- Protein: {_originalProtein?.ToString("0") ?? "0"} ±10%\n";
+                }
+                if (!ValidateNutritionValue(carbs, _originalCarbs, "Carbs", false))
+                {
+                    isValid = false;
+                    errorMessage += $"- Carbs: {_originalCarbs?.ToString("0") ?? "0"} ±10%\n";
+                }
+                if (!ValidateNutritionValue(chatBeo, _originalFat, "Chất béo", false))
+                {
+                    isValid = false;
+                    errorMessage += $"- Chất béo: {_originalFat?.ToString("0") ?? "0"} ±10%\n";
+                }
+                if (!ValidateNutritionValue(chatXo, _originalFiber, "Chất xơ", false))
+                {
+                    isValid = false;
+                    errorMessage += $"- Chất xơ: {_originalFiber?.ToString("0") ?? "0"} ±10%\n";
+                }
+
+                if (!isValid)
+                {
+                    MessageBox.Show(errorMessage, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Cập nhật các label hiển thị
                 label32.Text = calo?.ToString("0") ?? "0";
                 label30.Text = protein?.ToString("0") ?? "0";
@@ -2217,6 +2302,73 @@ namespace HealthApp.Views.MucTieu
             {
                 MessageBox.Show($"Lỗi khi cập nhật dinh dưỡng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Validate giá trị dinh dưỡng có nằm trong phạm vi ±10% so với giá trị gốc không
+        /// </summary>
+        /// <param name="textBox">TextBox cần validate (null nếu chỉ kiểm tra giá trị)</param>
+        /// <param name="originalValue">Giá trị gốc từ database</param>
+        /// <param name="fieldName">Tên trường để hiển thị trong thông báo</param>
+        /// <param name="showMessage">Có hiển thị message box không</param>
+        /// <returns>True nếu hợp lệ, False nếu vượt quá phạm vi</returns>
+        private bool ValidateNutritionValue(Guna.UI2.WinForms.Guna2TextBox textBox, double? originalValue, string fieldName, bool showMessage = true)
+        {
+            return ValidateNutritionValue(ParseDouble(textBox?.Text), originalValue, fieldName, showMessage, textBox);
+        }
+
+        /// <summary>
+        /// Validate giá trị dinh dưỡng có nằm trong phạm vi ±10% so với giá trị gốc không
+        /// </summary>
+        /// <param name="newValue">Giá trị mới</param>
+        /// <param name="originalValue">Giá trị gốc từ database</param>
+        /// <param name="fieldName">Tên trường để hiển thị trong thông báo</param>
+        /// <param name="showMessage">Có hiển thị message box không</param>
+        /// <param name="textBox">TextBox để khôi phục giá trị (optional)</param>
+        /// <returns>True nếu hợp lệ, False nếu vượt quá phạm vi</returns>
+        private bool ValidateNutritionValue(double? newValue, double? originalValue, string fieldName, bool showMessage = true, Guna.UI2.WinForms.Guna2TextBox textBox = null)
+        {
+            // Nếu đang trong quá trình validate (tránh vòng lặp)
+            if (_isValidating)
+                return true;
+
+            // Nếu không có giá trị gốc (chưa load từ database), cho phép nhập tự do
+            if (!originalValue.HasValue || originalValue.Value == 0)
+                return true;
+
+            // Nếu giá trị mới rỗng, cho phép (người dùng có thể xóa)
+            if (!newValue.HasValue)
+                return true;
+
+            // Tính phạm vi ±10%
+            double minValue = originalValue.Value * 0.9; // 90% của giá trị gốc
+            double maxValue = originalValue.Value * 1.1; // 110% của giá trị gốc
+
+            // Kiểm tra giá trị mới có nằm trong phạm vi không
+            if (newValue.Value < minValue || newValue.Value > maxValue)
+            {
+                if (showMessage)
+                {
+                    string message = $"{fieldName} chỉ được thay đổi trong phạm vi ±10% so với giá trị gốc.\n\n" +
+                                   $"Giá trị gốc: {originalValue.Value:F0}\n" +
+                                   $"Phạm vi cho phép: {minValue:F0} - {maxValue:F0}\n" +
+                                   $"Giá trị bạn nhập: {newValue.Value:F0}";
+                    MessageBox.Show(message, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                // Khôi phục giá trị gốc nếu có textBox
+                if (textBox != null)
+                {
+                    _isValidating = true;
+                    textBox.Text = originalValue.Value.ToString("0");
+                    _isValidating = false;
+                    textBox.Focus();
+                }
+
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>

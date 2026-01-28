@@ -446,6 +446,12 @@
     <Compile Include="Views\Nutrition\ucCheDoAnUongDeXuat.Designer.cs">
       <DependentUpon>ucCheDoAnUongDeXuat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Nutrition\ucKeHoachAnUong.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Nutrition\ucKeHoachAnUong.Designer.cs">
+      <DependentUpon>ucKeHoachAnUong.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Nutrition\ucMonAnDeXuat.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -727,6 +733,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ucCheDoAnUongDeXuat.resx">
       <DependentUpon>ucCheDoAnUongDeXuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Nutrition\ucKeHoachAnUong.resx">
+      <DependentUpon>ucKeHoachAnUong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ucMonAnDeXuat.resx">
       <DependentUpon>ucMonAnDeXuat.cs</DependentUpon>

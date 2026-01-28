@@ -12,13 +12,17 @@ namespace HealthApp.Views.Nutrition
         private ThuVienMonAn _monAnGoc;
         private WF_HealthTracker _dbContext;
         private string _keHoachAnID;
+        private string _loaiBuaAnInitial;
+        private DateTime? _ngayAnInitial;
 
-        public frmThemMonAn(ThuVienMonAn monAn, WF_HealthTracker dbContext, string keHoachAnID = null)
+        public frmThemMonAn(ThuVienMonAn monAn, WF_HealthTracker dbContext, string keHoachAnID = null, string loaiBuaAn = null, DateTime? ngayAn = null)
         {
             InitializeComponent();
             _monAnGoc = monAn;
             _dbContext = dbContext;
             _keHoachAnID = keHoachAnID;
+            _loaiBuaAnInitial = loaiBuaAn;
+            _ngayAnInitial = ngayAn;
             InitializeData();
         }
 
@@ -45,10 +49,16 @@ namespace HealthApp.Views.Nutrition
 
             // Load loại bữa ăn
             cboLoaiBuaAn.Items.AddRange(new string[] { "Sáng", "Trưa", "Tối", "Bữa phụ" });
-            cboLoaiBuaAn.SelectedIndex = 0;
+            var idx = 0;
+            if (!string.IsNullOrWhiteSpace(_loaiBuaAnInitial))
+            {
+                var i = cboLoaiBuaAn.Items.IndexOf(_loaiBuaAnInitial);
+                if (i >= 0) idx = i;
+            }
+            cboLoaiBuaAn.SelectedIndex = idx;
 
-            // Set ngày mặc định là hôm nay
-            dtpNgayAn.Value = DateTime.Today;
+            // Set ngày: ưu tiên _ngayAnInitial, mặc định hôm nay
+            dtpNgayAn.Value = _ngayAnInitial ?? DateTime.Today;
 
             // Tính toán lại khi số lượng thay đổi
             txtSoLuong.TextChanged += TxtSoLuong_TextChanged;
@@ -171,8 +181,9 @@ namespace HealthApp.Views.Nutrition
                     return;
                 }
 
-                // Lưu LoaiBuaAn vào GhiChu (format: "LoaiBuaAn: Breakfast|GhiChu khác")
+                // LoaiBuaAn: DB CHECK chỉ cho phép 'Sáng','Trưa','Tối','Phụ' — dùng "Phụ" thay "Bữa phụ"
                 string loaiBuaAn = cboLoaiBuaAn.SelectedItem.ToString();
+                string loaiDb = loaiBuaAn.Equals("Bữa phụ", StringComparison.OrdinalIgnoreCase) ? "Phụ" : loaiBuaAn;
                 string ghiChu = $"LoaiBuaAn: {loaiBuaAn}";
                 if (!string.IsNullOrWhiteSpace(txtGhiChu.Text))
                 {
@@ -242,7 +253,7 @@ namespace HealthApp.Views.Nutrition
                     BuaAnID = buaAnID,
                     KeHoachAnID = keHoachAnID,
                     MonAnID = _monAnGoc.MonAnID,
-                    LoaiBuaAn = loaiBuaAn,
+                    LoaiBuaAn = loaiDb,
                     NgayAn = dtpNgayAn.Value.Date,
                     TenMonAn = _monAnGoc.TenMonAn,
                     Donvi = _monAnGoc.Donvi ?? "g",
@@ -251,23 +262,13 @@ namespace HealthApp.Views.Nutrition
                     Protein = protein,
                     Carbs = carbs,
                     Fat = fat,
-                    Fiber = null,
+                    Fiber = (_monAnGoc.Fiber ?? 0) * tiLe,
                     GhiChu = ghiChu,
                     NgayCapNhat = DateTime.Now
                 };
 
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] Đã tạo BuaAnChiTiet object");
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] BuaAnID: {MonAnDaThem.BuaAnID}");
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] KeHoachAnID: {MonAnDaThem.KeHoachAnID}");
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] MonAnID: {MonAnDaThem.MonAnID}");
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] NgayAn: {MonAnDaThem.NgayAn}");
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] KhoiLuongChuan: {MonAnDaThem.KhoiLuongChuan}");
-
-                // KHÔNG lưu vào database (theo yêu cầu - chỉ hiển thị)
-                // _dbContext.BuaAnChiTiet.Add(MonAnDaThem);
-                // _dbContext.SaveChanges();
-                
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] Đã tạo BuaAnChiTiet object (chưa lưu database)");
+                _dbContext.BuaAnChiTiet.Add(MonAnDaThem);
+                _dbContext.SaveChanges();
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
