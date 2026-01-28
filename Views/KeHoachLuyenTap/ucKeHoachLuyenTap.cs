@@ -17,6 +17,8 @@ namespace HealthApp.Views.KeHoachLuyenTap
 {
     public partial class ucKeHoachLuyenTap : UserControl
     {
+        private bool _isBuoiTapCompletedForGrid = false;
+        private bool _isOpeningWorkoutForm = false;
         private readonly GoalController _goalController;
         private readonly WF_HealthTracker _dbContext;
         private Models.KeHoachLuyenTap _currentWorkoutPlan;
@@ -536,6 +538,14 @@ namespace HealthApp.Views.KeHoachLuyenTap
                 dgvDanhSachBaiTap.DataSource = null;
                 dgvDanhSachBaiTap.Rows.Clear();
                 dgvDanhSachBaiTap.Columns.Clear();
+                
+                // Cấu hình để tránh lỗi hiển thị/click (Guna2DataGridView đôi khi render lạ nếu còn "new row")
+                dgvDanhSachBaiTap.AllowUserToAddRows = false;
+                dgvDanhSachBaiTap.AllowUserToDeleteRows = false;
+                dgvDanhSachBaiTap.MultiSelect = false;
+                dgvDanhSachBaiTap.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvDanhSachBaiTap.EditMode = DataGridViewEditMode.EditProgrammatically;
+                dgvDanhSachBaiTap.ReadOnly = false; // vẫn cho click button column
 
                 if (buoiTap.BaiTapChiTiet == null || buoiTap.BaiTapChiTiet.Count == 0)
                 {
@@ -547,6 +557,7 @@ namespace HealthApp.Views.KeHoachLuyenTap
 
                 // Kiểm tra trạng thái buổi tập
                 bool isBuoiTapCompleted = buoiTap.TrangThai == "Hoàn thành";
+                _isBuoiTapCompletedForGrid = isBuoiTapCompleted;
 
                 // Tạo DataTable với các cột mới
                 DataTable dt = new DataTable();
@@ -598,13 +609,18 @@ namespace HealthApp.Views.KeHoachLuyenTap
 
                     // Tăng kích thước font cho header
                     dgvDanhSachBaiTap.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+                    dgvDanhSachBaiTap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
                     dgvDanhSachBaiTap.ColumnHeadersHeight = 45; // Tăng chiều cao header
+                    // Guna2DataGridView có ThemeStyle.Height mặc định = 4 trong Designer → phải set lại để header không bị "lỗi hiển thị"
+                    dgvDanhSachBaiTap.ThemeStyle.HeaderStyle.Height = 45;
+                    dgvDanhSachBaiTap.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
                     
                     // Tăng kích thước font cho các dòng nội dung
                     dgvDanhSachBaiTap.DefaultCellStyle.Font = new Font("Segoe UI", 10.5F, FontStyle.Regular);
                     
                     // Set row height SAU KHI bind để đảm bảo tất cả row đều có height đúng
                     dgvDanhSachBaiTap.RowTemplate.Height = 50;
+                    dgvDanhSachBaiTap.ThemeStyle.RowsStyle.Height = 50;
                     foreach (DataGridViewRow row in dgvDanhSachBaiTap.Rows)
                     {
                         row.Height = 50;
@@ -645,10 +661,8 @@ namespace HealthApp.Views.KeHoachLuyenTap
                         var buttonColumn = new DataGridViewButtonColumn();
                         buttonColumn.Name = "Tập luyện";
                         buttonColumn.HeaderText = "Tập luyện";
-                        // Sử dụng Value của từng ô để hiển thị text, tránh lệch / sai text
+                        // Không dùng DataPropertyName cho ButtonColumn (dễ bị trống/hiển thị sai với Guna2 + DataTable)
                         buttonColumn.UseColumnTextForButtonValue = false;
-                        // Bind với cột "Tập luyện" trong DataTable để tự nhận giá trị "Bắt đầu"/"Đã tập"
-                        buttonColumn.DataPropertyName = "Tập luyện";
                         buttonColumn.Width = 120;
                         buttonColumn.FlatStyle = FlatStyle.Flat;
                         // Căn giữa nội dung nút cho đẹp
@@ -669,26 +683,80 @@ namespace HealthApp.Views.KeHoachLuyenTap
                         buttonColumn.DefaultCellStyle.SelectionForeColor = buttonColumn.DefaultCellStyle.ForeColor;
                         
                         dgvDanhSachBaiTap.Columns.Insert(columnIndex, buttonColumn);
-                        
-                        // Không cần tự set lại Value vì đã bind qua DataPropertyName.
+
+                        // đảm bảo cột button có thể click
+                        buttonColumn.ReadOnly = false;
+
                         // Nếu buổi tập đã hoàn thành thì chặn sửa trên cả cột.
                         if (isBuoiTapCompleted)
                         {
                             buttonColumn.ReadOnly = true;
                         }
                     }
+
+                    // Render text cho ButtonColumn qua CellFormatting (tránh set Value gây StackOverflow)
+                    dgvDanhSachBaiTap.CellFormatting -= DgvDanhSachBaiTap_CellFormatting;
+                    dgvDanhSachBaiTap.CellFormatting += DgvDanhSachBaiTap_CellFormatting;
                     
                     // Đăng ký event handler cho button click (chỉ khi chưa hoàn thành)
+                    // CHỈ gắn 1 event để tránh mở 2 form (CellClick + CellContentClick sẽ bị gọi đôi)
                     dgvDanhSachBaiTap.CellContentClick -= DgvDanhSachBaiTap_CellContentClick;
-                    if (buoiTap.TrangThai != "Hoàn thành")
-                    {
-                        dgvDanhSachBaiTap.CellContentClick += DgvDanhSachBaiTap_CellContentClick;
-                    }
+                    dgvDanhSachBaiTap.CellClick -= DgvDanhSachBaiTap_CellContentClick;
+                    dgvDanhSachBaiTap.CellClick += DgvDanhSachBaiTap_CellContentClick;
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"LoadBaiTapToDataGridView error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Set text cho button "Tập luyện" khi render cell (không set Value để tránh vòng lặp binding).
+        /// </summary>
+        private void DgvDanhSachBaiTap_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            try
+            {
+                if (dgvDanhSachBaiTap == null) return;
+                if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+                if (dgvDanhSachBaiTap.Columns[e.ColumnIndex]?.Name != "Tập luyện") return;
+
+                string cellText = null;
+                var row = dgvDanhSachBaiTap.Rows[e.RowIndex];
+                if (row?.DataBoundItem is DataRowView drv && drv.Row.Table.Columns.Contains("Tập luyện"))
+                {
+                    cellText = drv.Row["Tập luyện"]?.ToString();
+                }
+
+                if (string.IsNullOrWhiteSpace(cellText))
+                {
+                    cellText = _isBuoiTapCompletedForGrid ? "Đã tập" : "Bắt đầu";
+                }
+
+                e.Value = cellText;
+                e.FormattingApplied = true;
+
+                // Set màu theo từng row để tránh bị "xám" hàng loạt
+                var cell = row.Cells[e.ColumnIndex];
+                if (cellText == "Đã tập")
+                {
+                    cell.Style.BackColor = Color.FromArgb(200, 200, 200);
+                    cell.Style.ForeColor = Color.FromArgb(100, 100, 100);
+                    cell.Style.SelectionBackColor = cell.Style.BackColor;
+                    cell.Style.SelectionForeColor = cell.Style.ForeColor;
+                }
+                else
+                {
+                    cell.Style.BackColor = Color.FromArgb(100, 88, 255);
+                    cell.Style.ForeColor = Color.White;
+                    cell.Style.SelectionBackColor = cell.Style.BackColor;
+                    cell.Style.SelectionForeColor = cell.Style.ForeColor;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"DgvDanhSachBaiTap_CellFormatting error: {ex.Message}");
             }
         }
 
@@ -746,13 +814,28 @@ namespace HealthApp.Views.KeHoachLuyenTap
                 if (dgv == null || e.RowIndex < 0) return;
 
                 // Chỉ xử lý khi click vào cột button "Tập luyện"
-                if (dgv.Columns[e.ColumnIndex] is DataGridViewButtonColumn && 
-                    dgv.Columns[e.ColumnIndex].Name == "Tập luyện")
+                if (dgv.Columns[e.ColumnIndex].Name == "Tập luyện")
                 {
+                    // Chặn double-trigger (đề phòng vẫn có event bắn 2 lần)
+                    if (_isOpeningWorkoutForm) return;
+
+                    // nếu click vào header/ngoài vùng cell
+                    if (e.ColumnIndex < 0) return;
+
+                    // Lấy text thật của nút (vì hiện đang render qua CellFormatting nên Value có thể null)
+                    string actionText = null;
+                    var gridRow = dgv.Rows[e.RowIndex];
+                    if (gridRow?.DataBoundItem is DataRowView drv && drv.Row.Table.Columns.Contains("Tập luyện"))
+                    {
+                        actionText = drv.Row["Tập luyện"]?.ToString();
+                    }
+                    if (string.IsNullOrWhiteSpace(actionText))
+                    {
+                        actionText = gridRow?.Cells[e.ColumnIndex]?.FormattedValue?.ToString();
+                    }
+
                     // Kiểm tra xem button có phải "Đã tập" không (đã hoàn thành)
-                    var buttonCell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                    if (buttonCell != null && buttonCell.Value != null && 
-                        buttonCell.Value.ToString() == "Đã tập")
+                    if (!string.IsNullOrWhiteSpace(actionText) && actionText == "Đã tập")
                     {
                         // Button "Đã tập" không thể click
                         return;
@@ -766,7 +849,14 @@ namespace HealthApp.Views.KeHoachLuyenTap
                         baiTapChiTietID = dgv.Rows[e.RowIndex].Cells["BaiTapChiTietID"].Value.ToString();
                     }
 
-                    if (string.IsNullOrWhiteSpace(baiTapChiTietID) || _selectedBuoiTap == null)
+                    if (_selectedBuoiTap == null)
+                    {
+                        MessageBox.Show("Bạn hãy chọn buổi tập/ngày trước khi bấm Bắt đầu!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(baiTapChiTietID))
                     {
                         MessageBox.Show("Không tìm thấy thông tin bài tập!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -787,36 +877,29 @@ namespace HealthApp.Views.KeHoachLuyenTap
                         _restoreDateAfterWorkout = _selectedBuoiTap.ThoiGianBatDau.Value.Date;
                     }
                     
-                    // Tìm frmDashBoard1 để load ucTrienKhaiBaiTap
-                    Form form = this.FindForm();
-                    if (form is frmDashBoard1 dashboard)
+                    // Theo yêu cầu: khi nhấn Bắt đầu thì mở 1 Form mới chứa ucTrienKhaiBaiTap
+                    using (var newForm = new Form())
                     {
+                        _isOpeningWorkoutForm = true;
+                        newForm.Text = $"Bắt đầu tập luyện - {_selectedBuoiTap.ThuNgay}";
+                        newForm.StartPosition = FormStartPosition.CenterScreen;
+                        // Rộng hơn một chút để không bị chật UI
+                        newForm.Size = new System.Drawing.Size(1400, 800);
+                        newForm.WindowState = FormWindowState.Normal;
+                        newForm.FormClosed += (s, args) => { _isOpeningWorkoutForm = false; };
+
                         var ucTrienKhai = new ucTrienKhaiBaiTap();
+                        ucTrienKhai.Dock = DockStyle.Fill;
                         ucTrienKhai.SetBuoiTap(_selectedBuoiTap);
-                        dashboard.LoadUserControl(ucTrienKhai);
-                    }
-                    else
-                    {
-                        // Fallback: mở form mới
-                        using (var newForm = new Form())
-                        {
-                            newForm.Text = $"Bắt đầu tập luyện - {_selectedBuoiTap.ThuNgay}";
-                            newForm.StartPosition = FormStartPosition.CenterScreen;
-                            newForm.Size = new System.Drawing.Size(1200, 800);
-                            newForm.WindowState = FormWindowState.Normal;
+                        newForm.Controls.Add(ucTrienKhai);
 
-                            var ucTrienKhai = new ucTrienKhaiBaiTap();
-                            ucTrienKhai.Dock = DockStyle.Fill;
-                            ucTrienKhai.SetBuoiTap(_selectedBuoiTap);
-                            newForm.Controls.Add(ucTrienKhai);
-
-                            newForm.ShowDialog();
-                        }
+                        newForm.ShowDialog();
                     }
                 }
             }
             catch (Exception ex)
             {
+                _isOpeningWorkoutForm = false;
                 MessageBox.Show($"Lỗi khi bắt đầu bài tập: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 System.Diagnostics.Debug.WriteLine($"DgvDanhSachBaiTap_CellContentClick error: {ex.Message}");
@@ -957,7 +1040,15 @@ namespace HealthApp.Views.KeHoachLuyenTap
                 
                 if (dashboard != null)
                 {
-                    // Đóng form container và hiển thị lại dashboard
+                    // Nếu uc đang nằm trực tiếp trên frmDashBoard1 thì KHÔNG được Close (sẽ tắt app).
+                    // Chỉ cần quay về nội dung mặc định của dashboard.
+                    if (containerForm is frmDashBoard1)
+                    {
+                        dashboard.ReturnToHome();
+                        return;
+                    }
+
+                    // Nếu uc đang nằm trong 1 form container riêng (Tag = dashboard) thì đóng container rồi show dashboard.
                     if (containerForm != null)
                     {
                         containerForm.Close();
@@ -969,7 +1060,11 @@ namespace HealthApp.Views.KeHoachLuyenTap
                     // Nếu không tìm thấy dashboard, chỉ đóng form container
                     if (containerForm != null)
                     {
-                        containerForm.Close();
+                        // Tránh đóng nhầm form chính
+                        if (!(containerForm is frmDashBoard1))
+                        {
+                            containerForm.Close();
+                        }
                     }
                 }
             }
@@ -1174,17 +1269,18 @@ namespace HealthApp.Views.KeHoachLuyenTap
                     // Cập nhật lại thông tin chi tiết với buổi tập đã hoàn thành
                     if (!string.IsNullOrEmpty(buoiTapIdToUpdate))
                     {
-                        // Reload buổi tập từ database để có trạng thái mới nhất
-                        var updatedBuoiTap = _allBuoiTap?.FirstOrDefault(b => b.BuoiTapID == buoiTapIdToUpdate);
-                        if (updatedBuoiTap != null)
+                        // Reload buổi tập từ database (PHẢI query trong cùng DbContext trước khi Load navigation)
+                        using (var dbContext = new WF_HealthTracker())
                         {
-                            // Load navigation properties
-                            using (var dbContext = new WF_HealthTracker())
+                            var updatedBuoiTap = dbContext.BuoiTap
+                                .FirstOrDefault(b => b.BuoiTapID == buoiTapIdToUpdate);
+
+                            if (updatedBuoiTap != null)
                             {
                                 dbContext.Entry(updatedBuoiTap)
                                     .Collection(bt => bt.BaiTapChiTiet)
                                     .Load();
-                                
+
                                 foreach (var btc in updatedBuoiTap.BaiTapChiTiet)
                                 {
                                     if (btc.ThuVienBaiTap == null && !string.IsNullOrEmpty(btc.BaiTapID))
@@ -1194,10 +1290,10 @@ namespace HealthApp.Views.KeHoachLuyenTap
                                             .Load();
                                     }
                                 }
+
+                                _selectedBuoiTap = updatedBuoiTap;
+                                UpdateDetailInfo(_selectedBuoiTap);
                             }
-                            
-                            _selectedBuoiTap = updatedBuoiTap;
-                            UpdateDetailInfo(_selectedBuoiTap);
                         }
                     }
                     
