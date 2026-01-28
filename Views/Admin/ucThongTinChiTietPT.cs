@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace HealthApp.Views.Admin
 {
-    public partial class ucThongTinChiTiet : UserControl
+    public partial class ucThongTinChiTietPT : UserControl
     {
-        public ucThongTinChiTiet()
+        public ucThongTinChiTietPT()
         {
             InitializeComponent();
         }

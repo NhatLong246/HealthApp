@@ -31,22 +31,22 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdmin));
             this.guna2ContextMenuStrip1 = new Guna.UI2.WinForms.Guna2ContextMenuStrip();
             this.pnlTieuDe = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.guna2PictureBox6 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.btnThongKeTongQuan = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2PictureBox5 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.ptrIconQuanLiNguoiDung = new Guna.UI2.WinForms.Guna2PictureBox();
             this.btnQuanLiGiaoDich = new Guna.UI2.WinForms.Guna2Button();
             this.QuanLiDinhDuong = new Guna.UI2.WinForms.Guna2Button();
             this.btnQuanLiBaiTap = new Guna.UI2.WinForms.Guna2Button();
             this.btnQuanLiPT = new Guna.UI2.WinForms.Guna2Button();
             this.btnQuanLiNguoiDung = new Guna.UI2.WinForms.Guna2Button();
             this.lblTieuDe2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblTieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlNoiDung = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.guna2PictureBox6 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox5 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.ptrIconQuanLiNguoiDung = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pnlTieuDe.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).BeginInit();
@@ -90,27 +90,14 @@
             this.pnlTieuDe.Controls.Add(this.guna2PictureBox1);
             this.pnlTieuDe.Controls.Add(this.lblTieuDe);
             this.pnlTieuDe.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlTieuDe.FillColor = System.Drawing.Color.Blue;
-            this.pnlTieuDe.FillColor2 = System.Drawing.Color.Blue;
+            this.pnlTieuDe.FillColor = System.Drawing.Color.DodgerBlue;
+            this.pnlTieuDe.FillColor2 = System.Drawing.Color.DodgerBlue;
             this.pnlTieuDe.FillColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.pnlTieuDe.FillColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.pnlTieuDe.Location = new System.Drawing.Point(0, 0);
             this.pnlTieuDe.Name = "pnlTieuDe";
             this.pnlTieuDe.Size = new System.Drawing.Size(264, 739);
             this.pnlTieuDe.TabIndex = 1;
-            // 
-            // guna2PictureBox6
-            // 
-            this.guna2PictureBox6.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox6.FillColor = System.Drawing.Color.Tomato;
-            this.guna2PictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox6.Image")));
-            this.guna2PictureBox6.ImageRotate = 0F;
-            this.guna2PictureBox6.Location = new System.Drawing.Point(13, 434);
-            this.guna2PictureBox6.Name = "guna2PictureBox6";
-            this.guna2PictureBox6.Size = new System.Drawing.Size(30, 27);
-            this.guna2PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox6.TabIndex = 14;
-            this.guna2PictureBox6.TabStop = false;
             // 
             // btnThongKeTongQuan
             // 
@@ -130,71 +117,6 @@
             this.btnThongKeTongQuan.Size = new System.Drawing.Size(264, 65);
             this.btnThongKeTongQuan.TabIndex = 13;
             this.btnThongKeTongQuan.Text = "Thống kê tổng quan";
-            // 
-            // guna2PictureBox5
-            // 
-            this.guna2PictureBox5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox5.FillColor = System.Drawing.Color.Tomato;
-            this.guna2PictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox5.Image")));
-            this.guna2PictureBox5.ImageRotate = 0F;
-            this.guna2PictureBox5.Location = new System.Drawing.Point(13, 371);
-            this.guna2PictureBox5.Name = "guna2PictureBox5";
-            this.guna2PictureBox5.Size = new System.Drawing.Size(39, 29);
-            this.guna2PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox5.TabIndex = 12;
-            this.guna2PictureBox5.TabStop = false;
-            // 
-            // guna2PictureBox4
-            // 
-            this.guna2PictureBox4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox4.FillColor = System.Drawing.Color.Tomato;
-            this.guna2PictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox4.Image")));
-            this.guna2PictureBox4.ImageRotate = 0F;
-            this.guna2PictureBox4.Location = new System.Drawing.Point(12, 309);
-            this.guna2PictureBox4.Name = "guna2PictureBox4";
-            this.guna2PictureBox4.Size = new System.Drawing.Size(30, 27);
-            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox4.TabIndex = 11;
-            this.guna2PictureBox4.TabStop = false;
-            // 
-            // guna2PictureBox3
-            // 
-            this.guna2PictureBox3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox3.FillColor = System.Drawing.Color.Tomato;
-            this.guna2PictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox3.Image")));
-            this.guna2PictureBox3.ImageRotate = 0F;
-            this.guna2PictureBox3.Location = new System.Drawing.Point(12, 242);
-            this.guna2PictureBox3.Name = "guna2PictureBox3";
-            this.guna2PictureBox3.Size = new System.Drawing.Size(30, 27);
-            this.guna2PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox3.TabIndex = 10;
-            this.guna2PictureBox3.TabStop = false;
-            // 
-            // guna2PictureBox2
-            // 
-            this.guna2PictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox2.FillColor = System.Drawing.Color.Tomato;
-            this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
-            this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(12, 178);
-            this.guna2PictureBox2.Name = "guna2PictureBox2";
-            this.guna2PictureBox2.Size = new System.Drawing.Size(30, 27);
-            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox2.TabIndex = 9;
-            this.guna2PictureBox2.TabStop = false;
-            // 
-            // ptrIconQuanLiNguoiDung
-            // 
-            this.ptrIconQuanLiNguoiDung.BackColor = System.Drawing.Color.Transparent;
-            this.ptrIconQuanLiNguoiDung.FillColor = System.Drawing.Color.Tomato;
-            this.ptrIconQuanLiNguoiDung.Image = ((System.Drawing.Image)(resources.GetObject("ptrIconQuanLiNguoiDung.Image")));
-            this.ptrIconQuanLiNguoiDung.ImageRotate = 0F;
-            this.ptrIconQuanLiNguoiDung.Location = new System.Drawing.Point(10, 119);
-            this.ptrIconQuanLiNguoiDung.Name = "ptrIconQuanLiNguoiDung";
-            this.ptrIconQuanLiNguoiDung.Size = new System.Drawing.Size(30, 27);
-            this.ptrIconQuanLiNguoiDung.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptrIconQuanLiNguoiDung.TabIndex = 8;
-            this.ptrIconQuanLiNguoiDung.TabStop = false;
             // 
             // btnQuanLiGiaoDich
             // 
@@ -300,18 +222,6 @@
             this.lblTieuDe2.TabIndex = 2;
             this.lblTieuDe2.Text = "QUẢNG TRỊ VIÊN";
             // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(12, 30);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(40, 36);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox1.TabIndex = 1;
-            this.guna2PictureBox1.TabStop = false;
-            // 
             // lblTieuDe
             // 
             this.lblTieuDe.BackColor = System.Drawing.Color.Transparent;
@@ -331,6 +241,96 @@
             this.pnlNoiDung.Name = "pnlNoiDung";
             this.pnlNoiDung.Size = new System.Drawing.Size(1221, 739);
             this.pnlNoiDung.TabIndex = 3;
+            // 
+            // guna2PictureBox6
+            // 
+            this.guna2PictureBox6.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox6.FillColor = System.Drawing.Color.Tomato;
+            this.guna2PictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox6.Image")));
+            this.guna2PictureBox6.ImageRotate = 0F;
+            this.guna2PictureBox6.Location = new System.Drawing.Point(13, 434);
+            this.guna2PictureBox6.Name = "guna2PictureBox6";
+            this.guna2PictureBox6.Size = new System.Drawing.Size(30, 27);
+            this.guna2PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox6.TabIndex = 14;
+            this.guna2PictureBox6.TabStop = false;
+            // 
+            // guna2PictureBox5
+            // 
+            this.guna2PictureBox5.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox5.FillColor = System.Drawing.Color.Tomato;
+            this.guna2PictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox5.Image")));
+            this.guna2PictureBox5.ImageRotate = 0F;
+            this.guna2PictureBox5.Location = new System.Drawing.Point(13, 371);
+            this.guna2PictureBox5.Name = "guna2PictureBox5";
+            this.guna2PictureBox5.Size = new System.Drawing.Size(39, 29);
+            this.guna2PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox5.TabIndex = 12;
+            this.guna2PictureBox5.TabStop = false;
+            // 
+            // guna2PictureBox4
+            // 
+            this.guna2PictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox4.FillColor = System.Drawing.Color.Tomato;
+            this.guna2PictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox4.Image")));
+            this.guna2PictureBox4.ImageRotate = 0F;
+            this.guna2PictureBox4.Location = new System.Drawing.Point(12, 309);
+            this.guna2PictureBox4.Name = "guna2PictureBox4";
+            this.guna2PictureBox4.Size = new System.Drawing.Size(30, 27);
+            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox4.TabIndex = 11;
+            this.guna2PictureBox4.TabStop = false;
+            // 
+            // guna2PictureBox3
+            // 
+            this.guna2PictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox3.FillColor = System.Drawing.Color.Tomato;
+            this.guna2PictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox3.Image")));
+            this.guna2PictureBox3.ImageRotate = 0F;
+            this.guna2PictureBox3.Location = new System.Drawing.Point(12, 242);
+            this.guna2PictureBox3.Name = "guna2PictureBox3";
+            this.guna2PictureBox3.Size = new System.Drawing.Size(30, 27);
+            this.guna2PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox3.TabIndex = 10;
+            this.guna2PictureBox3.TabStop = false;
+            // 
+            // guna2PictureBox2
+            // 
+            this.guna2PictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox2.FillColor = System.Drawing.Color.Tomato;
+            this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
+            this.guna2PictureBox2.ImageRotate = 0F;
+            this.guna2PictureBox2.Location = new System.Drawing.Point(12, 178);
+            this.guna2PictureBox2.Name = "guna2PictureBox2";
+            this.guna2PictureBox2.Size = new System.Drawing.Size(30, 27);
+            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox2.TabIndex = 9;
+            this.guna2PictureBox2.TabStop = false;
+            // 
+            // ptrIconQuanLiNguoiDung
+            // 
+            this.ptrIconQuanLiNguoiDung.BackColor = System.Drawing.Color.Transparent;
+            this.ptrIconQuanLiNguoiDung.FillColor = System.Drawing.Color.Tomato;
+            this.ptrIconQuanLiNguoiDung.Image = ((System.Drawing.Image)(resources.GetObject("ptrIconQuanLiNguoiDung.Image")));
+            this.ptrIconQuanLiNguoiDung.ImageRotate = 0F;
+            this.ptrIconQuanLiNguoiDung.Location = new System.Drawing.Point(10, 119);
+            this.ptrIconQuanLiNguoiDung.Name = "ptrIconQuanLiNguoiDung";
+            this.ptrIconQuanLiNguoiDung.Size = new System.Drawing.Size(30, 27);
+            this.ptrIconQuanLiNguoiDung.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptrIconQuanLiNguoiDung.TabIndex = 8;
+            this.ptrIconQuanLiNguoiDung.TabStop = false;
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(12, 30);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(40, 36);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox1.TabIndex = 1;
+            this.guna2PictureBox1.TabStop = false;
             // 
             // frmAdmin
             // 

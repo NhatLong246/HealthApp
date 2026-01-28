@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HealthApp.Views.Admin
+namespace HealthApp.Views.Settings
 {
-    public partial class ucKhachHang : UserControl
+    public partial class DoiMatKhau : Form
     {
-        public ucKhachHang()
+        public DoiMatKhau()
         {
             InitializeComponent();
         }

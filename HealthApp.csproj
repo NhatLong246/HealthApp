@@ -216,6 +216,60 @@
     <Compile Include="Views\Activity\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\ChiTietGiaoDich.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ChiTietGiaoDich.Designer.cs">
+      <DependentUpon>ChiTietGiaoDich.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\SuaMonAn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\SuaMonAn.Designer.cs">
+      <DependentUpon>SuaMonAn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ThemMonAn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ThemMonAn.Designer.cs">
+      <DependentUpon>ThemMonAn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucBaiTap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucBaiTap.Designer.cs">
+      <DependentUpon>ucBaiTap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucGiaoDich.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucGiaoDich.Designer.cs">
+      <DependentUpon>ucGiaoDich.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucQuanLyDinhDuong.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucQuanLyDinhDuong.Designer.cs">
+      <DependentUpon>ucQuanLyDinhDuong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucSuaBT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucSuaBT.Designer.cs">
+      <DependentUpon>ucSuaBT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucQuanLyBT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucQuanLyBT.Designer.cs">
+      <DependentUpon>ucQuanLyBT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ucThemBT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\ucThemBT.Designer.cs">
+      <DependentUpon>ucThemBT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\KeHoachLuyenTap\frmDoiLichTap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -258,11 +312,11 @@
     <Compile Include="Views\Admin\ucHieuSuat.Designer.cs">
       <DependentUpon>ucHieuSuat.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\ucKhachHang.cs">
+    <Compile Include="Views\Admin\ucQLNguoiDung.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\Admin\ucKhachHang.Designer.cs">
-      <DependentUpon>ucKhachHang.cs</DependentUpon>
+    <Compile Include="Views\Admin\ucQLNguoiDung.Designer.cs">
+      <DependentUpon>ucQLNguoiDung.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\ucLichPT.cs">
       <SubType>UserControl</SubType>
@@ -276,11 +330,11 @@
     <Compile Include="Views\Admin\ucQuanLiPT.Designer.cs">
       <DependentUpon>ucQuanLiPT.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\ucThongTinChiTiet.cs">
+    <Compile Include="Views\Admin\ucThongTinChiTietPT.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\Admin\ucThongTinChiTiet.Designer.cs">
-      <DependentUpon>ucThongTinChiTiet.cs</DependentUpon>
+    <Compile Include="Views\Admin\ucThongTinChiTietPT.Designer.cs">
+      <DependentUpon>ucThongTinChiTietPT.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.cs">
       <SubType>UserControl</SubType>
@@ -483,6 +537,12 @@
     <Compile Include="Views\Dashboard\ucDashBoard.Designer.cs">
       <DependentUpon>ucDashBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\DoiMatKhau.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Settings\DoiMatKhau.Designer.cs">
+      <DependentUpon>DoiMatKhau.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings\frmChangeInformationforNewuser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -534,6 +594,33 @@
     <EmbeddedResource Include="Views\Activity\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ChiTietGiaoDich.resx">
+      <DependentUpon>ChiTietGiaoDich.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\SuaMonAn.resx">
+      <DependentUpon>SuaMonAn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ThemMonAn.resx">
+      <DependentUpon>ThemMonAn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucBaiTap.resx">
+      <DependentUpon>ucBaiTap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucGiaoDich.resx">
+      <DependentUpon>ucGiaoDich.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucQuanLyDinhDuong.resx">
+      <DependentUpon>ucQuanLyDinhDuong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucSuaBT.resx">
+      <DependentUpon>ucSuaBT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucQuanLyBT.resx">
+      <DependentUpon>ucQuanLyBT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\ucThemBT.resx">
+      <DependentUpon>ucThemBT.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\KeHoachLuyenTap\frmDoiLichTap.resx">
       <DependentUpon>frmDoiLichTap.cs</DependentUpon>
     </EmbeddedResource>
@@ -555,8 +642,8 @@
     <EmbeddedResource Include="Views\Admin\ucHieuSuat.resx">
       <DependentUpon>ucHieuSuat.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Admin\ucKhachHang.resx">
-      <DependentUpon>ucKhachHang.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Admin\ucQLNguoiDung.resx">
+      <DependentUpon>ucQLNguoiDung.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Admin\ucLichPT.resx">
       <DependentUpon>ucLichPT.cs</DependentUpon>
@@ -564,8 +651,8 @@
     <EmbeddedResource Include="Views\Admin\ucQuanLiPT.resx">
       <DependentUpon>ucQuanLiPT.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Admin\ucThongTinChiTiet.resx">
-      <DependentUpon>ucThongTinChiTiet.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Admin\ucThongTinChiTietPT.resx">
+      <DependentUpon>ucThongTinChiTietPT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\KeHoachLuyenTap\ucKeHoachLuyenTap.resx">
       <DependentUpon>ucKeHoachLuyenTap.cs</DependentUpon>
@@ -680,6 +767,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ucNutrition.resx">
       <DependentUpon>ucNutrition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Settings\DoiMatKhau.resx">
+      <DependentUpon>DoiMatKhau.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Settings\frmChangeInformationforNewuser.resx">
       <DependentUpon>frmChangeInformationforNewuser.cs</DependentUpon>
@@ -1175,6 +1265,7 @@
     <None Include="Resources\LogostatisticalIcon.png" />
     <None Include="Resources\LogoReservationIcon.png" />
     <None Include="Resources\report.png" />
+    <Content Include="Resources\Images\hoaHongApp.png" />
     <Content Include="Resources\Video\ren-luyen-dang.mp4" />
     <None Include="Resources\Icons\icons-deadlift.gif" />
     <None Include="Resources\Icons\icons-workout.png" />
