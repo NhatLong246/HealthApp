@@ -26,6 +26,7 @@
             this.btnPrev = new Guna.UI2.WinForms.Guna2Button();
             this.label4 = new System.Windows.Forms.Label();
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.btnDanhGia = new Guna.UI2.WinForms.Guna2Button();
             this.grbMain.SuspendLayout();
             this.flpBookings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
@@ -68,7 +69,7 @@
             this.pnLichDat.Radius = 10;
             this.pnLichDat.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.pnLichDat.ShadowShift = 1;
-            this.pnLichDat.Size = new System.Drawing.Size(900, 120);
+            this.pnLichDat.Size = new System.Drawing.Size(922, 120);
             this.pnLichDat.TabIndex = 16;
             // 
             // dtpTime
@@ -125,9 +126,9 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(96, 28);
+            this.label4.Location = new System.Drawing.Point(225, 24);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(282, 28);
             this.label4.TabIndex = 13;
@@ -135,20 +136,39 @@
             // 
             // guna2PictureBox2
             // 
-            this.guna2PictureBox2.BackColor = System.Drawing.Color.White;
+            this.guna2PictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
             this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(35, 18);
+            this.guna2PictureBox2.Location = new System.Drawing.Point(164, 14);
             this.guna2PictureBox2.Name = "guna2PictureBox2";
             this.guna2PictureBox2.Size = new System.Drawing.Size(50, 50);
             this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.guna2PictureBox2.TabIndex = 14;
             this.guna2PictureBox2.TabStop = false;
             // 
+            // btnDanhGia
+            // 
+            this.btnDanhGia.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnDanhGia.BorderRadius = 10;
+            this.btnDanhGia.BorderThickness = 1;
+            this.btnDanhGia.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDanhGia.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnDanhGia.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDanhGia.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDanhGia.FillColor = System.Drawing.Color.Yellow;
+            this.btnDanhGia.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDanhGia.ForeColor = System.Drawing.Color.White;
+            this.btnDanhGia.Location = new System.Drawing.Point(1155, 588);
+            this.btnDanhGia.Name = "btnDanhGia";
+            this.btnDanhGia.Size = new System.Drawing.Size(150, 45);
+            this.btnDanhGia.TabIndex = 16;
+            this.btnDanhGia.Text = "Đánh giá ";
+            // 
             // BaiTapCuaPTGiao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnDanhGia);
             this.Controls.Add(this.grbMain);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.guna2PictureBox2);
@@ -172,5 +192,6 @@
         private Guna.UI2.WinForms.Guna2Button btnPrev;
         private System.Windows.Forms.Label label4;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
+        private Guna.UI2.WinForms.Guna2Button btnDanhGia;
     }
 }

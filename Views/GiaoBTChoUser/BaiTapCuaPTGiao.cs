@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,9 @@ namespace HealthApp.Views.GiaoBTChoUser
         private readonly PTController _ptController;
         private readonly Guna2ShadowPanel _assignmentTemplate;
         private LichLuyenTapUser _parentLichForm;
+        private DatLichPT _currentSessionBooking; // Lưu buổi tập hiện tại (session đầu tiên có DatLichID)
+        private List<GiaoBaiTapChoUser> _currentSessionAssignments; // Lưu danh sách bài tập của session hiện tại
+        private List<GiaoBaiTapChoUser> _allAssignments; // Lưu tất cả assignments (để dùng khi không có session)
 
         public BaiTapCuaPTGiao(DateTime? selectedDate = null, LichLuyenTapUser parentLichForm = null)
         {
@@ -31,17 +35,16 @@ namespace HealthApp.Views.GiaoBTChoUser
                 flpBookings.Controls.Remove(pnLichDat);
             }
 
-            // Nếu có ngày được chọn, set vào dtpTime
-            if (selectedDate.HasValue)
-            {
-                dtpTime.Value = selectedDate.Value;
-            }
+            // Nếu có ngày được chọn từ lịch, sử dụng đúng ngày đó (chỉ lấy phần Date)
+            // Nếu không, mặc định là hôm nay
+            dtpTime.Value = selectedDate?.Date ?? DateTime.Today;
 
             // Gắn event handlers
             this.Load += BaiTapCuaPTGiao_Load;
             dtpTime.ValueChanged += DtpTime_ValueChanged;
             btnPrev.Click += BtnPrev_Click;
             btnNext.Click += BtnNext_Click;
+            btnDanhGia.Click += BtnDanhGia_Click;
         }
 
         /// <summary>
@@ -51,8 +54,9 @@ namespace HealthApp.Views.GiaoBTChoUser
         {
             if (dtpTime != null)
             {
-                dtpTime.Value = date;
-                _ = LoadAssignmentsForDateAsync(date);
+                var onlyDate = date.Date;
+                dtpTime.Value = onlyDate;
+                _ = LoadAssignmentsForDateAsync(onlyDate);
             }
         }
 
@@ -67,13 +71,9 @@ namespace HealthApp.Views.GiaoBTChoUser
                     return;
                 }
 
-                // Nếu dtpTime đã được set từ constructor, load dữ liệu cho ngày đó
-                // Nếu không, mặc định chọn hôm nay
-                if (dtpTime.Value == DateTime.MinValue || dtpTime.Value.Date == new DateTime(2025, 11, 26).Date)
-                {
-                    dtpTime.Value = DateTime.Today;
-                }
-                _ = LoadAssignmentsForDateAsync(dtpTime.Value.Date);
+                // dtpTime đã được set trong constructor (ngày click hoặc hôm nay)
+                var selectedDate = dtpTime.Value.Date;
+                _ = LoadAssignmentsForDateAsync(selectedDate);
             }
             catch (Exception ex)
             {
@@ -114,9 +114,14 @@ namespace HealthApp.Views.GiaoBTChoUser
                 // Lấy assignments theo UserID (user hiện tại)
                 var assignments = await _ptController.GetAssignmentsByUserAndDateAsync(date);
 
+                // Lưu tất cả assignments để dùng cho đánh giá
+                _allAssignments = assignments?.ToList() ?? new List<GiaoBaiTapChoUser>();
+
                 if (assignments == null || assignments.Count == 0)
                 {
                     flpBookings.Controls.Clear();
+                    _currentSessionBooking = null;
+                    _currentSessionAssignments = null;
                     return;
                 }
 
@@ -154,11 +159,53 @@ namespace HealthApp.Views.GiaoBTChoUser
             }
 
             // Hiển thị từng buổi với các bài tập trong buổi đó
+            bool isFirstSession = true;
             foreach (var sessionGroup in groupedBySession)
             {
                 var sessionAssignments = sessionGroup.ToList();
                 var firstAssignment = sessionAssignments.First();
                 var booking = firstAssignment.DatLichPT;
+
+                // Đảm bảo booking có đầy đủ thông tin PT (nếu chưa có)
+                if (booking != null && (booking.HuanLuyenVien == null || booking.HuanLuyenVien.Users == null))
+                {
+                    System.Diagnostics.Debug.WriteLine($"[RenderAssignmentsBySession] Booking thiếu thông tin PT, đang load...");
+                    
+                    // Nếu booking không có PT hoặc PT không có Users, thử lấy từ assignment
+                    if (firstAssignment.HuanLuyenVien != null && firstAssignment.HuanLuyenVien.Users != null)
+                    {
+                        booking.HuanLuyenVien = firstAssignment.HuanLuyenVien;
+                        System.Diagnostics.Debug.WriteLine($"[RenderAssignmentsBySession] Lấy PT từ assignment: {booking.HuanLuyenVien.PTID}, User: {booking.HuanLuyenVien.Users?.HoTen ?? "NULL"}");
+                    }
+                    else if (!string.IsNullOrWhiteSpace(booking.PTID))
+                    {
+                        // Load PT từ database nếu cần
+                        System.Diagnostics.Debug.WriteLine($"[RenderAssignmentsBySession] Load PT từ DB: {booking.PTID}");
+                        using (var context = new WF_HealthTracker())
+                        {
+                            var pt = context.HuanLuyenVien
+                                .Include("Users")
+                                .FirstOrDefault(h => h.PTID == booking.PTID);
+                            if (pt != null)
+                            {
+                                booking.HuanLuyenVien = pt;
+                                System.Diagnostics.Debug.WriteLine($"[RenderAssignmentsBySession] Load thành công: {pt.PTID}, User: {pt.Users?.HoTen ?? "NULL"}");
+                            }
+                            else
+                            {
+                                System.Diagnostics.Debug.WriteLine($"[RenderAssignmentsBySession] Load thất bại!");
+                            }
+                        }
+                    }
+                }
+
+                // Lưu session đầu tiên để dùng cho đánh giá
+                if (isFirstSession && booking != null)
+                {
+                    _currentSessionBooking = booking;
+                    _currentSessionAssignments = sessionAssignments;
+                    isFirstSession = false;
+                }
 
                 // Tạo card cho buổi tập
                 var sessionCard = CreateSessionCard(booking, sessionAssignments);
@@ -431,6 +478,198 @@ namespace HealthApp.Views.GiaoBTChoUser
             public string Sets { get; set; }
             public string Reps { get; set; }
             public int? RestSeconds { get; set; }
+        }
+
+        /// <summary>
+        /// Event handler cho nút Đánh giá - mở form đánh giá PT
+        /// </summary>
+        private void BtnDanhGia_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn || CurrentUser.User == null)
+                {
+                    MessageBox.Show("Vui lòng đăng nhập trước khi đánh giá PT!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DatLichPT booking = null;
+                List<GiaoBaiTapChoUser> assignments = null;
+
+                // Ưu tiên dùng session nếu có
+                if (_currentSessionBooking != null && _currentSessionAssignments != null && _currentSessionAssignments.Count > 0)
+                {
+                    booking = _currentSessionBooking;
+                    assignments = _currentSessionAssignments;
+                    System.Diagnostics.Debug.WriteLine($"[BtnDanhGia] Dùng session: Booking.PTID={booking.PTID}, Booking.HuanLuyenVien={booking.HuanLuyenVien != null}, Assignments count={assignments.Count}");
+                }
+                // Nếu không có session, dùng assignments không có DatLichID hoặc tất cả assignments
+                else if (_allAssignments != null && _allAssignments.Count > 0)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[BtnDanhGia] Không có session, dùng assignments. Count: {_allAssignments.Count}");
+                    
+                    // Lấy assignment đầu tiên để lấy thông tin PT
+                    var firstAssignment = _allAssignments.FirstOrDefault(a => !string.IsNullOrWhiteSpace(a.PTID));
+                    
+                    if (firstAssignment != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[BtnDanhGia] First assignment PTID: {firstAssignment.PTID}, HuanLuyenVien={firstAssignment.HuanLuyenVien != null}");
+                        
+                        // Tạo một DatLichPT giả từ thông tin assignment
+                        booking = CreateDummyBookingFromAssignment(firstAssignment);
+                        System.Diagnostics.Debug.WriteLine($"[BtnDanhGia] Dummy booking created: PTID={booking.PTID}, HuanLuyenVien={booking.HuanLuyenVien != null}");
+                        
+                        // Dùng tất cả assignments hoặc chỉ những assignment cùng PT
+                        assignments = _allAssignments
+                            .Where(a => a.PTID == firstAssignment.PTID)
+                            .ToList();
+                        
+                        // Nếu không có assignment nào cùng PT, dùng tất cả
+                        if (assignments.Count == 0)
+                        {
+                            assignments = _allAssignments;
+                        }
+                        
+                        System.Diagnostics.Debug.WriteLine($"[BtnDanhGia] Final assignments count: {assignments.Count}");
+                    }
+                }
+
+                // Nếu vẫn không có thông tin, vẫn cho phép mở form nhưng với thông tin tối thiểu
+                if (booking == null || assignments == null || assignments.Count == 0)
+                {
+                    // Tạo booking và assignments rỗng để vẫn có thể đánh giá
+                    booking = CreateEmptyBooking();
+                    assignments = new List<GiaoBaiTapChoUser>();
+                }
+
+                // Đảm bảo assignments có đầy đủ thông tin PT (nếu chưa có)
+                EnsureAssignmentsHavePTInfo(assignments);
+
+                System.Diagnostics.Debug.WriteLine($"[BtnDanhGia] Mở form với: Booking.PTID={booking.PTID}, Booking.HuanLuyenVien={booking.HuanLuyenVien != null}, Assignments count={assignments.Count}");
+                
+                // Mở form đánh giá PT
+                var frmDanhGia = new HealthApp.Views.PT.frmDanhGiaPT(booking, assignments);
+                frmDanhGia.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở form đánh giá: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Tạo DatLichPT giả từ thông tin assignment (khi không có session)
+        /// </summary>
+        private DatLichPT CreateDummyBookingFromAssignment(GiaoBaiTapChoUser assignment)
+        {
+            // Ưu tiên lấy PT từ assignment nếu đã được load
+            HuanLuyenVien pt = null;
+            
+            if (assignment.HuanLuyenVien != null && assignment.HuanLuyenVien.Users != null)
+            {
+                // PT đã được eager load trong assignment và có Users
+                pt = assignment.HuanLuyenVien;
+                System.Diagnostics.Debug.WriteLine($"[CreateDummyBooking] Lấy PT từ assignment.HuanLuyenVien: {pt.PTID}, User: {pt.Users?.HoTen ?? "NULL"}");
+            }
+            else if (!string.IsNullOrWhiteSpace(assignment.PTID))
+            {
+                // Load PT từ database nếu chưa có hoặc không có Users
+                System.Diagnostics.Debug.WriteLine($"[CreateDummyBooking] Load PT từ DB: {assignment.PTID}");
+                using (var context = new WF_HealthTracker())
+                {
+                    pt = context.HuanLuyenVien
+                        .Include("Users")
+                        .FirstOrDefault(h => h.PTID == assignment.PTID);
+                    
+                    if (pt != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[CreateDummyBooking] Load thành công: {pt.PTID}, User: {pt.Users?.HoTen ?? "NULL"}");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[CreateDummyBooking] Load thất bại!");
+                    }
+                }
+            }
+
+            if (pt == null)
+            {
+                System.Diagnostics.Debug.WriteLine("[CreateDummyBooking] PT null, tạo empty booking");
+                return CreateEmptyBooking();
+            }
+
+            // Đảm bảo PT có Users (nếu chưa có, load lại)
+            if (pt.Users == null && !string.IsNullOrWhiteSpace(pt.UserID))
+            {
+                System.Diagnostics.Debug.WriteLine($"[CreateDummyBooking] PT không có Users, load lại UserID: {pt.UserID}");
+                using (var context = new WF_HealthTracker())
+                {
+                    pt.Users = context.Users.FirstOrDefault(u => u.UserID == pt.UserID);
+                }
+            }
+
+            // Tạo DatLichPT giả với thông tin tối thiểu
+            var dummyBooking = new DatLichPT
+            {
+                DatLichID = assignment.DatLichID ?? "DUMMY_" + Guid.NewGuid().ToString().Substring(0, 8),
+                PTID = assignment.PTID,
+                KhachHangID = assignment.UserID ?? CurrentUser.UserID,
+                ThoiGianBatDau = dtpTime.Value.Date.AddHours(9), // Mặc định 9h sáng
+                ThoiGianKetThuc = dtpTime.Value.Date.AddHours(10), // Mặc định 10h sáng
+                TrangThai = "Completed", // Đánh dấu là đã hoàn thành để có thể đánh giá
+                HuanLuyenVien = pt // Gán PT đã load (có Users)
+            };
+            
+            System.Diagnostics.Debug.WriteLine($"[CreateDummyBooking] Tạo booking thành công: PTID={dummyBooking.PTID}, HuanLuyenVien={dummyBooking.HuanLuyenVien != null}, Users={dummyBooking.HuanLuyenVien?.Users != null}");
+            return dummyBooking;
+        }
+
+        /// <summary>
+        /// Đảm bảo assignments có đầy đủ thông tin PT
+        /// </summary>
+        private void EnsureAssignmentsHavePTInfo(List<GiaoBaiTapChoUser> assignments)
+        {
+            if (assignments == null || assignments.Count == 0) return;
+
+            foreach (var assignment in assignments)
+            {
+                if (string.IsNullOrWhiteSpace(assignment.PTID)) continue;
+
+                // Nếu assignment không có HuanLuyenVien hoặc HuanLuyenVien không có Users
+                if (assignment.HuanLuyenVien == null || assignment.HuanLuyenVien.Users == null)
+                {
+                    using (var context = new WF_HealthTracker())
+                    {
+                        var pt = context.HuanLuyenVien
+                            .Include("Users")
+                            .FirstOrDefault(h => h.PTID == assignment.PTID);
+                        
+                        if (pt != null)
+                        {
+                            assignment.HuanLuyenVien = pt;
+                            System.Diagnostics.Debug.WriteLine($"[EnsureAssignmentsHavePTInfo] Load PT cho assignment: {assignment.PTID}, User: {pt.Users?.HoTen ?? "NULL"}");
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Tạo DatLichPT rỗng khi không có thông tin gì
+        /// </summary>
+        private DatLichPT CreateEmptyBooking()
+        {
+            return new DatLichPT
+            {
+                DatLichID = "EMPTY_" + Guid.NewGuid().ToString().Substring(0, 8),
+                PTID = null,
+                KhachHangID = CurrentUser.UserID,
+                ThoiGianBatDau = dtpTime.Value.Date.AddHours(9),
+                ThoiGianKetThuc = dtpTime.Value.Date.AddHours(10),
+                TrangThai = "Completed"
+            };
         }
 
         protected override void Dispose(bool disposing)

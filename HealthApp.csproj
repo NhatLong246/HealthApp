@@ -419,6 +419,12 @@
     <Compile Include="Views\Nutrition\FlowLayoutPanelNoScrollbar.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\PT\frmDanhGiaPT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PT\frmDanhGiaPT.Designer.cs">
+      <DependentUpon>frmDanhGiaPT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\PT\frm_ThueTheoLichTrinh.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -649,6 +655,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Nutrition\ucCheDoAnUongDeXuat.vi-VN.resx">
       <DependentUpon>ucCheDoAnUongDeXuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PT\frmDanhGiaPT.resx">
+      <DependentUpon>frmDanhGiaPT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PT\frm_ThueTheoLichTrinh.resx">
       <DependentUpon>frm_ThueTheoLichTrinh.cs</DependentUpon>

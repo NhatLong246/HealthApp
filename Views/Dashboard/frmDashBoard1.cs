@@ -74,6 +74,19 @@ namespace HealthApp.Views.Dashboard
             // Account panel dropdown menu
             InitializeAccountMenu();
             pnlTaiKhoang.Click += PnlTaiKhoang_Click;
+            
+            // Thêm event handler cho các control con trong pnlTaiKhoang
+            if (lblTenNguoiDung != null)
+            {
+                lblTenNguoiDung.Click += PnlTaiKhoang_Click;
+                lblTenNguoiDung.Cursor = Cursors.Hand; // Đổi cursor thành hand để người dùng biết có thể click
+            }
+            
+            if (ptrAnhNguoiDung != null)
+            {
+                ptrAnhNguoiDung.Click += PnlTaiKhoang_Click;
+                ptrAnhNguoiDung.Cursor = Cursors.Hand; // Đổi cursor thành hand để người dùng biết có thể click
+            }
         }
 
         /// <summary>

@@ -515,6 +515,14 @@ namespace HealthApp.Services
                 }
                 catch (SqlException)
                 {
+                    // Lỗi database (ví dụ bảng chưa tồn tại), không để crash UI
+                    return new List<GiaoBaiTapChoUser>();
+                }
+                catch (Exception ex)
+                {
+                    // Một số lỗi EF bọc SqlException trong EntityCommandExecutionException
+                    // hoặc các lỗi khác – log lại rồi trả về danh sách rỗng để tránh văng app.
+                    System.Diagnostics.Debug.WriteLine($"[PTService] Lỗi khi load assignments theo User + Date: {ex.Message} | Inner: {ex.InnerException?.Message}");
                     return new List<GiaoBaiTapChoUser>();
                 }
             });

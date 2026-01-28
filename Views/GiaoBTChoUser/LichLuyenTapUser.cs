@@ -26,6 +26,21 @@ namespace HealthApp.Views.GiaoBTChoUser
         private bool _hasInitialized;
         private Form _parentForm;
 
+        /// <summary>
+        /// Item dùng để hiển thị trong combobox lịch tập sắp tới
+        /// </summary>
+        private sealed class UpcomingScheduleItem
+        {
+            public DateTime StartTime { get; set; }
+            public DatLichPT Booking { get; set; }
+            public string DisplayText { get; set; }
+
+            public override string ToString()
+            {
+                return DisplayText;
+            }
+        }
+
         private enum TimeSlot
         {
             Morning = 0,
@@ -67,6 +82,12 @@ namespace HealthApp.Views.GiaoBTChoUser
             btnPrevious.Click += async (s, e) => await ChangeWeekAsync(-1);
             btnBack.Click += BtnBack_Click;
 
+            // Khi chọn 1 lịch trong combobox, nhảy tới tuần tương ứng
+            if (cbcLichTapSapToi != null)
+            {
+                cbcLichTapSapToi.SelectedIndexChanged += CbcLichTapSapToi_SelectedIndexChanged;
+            }
+
             foreach (var button in _slotButtons)
             {
                 button.Click += SlotButton_Click;
@@ -105,6 +126,74 @@ namespace HealthApp.Views.GiaoBTChoUser
             _currentWeekStart = GetStartOfWeek(DateTime.Today);
             await LoadWeekBookingsAsync();
             _hasInitialized = true;
+
+            // Sau khi load tuần hiện tại, load luôn danh sách lịch tập sắp tới
+            await LoadUpcomingSchedulesAsync();
+        }
+
+        /// <summary>
+        /// Load danh sách các lịch tập sắp tới vào combobox cbcLichTapSapToi
+        /// </summary>
+        private async Task LoadUpcomingSchedulesAsync()
+        {
+            try
+            {
+                if (!CurrentUser.IsLoggedIn || CurrentUser.User == null || cbcLichTapSapToi == null)
+                {
+                    return;
+                }
+
+                var userId = CurrentUser.UserID;
+                var today = DateTime.Today;
+
+                List<DatLichPT> upcoming;
+                using (var context = new WF_HealthTracker())
+                {
+                    // Sử dụng ToList (đồng bộ) vì EF6 trong dự án này không hỗ trợ ToListAsync trên alias hiện tại
+                    upcoming = context.DatLichPT
+                        .Include("HuanLuyenVien")
+                        .Include("HuanLuyenVien.Users")
+                        .Where(d =>
+                            d.KhachHangID == userId &&
+                            d.ThoiGianBatDau >= today && // chỉ lấy các lịch từ hôm nay trở đi
+                            (d.TrangThai == "Confirmed" || d.TrangThai == "Completed"))
+                        .OrderBy(d => d.ThoiGianBatDau)
+                        .Take(50)
+                        .ToList();
+                }
+
+                cbcLichTapSapToi.Items.Clear();
+
+                if (upcoming == null || upcoming.Count == 0)
+                {
+                    cbcLichTapSapToi.Items.Add("Không có lịch tập sắp tới");
+                    cbcLichTapSapToi.SelectedIndex = 0;
+                    return;
+                }
+
+                foreach (var booking in upcoming)
+                {
+                    var start = booking.ThoiGianBatDau;
+                    var ptName = booking.HuanLuyenVien?.Users?.HoTen ?? booking.PTID ?? "PT";
+                    var display = $"{start:dd/MM/yyyy HH:mm} - {ptName}";
+
+                    var item = new UpcomingScheduleItem
+                    {
+                        StartTime = start,
+                        Booking = booking,
+                        DisplayText = display
+                    };
+
+                    cbcLichTapSapToi.Items.Add(item);
+                }
+
+                // Không tự chọn gì, để user tự chọn
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải lịch tập sắp tới: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async Task LoadWeekBookingsAsync()
@@ -138,6 +227,7 @@ namespace HealthApp.Views.GiaoBTChoUser
                             weeklyData[i] = context.DatLichPT
                                 .Include("Users")
                                 .Include("HuanLuyenVien")
+                                .Include("HuanLuyenVien.Users") // Eager load luôn Users của HLV để tránh lỗi ObjectContext disposed
                                 .Where(d =>
                                     d.KhachHangID == userId &&
                                     d.ThoiGianBatDau >= start &&
@@ -169,6 +259,20 @@ namespace HealthApp.Views.GiaoBTChoUser
             var end = _currentWeekStart.AddDays(6);
             lblNgayTrongTuan.Text =
                 $"{_currentWeekStart.ToString("dd/MM/yyyy", _culture)} - {end.ToString("dd/MM/yyyy", _culture)}";
+        }
+
+        /// <summary>
+        /// Khi chọn 1 lịch trong combobox, tự động nhảy tới tuần chứa ngày đó
+        /// và cập nhật lại TKB + lblNgayTrongTuan.
+        /// </summary>
+        private async void CbcLichTapSapToi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbcLichTapSapToi.SelectedItem is UpcomingScheduleItem item)
+            {
+                var date = item.StartTime.Date;
+                _currentWeekStart = GetStartOfWeek(date);
+                await LoadWeekBookingsAsync();
+            }
         }
 
         private void UpdateDayHeaders()
