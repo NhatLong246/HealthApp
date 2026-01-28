@@ -35,6 +35,9 @@ namespace HealthApp.Views.Admin
             // Data đã được load trong constructor
         }
 
+        private static readonly Color BorderColorError = Color.Red;
+        private static readonly Color BorderColorNormal = Color.FromArgb(208, 208, 208);
+
         /// <summary>
         /// Khởi tạo các controls
         /// </summary>
@@ -49,6 +52,49 @@ namespace HealthApp.Views.Admin
             
             if (btnHuy != null)
                 btnHuy.Click += BtnHuy_Click;
+
+            // Khi người dùng sửa ô → bỏ viền đỏ
+            if (txtTenMonAn != null) txtTenMonAn.TextChanged += (s, e) => SetTextBoxBorder(txtTenMonAn, BorderColorNormal);
+            if (txtSoCalories != null) txtSoCalories.TextChanged += (s, e) => SetTextBoxBorder(txtSoCalories, BorderColorNormal);
+            if (txtKhoiLuongChuan != null) txtKhoiLuongChuan.TextChanged += (s, e) => SetTextBoxBorder(txtKhoiLuongChuan, BorderColorNormal);
+            if (txtProtein != null) txtProtein.TextChanged += (s, e) => SetTextBoxBorder(txtProtein, BorderColorNormal);
+            if (txtCarb != null) txtCarb.TextChanged += (s, e) => SetTextBoxBorder(txtCarb, BorderColorNormal);
+            if (txtFat != null) txtFat.TextChanged += (s, e) => SetTextBoxBorder(txtFat, BorderColorNormal);
+            if (txtFiber != null) txtFiber.TextChanged += (s, e) => SetTextBoxBorder(txtFiber, BorderColorNormal);
+            if (cboLoai != null) cboLoai.SelectedIndexChanged += (s, e) => SetComboBoxBorder(cboLoai, BorderColorNormal);
+            if (cboDonVi != null) cboDonVi.SelectedIndexChanged += (s, e) => SetComboBoxBorder(cboDonVi, BorderColorNormal);
+        }
+
+        /// <summary>
+        /// Reset viền tất cả ô về bình thường (trước khi validate)
+        /// </summary>
+        private void ResetAllBorders()
+        {
+            SetTextBoxBorder(txtTenMonAn, BorderColorNormal);
+            SetTextBoxBorder(txtSoCalories, BorderColorNormal);
+            SetTextBoxBorder(txtKhoiLuongChuan, BorderColorNormal);
+            SetTextBoxBorder(txtProtein, BorderColorNormal);
+            SetTextBoxBorder(txtCarb, BorderColorNormal);
+            SetTextBoxBorder(txtFat, BorderColorNormal);
+            SetTextBoxBorder(txtFiber, BorderColorNormal);
+            SetComboBoxBorder(cboLoai, BorderColorNormal);
+            SetComboBoxBorder(cboDonVi, BorderColorNormal);
+        }
+
+        private void SetTextBoxBorder(Guna.UI2.WinForms.Guna2TextBox ctrl, Color color)
+        {
+            if (ctrl == null) return;
+            ctrl.BorderColor = color;
+            ctrl.FocusedState.BorderColor = color;
+            ctrl.HoverState.BorderColor = color;
+        }
+
+        private void SetComboBoxBorder(Guna.UI2.WinForms.Guna2ComboBox ctrl, Color color)
+        {
+            if (ctrl == null) return;
+            ctrl.BorderColor = color;
+            ctrl.FocusedState.BorderColor = color;
+            ctrl.HoverState.BorderColor = color;
         }
 
         /// <summary>
@@ -256,18 +302,132 @@ namespace HealthApp.Views.Admin
         }
 
         /// <summary>
-        /// Validate dữ liệu đầu vào
+        /// Validate dữ liệu đầu vào theo quy tắc: bắt buộc, kiểu dữ liệu, tên 3–100 ký tự, không trùng (trừ chính nó).
         /// </summary>
         private bool ValidateInput()
         {
-            if (string.IsNullOrWhiteSpace(txtTenMonAn?.Text))
+            ResetAllBorders();
+
+            bool hasError = false;
+
+            // 1. Tên món ăn: bắt buộc, 3–100 ký tự, không phải toàn số, không trùng (trừ chính nó)
+            string tenMon = txtTenMonAn?.Text?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(tenMon))
             {
+                SetTextBoxBorder(txtTenMonAn, BorderColorError);
                 MessageBox.Show("Vui lòng nhập tên món ăn!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTenMonAn?.Focus();
                 return false;
             }
+            if (tenMon.Length < 3 || tenMon.Length > 100)
+            {
+                SetTextBoxBorder(txtTenMonAn, BorderColorError);
+                MessageBox.Show("Tên món ăn phải từ 3 đến 100 ký tự!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenMonAn?.Focus();
+                return false;
+            }
+            if (tenMon.All(char.IsDigit))
+            {
+                SetTextBoxBorder(txtTenMonAn, BorderColorError);
+                MessageBox.Show("Tên món ăn không được chỉ gồm số!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenMonAn?.Focus();
+                return false;
+            }
+            // Kiểm tra trùng tên (nhưng cho phép trùng với chính nó)
+            if (_monAn != null && _dbContext.ThuVienMonAn.Any(ma => 
+                ma.MonAnID != _monAn.MonAnID && 
+                ma.TenMonAn != null && 
+                ma.TenMonAn.Trim().ToLower() == tenMon.ToLower()))
+            {
+                SetTextBoxBorder(txtTenMonAn, BorderColorError);
+                MessageBox.Show("Tên món ăn này đã tồn tại trong hệ thống!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenMonAn?.Focus();
+                return false;
+            }
 
+            // 2. Loại: bắt buộc
+            string msgFirst = null;
+            Control focusFirst = null;
+            if (cboLoai == null || cboLoai.SelectedItem == null || string.IsNullOrWhiteSpace(cboLoai.SelectedItem.ToString()))
+            {
+                SetComboBoxBorder(cboLoai, BorderColorError);
+                if (msgFirst == null) { msgFirst = "Vui lòng chọn loại món ăn!"; focusFirst = cboLoai; }
+                hasError = true;
+            }
+
+            // 3. Đơn vị: bắt buộc
+            if (cboDonVi == null || cboDonVi.SelectedItem == null || string.IsNullOrWhiteSpace(cboDonVi.SelectedItem.ToString()))
+            {
+                SetComboBoxBorder(cboDonVi, BorderColorError);
+                if (msgFirst == null) { msgFirst = "Vui lòng chọn đơn vị!"; focusFirst = cboDonVi; }
+                hasError = true;
+            }
+
+            // 4. Calories: bắt buộc, phải là số và > 0
+            string calStr = txtSoCalories?.Text?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(calStr))
+            {
+                SetTextBoxBorder(txtSoCalories, BorderColorError);
+                if (msgFirst == null) { msgFirst = "Vui lòng nhập Calories!"; focusFirst = txtSoCalories; }
+                hasError = true;
+            }
+            else if (!double.TryParse(calStr, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double calVal) || calVal <= 0)
+            {
+                SetTextBoxBorder(txtSoCalories, BorderColorError);
+                if (msgFirst == null) { msgFirst = "Calories phải là số lớn hơn 0!"; focusFirst = txtSoCalories; }
+                hasError = true;
+            }
+
+            // 5. Khối lượng chuẩn: bắt buộc, không được null, phải là số > 0
+            string klStr = txtKhoiLuongChuan?.Text?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(klStr))
+            {
+                SetTextBoxBorder(txtKhoiLuongChuan, BorderColorError);
+                if (msgFirst == null) { msgFirst = "Vui lòng nhập Khối lượng chuẩn!"; focusFirst = txtKhoiLuongChuan; }
+                hasError = true;
+            }
+            else if (!double.TryParse(klStr, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double klVal) || klVal <= 0)
+            {
+                SetTextBoxBorder(txtKhoiLuongChuan, BorderColorError);
+                if (msgFirst == null) { msgFirst = "Khối lượng chuẩn phải là số lớn hơn 0!"; focusFirst = txtKhoiLuongChuan; }
+                hasError = true;
+            }
+
+            if (hasError)
+            {
+                if (!string.IsNullOrEmpty(msgFirst))
+                    MessageBox.Show(msgFirst, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                focusFirst?.Focus();
+                return false;
+            }
+
+            // 6. Carb, Protein, Fat, Fiber: nếu có nhập thì phải là số >= 0
+            if (!ValidateSoLieuLonHonHoacBangKhong(txtCarb, "Carb")) return false;
+            if (!ValidateSoLieuLonHonHoacBangKhong(txtProtein, "Protein")) return false;
+            if (!ValidateSoLieuLonHonHoacBangKhong(txtFat, "Fat")) return false;
+            if (!ValidateSoLieuLonHonHoacBangKhong(txtFiber, "Fiber")) return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Ô số tùy chọn: trống thì bỏ qua, có nhập thì phải là số >= 0
+        /// </summary>
+        private bool ValidateSoLieuLonHonHoacBangKhong(Guna.UI2.WinForms.Guna2TextBox ctrl, string tenTruong)
+        {
+            string v = ctrl?.Text?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(v)) return true;
+            if (!double.TryParse(v, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double num) || num < 0)
+            {
+                SetTextBoxBorder(ctrl, BorderColorError);
+                MessageBox.Show($"{tenTruong} phải là số lớn hơn hoặc bằng 0!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ctrl?.Focus();
+                return false;
+            }
             return true;
         }
 

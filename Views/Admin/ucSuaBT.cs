@@ -19,6 +19,9 @@ namespace HealthApp.Views.Admin
     {
         private WF_HealthTracker _dbContext;
         private ThuVienBaiTap _exercise;
+
+        private static readonly Color BorderColorError = Color.Red;
+        private static readonly Color BorderColorNormal = Color.FromArgb(208, 208, 208);
         
         // Events
         public event EventHandler OnSaveSuccess;
@@ -50,6 +53,68 @@ namespace HealthApp.Views.Admin
 
             if (btnBack != null)
                 btnBack.Click += (s, e) => BtnHuy_Click(s, e);
+
+            // Chặn nhập chữ/ký tự đặc biệt cho các trường số
+            AttachNumericOnly(txtSoSet, allowDecimal: false);
+            AttachNumericOnly(txtSoRep, allowDecimal: false);
+            AttachNumericOnly(txtThoiGianNghi, allowDecimal: false);
+            AttachNumericOnly(txtCaloUocTinh, allowDecimal: true);
+
+            // Khi user sửa ô → bỏ viền đỏ
+            if (txtTenBT != null) txtTenBT.TextChanged += (s, e) => SetTextBoxBorder(txtTenBT, BorderColorNormal);
+            if (txtSoSet != null) txtSoSet.TextChanged += (s, e) => SetTextBoxBorder(txtSoSet, BorderColorNormal);
+            if (txtSoRep != null) txtSoRep.TextChanged += (s, e) => SetTextBoxBorder(txtSoRep, BorderColorNormal);
+            if (txtThoiGianNghi != null) txtThoiGianNghi.TextChanged += (s, e) => SetTextBoxBorder(txtThoiGianNghi, BorderColorNormal);
+            if (txtCaloUocTinh != null) txtCaloUocTinh.TextChanged += (s, e) => SetTextBoxBorder(txtCaloUocTinh, BorderColorNormal);
+            if (cboNhomCo != null) cboNhomCo.SelectedIndexChanged += (s, e) => SetComboBoxBorder(cboNhomCo, BorderColorNormal);
+            if (cboDoKho != null) cboDoKho.SelectedIndexChanged += (s, e) => SetComboBoxBorder(cboDoKho, BorderColorNormal);
+        }
+
+        private void ResetAllBorders()
+        {
+            SetTextBoxBorder(txtTenBT, BorderColorNormal);
+            SetTextBoxBorder(txtSoSet, BorderColorNormal);
+            SetTextBoxBorder(txtSoRep, BorderColorNormal);
+            SetTextBoxBorder(txtThoiGianNghi, BorderColorNormal);
+            SetTextBoxBorder(txtCaloUocTinh, BorderColorNormal);
+            SetComboBoxBorder(cboNhomCo, BorderColorNormal);
+            SetComboBoxBorder(cboDoKho, BorderColorNormal);
+        }
+
+        private void SetTextBoxBorder(Guna.UI2.WinForms.Guna2TextBox ctrl, Color color)
+        {
+            if (ctrl == null) return;
+            ctrl.BorderColor = color;
+            ctrl.FocusedState.BorderColor = color;
+            ctrl.HoverState.BorderColor = color;
+        }
+
+        private void SetComboBoxBorder(Guna.UI2.WinForms.Guna2ComboBox ctrl, Color color)
+        {
+            if (ctrl == null) return;
+            ctrl.BorderColor = color;
+            ctrl.FocusedState.BorderColor = color;
+            ctrl.HoverState.BorderColor = color;
+        }
+
+        private void AttachNumericOnly(Guna.UI2.WinForms.Guna2TextBox ctrl, bool allowDecimal)
+        {
+            if (ctrl == null) return;
+            ctrl.KeyPress += (s, e) =>
+            {
+                if (char.IsControl(e.KeyChar)) return;
+
+                if (allowDecimal)
+                {
+                    if (e.KeyChar == '.' || e.KeyChar == ',')
+                    {
+                        if (ctrl.Text.Contains(".") || ctrl.Text.Contains(",")) e.Handled = true;
+                        return;
+                    }
+                }
+
+                if (!char.IsDigit(e.KeyChar)) e.Handled = true;
+            };
         }
 
         /// <summary>
@@ -231,10 +296,16 @@ namespace HealthApp.Views.Admin
         /// </summary>
         private bool ValidateInput()
         {
-            if (string.IsNullOrWhiteSpace(txtTenBT?.Text))
+            ResetAllBorders();
+
+            // 1) Bắt buộc
+            string tenBT = txtTenBT?.Text?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(tenBT))
             {
                 MessageBox.Show("Vui lòng nhập tên bài tập!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtTenBT, BorderColorError);
+                txtTenBT?.Focus();
                 return false;
             }
 
@@ -242,6 +313,111 @@ namespace HealthApp.Views.Admin
             {
                 MessageBox.Show("Vui lòng chọn nhóm cơ chính!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetComboBoxBorder(cboNhomCo, BorderColorError);
+                cboNhomCo?.Focus();
+                return false;
+            }
+
+            if (cboDoKho == null || cboDoKho.SelectedItem == null || cboDoKho.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn độ khó!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetComboBoxBorder(cboDoKho, BorderColorError);
+                cboDoKho?.Focus();
+                return false;
+            }
+
+            string soSetStr = txtSoSet?.Text?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(soSetStr))
+            {
+                MessageBox.Show("Vui lòng nhập số set!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtSoSet, BorderColorError);
+                txtSoSet?.Focus();
+                return false;
+            }
+
+            string soRepStr = txtSoRep?.Text?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(soRepStr))
+            {
+                MessageBox.Show("Vui lòng nhập số rep!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtSoRep, BorderColorError);
+                txtSoRep?.Focus();
+                return false;
+            }
+
+            string caloStr = txtCaloUocTinh?.Text?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(caloStr))
+            {
+                MessageBox.Show("Vui lòng nhập Calo ước tính (cal/rep)!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtCaloUocTinh, BorderColorError);
+                txtCaloUocTinh?.Focus();
+                return false;
+            }
+
+            string nghiStr = txtThoiGianNghi?.Text?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(nghiStr))
+            {
+                MessageBox.Show("Vui lòng nhập thời gian nghỉ giữa các set!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtThoiGianNghi, BorderColorError);
+                txtThoiGianNghi?.Focus();
+                return false;
+            }
+
+            // 2) Kiểu dữ liệu & giá trị + 3) logic tập luyện
+            if (!int.TryParse(soSetStr, out int soSet) || soSet < 1)
+            {
+                MessageBox.Show("Số set phải là số nguyên ≥ 1!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtSoSet, BorderColorError);
+                txtSoSet?.Focus();
+                return false;
+            }
+            if (soSet < 1 || soSet > 10)
+            {
+                MessageBox.Show("Số set hợp lý trong khoảng 1 – 10!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtSoSet, BorderColorError);
+                txtSoSet?.Focus();
+                return false;
+            }
+
+            if (!int.TryParse(soRepStr, out int soRep) || soRep < 1)
+            {
+                MessageBox.Show("Số rep phải là số nguyên ≥ 1!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtSoRep, BorderColorError);
+                txtSoRep?.Focus();
+                return false;
+            }
+            if (soRep < 1 || soRep > 100)
+            {
+                MessageBox.Show("Số rep hợp lý trong khoảng 1 – 100!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtSoRep, BorderColorError);
+                txtSoRep?.Focus();
+                return false;
+            }
+
+            string caloNormalized = caloStr.Replace(',', '.');
+            if (!double.TryParse(caloNormalized, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double calo) || calo <= 0)
+            {
+                MessageBox.Show("Calo / rep phải là số > 0!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtCaloUocTinh, BorderColorError);
+                txtCaloUocTinh?.Focus();
+                return false;
+            }
+
+            if (!int.TryParse(nghiStr, out int nghi) || nghi < 0)
+            {
+                MessageBox.Show("Thời gian nghỉ phải là số nguyên ≥ 0 (giây)!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SetTextBoxBorder(txtThoiGianNghi, BorderColorError);
+                txtThoiGianNghi?.Focus();
                 return false;
             }
 

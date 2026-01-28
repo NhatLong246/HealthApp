@@ -29,27 +29,19 @@ namespace HealthApp.Views.Admin
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucGiaoDich));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlTrungBinhKhachDangThuePT = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.lbGenTongGiaoDich = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pnlDoanhThuTrungBinhPT = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.lbGenDoanhThuPT = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pnlDanhGiaTrungBinh = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.lbGenTienHoaHong = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pnlTongPT = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.lblTongTien = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblPT = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTongPT = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlTieuDe = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
@@ -67,18 +59,26 @@ namespace HealthApp.Views.Admin
             this.btnDatLai = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnApDung = new Guna.UI2.WinForms.Guna2GradientButton();
             this.txtTiemKiem = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pnlDanhGiaTrungBinh = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lbGenTienHoaHong = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblPT = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlTrungBinhKhachDangThuePT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.pnlDoanhThuTrungBinhPT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.pnlDanhGiaTrungBinh.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.pnlTongPT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlTieuDe.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGiaoDich)).BeginInit();
             this.pnlChucNang.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.pnlDanhGiaTrungBinh.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlTrungBinhKhachDangThuePT
@@ -118,17 +118,6 @@ namespace HealthApp.Views.Admin
             this.guna2HtmlLabel8.TabIndex = 10;
             this.guna2HtmlLabel8.Text = "giao dịch";
             // 
-            // guna2HtmlLabel9
-            // 
-            this.guna2HtmlLabel9.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel9.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel9.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel9.Location = new System.Drawing.Point(14, 10);
-            this.guna2HtmlLabel9.Name = "guna2HtmlLabel9";
-            this.guna2HtmlLabel9.Size = new System.Drawing.Size(112, 21);
-            this.guna2HtmlLabel9.TabIndex = 9;
-            this.guna2HtmlLabel9.Text = "Tổng giao dịch";
-            // 
             // pictureBox3
             // 
             this.pictureBox3.BackColor = System.Drawing.SystemColors.Control;
@@ -166,17 +155,6 @@ namespace HealthApp.Views.Admin
             this.lbGenDoanhThuPT.TabIndex = 10;
             this.lbGenDoanhThuPT.Text = "x";
             // 
-            // guna2HtmlLabel5
-            // 
-            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel5.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(76, 84);
-            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(38, 21);
-            this.guna2HtmlLabel5.TabIndex = 9;
-            this.guna2HtmlLabel5.Text = "VNĐ";
-            // 
             // guna2HtmlLabel6
             // 
             this.guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent;
@@ -198,66 +176,6 @@ namespace HealthApp.Views.Admin
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
-            // 
-            // pnlDanhGiaTrungBinh
-            // 
-            this.pnlDanhGiaTrungBinh.BorderColor = System.Drawing.Color.Silver;
-            this.pnlDanhGiaTrungBinh.BorderRadius = 15;
-            this.pnlDanhGiaTrungBinh.BorderThickness = 1;
-            this.pnlDanhGiaTrungBinh.Controls.Add(this.lbGenTienHoaHong);
-            this.pnlDanhGiaTrungBinh.Controls.Add(this.guna2HtmlLabel2);
-            this.pnlDanhGiaTrungBinh.Controls.Add(this.guna2HtmlLabel3);
-            this.pnlDanhGiaTrungBinh.Controls.Add(this.pictureBox4);
-            this.pnlDanhGiaTrungBinh.FillColor = System.Drawing.Color.Violet;
-            this.pnlDanhGiaTrungBinh.FillColor4 = System.Drawing.Color.LavenderBlush;
-            this.pnlDanhGiaTrungBinh.Location = new System.Drawing.Point(277, 117);
-            this.pnlDanhGiaTrungBinh.Name = "pnlDanhGiaTrungBinh";
-            this.pnlDanhGiaTrungBinh.Size = new System.Drawing.Size(230, 124);
-            this.pnlDanhGiaTrungBinh.TabIndex = 11;
-            // 
-            // lbGenTienHoaHong
-            // 
-            this.lbGenTienHoaHong.BackColor = System.Drawing.Color.Transparent;
-            this.lbGenTienHoaHong.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbGenTienHoaHong.ForeColor = System.Drawing.Color.Black;
-            this.lbGenTienHoaHong.Location = new System.Drawing.Point(73, 43);
-            this.lbGenTienHoaHong.Name = "lbGenTienHoaHong";
-            this.lbGenTienHoaHong.Size = new System.Drawing.Size(16, 31);
-            this.lbGenTienHoaHong.TabIndex = 7;
-            this.lbGenTienHoaHong.Text = "x";
-            // 
-            // guna2HtmlLabel2
-            // 
-            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(73, 84);
-            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(38, 21);
-            this.guna2HtmlLabel2.TabIndex = 6;
-            this.guna2HtmlLabel2.Text = "VNĐ";
-            // 
-            // guna2HtmlLabel3
-            // 
-            this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.Gray;
-            this.guna2HtmlLabel3.Location = new System.Drawing.Point(12, 10);
-            this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(140, 21);
-            this.guna2HtmlLabel3.TabIndex = 5;
-            this.guna2HtmlLabel3.Text = "Tổng hoa hồng app";
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackColor = System.Drawing.Color.White;
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(12, 37);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(52, 48);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox4.TabIndex = 4;
-            this.pictureBox4.TabStop = false;
             // 
             // pnlTongPT
             // 
@@ -284,17 +202,6 @@ namespace HealthApp.Views.Admin
             this.lblTongTien.Size = new System.Drawing.Size(16, 31);
             this.lblTongTien.TabIndex = 3;
             this.lblTongTien.Text = "x";
-            // 
-            // lblPT
-            // 
-            this.lblPT.BackColor = System.Drawing.Color.Transparent;
-            this.lblPT.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPT.ForeColor = System.Drawing.Color.Gray;
-            this.lblPT.Location = new System.Drawing.Point(66, 84);
-            this.lblPT.Name = "lblPT";
-            this.lblPT.Size = new System.Drawing.Size(38, 21);
-            this.lblPT.TabIndex = 2;
-            this.lblPT.Text = "VNĐ";
             // 
             // lblTongPT
             // 
@@ -326,7 +233,7 @@ namespace HealthApp.Views.Admin
             this.pnlTieuDe.Controls.Add(this.lblTieuDe);
             this.pnlTieuDe.Location = new System.Drawing.Point(0, 0);
             this.pnlTieuDe.Name = "pnlTieuDe";
-            this.pnlTieuDe.Size = new System.Drawing.Size(1053, 111);
+            this.pnlTieuDe.Size = new System.Drawing.Size(1084, 111);
             this.pnlTieuDe.TabIndex = 7;
             // 
             // pictureBox7
@@ -354,26 +261,26 @@ namespace HealthApp.Views.Admin
             // 
             // dgvGiaoDich
             // 
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.White;
-            this.dgvGiaoDich.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle22;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvGiaoDich.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            this.dgvGiaoDich.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvGiaoDich.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvGiaoDich.ColumnHeadersHeight = 30;
             this.dgvGiaoDich.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvGiaoDich.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvGiaoDich.DefaultCellStyle = dataGridViewCellStyle9;
             this.dgvGiaoDich.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvGiaoDich.Location = new System.Drawing.Point(12, 421);
             this.dgvGiaoDich.Name = "dgvGiaoDich";
@@ -570,6 +477,99 @@ namespace HealthApp.Views.Admin
             this.txtTiemKiem.Size = new System.Drawing.Size(1016, 36);
             this.txtTiemKiem.TabIndex = 0;
             // 
+            // guna2HtmlLabel9
+            // 
+            this.guna2HtmlLabel9.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel9.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel9.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel9.Location = new System.Drawing.Point(14, 10);
+            this.guna2HtmlLabel9.Name = "guna2HtmlLabel9";
+            this.guna2HtmlLabel9.Size = new System.Drawing.Size(112, 21);
+            this.guna2HtmlLabel9.TabIndex = 9;
+            this.guna2HtmlLabel9.Text = "Tổng giao dịch";
+            // 
+            // guna2HtmlLabel5
+            // 
+            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel5.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel5.Location = new System.Drawing.Point(76, 84);
+            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
+            this.guna2HtmlLabel5.Size = new System.Drawing.Size(38, 21);
+            this.guna2HtmlLabel5.TabIndex = 9;
+            this.guna2HtmlLabel5.Text = "VNĐ";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.White;
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(12, 37);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(52, 48);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox4.TabIndex = 4;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pnlDanhGiaTrungBinh
+            // 
+            this.pnlDanhGiaTrungBinh.BorderColor = System.Drawing.Color.Silver;
+            this.pnlDanhGiaTrungBinh.BorderRadius = 15;
+            this.pnlDanhGiaTrungBinh.BorderThickness = 1;
+            this.pnlDanhGiaTrungBinh.Controls.Add(this.lbGenTienHoaHong);
+            this.pnlDanhGiaTrungBinh.Controls.Add(this.guna2HtmlLabel2);
+            this.pnlDanhGiaTrungBinh.Controls.Add(this.guna2HtmlLabel3);
+            this.pnlDanhGiaTrungBinh.Controls.Add(this.pictureBox4);
+            this.pnlDanhGiaTrungBinh.FillColor = System.Drawing.Color.Violet;
+            this.pnlDanhGiaTrungBinh.FillColor4 = System.Drawing.Color.LavenderBlush;
+            this.pnlDanhGiaTrungBinh.Location = new System.Drawing.Point(277, 117);
+            this.pnlDanhGiaTrungBinh.Name = "pnlDanhGiaTrungBinh";
+            this.pnlDanhGiaTrungBinh.Size = new System.Drawing.Size(230, 124);
+            this.pnlDanhGiaTrungBinh.TabIndex = 11;
+            // 
+            // guna2HtmlLabel3
+            // 
+            this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel3.Location = new System.Drawing.Point(12, 10);
+            this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(140, 21);
+            this.guna2HtmlLabel3.TabIndex = 5;
+            this.guna2HtmlLabel3.Text = "Tổng hoa hồng app";
+            // 
+            // guna2HtmlLabel2
+            // 
+            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.Gray;
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(73, 84);
+            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(38, 21);
+            this.guna2HtmlLabel2.TabIndex = 6;
+            this.guna2HtmlLabel2.Text = "VNĐ";
+            // 
+            // lbGenTienHoaHong
+            // 
+            this.lbGenTienHoaHong.BackColor = System.Drawing.Color.Transparent;
+            this.lbGenTienHoaHong.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbGenTienHoaHong.ForeColor = System.Drawing.Color.Black;
+            this.lbGenTienHoaHong.Location = new System.Drawing.Point(73, 43);
+            this.lbGenTienHoaHong.Name = "lbGenTienHoaHong";
+            this.lbGenTienHoaHong.Size = new System.Drawing.Size(16, 31);
+            this.lbGenTienHoaHong.TabIndex = 7;
+            this.lbGenTienHoaHong.Text = "x";
+            // 
+            // lblPT
+            // 
+            this.lblPT.BackColor = System.Drawing.Color.Transparent;
+            this.lblPT.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPT.ForeColor = System.Drawing.Color.Gray;
+            this.lblPT.Location = new System.Drawing.Point(66, 84);
+            this.lblPT.Name = "lblPT";
+            this.lblPT.Size = new System.Drawing.Size(38, 21);
+            this.lblPT.TabIndex = 2;
+            this.lblPT.Text = "VNĐ";
+            // 
             // ucGiaoDich
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -581,7 +581,6 @@ namespace HealthApp.Views.Admin
             this.Controls.Add(this.pnlDanhGiaTrungBinh);
             this.Controls.Add(this.pnlTongPT);
             this.Controls.Add(this.pnlTieuDe);
-            this.Enabled = true;
             this.Name = "ucGiaoDich";
             this.Size = new System.Drawing.Size(1054, 731);
             this.pnlTrungBinhKhachDangThuePT.ResumeLayout(false);
@@ -590,9 +589,6 @@ namespace HealthApp.Views.Admin
             this.pnlDoanhThuTrungBinhPT.ResumeLayout(false);
             this.pnlDoanhThuTrungBinhPT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.pnlDanhGiaTrungBinh.ResumeLayout(false);
-            this.pnlDanhGiaTrungBinh.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.pnlTongPT.ResumeLayout(false);
             this.pnlTongPT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -602,6 +598,9 @@ namespace HealthApp.Views.Admin
             ((System.ComponentModel.ISupportInitialize)(this.dgvGiaoDich)).EndInit();
             this.pnlChucNang.ResumeLayout(false);
             this.pnlChucNang.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            this.pnlDanhGiaTrungBinh.ResumeLayout(false);
+            this.pnlDanhGiaTrungBinh.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -611,7 +610,6 @@ namespace HealthApp.Views.Admin
         private System.Windows.Forms.PictureBox pictureBox3;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlDoanhThuTrungBinhPT;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlDanhGiaTrungBinh;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlTongPT;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTongTien;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTongPT;
@@ -619,17 +617,10 @@ namespace HealthApp.Views.Admin
         private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlTieuDe;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTieuDe;
         private System.Windows.Forms.PictureBox pictureBox7;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblPT;
-        private System.Windows.Forms.PictureBox pictureBox4;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbGenDoanhThuPT;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lbGenTienHoaHong;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbGenTongGiaoDich;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel8;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
         private Guna.UI2.WinForms.Guna2DataGridView dgvGiaoDich;
         private Guna.UI2.WinForms.Guna2DateTimePicker guna2DateTimePicker2;
         private Guna.UI2.WinForms.Guna2DateTimePicker guna2DateTimePicker1;
@@ -642,5 +633,13 @@ namespace HealthApp.Views.Admin
         private Guna.UI2.WinForms.Guna2GradientButton btnDatLai;
         private Guna.UI2.WinForms.Guna2GradientButton btnApDung;
         private Guna.UI2.WinForms.Guna2TextBox txtTiemKiem;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblPT;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel pnlDanhGiaTrungBinh;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lbGenTienHoaHong;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
     }
 }

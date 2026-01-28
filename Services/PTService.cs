@@ -78,7 +78,7 @@ namespace HealthApp.Services
                     // Tạo PTID mới
                     huanLuyenVien.PTID = GeneratePTIDAsync().Result;
                     huanLuyenVien.UserID = userId;
-                    huanLuyenVien.DaXacMinh = true; // Tự động xác minh khi đăng ký
+                    huanLuyenVien.DaXacMinh = false; // Chờ admin duyệt
                     huanLuyenVien.NgayTao = DateTime.Now;
                     huanLuyenVien.NgayCapNhat = DateTime.Now;
                     huanLuyenVien.SoKhachHienTai = 0;
@@ -88,8 +88,8 @@ namespace HealthApp.Services
                     // Thêm vào database
                     _context.HuanLuyenVien.Add(huanLuyenVien);
 
-                    // Cập nhật Role của user thành "PT"
-                    user.Role = "PT";
+                    // KHÔNG cập nhật Role của user thành "PT" - chỉ khi được admin duyệt
+                    // user.Role vẫn giữ nguyên là "Client"
 
                     // Lưu thay đổi
                     _context.SaveChanges();
@@ -97,7 +97,7 @@ namespace HealthApp.Services
                     return new PTRegistrationResult
                     {
                         Success = true,
-                        Message = "Đăng ký làm PT thành công!",
+                        Message = "Đơn đăng ký của bạn đã được gửi thành công!\nVui lòng chờ admin duyệt hồ sơ. Bạn sẽ nhận được thông báo khi hồ sơ được duyệt.",
                         HuanLuyenVien = huanLuyenVien
                     };
                 }

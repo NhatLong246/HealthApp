@@ -681,11 +681,11 @@
             // 
             // picGiaoBT
             // 
-            this.picGiaoBT.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.picGiaoBT.BackColor = System.Drawing.Color.Transparent;
             this.picGiaoBT.ErrorImage = null;
             this.picGiaoBT.Image = ((System.Drawing.Image)(resources.GetObject("picGiaoBT.Image")));
             this.picGiaoBT.ImageRotate = 0F;
-            this.picGiaoBT.Location = new System.Drawing.Point(105, 91);
+            this.picGiaoBT.Location = new System.Drawing.Point(96, 96);
             this.picGiaoBT.Name = "picGiaoBT";
             this.picGiaoBT.Size = new System.Drawing.Size(38, 45);
             this.picGiaoBT.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -695,6 +695,7 @@
             // btnGiaoBT
             // 
             this.btnGiaoBT.BackColor = System.Drawing.Color.White;
+            this.btnGiaoBT.BorderRadius = 10;
             this.btnGiaoBT.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnGiaoBT.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnGiaoBT.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -702,7 +703,7 @@
             this.btnGiaoBT.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(213)))), ((int)(((byte)(138)))));
             this.btnGiaoBT.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnGiaoBT.ForeColor = System.Drawing.Color.White;
-            this.btnGiaoBT.Location = new System.Drawing.Point(162, 91);
+            this.btnGiaoBT.Location = new System.Drawing.Point(141, 96);
             this.btnGiaoBT.Name = "btnGiaoBT";
             this.btnGiaoBT.Size = new System.Drawing.Size(167, 45);
             this.btnGiaoBT.TabIndex = 1;
@@ -733,11 +734,11 @@
             // 
             // guna2PictureBox2
             // 
-            this.guna2PictureBox2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.guna2PictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.guna2PictureBox2.ErrorImage = null;
             this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
             this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(105, 160);
+            this.guna2PictureBox2.Location = new System.Drawing.Point(96, 165);
             this.guna2PictureBox2.Name = "guna2PictureBox2";
             this.guna2PictureBox2.Size = new System.Drawing.Size(38, 45);
             this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -747,6 +748,7 @@
             // btnLichPT
             // 
             this.btnLichPT.BackColor = System.Drawing.Color.White;
+            this.btnLichPT.BorderRadius = 10;
             this.btnLichPT.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnLichPT.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnLichPT.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -754,7 +756,7 @@
             this.btnLichPT.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(213)))), ((int)(((byte)(138)))));
             this.btnLichPT.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnLichPT.ForeColor = System.Drawing.Color.White;
-            this.btnLichPT.Location = new System.Drawing.Point(162, 160);
+            this.btnLichPT.Location = new System.Drawing.Point(141, 165);
             this.btnLichPT.Name = "btnLichPT";
             this.btnLichPT.Size = new System.Drawing.Size(167, 45);
             this.btnLichPT.TabIndex = 3;

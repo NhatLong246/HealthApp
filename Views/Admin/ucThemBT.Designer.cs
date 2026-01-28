@@ -30,6 +30,8 @@ namespace HealthApp.Views.Admin
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucThemBT));
             this.guna2CustomGradientPanel2 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.btnBack = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblTieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.cboNhomCo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -43,8 +45,6 @@ namespace HealthApp.Views.Admin
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnHuy = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnXacNhan = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnBack = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.txtCaloUocTinh = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -60,7 +60,6 @@ namespace HealthApp.Views.Admin
             this.txtThietBi = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel13 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtLinkVideo = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2HtmlLabel10 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel11 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.cboDoKho = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -82,6 +81,33 @@ namespace HealthApp.Views.Admin
             this.guna2CustomGradientPanel2.Name = "guna2CustomGradientPanel2";
             this.guna2CustomGradientPanel2.Size = new System.Drawing.Size(1026, 77);
             this.guna2CustomGradientPanel2.TabIndex = 58;
+            // 
+            // btnBack
+            // 
+            this.btnBack.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBack.HoverState.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnBack.Image = global::HealthApp.Properties.Resources.backIcon;
+            this.btnBack.ImageOffset = new System.Drawing.Point(0, 0);
+            this.btnBack.ImageRotate = 0F;
+            this.btnBack.ImageSize = new System.Drawing.Size(24, 24);
+            this.btnBack.Location = new System.Drawing.Point(952, 13);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.PressedState.ImageSize = new System.Drawing.Size(26, 26);
+            this.btnBack.Size = new System.Drawing.Size(52, 43);
+            this.btnBack.TabIndex = 5;
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(15, 20);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(40, 36);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox1.TabIndex = 4;
+            this.guna2PictureBox1.TabStop = false;
             // 
             // lblTieuDe
             // 
@@ -278,33 +304,6 @@ namespace HealthApp.Views.Admin
             this.btnXacNhan.Size = new System.Drawing.Size(161, 43);
             this.btnXacNhan.TabIndex = 100;
             this.btnXacNhan.Text = "Xác Nhận";
-            // 
-            // btnBack
-            // 
-            this.btnBack.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBack.HoverState.ImageSize = new System.Drawing.Size(30, 30);
-            this.btnBack.Image = global::HealthApp.Properties.Resources.backIcon;
-            this.btnBack.ImageOffset = new System.Drawing.Point(0, 0);
-            this.btnBack.ImageRotate = 0F;
-            this.btnBack.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnBack.Location = new System.Drawing.Point(952, 13);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.PressedState.ImageSize = new System.Drawing.Size(26, 26);
-            this.btnBack.Size = new System.Drawing.Size(52, 43);
-            this.btnBack.TabIndex = 5;
-            // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(15, 20);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(40, 36);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox1.TabIndex = 4;
-            this.guna2PictureBox1.TabStop = false;
             // 
             // txtCaloUocTinh
             // 
@@ -525,17 +524,6 @@ namespace HealthApp.Views.Admin
             this.txtLinkVideo.Size = new System.Drawing.Size(226, 45);
             this.txtLinkVideo.TabIndex = 147;
             // 
-            // guna2HtmlLabel10
-            // 
-            this.guna2HtmlLabel10.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel10.ForeColor = System.Drawing.Color.Red;
-            this.guna2HtmlLabel10.Location = new System.Drawing.Point(86, 200);
-            this.guna2HtmlLabel10.Name = "guna2HtmlLabel10";
-            this.guna2HtmlLabel10.Size = new System.Drawing.Size(9, 22);
-            this.guna2HtmlLabel10.TabIndex = 146;
-            this.guna2HtmlLabel10.Text = "*";
-            // 
             // guna2HtmlLabel11
             // 
             this.guna2HtmlLabel11.BackColor = System.Drawing.Color.White;
@@ -640,7 +628,6 @@ namespace HealthApp.Views.Admin
             this.Controls.Add(this.txtThietBi);
             this.Controls.Add(this.guna2HtmlLabel13);
             this.Controls.Add(this.txtLinkVideo);
-            this.Controls.Add(this.guna2HtmlLabel10);
             this.Controls.Add(this.guna2HtmlLabel11);
             this.Controls.Add(this.cboDoKho);
             this.Controls.Add(this.guna2HtmlLabel2);
@@ -703,7 +690,6 @@ namespace HealthApp.Views.Admin
         private Guna.UI2.WinForms.Guna2TextBox txtThietBi;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel13;
         private Guna.UI2.WinForms.Guna2TextBox txtLinkVideo;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel10;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel11;
         private Guna.UI2.WinForms.Guna2ComboBox cboDoKho;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
