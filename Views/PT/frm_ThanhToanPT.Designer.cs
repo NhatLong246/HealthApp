@@ -31,19 +31,25 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_ThanhToanPT));
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.pnlTongTinDatLich = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.btnThanhToan = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.lblTongTienThanhToan = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblTongTien = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblThu = new System.Windows.Forms.Label();
-            this.lblThoiGian = new System.Windows.Forms.Label();
-            this.lblNgayTap = new System.Windows.Forms.Label();
-            this.lblChonNgay = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.ptrIcon = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.pnlDanhSachThanhToan = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.lblTien = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblTienThanhToan = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.btnThemThanhToan = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.lblDen = new System.Windows.Forms.Label();
             this.pnlNguoiDung = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.lblMucTieuNguoiYeuCauThue = new System.Windows.Forms.Label();
             this.lblTenNguoiYeuCauThue = new System.Windows.Forms.Label();
             this.ptrAvatarNguoiYeuCauach1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.lblTenPTThanhToan = new System.Windows.Forms.Label();
+            this.ptrAvatarPT = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.lblChonNgay = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblThoiGian = new System.Windows.Forms.Label();
+            this.lblThu = new System.Windows.Forms.Label();
+            this.lblNgayTap = new System.Windows.Forms.Label();
+            this.ptrIcon = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblThongTinDatLich = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.btnThanhToan = new Guna.UI2.WinForms.Guna2GradientButton();
             this.pnlPhuongThucThanhToan = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlZalopay = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.lblZalopay1 = new System.Windows.Forms.Label();
@@ -54,34 +60,30 @@
             this.lblMomo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblChonPhuongThucThanhToan = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblTongTienThanhToan = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTieuDe2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblTongTien = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
-            this.lblTenPTThanhToan = new System.Windows.Forms.Label();
-            this.ptrAvatarPT = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            this.lblDen = new System.Windows.Forms.Label();
-            this.pnlDanhSachThanhToan = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.btnThemThanhToan = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.lblTienThanhToan = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblTien = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.btnTroVe = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.pnlTongTinDatLich.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptrIcon)).BeginInit();
+            this.pnlDanhSachThanhToan.SuspendLayout();
             this.pnlNguoiDung.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarNguoiYeuCauach1)).BeginInit();
+            this.guna2ShadowPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarPT)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrIcon)).BeginInit();
             this.pnlPhuongThucThanhToan.SuspendLayout();
             this.pnlZalopay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlMomo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.guna2ShadowPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarPT)).BeginInit();
-            this.pnlDanhSachThanhToan.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.LightCyan;
+            this.guna2Panel1.Controls.Add(this.btnTroVe);
             this.guna2Panel1.Controls.Add(this.pnlTongTinDatLich);
             this.guna2Panel1.Controls.Add(this.btnThanhToan);
             this.guna2Panel1.Controls.Add(this.pnlPhuongThucThanhToan);
@@ -106,102 +108,72 @@
             this.pnlTongTinDatLich.Size = new System.Drawing.Size(1015, 402);
             this.pnlTongTinDatLich.TabIndex = 8;
             // 
-            // btnThanhToan
+            // pnlDanhSachThanhToan
             // 
-            this.btnThanhToan.BorderRadius = 10;
-            this.btnThanhToan.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnThanhToan.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnThanhToan.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnThanhToan.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnThanhToan.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnThanhToan.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnThanhToan.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnThanhToan.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThanhToan.ForeColor = System.Drawing.Color.White;
-            this.btnThanhToan.Location = new System.Drawing.Point(175, 945);
-            this.btnThanhToan.Name = "btnThanhToan";
-            this.btnThanhToan.Size = new System.Drawing.Size(965, 58);
-            this.btnThanhToan.TabIndex = 20;
-            this.btnThanhToan.Text = "Thanh Toán";
+            this.pnlDanhSachThanhToan.Controls.Add(this.lblTien);
+            this.pnlDanhSachThanhToan.Controls.Add(this.lblTienThanhToan);
+            this.pnlDanhSachThanhToan.Controls.Add(this.btnThemThanhToan);
+            this.pnlDanhSachThanhToan.Controls.Add(this.lblDen);
+            this.pnlDanhSachThanhToan.Controls.Add(this.pnlNguoiDung);
+            this.pnlDanhSachThanhToan.Controls.Add(this.guna2ShadowPanel1);
+            this.pnlDanhSachThanhToan.Controls.Add(this.lblChonNgay);
+            this.pnlDanhSachThanhToan.Controls.Add(this.lblThoiGian);
+            this.pnlDanhSachThanhToan.Controls.Add(this.lblThu);
+            this.pnlDanhSachThanhToan.Controls.Add(this.lblNgayTap);
+            this.pnlDanhSachThanhToan.Controls.Add(this.ptrIcon);
+            this.pnlDanhSachThanhToan.Location = new System.Drawing.Point(24, 53);
+            this.pnlDanhSachThanhToan.Name = "pnlDanhSachThanhToan";
+            this.pnlDanhSachThanhToan.Size = new System.Drawing.Size(958, 200);
+            this.pnlDanhSachThanhToan.TabIndex = 22;
             // 
-            // lblTongTienThanhToan
+            // lblTien
             // 
-            this.lblTongTienThanhToan.BackColor = System.Drawing.Color.Transparent;
-            this.lblTongTienThanhToan.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTongTienThanhToan.ForeColor = System.Drawing.Color.Blue;
-            this.lblTongTienThanhToan.Location = new System.Drawing.Point(1016, 896);
-            this.lblTongTienThanhToan.Name = "lblTongTienThanhToan";
-            this.lblTongTienThanhToan.Size = new System.Drawing.Size(101, 31);
-            this.lblTongTienThanhToan.TabIndex = 19;
-            this.lblTongTienThanhToan.Text = "300.000đ";
+            this.lblTien.BackColor = System.Drawing.Color.Transparent;
+            this.lblTien.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTien.Location = new System.Drawing.Point(492, 149);
+            this.lblTien.Name = "lblTien";
+            this.lblTien.Size = new System.Drawing.Size(59, 31);
+            this.lblTien.TabIndex = 21;
+            this.lblTien.Text = "Tiền:";
             // 
-            // lblTongTien
+            // lblTienThanhToan
             // 
-            this.lblTongTien.BackColor = System.Drawing.Color.Transparent;
-            this.lblTongTien.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTongTien.Location = new System.Drawing.Point(893, 896);
-            this.lblTongTien.Name = "lblTongTien";
-            this.lblTongTien.Size = new System.Drawing.Size(112, 31);
-            this.lblTongTien.TabIndex = 18;
-            this.lblTongTien.Text = "Tổng tiền:";
+            this.lblTienThanhToan.BackColor = System.Drawing.Color.Transparent;
+            this.lblTienThanhToan.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTienThanhToan.ForeColor = System.Drawing.Color.Blue;
+            this.lblTienThanhToan.Location = new System.Drawing.Point(575, 149);
+            this.lblTienThanhToan.Name = "lblTienThanhToan";
+            this.lblTienThanhToan.Size = new System.Drawing.Size(101, 31);
+            this.lblTienThanhToan.TabIndex = 21;
+            this.lblTienThanhToan.Text = "300.000đ";
             // 
-            // lblThu
+            // btnThemThanhToan
             // 
-            this.lblThu.AutoSize = true;
-            this.lblThu.BackColor = System.Drawing.Color.White;
-            this.lblThu.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThu.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lblThu.Location = new System.Drawing.Point(170, 161);
-            this.lblThu.Name = "lblThu";
-            this.lblThu.Size = new System.Drawing.Size(51, 19);
-            this.lblThu.TabIndex = 17;
-            this.lblThu.Text = "Thứ 3";
+            this.btnThemThanhToan.BorderColor = System.Drawing.Color.Transparent;
+            this.btnThemThanhToan.BorderRadius = 15;
+            this.btnThemThanhToan.BorderThickness = 1;
+            this.btnThemThanhToan.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btnThemThanhToan.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnThemThanhToan.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThemThanhToan.ForeColor = System.Drawing.Color.White;
+            this.btnThemThanhToan.Image = ((System.Drawing.Image)(resources.GetObject("btnThemThanhToan.Image")));
+            this.btnThemThanhToan.Location = new System.Drawing.Point(756, 131);
+            this.btnThemThanhToan.Name = "btnThemThanhToan";
+            this.btnThemThanhToan.Size = new System.Drawing.Size(175, 49);
+            this.btnThemThanhToan.TabIndex = 33;
+            this.btnThemThanhToan.Text = "Thêm thanh toán";
             // 
-            // lblThoiGian
+            // lblDen
             // 
-            this.lblThoiGian.AutoSize = true;
-            this.lblThoiGian.BackColor = System.Drawing.Color.White;
-            this.lblThoiGian.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThoiGian.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lblThoiGian.Location = new System.Drawing.Point(57, 161);
-            this.lblThoiGian.Name = "lblThoiGian";
-            this.lblThoiGian.Size = new System.Drawing.Size(107, 19);
-            this.lblThoiGian.TabIndex = 4;
-            this.lblThoiGian.Text = "12:00 - 14:00";
-            // 
-            // lblNgayTap
-            // 
-            this.lblNgayTap.AutoSize = true;
-            this.lblNgayTap.BackColor = System.Drawing.Color.White;
-            this.lblNgayTap.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNgayTap.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lblNgayTap.Location = new System.Drawing.Point(227, 161);
-            this.lblNgayTap.Name = "lblNgayTap";
-            this.lblNgayTap.Size = new System.Drawing.Size(91, 19);
-            this.lblNgayTap.TabIndex = 5;
-            this.lblNgayTap.Text = "12/12/2025";
-            // 
-            // lblChonNgay
-            // 
-            this.lblChonNgay.BackColor = System.Drawing.Color.Transparent;
-            this.lblChonNgay.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChonNgay.Location = new System.Drawing.Point(86, 123);
-            this.lblChonNgay.Name = "lblChonNgay";
-            this.lblChonNgay.Size = new System.Drawing.Size(78, 25);
-            this.lblChonNgay.TabIndex = 16;
-            this.lblChonNgay.Text = "Ngày giờ";
-            // 
-            // ptrIcon
-            // 
-            this.ptrIcon.BackColor = System.Drawing.Color.White;
-            this.ptrIcon.Image = ((System.Drawing.Image)(resources.GetObject("ptrIcon.Image")));
-            this.ptrIcon.ImageRotate = 0F;
-            this.ptrIcon.Location = new System.Drawing.Point(52, 122);
-            this.ptrIcon.Name = "ptrIcon";
-            this.ptrIcon.Size = new System.Drawing.Size(28, 26);
-            this.ptrIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptrIcon.TabIndex = 15;
-            this.ptrIcon.TabStop = false;
+            this.lblDen.AutoSize = true;
+            this.lblDen.BackColor = System.Drawing.Color.White;
+            this.lblDen.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDen.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lblDen.Location = new System.Drawing.Point(460, 53);
+            this.lblDen.Name = "lblDen";
+            this.lblDen.Size = new System.Drawing.Size(38, 19);
+            this.lblDen.TabIndex = 21;
+            this.lblDen.Text = "Đến";
             // 
             // pnlNguoiDung
             // 
@@ -252,6 +224,101 @@
             this.ptrAvatarNguoiYeuCauach1.TabIndex = 3;
             this.ptrAvatarNguoiYeuCauach1.TabStop = false;
             // 
+            // guna2ShadowPanel1
+            // 
+            this.guna2ShadowPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ShadowPanel1.Controls.Add(this.lblTenPTThanhToan);
+            this.guna2ShadowPanel1.Controls.Add(this.ptrAvatarPT);
+            this.guna2ShadowPanel1.FillColor = System.Drawing.Color.Honeydew;
+            this.guna2ShadowPanel1.ForeColor = System.Drawing.SystemColors.Menu;
+            this.guna2ShadowPanel1.Location = new System.Drawing.Point(575, 21);
+            this.guna2ShadowPanel1.Name = "guna2ShadowPanel1";
+            this.guna2ShadowPanel1.Radius = 10;
+            this.guna2ShadowPanel1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.guna2ShadowPanel1.ShadowShift = 1;
+            this.guna2ShadowPanel1.Size = new System.Drawing.Size(356, 87);
+            this.guna2ShadowPanel1.TabIndex = 13;
+            // 
+            // lblTenPTThanhToan
+            // 
+            this.lblTenPTThanhToan.AutoSize = true;
+            this.lblTenPTThanhToan.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTenPTThanhToan.ForeColor = System.Drawing.Color.Black;
+            this.lblTenPTThanhToan.Location = new System.Drawing.Point(82, 12);
+            this.lblTenPTThanhToan.Name = "lblTenPTThanhToan";
+            this.lblTenPTThanhToan.Size = new System.Drawing.Size(145, 25);
+            this.lblTenPTThanhToan.TabIndex = 3;
+            this.lblTenPTThanhToan.Text = "Nguyễn Van A";
+            // 
+            // ptrAvatarPT
+            // 
+            this.ptrAvatarPT.ImageRotate = 0F;
+            this.ptrAvatarPT.Location = new System.Drawing.Point(17, 12);
+            this.ptrAvatarPT.Name = "ptrAvatarPT";
+            this.ptrAvatarPT.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.ptrAvatarPT.Size = new System.Drawing.Size(60, 53);
+            this.ptrAvatarPT.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptrAvatarPT.TabIndex = 3;
+            this.ptrAvatarPT.TabStop = false;
+            // 
+            // lblChonNgay
+            // 
+            this.lblChonNgay.BackColor = System.Drawing.Color.Transparent;
+            this.lblChonNgay.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChonNgay.Location = new System.Drawing.Point(86, 123);
+            this.lblChonNgay.Name = "lblChonNgay";
+            this.lblChonNgay.Size = new System.Drawing.Size(78, 25);
+            this.lblChonNgay.TabIndex = 16;
+            this.lblChonNgay.Text = "Ngày giờ";
+            // 
+            // lblThoiGian
+            // 
+            this.lblThoiGian.AutoSize = true;
+            this.lblThoiGian.BackColor = System.Drawing.Color.White;
+            this.lblThoiGian.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThoiGian.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lblThoiGian.Location = new System.Drawing.Point(57, 161);
+            this.lblThoiGian.Name = "lblThoiGian";
+            this.lblThoiGian.Size = new System.Drawing.Size(107, 19);
+            this.lblThoiGian.TabIndex = 4;
+            this.lblThoiGian.Text = "12:00 - 14:00";
+            // 
+            // lblThu
+            // 
+            this.lblThu.AutoSize = true;
+            this.lblThu.BackColor = System.Drawing.Color.White;
+            this.lblThu.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThu.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lblThu.Location = new System.Drawing.Point(170, 161);
+            this.lblThu.Name = "lblThu";
+            this.lblThu.Size = new System.Drawing.Size(51, 19);
+            this.lblThu.TabIndex = 17;
+            this.lblThu.Text = "Thứ 3";
+            // 
+            // lblNgayTap
+            // 
+            this.lblNgayTap.AutoSize = true;
+            this.lblNgayTap.BackColor = System.Drawing.Color.White;
+            this.lblNgayTap.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNgayTap.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.lblNgayTap.Location = new System.Drawing.Point(227, 161);
+            this.lblNgayTap.Name = "lblNgayTap";
+            this.lblNgayTap.Size = new System.Drawing.Size(91, 19);
+            this.lblNgayTap.TabIndex = 5;
+            this.lblNgayTap.Text = "12/12/2025";
+            // 
+            // ptrIcon
+            // 
+            this.ptrIcon.BackColor = System.Drawing.Color.White;
+            this.ptrIcon.Image = ((System.Drawing.Image)(resources.GetObject("ptrIcon.Image")));
+            this.ptrIcon.ImageRotate = 0F;
+            this.ptrIcon.Location = new System.Drawing.Point(52, 122);
+            this.ptrIcon.Name = "ptrIcon";
+            this.ptrIcon.Size = new System.Drawing.Size(28, 26);
+            this.ptrIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptrIcon.TabIndex = 15;
+            this.ptrIcon.TabStop = false;
+            // 
             // lblThongTinDatLich
             // 
             this.lblThongTinDatLich.BackColor = System.Drawing.Color.Transparent;
@@ -262,6 +329,24 @@
             this.lblThongTinDatLich.Size = new System.Drawing.Size(193, 31);
             this.lblThongTinDatLich.TabIndex = 11;
             this.lblThongTinDatLich.Text = "Thông tin đặt lịch";
+            // 
+            // btnThanhToan
+            // 
+            this.btnThanhToan.BorderRadius = 10;
+            this.btnThanhToan.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnThanhToan.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnThanhToan.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnThanhToan.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnThanhToan.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnThanhToan.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btnThanhToan.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnThanhToan.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThanhToan.ForeColor = System.Drawing.Color.White;
+            this.btnThanhToan.Location = new System.Drawing.Point(175, 945);
+            this.btnThanhToan.Name = "btnThanhToan";
+            this.btnThanhToan.Size = new System.Drawing.Size(965, 58);
+            this.btnThanhToan.TabIndex = 20;
+            this.btnThanhToan.Text = "Thanh Toán";
             // 
             // pnlPhuongThucThanhToan
             // 
@@ -377,6 +462,17 @@
             this.lblChonPhuongThucThanhToan.TabIndex = 8;
             this.lblChonPhuongThucThanhToan.Text = "Chọn phương thức thanh toán";
             // 
+            // lblTongTienThanhToan
+            // 
+            this.lblTongTienThanhToan.BackColor = System.Drawing.Color.Transparent;
+            this.lblTongTienThanhToan.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTongTienThanhToan.ForeColor = System.Drawing.Color.Blue;
+            this.lblTongTienThanhToan.Location = new System.Drawing.Point(1016, 896);
+            this.lblTongTienThanhToan.Name = "lblTongTienThanhToan";
+            this.lblTongTienThanhToan.Size = new System.Drawing.Size(101, 31);
+            this.lblTongTienThanhToan.TabIndex = 19;
+            this.lblTongTienThanhToan.Text = "300.000đ";
+            // 
             // lblTieuDe2
             // 
             this.lblTieuDe2.BackColor = System.Drawing.Color.Transparent;
@@ -387,6 +483,16 @@
             this.lblTieuDe2.Size = new System.Drawing.Size(416, 25);
             this.lblTieuDe2.TabIndex = 6;
             this.lblTieuDe2.Text = "Hoàn tất thanh toán để xác nhận buổi tập của bạn";
+            // 
+            // lblTongTien
+            // 
+            this.lblTongTien.BackColor = System.Drawing.Color.Transparent;
+            this.lblTongTien.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTongTien.Location = new System.Drawing.Point(893, 896);
+            this.lblTongTien.Name = "lblTongTien";
+            this.lblTongTien.Size = new System.Drawing.Size(112, 31);
+            this.lblTongTien.TabIndex = 18;
+            this.lblTongTien.Text = "Tổng tiền:";
             // 
             // lblTieuDe
             // 
@@ -399,109 +505,22 @@
             this.lblTieuDe.TabIndex = 5;
             this.lblTieuDe.Text = "Thanh Toán Đặt Lịch";
             // 
-            // guna2ShadowPanel1
+            // btnTroVe
             // 
-            this.guna2ShadowPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ShadowPanel1.Controls.Add(this.lblTenPTThanhToan);
-            this.guna2ShadowPanel1.Controls.Add(this.ptrAvatarPT);
-            this.guna2ShadowPanel1.FillColor = System.Drawing.Color.Honeydew;
-            this.guna2ShadowPanel1.ForeColor = System.Drawing.SystemColors.Menu;
-            this.guna2ShadowPanel1.Location = new System.Drawing.Point(575, 21);
-            this.guna2ShadowPanel1.Name = "guna2ShadowPanel1";
-            this.guna2ShadowPanel1.Radius = 10;
-            this.guna2ShadowPanel1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.guna2ShadowPanel1.ShadowShift = 1;
-            this.guna2ShadowPanel1.Size = new System.Drawing.Size(356, 87);
-            this.guna2ShadowPanel1.TabIndex = 13;
-            // 
-            // lblTenPTThanhToan
-            // 
-            this.lblTenPTThanhToan.AutoSize = true;
-            this.lblTenPTThanhToan.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTenPTThanhToan.ForeColor = System.Drawing.Color.Black;
-            this.lblTenPTThanhToan.Location = new System.Drawing.Point(82, 12);
-            this.lblTenPTThanhToan.Name = "lblTenPTThanhToan";
-            this.lblTenPTThanhToan.Size = new System.Drawing.Size(145, 25);
-            this.lblTenPTThanhToan.TabIndex = 3;
-            this.lblTenPTThanhToan.Text = "Nguyễn Van A";
-            // 
-            // ptrAvatarPT
-            // 
-            this.ptrAvatarPT.ImageRotate = 0F;
-            this.ptrAvatarPT.Location = new System.Drawing.Point(17, 12);
-            this.ptrAvatarPT.Name = "ptrAvatarPT";
-            this.ptrAvatarPT.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.ptrAvatarPT.Size = new System.Drawing.Size(60, 53);
-            this.ptrAvatarPT.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptrAvatarPT.TabIndex = 3;
-            this.ptrAvatarPT.TabStop = false;
-            // 
-            // lblDen
-            // 
-            this.lblDen.AutoSize = true;
-            this.lblDen.BackColor = System.Drawing.Color.White;
-            this.lblDen.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDen.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.lblDen.Location = new System.Drawing.Point(460, 53);
-            this.lblDen.Name = "lblDen";
-            this.lblDen.Size = new System.Drawing.Size(38, 19);
-            this.lblDen.TabIndex = 21;
-            this.lblDen.Text = "Đến";
-            // 
-            // pnlDanhSachThanhToan
-            // 
-            this.pnlDanhSachThanhToan.Controls.Add(this.lblTien);
-            this.pnlDanhSachThanhToan.Controls.Add(this.lblTienThanhToan);
-            this.pnlDanhSachThanhToan.Controls.Add(this.btnThemThanhToan);
-            this.pnlDanhSachThanhToan.Controls.Add(this.lblDen);
-            this.pnlDanhSachThanhToan.Controls.Add(this.pnlNguoiDung);
-            this.pnlDanhSachThanhToan.Controls.Add(this.guna2ShadowPanel1);
-            this.pnlDanhSachThanhToan.Controls.Add(this.lblChonNgay);
-            this.pnlDanhSachThanhToan.Controls.Add(this.lblThoiGian);
-            this.pnlDanhSachThanhToan.Controls.Add(this.lblThu);
-            this.pnlDanhSachThanhToan.Controls.Add(this.lblNgayTap);
-            this.pnlDanhSachThanhToan.Controls.Add(this.ptrIcon);
-            this.pnlDanhSachThanhToan.Location = new System.Drawing.Point(24, 53);
-            this.pnlDanhSachThanhToan.Name = "pnlDanhSachThanhToan";
-            this.pnlDanhSachThanhToan.Size = new System.Drawing.Size(958, 200);
-            this.pnlDanhSachThanhToan.TabIndex = 22;
-            // 
-            // btnThemThanhToan
-            // 
-            this.btnThemThanhToan.BorderColor = System.Drawing.Color.Transparent;
-            this.btnThemThanhToan.BorderRadius = 15;
-            this.btnThemThanhToan.BorderThickness = 1;
-            this.btnThemThanhToan.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnThemThanhToan.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnThemThanhToan.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThemThanhToan.ForeColor = System.Drawing.Color.White;
-            this.btnThemThanhToan.Image = ((System.Drawing.Image)(resources.GetObject("btnThemThanhToan.Image")));
-            this.btnThemThanhToan.Location = new System.Drawing.Point(756, 131);
-            this.btnThemThanhToan.Name = "btnThemThanhToan";
-            this.btnThemThanhToan.Size = new System.Drawing.Size(175, 49);
-            this.btnThemThanhToan.TabIndex = 33;
-            this.btnThemThanhToan.Text = "Thêm thanh toán";
-            // 
-            // lblTienThanhToan
-            // 
-            this.lblTienThanhToan.BackColor = System.Drawing.Color.Transparent;
-            this.lblTienThanhToan.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTienThanhToan.ForeColor = System.Drawing.Color.Blue;
-            this.lblTienThanhToan.Location = new System.Drawing.Point(575, 149);
-            this.lblTienThanhToan.Name = "lblTienThanhToan";
-            this.lblTienThanhToan.Size = new System.Drawing.Size(101, 31);
-            this.lblTienThanhToan.TabIndex = 21;
-            this.lblTienThanhToan.Text = "300.000đ";
-            // 
-            // lblTien
-            // 
-            this.lblTien.BackColor = System.Drawing.Color.Transparent;
-            this.lblTien.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTien.Location = new System.Drawing.Point(492, 149);
-            this.lblTien.Name = "lblTien";
-            this.lblTien.Size = new System.Drawing.Size(59, 31);
-            this.lblTien.TabIndex = 21;
-            this.lblTien.Text = "Tiền:";
+            this.btnTroVe.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTroVe.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTroVe.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTroVe.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTroVe.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTroVe.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
+            this.btnTroVe.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnTroVe.ForeColor = System.Drawing.Color.White;
+            this.btnTroVe.Image = ((System.Drawing.Image)(resources.GetObject("btnTroVe.Image")));
+            this.btnTroVe.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnTroVe.Location = new System.Drawing.Point(8, 3);
+            this.btnTroVe.Name = "btnTroVe";
+            this.btnTroVe.Size = new System.Drawing.Size(45, 45);
+            this.btnTroVe.TabIndex = 2;
             // 
             // frm_ThanhToanPT
             // 
@@ -516,10 +535,15 @@
             this.guna2Panel1.PerformLayout();
             this.pnlTongTinDatLich.ResumeLayout(false);
             this.pnlTongTinDatLich.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptrIcon)).EndInit();
+            this.pnlDanhSachThanhToan.ResumeLayout(false);
+            this.pnlDanhSachThanhToan.PerformLayout();
             this.pnlNguoiDung.ResumeLayout(false);
             this.pnlNguoiDung.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarNguoiYeuCauach1)).EndInit();
+            this.guna2ShadowPanel1.ResumeLayout(false);
+            this.guna2ShadowPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarPT)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptrIcon)).EndInit();
             this.pnlPhuongThucThanhToan.ResumeLayout(false);
             this.pnlPhuongThucThanhToan.PerformLayout();
             this.pnlZalopay.ResumeLayout(false);
@@ -528,11 +552,6 @@
             this.pnlMomo.ResumeLayout(false);
             this.pnlMomo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.guna2ShadowPanel1.ResumeLayout(false);
-            this.guna2ShadowPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptrAvatarPT)).EndInit();
-            this.pnlDanhSachThanhToan.ResumeLayout(false);
-            this.pnlDanhSachThanhToan.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -574,5 +593,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTien;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTienThanhToan;
         private Guna.UI2.WinForms.Guna2GradientButton btnThemThanhToan;
+        private Guna.UI2.WinForms.Guna2Button btnTroVe;
     }
 }

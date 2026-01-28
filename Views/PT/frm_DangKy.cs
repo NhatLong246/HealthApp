@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,13 +17,13 @@ namespace HealthApp.Views.PT
     public partial class frm_DangKy : Form
     {
         private readonly PTController _ptController;
-        private readonly HealthApp.Views.Dashboard.frmDashBoard _parentDashboard;
+        private readonly HealthApp.Views.Dashboard.frmDashBoard1 _parentDashboard;
         private string _anhChanDungPath;
         private string _anhCCCDPath;
         private string _bangCapPath;
         private DateTime? _minNgayCapCccd;
 
-        public frm_DangKy(HealthApp.Views.Dashboard.frmDashBoard parentDashboard = null)
+        public frm_DangKy(HealthApp.Views.Dashboard.frmDashBoard1 parentDashboard = null)
         {
             InitializeComponent();
             _ptController = new PTController();

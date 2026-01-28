@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -558,15 +558,15 @@ namespace HealthApp.Views.KeHoachLuyenTap
         {
             try
             {
-                // Tìm frmDashBoard bằng cách đi lên parent controls
+                // Tìm frmDashBoard1 bằng cách đi lên parent controls
                 Control parent = this.Parent;
-                HealthApp.Views.Dashboard.frmDashBoard dashboard = null;
+                HealthApp.Views.Dashboard.frmDashBoard1 dashboard = null;
 
                 while (parent != null)
                 {
-                    if (parent is HealthApp.Views.Dashboard.frmDashBoard)
+                    if (parent is HealthApp.Views.Dashboard.frmDashBoard1)
                     {
-                        dashboard = parent as HealthApp.Views.Dashboard.frmDashBoard;
+                        dashboard = parent as HealthApp.Views.Dashboard.frmDashBoard1;
                         break;
                     }
                     parent = parent.Parent;
@@ -576,7 +576,7 @@ namespace HealthApp.Views.KeHoachLuyenTap
                 if (dashboard == null)
                 {
                     Form form = this.FindForm();
-                    dashboard = form as HealthApp.Views.Dashboard.frmDashBoard;
+                    dashboard = form as HealthApp.Views.Dashboard.frmDashBoard1;
                 }
 
                 if (dashboard != null)

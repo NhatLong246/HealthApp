@@ -140,8 +140,8 @@
   <data name="guna2Panel9.Size" type="System.Drawing.Size, System.Drawing">
     <value>363, 453</value>
   </data>
-  <data name="pnlChart.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;guna2Panel14.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="label18.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -167,6 +167,9 @@
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>760, 107</value>
   </data>
+  <data name="pnlTieuDe.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 17</value>
+  </data>
   <data name="&gt;&gt;guna2Panel13.Name" xml:space="preserve">
     <value>guna2Panel13</value>
   </data>
@@ -176,8 +179,8 @@
   <data name="guna2Button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>-3, 274</value>
   </data>
-  <data name="lblHienThiMucTieu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>584, 7</value>
+  <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;label23.Name" xml:space="preserve">
     <value>label23</value>
@@ -311,8 +314,8 @@
   <data name="&gt;&gt;pnlTieuDe.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;lblDanhGia.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label25.Name" xml:space="preserve">
+    <value>label25</value>
   </data>
   <data name="&gt;&gt;label14.Parent" xml:space="preserve">
     <value>guna2Panel11</value>
@@ -364,6 +367,9 @@
   </data>
   <data name="&gt;&gt;label10.Parent" xml:space="preserve">
     <value>guna2Panel12</value>
+  </data>
+  <data name="&gt;&gt;btnTroVe.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="guna2Panel5.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -536,14 +542,14 @@
   <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
     <value>497, 426</value>
   </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 16</value>
+  </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>417, 5</value>
   </data>
   <data name="&gt;&gt;guna2DateTimePicker1.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2DateTimePicker, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
-  </data>
-  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 33</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -590,11 +596,8 @@
   <data name="&gt;&gt;pnlWeekChart.Name" xml:space="preserve">
     <value>pnlWeekChart</value>
   </data>
-  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 16</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
+  <data name="&gt;&gt;pnlLoadBuaSang.Type" xml:space="preserve">
+    <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
   <data name="&gt;&gt;panel3.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -629,6 +632,9 @@
   <data name="guna2DateTimePicker1.Location" type="System.Drawing.Point, System.Drawing">
     <value>348, 106</value>
   </data>
+  <data name="&gt;&gt;guna2Panel8.Parent" xml:space="preserve">
+    <value>guna2Panel7</value>
+  </data>
   <data name="&gt;&gt;guna2Panel11.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
@@ -651,11 +657,45 @@
 |
 </value>
   </data>
+  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>751, 149</value>
+  </data>
   <data name="label9.Text" xml:space="preserve">
     <value>Bữa Tối</value>
   </data>
   <data name="label25.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 38</value>
+  </data>
+  <data name="btnTroVe.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        AAAASUVORK5CYII=
+</value>
   </data>
   <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -663,8 +703,8 @@
   <data name="&gt;&gt;guna2Panel10.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
-  <data name="&gt;&gt;guna2Panel15.Name" xml:space="preserve">
-    <value>guna2Panel15</value>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>guna2Panel13</value>
   </data>
   <data name="guna2Panel1.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -681,14 +721,14 @@
   <data name="&gt;&gt;pnlChuaDanhGia.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="btnTroVe.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
   <data name="&gt;&gt;label18.Parent" xml:space="preserve">
     <value>guna2Panel13</value>
   </data>
   <data name="&gt;&gt;label2.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>guna2Panel13</value>
   </data>
   <data name="&gt;&gt;pnlTieuDe.Name" xml:space="preserve">
     <value>pnlTieuDe</value>
@@ -699,14 +739,8 @@
   <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
-  </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
-  </data>
-  <data name="lblTieuDe.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="&gt;&gt;btnThemMon1.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -726,6 +760,18 @@
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value> Fact:Khi bạn ăn chậm và tập trung vào bữa ăn, cơ thể
+ có thời gian để giải phóng các hormone báo hiệu cảm
+ giác no như leptin và cholecystokinin. Nhờ đó, bạn dễ
+ kiểm soát lượng thức ăn hơn, giảm nguy cơ ăn quá mức
+ và hỗ trợ tiêu hoá tốt hơn.
+
+</value>
+  </data>
+  <data name="&gt;&gt;btnKhamPhaNgay.Name" xml:space="preserve">
+    <value>btnKhamPhaNgay</value>
   </data>
   <data name="&gt;&gt;guna2Panel10.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -756,9 +802,6 @@
   </data>
   <data name="lblDanhGia.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 10.2pt, style=Bold</value>
-  </data>
-  <data name="pnlChuaDanhGia.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
     <value>Đánh giá</value>
@@ -848,6 +891,12 @@
   <data name="&gt;&gt;pnlLoadBuaPhu.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
+  <data name="&gt;&gt;pnlLoadBuaTrua.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;btnTroVe.Name" xml:space="preserve">
+    <value>btnTroVe</value>
+  </data>
   <data name="&gt;&gt;label6.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -860,8 +909,11 @@
   <data name="label23.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;pnlLoadBuaSang.Type" xml:space="preserve">
+  <data name="&gt;&gt;pnlLoadBuaTrua.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  </data>
+  <data name="&gt;&gt;btnTroVe.Type" xml:space="preserve">
+    <value>Guna.UI2.WinForms.Guna2Button, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
   <data name="&gt;&gt;label25.Parent" xml:space="preserve">
     <value>guna2Panel3</value>
@@ -878,8 +930,8 @@
   <data name="btnThemMon2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 10.2pt, style=Bold</value>
   </data>
-  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 23</value>
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 16</value>
   </data>
   <data name="pnlLoadBuaSang.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 57</value>
@@ -965,9 +1017,6 @@
   <data name="&gt;&gt;pnlLoadBuaPhu.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;pnlLoadBuaTrua.Type" xml:space="preserve">
-    <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
-  </data>
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 9pt, style=Bold</value>
   </data>
@@ -1001,8 +1050,8 @@
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 16</value>
   </data>
-  <data name="&gt;&gt;guna2Panel8.Parent" xml:space="preserve">
-    <value>guna2Panel7</value>
+  <data name="pnlChart.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;pnlLoadBuaToi.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
@@ -1040,8 +1089,8 @@
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>751, 149</value>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
   </data>
   <data name="&gt;&gt;btnThemMon3.Name" xml:space="preserve">
     <value>btnThemMon3</value>
@@ -1051,6 +1100,9 @@
   </data>
   <data name="&gt;&gt;guna2Panel9.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="lblHienThiMucTieu.Location" type="System.Drawing.Point, System.Drawing">
+    <value>584, 7</value>
   </data>
   <data name="guna2Panel2.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
@@ -1115,9 +1167,6 @@
   <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;guna2Panel14.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="guna2Panel13.Size" type="System.Drawing.Size, System.Drawing">
     <value>1128, 529</value>
   </data>
@@ -1145,14 +1194,8 @@
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 16</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value> Fact:Khi bạn ăn chậm và tập trung vào bữa ăn, cơ thể
- có thời gian để giải phóng các hormone báo hiệu cảm
- giác no như leptin và cholecystokinin. Nhờ đó, bạn dễ
- kiểm soát lượng thức ăn hơn, giảm nguy cơ ăn quá mức
- và hỗ trợ tiêu hoá tốt hơn.
-
-</value>
+  <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 33</value>
   </data>
   <data name="&gt;&gt;guna2Panel15.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -1199,9 +1242,6 @@
   <data name="pnlMonthChart.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="guna2Button1.Text" xml:space="preserve">
-    <value>Khám phá ngay</value>
-  </data>
   <data name="&gt;&gt;pnlWeekChart.Parent" xml:space="preserve">
     <value>guna2Panel13</value>
   </data>
@@ -1234,6 +1274,9 @@
   </data>
   <data name="&gt;&gt;guna2Panel13.Type" xml:space="preserve">
     <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  </data>
+  <data name="&gt;&gt;btnTroVe.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
     <value>________________</value>
@@ -1295,8 +1338,8 @@
   <data name="label15.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="guna2Button1.Text" xml:space="preserve">
+    <value>Khám phá ngay</value>
   </data>
   <data name="&gt;&gt;label13.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1426,6 +1469,9 @@ cách toàn diện hơn
   <data name="&gt;&gt;pnlMonthChart.Name" xml:space="preserve">
     <value>pnlMonthChart</value>
   </data>
+  <data name="&gt;&gt;lblDanhGia.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;lblTieuDe.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1437,9 +1483,6 @@ cách toàn diện hơn
   </data>
   <data name="&gt;&gt;guna2Button1.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="&gt;&gt;label25.Name" xml:space="preserve">
-    <value>label25</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1462,8 +1505,8 @@ cách toàn diện hơn
   <data name="guna2DateTimePicker1.Size" type="System.Drawing.Size, System.Drawing">
     <value>468, 42</value>
   </data>
-  <data name="&gt;&gt;btnKhamPhaNgay.Name" xml:space="preserve">
-    <value>btnKhamPhaNgay</value>
+  <data name="pnlChuaDanhGia.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
   </data>
   <data name="&gt;&gt;btnThemMon2.Parent" xml:space="preserve">
     <value>guna2Panel9</value>
@@ -1474,8 +1517,8 @@ cách toàn diện hơn
   <data name="&gt;&gt;pnlLoadBuaTrua.Name" xml:space="preserve">
     <value>pnlLoadBuaTrua</value>
   </data>
-  <data name="pnlTieuDe.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 17</value>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="guna2Panel7.Location" type="System.Drawing.Point, System.Drawing">
     <value>104, 584</value>
@@ -1498,8 +1541,8 @@ cách toàn diện hơn
   <data name="lblInfor.Size" type="System.Drawing.Size, System.Drawing">
     <value>291, 25</value>
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 16</value>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 23</value>
   </data>
   <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI Semibold, 7.8pt, style=Bold, Italic</value>
@@ -1522,7 +1565,10 @@ cách toàn diện hơn
   <data name="&gt;&gt;guna2Panel5.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;pnlLoadBuaTrua.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;guna2Panel15.Name" xml:space="preserve">
+    <value>guna2Panel15</value>
+  </data>
+  <data name="lblTieuDe.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="pnlChart.Location" type="System.Drawing.Point, System.Drawing">
@@ -1582,8 +1628,11 @@ cách toàn diện hơn
   <data name="guna2Panel9.Location" type="System.Drawing.Point, System.Drawing">
     <value>529, 584</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="btnTroVe.Location" type="System.Drawing.Point, System.Drawing">
+    <value>652, 1378</value>
   </data>
   <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
     <value>1</value>

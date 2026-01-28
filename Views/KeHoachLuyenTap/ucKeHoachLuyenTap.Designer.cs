@@ -69,14 +69,14 @@
             this.lblSoBuoiTap = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.pnlDanhSachMucTieu = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblThongBao = new System.Windows.Forms.Label();
             this.btnHoanThanh = new Guna.UI2.WinForms.Guna2Button();
             this.btnHuyKeHoach = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.dgvDanhSachBaiTap = new Guna.UI2.WinForms.Guna2DataGridView();
             this.btnDoiLichTap = new Guna.UI2.WinForms.Guna2Button();
-            this.lblThongBao = new System.Windows.Forms.Label();
+            this.dgvDanhSachBaiTap = new Guna.UI2.WinForms.Guna2DataGridView();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnTroVe = new Guna.UI2.WinForms.Guna2Button();
             this.guna2GroupBox2.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -598,6 +598,18 @@
             this.pnlDanhSachMucTieu.Size = new System.Drawing.Size(1157, 719);
             this.pnlDanhSachMucTieu.TabIndex = 11;
             // 
+            // lblThongBao
+            // 
+            this.lblThongBao.AutoSize = true;
+            this.lblThongBao.BackColor = System.Drawing.Color.White;
+            this.lblThongBao.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThongBao.ForeColor = System.Drawing.Color.Red;
+            this.lblThongBao.Location = new System.Drawing.Point(856, 31);
+            this.lblThongBao.Name = "lblThongBao";
+            this.lblThongBao.Size = new System.Drawing.Size(216, 25);
+            this.lblThongBao.TabIndex = 8;
+            this.lblThongBao.Text = "* Bạn chưa có bài tập nào";
+            // 
             // btnHoanThanh
             // 
             this.btnHoanThanh.BorderRadius = 20;
@@ -644,16 +656,21 @@
             this.guna2Panel4.Size = new System.Drawing.Size(990, 506);
             this.guna2Panel4.TabIndex = 5;
             // 
-            // label5
+            // btnDoiLichTap
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.White;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(77, 28);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(257, 28);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "DANH SÁCH CÁC BÀI TẬP";
+            this.btnDoiLichTap.BorderRadius = 20;
+            this.btnDoiLichTap.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDoiLichTap.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnDoiLichTap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDoiLichTap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDoiLichTap.FillColor = System.Drawing.Color.Red;
+            this.btnDoiLichTap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDoiLichTap.ForeColor = System.Drawing.Color.White;
+            this.btnDoiLichTap.Location = new System.Drawing.Point(754, 428);
+            this.btnDoiLichTap.Name = "btnDoiLichTap";
+            this.btnDoiLichTap.Size = new System.Drawing.Size(200, 50);
+            this.btnDoiLichTap.TabIndex = 7;
+            this.btnDoiLichTap.Text = "Dời lịch tập";
             // 
             // dgvDanhSachBaiTap
             // 
@@ -707,35 +724,6 @@
             this.dgvDanhSachBaiTap.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvDanhSachBaiTap.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
-            // btnDoiLichTap
-            // 
-            this.btnDoiLichTap.BorderRadius = 20;
-            this.btnDoiLichTap.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnDoiLichTap.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnDoiLichTap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnDoiLichTap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnDoiLichTap.FillColor = System.Drawing.Color.Red;
-            this.btnDoiLichTap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDoiLichTap.ForeColor = System.Drawing.Color.White;
-            this.btnDoiLichTap.Location = new System.Drawing.Point(754, 428);
-            this.btnDoiLichTap.Name = "btnDoiLichTap";
-            this.btnDoiLichTap.Size = new System.Drawing.Size(200, 50);
-            this.btnDoiLichTap.TabIndex = 7;
-            this.btnDoiLichTap.Text = "Dời lịch tập";
-            // Event handler được đăng ký trong InitializeEventHandlers()
-            // 
-            // lblThongBao
-            // 
-            this.lblThongBao.AutoSize = true;
-            this.lblThongBao.BackColor = System.Drawing.Color.White;
-            this.lblThongBao.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThongBao.ForeColor = System.Drawing.Color.Red;
-            this.lblThongBao.Location = new System.Drawing.Point(856, 31);
-            this.lblThongBao.Name = "lblThongBao";
-            this.lblThongBao.Size = new System.Drawing.Size(216, 25);
-            this.lblThongBao.TabIndex = 8;
-            this.lblThongBao.Text = "* Bạn chưa có bài tập nào";
-            // 
             // guna2PictureBox1
             // 
             this.guna2PictureBox1.BackColor = System.Drawing.Color.White;
@@ -747,6 +735,17 @@
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.guna2PictureBox1.TabIndex = 4;
             this.guna2PictureBox1.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.White;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label5.Location = new System.Drawing.Point(77, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(257, 28);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "DANH SÁCH CÁC BÀI TẬP";
             // 
             // btnTroVe
             // 

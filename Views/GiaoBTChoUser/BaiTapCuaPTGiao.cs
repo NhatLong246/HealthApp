@@ -16,11 +16,13 @@ namespace HealthApp.Views.GiaoBTChoUser
     {
         private readonly PTController _ptController;
         private readonly Guna2ShadowPanel _assignmentTemplate;
+        private LichLuyenTapUser _parentLichForm;
 
-        public BaiTapCuaPTGiao()
+        public BaiTapCuaPTGiao(DateTime? selectedDate = null, LichLuyenTapUser parentLichForm = null)
         {
             InitializeComponent();
             _ptController = new PTController();
+            _parentLichForm = parentLichForm;
             _assignmentTemplate = pnLichDat;
             _assignmentTemplate.Visible = false;
 
@@ -29,11 +31,29 @@ namespace HealthApp.Views.GiaoBTChoUser
                 flpBookings.Controls.Remove(pnLichDat);
             }
 
+            // Nếu có ngày được chọn, set vào dtpTime
+            if (selectedDate.HasValue)
+            {
+                dtpTime.Value = selectedDate.Value;
+            }
+
             // Gắn event handlers
             this.Load += BaiTapCuaPTGiao_Load;
             dtpTime.ValueChanged += DtpTime_ValueChanged;
             btnPrev.Click += BtnPrev_Click;
             btnNext.Click += BtnNext_Click;
+        }
+
+        /// <summary>
+        /// Set ngày được chọn (được gọi từ LichLuyenTapUser)
+        /// </summary>
+        public void SetSelectedDate(DateTime date)
+        {
+            if (dtpTime != null)
+            {
+                dtpTime.Value = date;
+                _ = LoadAssignmentsForDateAsync(date);
+            }
         }
 
         private void BaiTapCuaPTGiao_Load(object sender, EventArgs e)
@@ -47,9 +67,13 @@ namespace HealthApp.Views.GiaoBTChoUser
                     return;
                 }
 
-                // Mặc định chọn hôm nay
-                dtpTime.Value = DateTime.Today;
-                _ = LoadAssignmentsForDateAsync(DateTime.Today);
+                // Nếu dtpTime đã được set từ constructor, load dữ liệu cho ngày đó
+                // Nếu không, mặc định chọn hôm nay
+                if (dtpTime.Value == DateTime.MinValue || dtpTime.Value.Date == new DateTime(2025, 11, 26).Date)
+                {
+                    dtpTime.Value = DateTime.Today;
+                }
+                _ = LoadAssignmentsForDateAsync(dtpTime.Value.Date);
             }
             catch (Exception ex)
             {

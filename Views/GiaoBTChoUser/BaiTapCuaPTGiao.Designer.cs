@@ -33,7 +33,7 @@
             // 
             // grbMain
             // 
-            this.grbMain.BackColor = System.Drawing.Color.White;
+            this.grbMain.BackColor = System.Drawing.Color.Transparent;
             this.grbMain.BorderColor = System.Drawing.Color.Gray;
             this.grbMain.BorderRadius = 20;
             this.grbMain.Controls.Add(this.flpBookings);
@@ -42,7 +42,7 @@
             this.grbMain.Controls.Add(this.btnPrev);
             this.grbMain.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbMain.ForeColor = System.Drawing.Color.Teal;
-            this.grbMain.Location = new System.Drawing.Point(196, 87);
+            this.grbMain.Location = new System.Drawing.Point(164, 87);
             this.grbMain.Name = "grbMain";
             this.grbMain.Size = new System.Drawing.Size(975, 520);
             this.grbMain.TabIndex = 15;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,6 +9,7 @@ using Guna.UI2.WinForms;
 using HealthApp.Common.Helpers;
 using HealthApp.Controllers;
 using HealthApp.Models;
+using HealthApp.Views.Dashboard;
 using Newtonsoft.Json;
 
 namespace HealthApp.Views.PT
@@ -39,6 +40,12 @@ namespace HealthApp.Views.PT
             btnPrev.Click += BtnPrev_Click;
             btnNext.Click += BtnNext_Click;
             btnGiaoBT.Click += BtnGiaoBT_Click;
+            
+            // Kết nối event cho nút quay lại
+            if (btnTroVe != null)
+            {
+                btnTroVe.Click += BtnTroVe_Click;
+            }
         }
 
         private void GiaoBTChoUser_Load(object sender, EventArgs e)
@@ -305,6 +312,42 @@ namespace HealthApp.Views.PT
         {
             base.OnFormClosed(e);
             _ptController?.Dispose();
+        }
+
+        /// <summary>
+        /// Event handler cho nút quay lại - quay về Dashboard
+        /// </summary>
+        private void BtnTroVe_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Tìm frmDashBoard1 trong Application.OpenForms
+                frmDashBoard1 dashboard = null;
+                foreach (Form openForm in Application.OpenForms)
+                {
+                    if (openForm is frmDashBoard1)
+                    {
+                        dashboard = openForm as frmDashBoard1;
+                        break;
+                    }
+                }
+
+                if (dashboard != null)
+                {
+                    // Ẩn form hiện tại và hiển thị lại dashboard
+                    this.Hide();
+                    dashboard.ShowDashboard();
+                }
+                else
+                {
+                    // Nếu không tìm thấy dashboard, chỉ đóng form hiện tại
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi quay lại: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private IList<GiaoBaiTapChoUser> GetAssignmentsForBooking(string datLichId)

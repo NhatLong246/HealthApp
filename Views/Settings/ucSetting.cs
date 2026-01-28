@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using HealthApp.Common.Helpers;
@@ -44,7 +44,7 @@ namespace HealthApp.Views.Settings
 
         private void OpenProfileEditor(object sender, EventArgs e)
         {
-            using (var form = new frmChangeInformationforNewuser())
+            using (var form = new frmThongTinhTheTrang())
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -89,8 +89,8 @@ namespace HealthApp.Views.Settings
                     CurrentUser.Logout();
 
                     // Tìm form Dashboard
-                    var dashboardForm = this.FindForm() as Dashboard.frmDashBoard
-                        ?? Application.OpenForms.OfType<Dashboard.frmDashBoard>().FirstOrDefault();
+                    var dashboardForm = this.FindForm() as Dashboard.frmDashBoard1
+                        ?? Application.OpenForms.OfType<Dashboard.frmDashBoard1>().FirstOrDefault();
 
                     if (dashboardForm != null)
                     {
@@ -131,7 +131,7 @@ namespace HealthApp.Views.Settings
                         if (loginForm.ShowDialog() == DialogResult.OK)
                         {
                             // Tạo Dashboard mới
-                            var newDashboard = new Dashboard.frmDashBoard();
+                            var newDashboard = new Dashboard.frmDashBoard1();
                             newDashboard.Show();
                         }
                         else

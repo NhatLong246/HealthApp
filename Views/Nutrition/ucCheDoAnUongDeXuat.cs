@@ -4466,5 +4466,10 @@ namespace HealthApp.Views.Nutrition
 
             return card;
         }
+
+        private void ucCheDoAnUongDeXuat_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
