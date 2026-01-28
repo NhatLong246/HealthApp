@@ -197,8 +197,8 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 8;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel1.ColumnCount = 8;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
@@ -259,9 +259,9 @@
             this.btnLichPT21.FillColor = System.Drawing.Color.White;
             this.btnLichPT21.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT21.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT21.Location = new System.Drawing.Point(1081, 458);
+            this.btnLichPT21.Location = new System.Drawing.Point(1082, 458);
             this.btnLichPT21.Name = "btnLichPT21";
-            this.btnLichPT21.Size = new System.Drawing.Size(155, 189);
+            this.btnLichPT21.Size = new System.Drawing.Size(153, 188);
             this.btnLichPT21.TabIndex = 31;
             // 
             // btnLichPT20
@@ -274,9 +274,9 @@
             this.btnLichPT20.FillColor = System.Drawing.Color.White;
             this.btnLichPT20.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT20.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT20.Location = new System.Drawing.Point(927, 458);
+            this.btnLichPT20.Location = new System.Drawing.Point(928, 458);
             this.btnLichPT20.Name = "btnLichPT20";
-            this.btnLichPT20.Size = new System.Drawing.Size(148, 189);
+            this.btnLichPT20.Size = new System.Drawing.Size(147, 188);
             this.btnLichPT20.TabIndex = 30;
             // 
             // btnLichPT19
@@ -289,9 +289,9 @@
             this.btnLichPT19.FillColor = System.Drawing.Color.White;
             this.btnLichPT19.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT19.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT19.Location = new System.Drawing.Point(773, 458);
+            this.btnLichPT19.Location = new System.Drawing.Point(774, 458);
             this.btnLichPT19.Name = "btnLichPT19";
-            this.btnLichPT19.Size = new System.Drawing.Size(148, 189);
+            this.btnLichPT19.Size = new System.Drawing.Size(147, 188);
             this.btnLichPT19.TabIndex = 29;
             // 
             // btnLichPT18
@@ -304,9 +304,9 @@
             this.btnLichPT18.FillColor = System.Drawing.Color.White;
             this.btnLichPT18.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT18.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT18.Location = new System.Drawing.Point(619, 458);
+            this.btnLichPT18.Location = new System.Drawing.Point(620, 458);
             this.btnLichPT18.Name = "btnLichPT18";
-            this.btnLichPT18.Size = new System.Drawing.Size(148, 189);
+            this.btnLichPT18.Size = new System.Drawing.Size(147, 188);
             this.btnLichPT18.TabIndex = 28;
             // 
             // btnLichPT17
@@ -319,9 +319,9 @@
             this.btnLichPT17.FillColor = System.Drawing.Color.White;
             this.btnLichPT17.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT17.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT17.Location = new System.Drawing.Point(465, 458);
+            this.btnLichPT17.Location = new System.Drawing.Point(466, 458);
             this.btnLichPT17.Name = "btnLichPT17";
-            this.btnLichPT17.Size = new System.Drawing.Size(148, 189);
+            this.btnLichPT17.Size = new System.Drawing.Size(147, 188);
             this.btnLichPT17.TabIndex = 27;
             // 
             // btnLichPT16
@@ -334,9 +334,9 @@
             this.btnLichPT16.FillColor = System.Drawing.Color.White;
             this.btnLichPT16.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT16.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT16.Location = new System.Drawing.Point(311, 458);
+            this.btnLichPT16.Location = new System.Drawing.Point(312, 458);
             this.btnLichPT16.Name = "btnLichPT16";
-            this.btnLichPT16.Size = new System.Drawing.Size(148, 189);
+            this.btnLichPT16.Size = new System.Drawing.Size(147, 188);
             this.btnLichPT16.TabIndex = 26;
             // 
             // btnLichPT15
@@ -349,9 +349,9 @@
             this.btnLichPT15.FillColor = System.Drawing.Color.White;
             this.btnLichPT15.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT15.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT15.Location = new System.Drawing.Point(157, 458);
+            this.btnLichPT15.Location = new System.Drawing.Point(158, 458);
             this.btnLichPT15.Name = "btnLichPT15";
-            this.btnLichPT15.Size = new System.Drawing.Size(148, 189);
+            this.btnLichPT15.Size = new System.Drawing.Size(147, 188);
             this.btnLichPT15.TabIndex = 25;
             // 
             // btnToi
@@ -364,9 +364,9 @@
             this.btnToi.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnToi.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnToi.ForeColor = System.Drawing.Color.Black;
-            this.btnToi.Location = new System.Drawing.Point(3, 458);
+            this.btnToi.Location = new System.Drawing.Point(4, 458);
             this.btnToi.Name = "btnToi";
-            this.btnToi.Size = new System.Drawing.Size(148, 189);
+            this.btnToi.Size = new System.Drawing.Size(147, 188);
             this.btnToi.TabIndex = 24;
             this.btnToi.Text = "Tối";
             // 
@@ -380,9 +380,9 @@
             this.btnLichPT14.FillColor = System.Drawing.Color.White;
             this.btnLichPT14.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT14.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT14.Location = new System.Drawing.Point(1081, 251);
+            this.btnLichPT14.Location = new System.Drawing.Point(1082, 252);
             this.btnLichPT14.Name = "btnLichPT14";
-            this.btnLichPT14.Size = new System.Drawing.Size(155, 201);
+            this.btnLichPT14.Size = new System.Drawing.Size(153, 199);
             this.btnLichPT14.TabIndex = 23;
             // 
             // btnLichPT13
@@ -395,9 +395,9 @@
             this.btnLichPT13.FillColor = System.Drawing.Color.White;
             this.btnLichPT13.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT13.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT13.Location = new System.Drawing.Point(927, 251);
+            this.btnLichPT13.Location = new System.Drawing.Point(928, 252);
             this.btnLichPT13.Name = "btnLichPT13";
-            this.btnLichPT13.Size = new System.Drawing.Size(148, 201);
+            this.btnLichPT13.Size = new System.Drawing.Size(147, 199);
             this.btnLichPT13.TabIndex = 22;
             // 
             // btnLichPT12
@@ -410,9 +410,9 @@
             this.btnLichPT12.FillColor = System.Drawing.Color.White;
             this.btnLichPT12.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT12.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT12.Location = new System.Drawing.Point(773, 251);
+            this.btnLichPT12.Location = new System.Drawing.Point(774, 252);
             this.btnLichPT12.Name = "btnLichPT12";
-            this.btnLichPT12.Size = new System.Drawing.Size(148, 201);
+            this.btnLichPT12.Size = new System.Drawing.Size(147, 199);
             this.btnLichPT12.TabIndex = 21;
             // 
             // btnLichPT11
@@ -425,9 +425,9 @@
             this.btnLichPT11.FillColor = System.Drawing.Color.White;
             this.btnLichPT11.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT11.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT11.Location = new System.Drawing.Point(619, 251);
+            this.btnLichPT11.Location = new System.Drawing.Point(620, 252);
             this.btnLichPT11.Name = "btnLichPT11";
-            this.btnLichPT11.Size = new System.Drawing.Size(148, 201);
+            this.btnLichPT11.Size = new System.Drawing.Size(147, 199);
             this.btnLichPT11.TabIndex = 20;
             // 
             // btnLichPT10
@@ -440,9 +440,9 @@
             this.btnLichPT10.FillColor = System.Drawing.Color.White;
             this.btnLichPT10.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT10.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT10.Location = new System.Drawing.Point(465, 251);
+            this.btnLichPT10.Location = new System.Drawing.Point(466, 252);
             this.btnLichPT10.Name = "btnLichPT10";
-            this.btnLichPT10.Size = new System.Drawing.Size(148, 201);
+            this.btnLichPT10.Size = new System.Drawing.Size(147, 199);
             this.btnLichPT10.TabIndex = 19;
             // 
             // btnLichPT9
@@ -455,9 +455,9 @@
             this.btnLichPT9.FillColor = System.Drawing.Color.White;
             this.btnLichPT9.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT9.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT9.Location = new System.Drawing.Point(311, 251);
+            this.btnLichPT9.Location = new System.Drawing.Point(312, 252);
             this.btnLichPT9.Name = "btnLichPT9";
-            this.btnLichPT9.Size = new System.Drawing.Size(148, 201);
+            this.btnLichPT9.Size = new System.Drawing.Size(147, 199);
             this.btnLichPT9.TabIndex = 18;
             // 
             // btnLichPT8
@@ -470,9 +470,9 @@
             this.btnLichPT8.FillColor = System.Drawing.Color.White;
             this.btnLichPT8.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT8.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT8.Location = new System.Drawing.Point(157, 251);
+            this.btnLichPT8.Location = new System.Drawing.Point(158, 252);
             this.btnLichPT8.Name = "btnLichPT8";
-            this.btnLichPT8.Size = new System.Drawing.Size(148, 201);
+            this.btnLichPT8.Size = new System.Drawing.Size(147, 199);
             this.btnLichPT8.TabIndex = 17;
             // 
             // btnChieu
@@ -485,9 +485,9 @@
             this.btnChieu.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnChieu.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChieu.ForeColor = System.Drawing.Color.Black;
-            this.btnChieu.Location = new System.Drawing.Point(3, 251);
+            this.btnChieu.Location = new System.Drawing.Point(4, 252);
             this.btnChieu.Name = "btnChieu";
-            this.btnChieu.Size = new System.Drawing.Size(148, 201);
+            this.btnChieu.Size = new System.Drawing.Size(147, 199);
             this.btnChieu.TabIndex = 16;
             this.btnChieu.Text = "Chiều";
             // 
@@ -501,9 +501,9 @@
             this.btnLichPT7.FillColor = System.Drawing.Color.White;
             this.btnLichPT7.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT7.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT7.Location = new System.Drawing.Point(1081, 47);
+            this.btnLichPT7.Location = new System.Drawing.Point(1082, 49);
             this.btnLichPT7.Name = "btnLichPT7";
-            this.btnLichPT7.Size = new System.Drawing.Size(155, 198);
+            this.btnLichPT7.Size = new System.Drawing.Size(153, 196);
             this.btnLichPT7.TabIndex = 15;
             // 
             // btnLichPT6
@@ -516,9 +516,9 @@
             this.btnLichPT6.FillColor = System.Drawing.Color.White;
             this.btnLichPT6.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT6.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT6.Location = new System.Drawing.Point(927, 47);
+            this.btnLichPT6.Location = new System.Drawing.Point(928, 49);
             this.btnLichPT6.Name = "btnLichPT6";
-            this.btnLichPT6.Size = new System.Drawing.Size(148, 198);
+            this.btnLichPT6.Size = new System.Drawing.Size(147, 196);
             this.btnLichPT6.TabIndex = 14;
             // 
             // btnLichPT5
@@ -531,9 +531,9 @@
             this.btnLichPT5.FillColor = System.Drawing.Color.White;
             this.btnLichPT5.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT5.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT5.Location = new System.Drawing.Point(773, 47);
+            this.btnLichPT5.Location = new System.Drawing.Point(774, 49);
             this.btnLichPT5.Name = "btnLichPT5";
-            this.btnLichPT5.Size = new System.Drawing.Size(148, 198);
+            this.btnLichPT5.Size = new System.Drawing.Size(147, 196);
             this.btnLichPT5.TabIndex = 13;
             // 
             // btnLichPT4
@@ -546,9 +546,9 @@
             this.btnLichPT4.FillColor = System.Drawing.Color.White;
             this.btnLichPT4.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT4.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT4.Location = new System.Drawing.Point(619, 47);
+            this.btnLichPT4.Location = new System.Drawing.Point(620, 49);
             this.btnLichPT4.Name = "btnLichPT4";
-            this.btnLichPT4.Size = new System.Drawing.Size(148, 198);
+            this.btnLichPT4.Size = new System.Drawing.Size(147, 196);
             this.btnLichPT4.TabIndex = 12;
             // 
             // btnLichPT3
@@ -561,11 +561,10 @@
             this.btnLichPT3.FillColor = System.Drawing.Color.White;
             this.btnLichPT3.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT3.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT3.Location = new System.Drawing.Point(465, 47);
+            this.btnLichPT3.Location = new System.Drawing.Point(466, 49);
             this.btnLichPT3.Name = "btnLichPT3";
-            this.btnLichPT3.Size = new System.Drawing.Size(148, 198);
+            this.btnLichPT3.Size = new System.Drawing.Size(147, 196);
             this.btnLichPT3.TabIndex = 11;
-            //this.btnLichPT3.Click += new System.EventHandler(this.guna2Button12_Click);
             // 
             // btnLichPT2
             // 
@@ -577,9 +576,9 @@
             this.btnLichPT2.FillColor = System.Drawing.Color.White;
             this.btnLichPT2.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT2.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT2.Location = new System.Drawing.Point(311, 47);
+            this.btnLichPT2.Location = new System.Drawing.Point(312, 49);
             this.btnLichPT2.Name = "btnLichPT2";
-            this.btnLichPT2.Size = new System.Drawing.Size(148, 198);
+            this.btnLichPT2.Size = new System.Drawing.Size(147, 196);
             this.btnLichPT2.TabIndex = 10;
             // 
             // btnLichPT1
@@ -592,9 +591,9 @@
             this.btnLichPT1.FillColor = System.Drawing.Color.White;
             this.btnLichPT1.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLichPT1.ForeColor = System.Drawing.Color.Black;
-            this.btnLichPT1.Location = new System.Drawing.Point(157, 47);
+            this.btnLichPT1.Location = new System.Drawing.Point(158, 49);
             this.btnLichPT1.Name = "btnLichPT1";
-            this.btnLichPT1.Size = new System.Drawing.Size(148, 198);
+            this.btnLichPT1.Size = new System.Drawing.Size(147, 196);
             this.btnLichPT1.TabIndex = 9;
             // 
             // btnSang
@@ -607,9 +606,9 @@
             this.btnSang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnSang.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSang.ForeColor = System.Drawing.Color.Black;
-            this.btnSang.Location = new System.Drawing.Point(3, 47);
+            this.btnSang.Location = new System.Drawing.Point(4, 49);
             this.btnSang.Name = "btnSang";
-            this.btnSang.Size = new System.Drawing.Size(148, 198);
+            this.btnSang.Size = new System.Drawing.Size(147, 196);
             this.btnSang.TabIndex = 8;
             this.btnSang.Text = "Sáng";
             // 
@@ -623,9 +622,9 @@
             this.btnChuNhat.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnChuNhat.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChuNhat.ForeColor = System.Drawing.Color.Black;
-            this.btnChuNhat.Location = new System.Drawing.Point(1081, 3);
+            this.btnChuNhat.Location = new System.Drawing.Point(1082, 4);
             this.btnChuNhat.Name = "btnChuNhat";
-            this.btnChuNhat.Size = new System.Drawing.Size(155, 38);
+            this.btnChuNhat.Size = new System.Drawing.Size(153, 38);
             this.btnChuNhat.TabIndex = 7;
             this.btnChuNhat.Text = "Chủ Nhật";
             // 
@@ -639,9 +638,9 @@
             this.btnThu7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnThu7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThu7.ForeColor = System.Drawing.Color.Black;
-            this.btnThu7.Location = new System.Drawing.Point(927, 3);
+            this.btnThu7.Location = new System.Drawing.Point(928, 4);
             this.btnThu7.Name = "btnThu7";
-            this.btnThu7.Size = new System.Drawing.Size(148, 38);
+            this.btnThu7.Size = new System.Drawing.Size(147, 38);
             this.btnThu7.TabIndex = 6;
             this.btnThu7.Text = "Thứ 7";
             // 
@@ -655,9 +654,9 @@
             this.btnThu6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnThu6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThu6.ForeColor = System.Drawing.Color.Black;
-            this.btnThu6.Location = new System.Drawing.Point(773, 3);
+            this.btnThu6.Location = new System.Drawing.Point(774, 4);
             this.btnThu6.Name = "btnThu6";
-            this.btnThu6.Size = new System.Drawing.Size(148, 38);
+            this.btnThu6.Size = new System.Drawing.Size(147, 38);
             this.btnThu6.TabIndex = 5;
             this.btnThu6.Text = "Thứ 6";
             // 
@@ -671,9 +670,9 @@
             this.btnThu5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnThu5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThu5.ForeColor = System.Drawing.Color.Black;
-            this.btnThu5.Location = new System.Drawing.Point(619, 3);
+            this.btnThu5.Location = new System.Drawing.Point(620, 4);
             this.btnThu5.Name = "btnThu5";
-            this.btnThu5.Size = new System.Drawing.Size(148, 38);
+            this.btnThu5.Size = new System.Drawing.Size(147, 38);
             this.btnThu5.TabIndex = 4;
             this.btnThu5.Text = "Thứ 5";
             // 
@@ -687,9 +686,9 @@
             this.btnThu4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnThu4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThu4.ForeColor = System.Drawing.Color.Black;
-            this.btnThu4.Location = new System.Drawing.Point(465, 3);
+            this.btnThu4.Location = new System.Drawing.Point(466, 4);
             this.btnThu4.Name = "btnThu4";
-            this.btnThu4.Size = new System.Drawing.Size(148, 38);
+            this.btnThu4.Size = new System.Drawing.Size(147, 38);
             this.btnThu4.TabIndex = 3;
             this.btnThu4.Text = "Thứ 4";
             // 
@@ -703,9 +702,9 @@
             this.btnThu3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnThu3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThu3.ForeColor = System.Drawing.Color.Black;
-            this.btnThu3.Location = new System.Drawing.Point(311, 3);
+            this.btnThu3.Location = new System.Drawing.Point(312, 4);
             this.btnThu3.Name = "btnThu3";
-            this.btnThu3.Size = new System.Drawing.Size(148, 38);
+            this.btnThu3.Size = new System.Drawing.Size(147, 38);
             this.btnThu3.TabIndex = 2;
             this.btnThu3.Text = "Thứ 3";
             // 
@@ -719,9 +718,9 @@
             this.btnThu2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnThu2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThu2.ForeColor = System.Drawing.Color.Black;
-            this.btnThu2.Location = new System.Drawing.Point(157, 3);
+            this.btnThu2.Location = new System.Drawing.Point(158, 4);
             this.btnThu2.Name = "btnThu2";
-            this.btnThu2.Size = new System.Drawing.Size(148, 38);
+            this.btnThu2.Size = new System.Drawing.Size(147, 38);
             this.btnThu2.TabIndex = 1;
             this.btnThu2.Text = "Thứ 2";
             // 
@@ -735,9 +734,9 @@
             this.btnBuoiThu.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnBuoiThu.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuoiThu.ForeColor = System.Drawing.Color.Black;
-            this.btnBuoiThu.Location = new System.Drawing.Point(3, 3);
+            this.btnBuoiThu.Location = new System.Drawing.Point(4, 4);
             this.btnBuoiThu.Name = "btnBuoiThu";
-            this.btnBuoiThu.Size = new System.Drawing.Size(148, 38);
+            this.btnBuoiThu.Size = new System.Drawing.Size(147, 38);
             this.btnBuoiThu.TabIndex = 0;
             this.btnBuoiThu.Text = "Buổi/Thứ";
             // 
@@ -749,6 +748,7 @@
             this.ClientSize = new System.Drawing.Size(1348, 739);
             this.Controls.Add(this.guna2Panel1);
             this.Name = "frm_LichPT";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_LichPT";
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();

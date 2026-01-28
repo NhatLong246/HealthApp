@@ -23,13 +23,34 @@ namespace HealthApp.Views.Dashboard
     public partial class frmDashBoard1 : Form, IDashboardForm
     {
         private HealthApp.Views.PT.frm_DangKy _frmDangKy;
+        private Panel _userControlContainer; // Panel để chứa UserControl
+        private UserControl _currentUserControl; // UserControl hiện tại đang hiển thị
 
         public frmDashBoard1()
         {
             InitializeComponent();
+            InitializeUserControlContainer();
             InitializeEventHandlers();
             LoadUserInfo();
             UpdatePTButtonState();
+        }
+
+        /// <summary>
+        /// Khởi tạo panel container cho UserControl
+        /// </summary>
+        private void InitializeUserControlContainer()
+        {
+            _userControlContainer = new Panel
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.White,
+                Visible = false,
+                AutoScroll = true
+            };
+            
+            // Thêm panel vào pnlBackground (sau pnlBody để hiển thị trên cùng)
+            pnlBackground.Controls.Add(_userControlContainer);
+            _userControlContainer.BringToFront();
         }
 
         private ContextMenuStrip _accountMenu;
@@ -199,6 +220,75 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
+        /// Load một UserControl vào pnlBackground
+        /// </summary>
+        /// <typeparam name="T">Loại UserControl cần load</typeparam>
+        private void LoadUserControlIntoBackground<T>() where T : UserControl, new()
+        {
+            try
+            {
+                // Dispose UserControl cũ nếu có
+                if (_currentUserControl != null)
+                {
+                    _userControlContainer.Controls.Remove(_currentUserControl);
+                    _currentUserControl.Dispose();
+                    _currentUserControl = null;
+                }
+
+                // Tạo UserControl mới
+                _currentUserControl = new T();
+                _currentUserControl.Dock = DockStyle.Fill;
+                _currentUserControl.AutoSize = false;
+
+                // Thêm vào container
+                _userControlContainer.Controls.Clear();
+                _userControlContainer.Controls.Add(_currentUserControl);
+
+                // Ẩn pnlBody và hiển thị container
+                pnlBody.Visible = false;
+                _userControlContainer.Visible = true;
+                _userControlContainer.BringToFront();
+
+                // KHÓA SCROLL NGANG HOÀN TOÀN
+                _userControlContainer.HorizontalScroll.Maximum = 0;
+                _userControlContainer.HorizontalScroll.Visible = false;
+                _userControlContainer.HorizontalScroll.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi load UserControl: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Hiển thị lại nội dung mặc định (pnlBody) và ẩn UserControl
+        /// </summary>
+        private void ShowDefaultContent()
+        {
+            try
+            {
+                // Ẩn container UserControl
+                _userControlContainer.Visible = false;
+
+                // Hiển thị lại pnlBody
+                pnlBody.Visible = true;
+                pnlBody.BringToFront();
+
+                // Dispose UserControl cũ nếu có
+                if (_currentUserControl != null)
+                {
+                    _userControlContainer.Controls.Remove(_currentUserControl);
+                    _currentUserControl.Dispose();
+                    _currentUserControl = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi hiển thị nội dung mặc định: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
         /// Load một UserControl vào pnlBody (nếu cần thiết cho tương lai)
         /// </summary>
         /// <param name="userControl">UserControl cần load</param>
@@ -236,12 +326,15 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Event handler cho button Home - reload trang chủ
+        /// Event handler cho button Home - reload trang chủ và hiển thị lại pnlBody
         /// </summary>
         private void BtnHome_Click(object sender, EventArgs e)
         {
             try
             {
+                // Hiển thị lại pnlBody và ẩn UserControl
+                ShowDefaultContent();
+                
                 // Reload lại form hiện tại (refresh)
                 LoadUserInfo();
                 UpdatePTButtonState();
@@ -294,38 +387,17 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Event handler cho button Lịch Luyện Tập - điều hướng tới ucKeHoachLuyenTap
+        /// Event handler cho button Lịch Luyện Tập - load ucKeHoachLuyenTap vào pnlBackground
         /// </summary>
         private void BtnLichLuyenTap_Click(object sender, EventArgs e)
         {
             try
             {
-                this.Hide();
-                // Tạo form container để hiển thị UserControl
-                var containerForm = new Form
-                {
-                    Text = "Kế Hoạch Luyện Tập",
-                    StartPosition = FormStartPosition.CenterScreen,
-                    Size = new Size(1200, 800),
-                    AutoScroll = true
-                };
-
-                var ucKeHoachLuyenTap = new ucKeHoachLuyenTap();
-                ucKeHoachLuyenTap.Dock = DockStyle.Fill;
-                containerForm.Controls.Add(ucKeHoachLuyenTap);
-                
-                // Khi form đóng, quay lại dashboard
-                containerForm.FormClosed += (s, args) => this.ShowDashboard();
-                
-                // Tag form container với reference đến dashboard để UserControl có thể truy cập
-                containerForm.Tag = this;
-                
-                containerForm.Show();
+                LoadUserControlIntoBackground<ucKeHoachLuyenTap>();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi mở trang kế hoạch luyện tập: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.ShowDashboard();
             }
         }
 
@@ -424,77 +496,32 @@ namespace HealthApp.Views.Dashboard
         }
 
         /// <summary>
-        /// Event handler cho button Mục Tiêu - điều hướng tới frmMucTieu
+        /// Event handler cho button Mục Tiêu - load ucMucTieu vào pnlBackground
         /// </summary>
         private void BtnMucTieu_Click(object sender, EventArgs e)
         {
             try
             {
-                // Kiểm tra xem form đã mở chưa
-                frmMucTieu existingForm = null;
-                foreach (Form openForm in Application.OpenForms)
-                {
-                    if (openForm is frmMucTieu)
-                    {
-                        existingForm = openForm as frmMucTieu;
-                        break;
-                    }
-                }
-
-                if (existingForm != null)
-                {
-                    this.Hide();
-                    existingForm.Show();
-                    existingForm.BringToFront();
-                }
-                else
-                {
-                    this.Hide();
-                    var frmMucTieu = new frmMucTieu();
-                    frmMucTieu.FormClosed += (s, args) => this.ShowDashboard();
-                    frmMucTieu.Show();
-                }
+                LoadUserControlIntoBackground<ucMucTieu>();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi mở trang mục tiêu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.ShowDashboard();
             }
         }
 
         /// <summary>
-        /// Event handler cho button Lên Kế Hoạch Ăn Uống - điều hướng tới ucCheDoAnUongDeXuat
+        /// Event handler cho button Lên Kế Hoạch Ăn Uống - load ucCheDoAnUongDeXuat vào pnlBackground
         /// </summary>
         private void BtnLenKeHoachAnUong_Click(object sender, EventArgs e)
         {
             try
             {
-                this.Hide();
-                // Tạo form container để hiển thị UserControl
-                var containerForm = new Form
-                {
-                    Text = "Chế Độ Ăn Uống Đề Xuất",
-                    StartPosition = FormStartPosition.CenterScreen,
-                    Size = new Size(1200, 800),
-                    AutoScroll = true
-                };
-
-                var ucCheDoAnUong = new ucCheDoAnUongDeXuat();
-                ucCheDoAnUong.Dock = DockStyle.Fill;
-                containerForm.Controls.Add(ucCheDoAnUong);
-                
-                // Khi form đóng, quay lại dashboard
-                containerForm.FormClosed += (s, args) => this.ShowDashboard();
-                
-                // Tag form container với reference đến dashboard
-                containerForm.Tag = this;
-                
-                containerForm.Show();
+                LoadUserControlIntoBackground<ucCheDoAnUongDeXuat>();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi mở trang chế độ ăn uống: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.ShowDashboard();
             }
         }
 
@@ -641,17 +668,22 @@ namespace HealthApp.Views.Dashboard
                     // Đăng xuất
                     CurrentUser.Logout();
 
-                    // Đóng form Dashboard
+                    // Đóng tất cả các form con đang mở (trừ form chính)
+                    CloseAllChildForms();
+
+                    // Ẩn form Dashboard (không đóng vì đây là form chính)
                     this.Hide();
 
                     // Mở lại form đăng nhập
                     var loginForm = new LoginForm();
                     if (loginForm.ShowDialog() == DialogResult.OK)
                     {
-                        // Nếu đăng nhập thành công, mở lại Dashboard và đóng form cũ
-                        var newDashboard = new frmDashBoard1();
-                        this.Close();
-                        newDashboard.Show();
+                        // Nếu đăng nhập thành công, reload lại Dashboard
+                        LoadUserInfo();
+                        UpdatePTButtonState();
+                        this.Show();
+                        this.BringToFront();
+                        this.Activate();
                     }
                     else
                     {
@@ -664,7 +696,66 @@ namespace HealthApp.Views.Dashboard
             {
                 MessageBox.Show($"Lỗi khi đăng xuất: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Đảm bảo form vẫn hiển thị nếu có lỗi
+                this.Show();
             }
+        }
+
+        /// <summary>
+        /// Đóng tất cả các form con đang mở (trừ form chính)
+        /// </summary>
+        private void CloseAllChildForms()
+        {
+            try
+            {
+                var formsToClose = new List<Form>();
+                
+                // Lấy danh sách tất cả form đang mở (trừ form chính)
+                foreach (Form form in Application.OpenForms)
+                {
+                    if (form != this && !form.IsDisposed)
+                    {
+                        formsToClose.Add(form);
+                    }
+                }
+
+                // Đóng từng form
+                foreach (var form in formsToClose)
+                {
+                    try
+                    {
+                        form.Close();
+                    }
+                    catch
+                    {
+                        // Bỏ qua lỗi khi đóng form
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi đóng các form con: {ex.Message}");
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            // Dispose UserControl hiện tại nếu có
+            if (_currentUserControl != null)
+            {
+                try
+                {
+                    _userControlContainer.Controls.Remove(_currentUserControl);
+                    _currentUserControl.Dispose();
+                    _currentUserControl = null;
+                }
+                catch
+                {
+                    // Bỏ qua lỗi khi dispose
+                }
+            }
+
+            base.OnFormClosing(e);
         }
     }
 }

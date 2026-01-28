@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_ThanhToanPT));
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnTroVe = new Guna.UI2.WinForms.Guna2Button();
             this.pnlTongTinDatLich = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.pnlDanhSachThanhToan = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.lblTien = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -64,7 +65,6 @@
             this.lblTieuDe2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTongTien = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTieuDe = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btnTroVe = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.pnlTongTinDatLich.SuspendLayout();
             this.pnlDanhSachThanhToan.SuspendLayout();
@@ -95,6 +95,23 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1317, 1114);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // btnTroVe
+            // 
+            this.btnTroVe.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTroVe.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTroVe.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTroVe.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTroVe.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTroVe.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
+            this.btnTroVe.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnTroVe.ForeColor = System.Drawing.Color.White;
+            this.btnTroVe.Image = ((System.Drawing.Image)(resources.GetObject("btnTroVe.Image")));
+            this.btnTroVe.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnTroVe.Location = new System.Drawing.Point(8, 3);
+            this.btnTroVe.Name = "btnTroVe";
+            this.btnTroVe.Size = new System.Drawing.Size(45, 45);
+            this.btnTroVe.TabIndex = 2;
             // 
             // pnlTongTinDatLich
             // 
@@ -505,23 +522,6 @@
             this.lblTieuDe.TabIndex = 5;
             this.lblTieuDe.Text = "Thanh Toán Đặt Lịch";
             // 
-            // btnTroVe
-            // 
-            this.btnTroVe.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTroVe.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnTroVe.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnTroVe.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnTroVe.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnTroVe.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
-            this.btnTroVe.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnTroVe.ForeColor = System.Drawing.Color.White;
-            this.btnTroVe.Image = ((System.Drawing.Image)(resources.GetObject("btnTroVe.Image")));
-            this.btnTroVe.ImageSize = new System.Drawing.Size(35, 35);
-            this.btnTroVe.Location = new System.Drawing.Point(8, 3);
-            this.btnTroVe.Name = "btnTroVe";
-            this.btnTroVe.Size = new System.Drawing.Size(45, 45);
-            this.btnTroVe.TabIndex = 2;
-            // 
             // frm_ThanhToanPT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -530,6 +530,7 @@
             this.ClientSize = new System.Drawing.Size(1348, 739);
             this.Controls.Add(this.guna2Panel1);
             this.Name = "frm_ThanhToanPT";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_ThanhToanPT";
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
