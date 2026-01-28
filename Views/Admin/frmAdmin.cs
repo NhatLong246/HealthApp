@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,8 +15,21 @@ namespace HealthApp.Views.Admin
         public frmAdmin()
         {
             InitializeComponent();
-            // Đăng ký event handler cho btnQuanLiPT
+            // Đăng ký event handlers cho tất cả các button
+            this.btnQuanLiNguoiDung.Click += BtnQuanLiNguoiDung_Click;
             this.btnQuanLiPT.Click += BtnQuanLiPT_Click;
+            this.btnQuanLiBaiTap.Click += BtnQuanLiBaiTap_Click;
+            this.QuanLiDinhDuong.Click += QuanLiDinhDuong_Click;
+            this.btnQuanLiGiaoDich.Click += BtnQuanLiGiaoDich_Click;
+            this.btnThongKeTongQuan.Click += BtnThongKeTongQuan_Click;
+        }
+
+        /// <summary>
+        /// Xử lý sự kiện click vào nút Quản lý người dùng
+        /// </summary>
+        private void BtnQuanLiNguoiDung_Click(object sender, EventArgs e)
+        {
+            LoadUserControlToPanel(new ucKhachHang());
         }
 
         /// <summary>
@@ -28,6 +41,38 @@ namespace HealthApp.Views.Admin
         }
 
         /// <summary>
+        /// Xử lý sự kiện click vào nút Quản lý bài tập
+        /// </summary>
+        private void BtnQuanLiBaiTap_Click(object sender, EventArgs e)
+        {
+            LoadUserControlToPanel(new ucQuanLyBT());
+        }
+
+        /// <summary>
+        /// Xử lý sự kiện click vào nút Quản lý dinh dưỡng
+        /// </summary>
+        private void QuanLiDinhDuong_Click(object sender, EventArgs e)
+        {
+            LoadUserControlToPanel(new ucQuanLyDinhDuong());
+        }
+
+        /// <summary>
+        /// Xử lý sự kiện click vào nút Quản lý giao dịch
+        /// </summary>
+        private void BtnQuanLiGiaoDich_Click(object sender, EventArgs e)
+        {
+            LoadUserControlToPanel(new ucGiaoDich());
+        }
+
+        /// <summary>
+        /// Xử lý sự kiện click vào nút Thống kê tổng quan
+        /// </summary>
+        private void BtnThongKeTongQuan_Click(object sender, EventArgs e)
+        {
+            LoadUserControlToPanel(new ucHieuSuat());
+        }
+
+        /// <summary>
         /// Load UserControl vào panel nội dung
         /// </summary>
         /// <param name="userControl">UserControl cần hiển thị</param>
@@ -35,6 +80,19 @@ namespace HealthApp.Views.Admin
         {
             try
             {
+                if (userControl == null)
+                {
+                    MessageBox.Show("Không thể tải giao diện: UserControl không hợp lệ!", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Dispose các UserControl cũ để giải phóng tài nguyên
+                foreach (Control control in pnlNoiDung.Controls.OfType<UserControl>().ToList())
+                {
+                    control.Dispose();
+                }
+                
                 // Xóa tất cả controls hiện có trong panel
                 pnlNoiDung.Controls.Clear();
                 
@@ -46,6 +104,9 @@ namespace HealthApp.Views.Admin
                 
                 // Đưa UserControl lên trên cùng
                 userControl.BringToFront();
+                
+                // Focus vào UserControl
+                userControl.Focus();
                 
                 System.Diagnostics.Debug.WriteLine($"[frmAdmin] Loaded {userControl.GetType().Name} into pnlNoiDung");
             }
