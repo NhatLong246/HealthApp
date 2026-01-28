@@ -26,6 +26,7 @@ namespace HealthApp.Views.PT
         private Users _khachHang;
         private string _selectedPaymentMethod = ""; // "MoMo" hoặc "ZaloPay"
         private List<Guna2CustomGradientPanel> _paymentPanels = new List<Guna2CustomGradientPanel>();
+        private List<DatLichPT> _allDatLichInSchedule; // Danh sách tất cả các buổi tập trong lịch trình (nếu có)
 
         public frm_ThanhToanPT(frmDashBoard1 parentDashboard = null, string datLichID = null)
         {
@@ -91,6 +92,30 @@ namespace HealthApp.Views.PT
                 // Load khách hàng
                 _khachHang = await Task.Run(() => _context.Users.FirstOrDefault(u => u.UserID == _datLich.KhachHangID));
 
+                // Nếu có LichTrinhID, load tất cả các buổi tập trong lịch trình
+                _allDatLichInSchedule = new List<DatLichPT>();
+                if (!string.IsNullOrEmpty(_datLich.LichTrinhID))
+                {
+                    _allDatLichInSchedule = await Task.Run(() => _context.DatLichPT
+                        .Where(d => d.LichTrinhID == _datLich.LichTrinhID 
+                                 && d.KhachHangID == _datLich.KhachHangID 
+                                 && d.PTID == _datLich.PTID
+                                 && d.TrangThai == "Pending")
+                        .OrderBy(d => d.ThoiGianBatDau)
+                        .ToList());
+                    
+                    // Nếu không tìm thấy, thêm buổi tập hiện tại vào danh sách
+                    if (_allDatLichInSchedule.Count == 0)
+                    {
+                        _allDatLichInSchedule.Add(_datLich);
+                    }
+                }
+                else
+                {
+                    // Buổi tập đơn lẻ, chỉ có một buổi
+                    _allDatLichInSchedule.Add(_datLich);
+                }
+
                 // Hiển thị dữ liệu
                 DisplayData();
             }
@@ -126,15 +151,38 @@ namespace HealthApp.Views.PT
                 // Hiển thị thời gian và ngày
                 if (_datLich != null)
                 {
-                    lblThoiGian.Text = $"{_datLich.ThoiGianBatDau:HH:mm} - {_datLich.ThoiGianKetThuc:HH:mm}";
-                    lblNgayTap.Text = _datLich.ThoiGianBatDau.ToString("dd/MM/yyyy");
+                    // Kiểm tra xem có phải lịch trình nhiều ngày không
+                    if (_allDatLichInSchedule != null && _allDatLichInSchedule.Count > 1)
+                    {
+                        // Lịch trình nhiều ngày
+                        var firstSession = _allDatLichInSchedule.OrderBy(d => d.ThoiGianBatDau).First();
+                        var lastSession = _allDatLichInSchedule.OrderByDescending(d => d.ThoiGianKetThuc).First();
+                        
+                        // Tính số tuần
+                        var soNgay = (lastSession.ThoiGianKetThuc.Date - firstSession.ThoiGianBatDau.Date).TotalDays + 1;
+                        var soTuan = (int)Math.Ceiling(soNgay / 7.0);
+                        
+                        lblThoiGian.Text = $"{soTuan} tuần";
+                        lblNgayTap.Text = $"{firstSession.ThoiGianBatDau:dd/MM/yyyy} - {lastSession.ThoiGianBatDau:dd/MM/yyyy}";
+                        lblThu.Text = ""; // Để trống cho lịch trình nhiều ngày
+                    }
+                    else
+                    {
+                        // Buổi tập đơn lẻ
+                        lblThoiGian.Text = $"{_datLich.ThoiGianBatDau:HH:mm} - {_datLich.ThoiGianKetThuc:HH:mm}";
+                        lblNgayTap.Text = _datLich.ThoiGianBatDau.ToString("dd/MM/yyyy");
 
-                    // Tính thứ trong tuần
-                    string thu = GetDayOfWeekVietnamese(_datLich.ThoiGianBatDau.DayOfWeek);
-                    lblThu.Text = thu;
+                        // Tính thứ trong tuần
+                        string thu = GetDayOfWeekVietnamese(_datLich.ThoiGianBatDau.DayOfWeek);
+                        lblThu.Text = thu;
+                    }
 
-                    // Hiển thị mục tiêu từ GhiChu
-                    if (!string.IsNullOrEmpty(_datLich.GhiChu))
+                    // Hiển thị mục tiêu từ MucTieuLuyenTap hoặc GhiChu
+                    if (!string.IsNullOrEmpty(_datLich.MucTieuLuyenTap))
+                    {
+                        lblMucTieuNguoiYeuCauThue.Text = _datLich.MucTieuLuyenTap;
+                    }
+                    else if (!string.IsNullOrEmpty(_datLich.GhiChu))
                     {
                         lblMucTieuNguoiYeuCauThue.Text = _datLich.GhiChu;
                     }
@@ -308,6 +356,34 @@ namespace HealthApp.Views.PT
             };
             panel.Controls.Add(lblChonNgayCopy);
 
+            // Xác định nội dung hiển thị cho thời gian, thứ, ngày tập
+            string thoiGianText = "";
+            string thuText = "";
+            string ngayTapText = "";
+            
+            if (_datLich != null)
+            {
+                if (_allDatLichInSchedule != null && _allDatLichInSchedule.Count > 1)
+                {
+                    // Lịch trình nhiều ngày
+                    var firstSession = _allDatLichInSchedule.OrderBy(d => d.ThoiGianBatDau).First();
+                    var lastSession = _allDatLichInSchedule.OrderByDescending(d => d.ThoiGianKetThuc).First();
+                    var soNgay = (lastSession.ThoiGianKetThuc.Date - firstSession.ThoiGianBatDau.Date).TotalDays + 1;
+                    var soTuan = (int)Math.Ceiling(soNgay / 7.0);
+                    
+                    thoiGianText = $"{soTuan} tuần";
+                    thuText = ""; // Để trống
+                    ngayTapText = $"{firstSession.ThoiGianBatDau:dd/MM/yyyy} - {lastSession.ThoiGianBatDau:dd/MM/yyyy}";
+                }
+                else
+                {
+                    // Buổi tập đơn lẻ
+                    thoiGianText = $"{_datLich.ThoiGianBatDau:HH:mm} - {_datLich.ThoiGianKetThuc:HH:mm}";
+                    thuText = GetDayOfWeekVietnamese(_datLich.ThoiGianBatDau.DayOfWeek);
+                    ngayTapText = _datLich.ThoiGianBatDau.ToString("dd/MM/yyyy");
+                }
+            }
+            
             var lblThoiGianCopy = new Label
             {
                 AutoSize = true,
@@ -316,7 +392,7 @@ namespace HealthApp.Views.PT
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(57, 161),
                 Name = $"lblThoiGian_{_datLichID}",
-                Text = _datLich != null ? $"{_datLich.ThoiGianBatDau:HH:mm} - {_datLich.ThoiGianKetThuc:HH:mm}" : ""
+                Text = thoiGianText
             };
             panel.Controls.Add(lblThoiGianCopy);
 
@@ -328,7 +404,7 @@ namespace HealthApp.Views.PT
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(170, 161),
                 Name = $"lblThu_{_datLichID}",
-                Text = _datLich != null ? GetDayOfWeekVietnamese(_datLich.ThoiGianBatDau.DayOfWeek) : ""
+                Text = thuText
             };
             panel.Controls.Add(lblThuCopy);
 
@@ -340,7 +416,7 @@ namespace HealthApp.Views.PT
                 ForeColor = SystemColors.ActiveBorder,
                 Location = new Point(227, 161),
                 Name = $"lblNgayTap_{_datLichID}",
-                Text = _datLich != null ? _datLich.ThoiGianBatDau.ToString("dd/MM/yyyy") : ""
+                Text = ngayTapText
             };
             panel.Controls.Add(lblNgayTapCopy);
 
@@ -400,17 +476,42 @@ namespace HealthApp.Views.PT
         {
             if (_datLich == null || _pt == null || _pt.GiaTheoGio == null)
             {
+                System.Diagnostics.Debug.WriteLine("CalculatePrice: _datLich, _pt, hoặc _pt.GiaTheoGio là null");
                 return 0;
             }
 
-            // Tính số giờ
-            TimeSpan duration = _datLich.ThoiGianKetThuc - _datLich.ThoiGianBatDau;
-            double hours = duration.TotalHours;
-
-            // Tính tiền = số giờ * giá theo giờ
-            double price = hours * _pt.GiaTheoGio.Value;
-
-            return price;
+            // Kiểm tra xem có phải lịch trình nhiều ngày không
+            if (_allDatLichInSchedule != null && _allDatLichInSchedule.Count > 1)
+            {
+                // Lịch trình nhiều ngày: tính tổng giá cho tất cả các buổi tập
+                double totalPrice = 0;
+                
+                foreach (var session in _allDatLichInSchedule)
+                {
+                    if (session.ThoiGianBatDau != null && session.ThoiGianKetThuc != null)
+                    {
+                        TimeSpan duration = session.ThoiGianKetThuc - session.ThoiGianBatDau;
+                        double hours = duration.TotalHours;
+                        double sessionPrice = hours * _pt.GiaTheoGio.Value;
+                        totalPrice += sessionPrice;
+                        
+                        System.Diagnostics.Debug.WriteLine($"CalculatePrice: Session {session.DatLichID} - {hours} giờ x {_pt.GiaTheoGio.Value} = {sessionPrice:N0}đ");
+                    }
+                }
+                
+                System.Diagnostics.Debug.WriteLine($"CalculatePrice: Tổng giá lịch trình ({_allDatLichInSchedule.Count} buổi) = {totalPrice:N0}đ");
+                return totalPrice;
+            }
+            else
+            {
+                // Buổi tập đơn lẻ: tính giá cho một buổi
+                TimeSpan duration = _datLich.ThoiGianKetThuc - _datLich.ThoiGianBatDau;
+                double hours = duration.TotalHours;
+                double price = hours * _pt.GiaTheoGio.Value;
+                
+                System.Diagnostics.Debug.WriteLine($"CalculatePrice: Buổi đơn lẻ - {hours} giờ x {_pt.GiaTheoGio.Value} = {price:N0}đ");
+                return price;
+            }
         }
 
         private string GetDayOfWeekVietnamese(DayOfWeek dayOfWeek)
@@ -669,8 +770,21 @@ namespace HealthApp.Views.PT
                 if (result.Success && !string.IsNullOrEmpty(result.PaymentUrl))
                 {
                     // Kiểm tra xem đã có GiaoDich cho DatLichID này chưa (do constraint UNIQUE)
-                    var existingGiaoDich = _context.GiaoDich
-                        .FirstOrDefault(g => g.DatLichID == _datLich.DatLichID);
+                    // Nếu là lịch trình, kiểm tra xem có GiaoDich cho bất kỳ DatLichID nào trong lịch trình chưa
+                    GiaoDich existingGiaoDich = null;
+                    if (_allDatLichInSchedule != null && _allDatLichInSchedule.Count > 1)
+                    {
+                        // Lịch trình: kiểm tra xem có GiaoDich cho bất kỳ buổi tập nào trong lịch trình chưa
+                        var datLichIDs = _allDatLichInSchedule.Select(d => d.DatLichID).ToList();
+                        existingGiaoDich = _context.GiaoDich
+                            .FirstOrDefault(g => datLichIDs.Contains(g.DatLichID));
+                    }
+                    else
+                    {
+                        // Buổi tập đơn lẻ
+                        existingGiaoDich = _context.GiaoDich
+                            .FirstOrDefault(g => g.DatLichID == _datLich.DatLichID);
+                    }
 
                     GiaoDich giaoDich;
 
@@ -730,11 +844,18 @@ namespace HealthApp.Views.PT
                     else
                     {
                         // Chưa có giao dịch, tạo mới
-                        System.Diagnostics.Debug.WriteLine($"Tạo giao dịch mới cho DatLichID: {_datLich.DatLichID}");
+                        // Với lịch trình nhiều ngày, dùng DatLichID của buổi tập đầu tiên làm đại diện
+                        string representativeDatLichID = _datLich.DatLichID;
+                        if (_allDatLichInSchedule != null && _allDatLichInSchedule.Count > 1)
+                        {
+                            representativeDatLichID = _allDatLichInSchedule.OrderBy(d => d.ThoiGianBatDau).First().DatLichID;
+                        }
+                        
+                        System.Diagnostics.Debug.WriteLine($"Tạo giao dịch mới cho DatLichID: {representativeDatLichID} (lịch trình có {_allDatLichInSchedule?.Count ?? 1} buổi)");
                         giaoDich = new GiaoDich
                         {
                             GiaoDichID = orderId,
-                            DatLichID = _datLich.DatLichID,
+                            DatLichID = representativeDatLichID,
                             KhachHangID = _datLich.KhachHangID,
                             PTID = _pt.PTID,
                             SoTien = CalculatePrice(),
@@ -770,9 +891,27 @@ namespace HealthApp.Views.PT
                             // CHỈ xử lý thành công khi thực sự có trạng thái "Completed"
                             if (updatedGiaoDich != null && updatedGiaoDich.TrangThaiThanhToan == "Completed")
                             {
-                                // Cập nhật trạng thái DatLichPT
-                                _datLich.TrangThai = "Confirmed";
-                                _datLich.NgayCapNhat = DateTime.Now;
+                                // Cập nhật trạng thái cho tất cả các buổi tập trong lịch trình
+                                if (_allDatLichInSchedule != null && _allDatLichInSchedule.Count > 1)
+                                {
+                                    // Lịch trình nhiều ngày: cập nhật tất cả các buổi tập
+                                    foreach (var session in _allDatLichInSchedule)
+                                    {
+                                        var dbSession = _context.DatLichPT.FirstOrDefault(d => d.DatLichID == session.DatLichID);
+                                        if (dbSession != null)
+                                        {
+                                            dbSession.TrangThai = "Confirmed";
+                                            dbSession.NgayCapNhat = DateTime.Now;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // Buổi tập đơn lẻ
+                                    _datLich.TrangThai = "Confirmed";
+                                    _datLich.NgayCapNhat = DateTime.Now;
+                                }
+                                
                                 await Task.Run(() => _context.SaveChanges());
 
                                 // Thông báo đã được hiển thị trong frm_PaymentQRCode, chỉ cần quay về trang chủ

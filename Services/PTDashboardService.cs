@@ -193,9 +193,23 @@ namespace HealthApp.Services
                         .ToList()
                         .ToDictionary(u => u.UserID, u => u);
 
-                    // Group theo LichTrinhID: các yêu cầu có cùng LichTrinhID sẽ chỉ hiển thị 1 cái
+                    // Group theo LichTrinhID + KhachHangID + PTID: 
+                    // Các yêu cầu có cùng LichTrinhID, cùng KhachHangID, và cùng PTID sẽ chỉ hiển thị 1 cái
+                    // Điều này đảm bảo các yêu cầu khác nhau (khác PT hoặc khác khách hàng) không bị nhóm lại với nhau
                     var groupedRequests = allRequests
-                        .GroupBy(d => !string.IsNullOrEmpty(d.LichTrinhID) ? d.LichTrinhID : d.DatLichID) // Nếu LichTrinhID không null, group theo LichTrinhID, ngược lại dùng DatLichID (buổi tập đơn lẻ)
+                        .GroupBy(d => 
+                        {
+                            if (!string.IsNullOrEmpty(d.LichTrinhID))
+                            {
+                                // Với lịch trình: group theo LichTrinhID + KhachHangID + PTID để đảm bảo tính duy nhất
+                                return $"LichTrinh_{d.LichTrinhID}_{d.KhachHangID}_{d.PTID ?? "NULL"}";
+                            }
+                            else
+                            {
+                                // Buổi tập đơn lẻ: dùng DatLichID (mỗi DatLichID là duy nhất)
+                                return $"Single_{d.DatLichID}";
+                            }
+                        })
                         .Select(g => 
                         {
                             var groupList = g.ToList();
@@ -553,8 +567,26 @@ namespace HealthApp.Services
                         throw new ArgumentException("Danh sách ngày giờ không được rỗng");
                     }
 
-                    // Generate LichTrinhID chung cho tất cả các buổi tập
+                    // Generate LichTrinhID chung cho tất cả các buổi tập trong lịch trình này
+                    // Đảm bảo mỗi lần gửi yêu cầu (kể cả cùng khách hàng, cùng PT) sẽ có LichTrinhID riêng
                     string lichTrinhID = GenerateLichTrinhID();
+                    
+                    // Kiểm tra xem LichTrinhID này đã tồn tại chưa (tránh trùng lặp)
+                    // Nếu trùng, tạo lại cho đến khi không trùng
+                    int maxRetries = 10;
+                    int retryCount = 0;
+                    while (_context.DatLichPT.Any(d => d.LichTrinhID == lichTrinhID) && retryCount < maxRetries)
+                    {
+                        lichTrinhID = GenerateLichTrinhID();
+                        retryCount++;
+                    }
+                    
+                    // Nếu vẫn trùng sau nhiều lần thử, dùng timestamp để đảm bảo duy nhất
+                    if (retryCount >= maxRetries && _context.DatLichPT.Any(d => d.LichTrinhID == lichTrinhID))
+                    {
+                        lichTrinhID = $"sch_{DateTime.Now:yyyyMMddHHmmssfff}_{khachHangID.Substring(0, Math.Min(5, khachHangID.Length))}";
+                    }
+                    
                     List<string> datLichIDs = new List<string>();
 
                     // Lấy DatLichID lớn nhất một lần để tránh trùng lặp khi tạo nhiều bản ghi
@@ -626,17 +658,19 @@ namespace HealthApp.Services
 
         /// <summary>
         /// Generate LichTrinhID tự động (format: sch_0001, sch_0002, ...)
+        /// Đảm bảo mỗi lần gửi yêu cầu tạo một LichTrinhID mới và duy nhất
         /// </summary>
         private string GenerateLichTrinhID()
         {
             try
             {
                 // Lấy LichTrinhID lớn nhất (chỉ lấy các ID có format sch_xxxx)
+                // Sử dụng Max để đảm bảo lấy được ID lớn nhất ngay cả khi có nhiều ID cùng giá trị
                 var lastLichTrinh = _context.DatLichPT
                     .Where(d => d.LichTrinhID != null && d.LichTrinhID.StartsWith("sch_"))
-                    .OrderByDescending(d => d.LichTrinhID)
                     .Select(d => d.LichTrinhID)
                     .Distinct()
+                    .OrderByDescending(id => id)
                     .FirstOrDefault();
 
                 if (lastLichTrinh == null)
@@ -648,16 +682,35 @@ namespace HealthApp.Services
                 string numberPart = lastLichTrinh.Substring(4);
                 if (int.TryParse(numberPart, out int lastNumber))
                 {
+                    // Tăng số lên và đảm bảo không trùng bằng cách kiểm tra lại database
                     int newNumber = lastNumber + 1;
-                    return $"sch_{newNumber:D4}";
+                    string newLichTrinhID = $"sch_{newNumber:D4}";
+                    
+                    // Kiểm tra xem ID mới đã tồn tại chưa (tránh trường hợp race condition)
+                    int maxAttempts = 100;
+                    int attempts = 0;
+                    while (_context.DatLichPT.Any(d => d.LichTrinhID == newLichTrinhID) && attempts < maxAttempts)
+                    {
+                        newNumber++;
+                        newLichTrinhID = $"sch_{newNumber:D4}";
+                        attempts++;
+                    }
+                    
+                    if (attempts >= maxAttempts)
+                    {
+                        // Nếu vẫn trùng sau nhiều lần thử, dùng timestamp để đảm bảo duy nhất
+                        return $"sch_{DateTime.Now:yyyyMMddHHmmss}";
+                    }
+                    
+                    return newLichTrinhID;
                 }
 
-                // Fallback
+                // Fallback: dùng timestamp để đảm bảo duy nhất
                 return $"sch_{DateTime.Now:yyyyMMddHHmmss}";
             }
             catch
             {
-                // Fallback nếu có lỗi
+                // Fallback nếu có lỗi: dùng timestamp để đảm bảo duy nhất
                 return $"sch_{DateTime.Now:yyyyMMddHHmmss}";
             }
         }
