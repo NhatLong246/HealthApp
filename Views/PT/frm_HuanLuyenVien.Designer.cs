@@ -143,7 +143,7 @@
             this.ptrKhachHang.BorderRadius = 15;
             this.ptrKhachHang.Image = ((System.Drawing.Image)(resources.GetObject("ptrKhachHang.Image")));
             this.ptrKhachHang.ImageRotate = 0F;
-            this.ptrKhachHang.Location = new System.Drawing.Point(204, 37);
+            this.ptrKhachHang.Location = new System.Drawing.Point(204, 44);
             this.ptrKhachHang.Name = "ptrKhachHang";
             this.ptrKhachHang.Size = new System.Drawing.Size(56, 50);
             this.ptrKhachHang.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -167,7 +167,7 @@
             this.lblKhachHang.BackColor = System.Drawing.Color.Transparent;
             this.lblKhachHang.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblKhachHang.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblKhachHang.Location = new System.Drawing.Point(24, 21);
+            this.lblKhachHang.Location = new System.Drawing.Point(24, 6);
             this.lblKhachHang.Name = "lblKhachHang";
             this.lblKhachHang.Size = new System.Drawing.Size(20, 39);
             this.lblKhachHang.TabIndex = 1;
@@ -192,7 +192,7 @@
             this.ptrBuoiTap.BorderRadius = 15;
             this.ptrBuoiTap.Image = ((System.Drawing.Image)(resources.GetObject("ptrBuoiTap.Image")));
             this.ptrBuoiTap.ImageRotate = 0F;
-            this.ptrBuoiTap.Location = new System.Drawing.Point(200, 37);
+            this.ptrBuoiTap.Location = new System.Drawing.Point(200, 44);
             this.ptrBuoiTap.Name = "ptrBuoiTap";
             this.ptrBuoiTap.Size = new System.Drawing.Size(56, 50);
             this.ptrBuoiTap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -216,7 +216,7 @@
             this.lblBuoiTap.BackColor = System.Drawing.Color.Transparent;
             this.lblBuoiTap.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBuoiTap.ForeColor = System.Drawing.Color.Blue;
-            this.lblBuoiTap.Location = new System.Drawing.Point(23, 21);
+            this.lblBuoiTap.Location = new System.Drawing.Point(23, 6);
             this.lblBuoiTap.Name = "lblBuoiTap";
             this.lblBuoiTap.Size = new System.Drawing.Size(20, 39);
             this.lblBuoiTap.TabIndex = 2;
@@ -241,7 +241,7 @@
             this.ptrThuNhap.BorderRadius = 15;
             this.ptrThuNhap.Image = ((System.Drawing.Image)(resources.GetObject("ptrThuNhap.Image")));
             this.ptrThuNhap.ImageRotate = 0F;
-            this.ptrThuNhap.Location = new System.Drawing.Point(205, 37);
+            this.ptrThuNhap.Location = new System.Drawing.Point(205, 44);
             this.ptrThuNhap.Name = "ptrThuNhap";
             this.ptrThuNhap.Size = new System.Drawing.Size(56, 50);
             this.ptrThuNhap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -264,7 +264,7 @@
             this.lblThuNhap.BackColor = System.Drawing.Color.Transparent;
             this.lblThuNhap.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblThuNhap.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.lblThuNhap.Location = new System.Drawing.Point(27, 21);
+            this.lblThuNhap.Location = new System.Drawing.Point(27, 6);
             this.lblThuNhap.Name = "lblThuNhap";
             this.lblThuNhap.Size = new System.Drawing.Size(20, 39);
             this.lblThuNhap.TabIndex = 3;
@@ -289,7 +289,7 @@
             this.guna2PictureBox1.BorderRadius = 15;
             this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(226, 37);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(226, 44);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
             this.guna2PictureBox1.Size = new System.Drawing.Size(56, 50);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -312,7 +312,7 @@
             this.lblDanhGia.BackColor = System.Drawing.Color.Transparent;
             this.lblDanhGia.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDanhGia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.lblDanhGia.Location = new System.Drawing.Point(31, 21);
+            this.lblDanhGia.Location = new System.Drawing.Point(31, 6);
             this.lblDanhGia.Name = "lblDanhGia";
             this.lblDanhGia.Size = new System.Drawing.Size(20, 39);
             this.lblDanhGia.TabIndex = 4;

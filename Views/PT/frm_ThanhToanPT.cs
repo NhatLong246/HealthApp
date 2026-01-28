@@ -657,6 +657,10 @@ namespace HealthApp.Views.PT
                         KhachHangID = _datLich.KhachHangID,
                         PTID = _pt.PTID,
                         SoTien = CalculatePrice(),
+                        // Áp dụng hoa hồng app 15%
+                        HoaHongApp = 15,
+                        SoTienHoaHong = Math.Round(CalculatePrice() * 0.15, 0),
+                        SoTienPTNhan = Math.Round(CalculatePrice() - (CalculatePrice() * 0.15), 0),
                         PhuongThucThanhToan = _selectedPaymentMethod,
                         TrangThaiThanhToan = "Completed",
                         NgayGiaoDich = DateTime.Now
@@ -809,7 +813,12 @@ namespace HealthApp.Views.PT
                             System.Diagnostics.Debug.WriteLine($"Cập nhật giao dịch đang pending: {existingGiaoDich.GiaoDichID}");
                             giaoDich = existingGiaoDich;
                             // Giữ nguyên GiaoDichID cũ, chỉ cập nhật thông tin thanh toán
-                            giaoDich.SoTien = CalculatePrice();
+                            var totalPrice = CalculatePrice();
+                            giaoDich.SoTien = totalPrice;
+                            // Áp dụng hoa hồng app 15%
+                            giaoDich.HoaHongApp = 15;
+                            giaoDich.SoTienHoaHong = Math.Round(totalPrice * 0.15, 0);
+                            giaoDich.SoTienPTNhan = Math.Round(totalPrice - (totalPrice * 0.15), 0);
                             giaoDich.PhuongThucThanhToan = _selectedPaymentMethod;
                             giaoDich.TrangThaiThanhToan = "Pending";
                             giaoDich.MaGiaoDich = result.TransactionId;
@@ -826,13 +835,18 @@ namespace HealthApp.Views.PT
                             await Task.Run(() => _context.SaveChanges());
 
                             // Tạo mới
+                            var totalPriceRefund = CalculatePrice();
                             giaoDich = new GiaoDich
                             {
                                 GiaoDichID = orderId,
                                 DatLichID = _datLich.DatLichID,
                                 KhachHangID = _datLich.KhachHangID,
                                 PTID = _pt.PTID,
-                                SoTien = CalculatePrice(),
+                                SoTien = totalPriceRefund,
+                                // Áp dụng hoa hồng app 15%
+                                HoaHongApp = 15,
+                                SoTienHoaHong = Math.Round(totalPriceRefund * 0.15, 0),
+                                SoTienPTNhan = Math.Round(totalPriceRefund - (totalPriceRefund * 0.15), 0),
                                 PhuongThucThanhToan = _selectedPaymentMethod,
                                 TrangThaiThanhToan = "Pending",
                                 MaGiaoDich = result.TransactionId,
@@ -852,13 +866,18 @@ namespace HealthApp.Views.PT
                         }
                         
                         System.Diagnostics.Debug.WriteLine($"Tạo giao dịch mới cho DatLichID: {representativeDatLichID} (lịch trình có {_allDatLichInSchedule?.Count ?? 1} buổi)");
+                        var totalPriceNew = CalculatePrice();
                         giaoDich = new GiaoDich
                         {
                             GiaoDichID = orderId,
                             DatLichID = representativeDatLichID,
                             KhachHangID = _datLich.KhachHangID,
                             PTID = _pt.PTID,
-                            SoTien = CalculatePrice(),
+                            SoTien = totalPriceNew,
+                            // Áp dụng hoa hồng app 15%
+                            HoaHongApp = 15,
+                            SoTienHoaHong = Math.Round(totalPriceNew * 0.15, 0),
+                            SoTienPTNhan = Math.Round(totalPriceNew - (totalPriceNew * 0.15), 0),
                             PhuongThucThanhToan = _selectedPaymentMethod,
                             TrangThaiThanhToan = "Pending",
                             MaGiaoDich = result.TransactionId,
