@@ -25,94 +25,78 @@ namespace HealthApp
         [STAThread]
         static void Main()
         {
-            // Set DPI Awareness TRƯỚC KHI khởi tạo Application
-            // Điều này rất quan trọng để form hiển thị đúng trên màn hình high-DPI
-            if (Environment.OSVersion.Version.Major >= 6)
-            {
-                SetProcessDPIAware();
-            }
-
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-            Application.ThreadException += (sender, args) =>
-            {
-                MessageBox.Show($"Unhandled UI exception: {args.Exception}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            };
-            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
-            {
-                var ex = args.ExceptionObject as Exception;
-                MessageBox.Show($"Unhandled non-UI exception: {ex}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            };
-
-            // Enable visual styles - QUAN TRỌNG cho Guna.UI2 controls
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            // Khởi động WorkoutNotificationService để gửi email thông báo tự động
             try
             {
-                var emailService = new EmailService();
-                _workoutNotificationService = new WorkoutNotificationService(emailService);
-                _workoutNotificationService.Start();
-                System.Diagnostics.Debug.WriteLine("WorkoutNotificationService đã được khởi động thành công");
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Lỗi khi khởi động WorkoutNotificationService: {ex.Message}");
-                // Không dừng ứng dụng nếu service không khởi động được
-            }
+                // Set DPI Awareness TRƯỚC KHI khởi tạo Application
+                if (Environment.OSVersion.Version.Major >= 6)
+                    SetProcessDPIAware();
 
-            try
-            {
-                // Hiển thị form đăng nhập
+                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+                Application.ThreadException += (sender, args) =>
+                {
+                    MessageBox.Show($"Unhandled UI exception: {args.Exception}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                };
+                AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+                {
+                    var ex = args.ExceptionObject as Exception;
+                    MessageBox.Show($"Unhandled non-UI exception: {ex}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                };
+
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                try
+                {
+                    var emailService = new EmailService();
+                    _workoutNotificationService = new WorkoutNotificationService(emailService);
+                    _workoutNotificationService.Start();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"WorkoutNotificationService: {ex.Message}");
+                }
+
                 using (var loginForm = new LoginForm())
                 {
                     var result = loginForm.ShowDialog();
                     if (result == DialogResult.OK && CurrentUser.IsLoggedIn)
                     {
-                        // Kiểm tra role để hiển thị form phù hợp
                         string userRole = CurrentUser.Role;
-
-                        System.Diagnostics.Debug.WriteLine($"[Program] User logged in - Role: '{userRole}'");
-
                         if (userRole == "Admin")
                         {
-                            // Mở form Admin cho user có role Admin
-                            System.Diagnostics.Debug.WriteLine("[Program] Opening frmAdmin for Admin user");
                             Application.Run(new frmAdmin());
                         }
                         else
                         {
-                            // Mở form Dashboard cho Client và PT
-                            // 1) Thiếu thông tin cơ bản (Ngày sinh/Giới tính) => ép nhập form thông tin cơ bản
-                            // 2) Có thông tin cơ bản nhưng CHƯA có bản ghi thể trạng nào => ép nhập Thông tin thể trạng
                             try
                             {
                                 if (UserProfileHelper.NeedsMissingBasicInfo())
                                 {
-                                    using (var basicInfoForm = new frmChangeInformationforNewuser(isMandatory: true))
-                                    {
-                                        basicInfoForm.ShowDialog();
-                                    }
+                                    using (var f = new frmChangeInformationforNewuser(isMandatory: true))
+                                        f.ShowDialog();
                                 }
                                 else if (UserProfileHelper.NeedsBodyStatusMandatory())
                                 {
-                                    using (var bodyForm = new frmThongTinhTheTrang(isMandatory: true))
-                                    {
-                                        bodyForm.ShowDialog();
-                                    }
+                                    using (var f = new frmThongTinhTheTrang(isMandatory: true))
+                                        f.ShowDialog();
                                 }
                             }
                             catch { }
-
-                            System.Diagnostics.Debug.WriteLine("[Program] Opening frmDashBoard1 for Client/PT user");
                             Application.Run(new frmDashBoard1());
                         }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Lỗi khởi động ứng dụng:\n\n" + ex.ToString() + "\n\n---\nKiểm tra: SQL Server đang chạy, connection string trong App.config, Output > Build.",
+                    "HealthApp – Lỗi khởi động",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
             finally
             {
-                // Dừng và dispose service khi ứng dụng đóng
                 _workoutNotificationService?.Stop();
                 _workoutNotificationService?.Dispose();
             }
